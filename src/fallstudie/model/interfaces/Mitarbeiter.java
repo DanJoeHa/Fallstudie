@@ -11,7 +11,7 @@ public interface Mitarbeiter {
 	 * @return MitarbeiterObjekt
 	 */
 	
-	public String Mitarbeiter(String Benutzername, String Passwort, String Vorname, String Nachname);
+	public String Mitarbeiter(String Benutzername, String Passwort, String Vorname, String Nachname, String Rolle);
 	
 	/**
 	 * Einloggen und Ausloggen
