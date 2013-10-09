@@ -8,7 +8,7 @@ public interface Rechte {
 	 * @param Name
 	 * @return
 	 */
-		public Rechte Rechte(String Name);
+		public void RechteImpl(String Name);
 		
 	/**
 	 * Name des Rechts holen

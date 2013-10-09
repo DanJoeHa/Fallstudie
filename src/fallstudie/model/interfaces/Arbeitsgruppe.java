@@ -2,15 +2,19 @@ package fallstudie.model.interfaces;
 
 import java.util.Collection;
 
+import fallstudie.model.impl.BereichImpl;
+import fallstudie.model.impl.MitarbeiterImpl;
+import fallstudie.model.impl.ArbeitsgruppeImpl;
 public interface Arbeitsgruppe {
 	
 	
 	/**
 	 * Konstruktor wenn nur die Kurzbezeichnung übergeben wird, alles andere wird in der Datenbank geholt mit SELECT
 	 * @param kurzbezeichnung
+	 * @return 
 	 * @return
 	 */
-		public Arbeitsgruppe arbeitsgruppe(String kurzbezeichnung);
+		public void ArbeitsgruppeImpl(String kurzbezeichnung, String Dummy);
 		
 	/**
 	 * Neue Arbeitsgruppe anlegen Konstruktor, alle Parameter werden von GUI übergeben	
@@ -18,16 +22,18 @@ public interface Arbeitsgruppe {
 	 * @param beschreibung
 	 * @param bereich
 	 * @param mitarbeiter
+	 * @return 
 	 * @return
 	 */
-		public Arbeitsgruppe arbeitsgruppe1(String kurzbezeichnung, String beschreibung, Bereich bereich,
-				Mitarbeiter mitarbeiter);
+		public void ArbeitsgruppeImpl(String kurzbezeichnung, String beschreibung, BereichImpl bereich,
+				MitarbeiterImpl mitarbeiter);
 	/**
 	 * Arbeitsgruppe Suchen Konstruktor	in Suchenmaske
 	 * @param suchbegriff
+	 * @return 
 	 * @return
 	 */
-		public Arbeitsgruppe arbeitsgruppe2(String suchbegriff);
+		public void ArbeitsgruppeImpl(String suchbegriff);
 		
 	/**
 	 * Beschreibung ändern	
@@ -61,26 +67,26 @@ public interface Arbeitsgruppe {
 	 * @param bereichID wird durch Bereich.getID herausgeholt
 	 * @return 
 	 */
-		public boolean setBereich(Bereich bereich);
+		public boolean setBereich(BereichImpl bereich);
 	
 	/**
 	 * Gibt den Bereich der arbeitsgruppe zurück
 	 * @return Bereich
 	 */
-		public Bereich getBereich();
+		public BereichImpl getBereich();
 	
 	/**
 	 * Ändert den Leiter der arbeitsgruppe zum Mitarbeiter - mitarbeiter.getBenutzername gibt den Benutzernamen PK zurück.
 	 * @param mitarbeiter
 	 * @return
 	 */
-		public boolean setLeiter(Mitarbeiter mitarbeiter);
+		public boolean setLeiter(MitarbeiterImpl mitarbeiter);
 	
 	/**
 	 * Holt den Leiter der Arbeitsgruppe
 	 * @return
 	 */
-		public Mitarbeiter getLeiter();
+		public MitarbeiterImpl getLeiter();
 	
 	/**
 	 * Ändert aktivitätsstatus beim löschen einer Arbeitsgruppe
@@ -107,6 +113,6 @@ public interface Arbeitsgruppe {
 	 * Methode gibt in einer Collection alle Arbeitsgruppen aus (evtl. Dropdown in Mitarbeiter bearbeiten?)	
 	 * @return
 	 */
-		public Collection<Arbeitsgruppe> getAlleArbeitsgruppen();
+		public Collection<ArbeitsgruppeImpl> getAlleArbeitsgruppen();
 }
 

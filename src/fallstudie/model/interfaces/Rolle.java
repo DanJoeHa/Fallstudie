@@ -2,14 +2,17 @@ package fallstudie.model.interfaces;
 
 import java.util.Collection;
 
+import fallstudie.model.impl.RechteImpl;
+import fallstudie.model.impl.RolleImpl;
 public interface Rolle {
 	
 	/**
 	 * Rolle
 	 * @param rollenbezeichnung
+	 * @return 
 	 * @return
 	 */
-		public Rolle Rolle(String rollenbezeichnung);
+		public void RolleImpl(String rollenbezeichnung);
 	
 		
 	/**
@@ -18,13 +21,20 @@ public interface Rolle {
 	 * Liste von allen verfügbaren Rollen
 	 * @return
 	 */
-		public Collection<Rolle> Rolle1();
+		public Collection<RolleImpl> getAlleRollen();
 	/**
 	 * Collection der Berechtigungen pro Rolle
 	 * @return
 	 */
-		public  Collection<Rechte> getBerechtigung();
-	
-	
-	
+		public  Collection<RechteImpl> getBerechtigung();
+	/**
+	 * liefert Rollenbezeichnung
+	 * @return
+	 */
+		public String getRollenbezeichnung ();
+	/**
+	 * liefert Rollenbeschreibung	
+	 * @return
+	 */
+		public String getRollenbeschreibung();
 }

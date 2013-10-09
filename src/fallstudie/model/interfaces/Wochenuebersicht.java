@@ -1,6 +1,6 @@
 package fallstudie.model.interfaces;
 
-import java.sql.ResultSet;
+import fallstudie.model.impl.*;
 import java.util.Collection;
 
 public interface Wochenuebersicht {
@@ -10,9 +10,10 @@ public interface Wochenuebersicht {
 	 * @param kalenderjahr
 	 * @param kalenderwoche
 	 * @param Arbeitsgruppe
+	 * @return 
 	 * @return
 	 */
-		public Wochenuebersicht Wochenuebersicht(int kalenderjahr, int kalenderwoche,
+		public void WochenuebersichtImpl(int kalenderjahr, int kalenderwoche,
 									Arbeitsgruppe Arbeitsgruppe);
 		
 	/**
@@ -22,7 +23,7 @@ public interface Wochenuebersicht {
 	 * @param Bereich
 	 * @return
 	 */
-		public Wochenuebersicht Wochenuebersicht(int kalenderjahr, int kalenderwoche,
+		public void WochenuebersichtImpl(int kalenderjahr, int kalenderwoche,
 												Bereich Bereich);
 	/**
 	 * Erstattungensumme holen (je nach Bereichs oder arbeitsgruppenobjekt)
@@ -52,16 +53,16 @@ public interface Wochenuebersicht {
 	 * Bereich holen Beim Arbeitsgruppenobjekt
 	 * @return
 	 */
-		public Bereich getBereich();
+		public BereichImpl getBereich();
 		
 	/**
 	 * Arbeitsgruppe holen bei einem Bereichsobjekt
 	 * @return
 	 */
-		public Arbeitsgruppe getArbeitsgruppe();
+		public ArbeitsgruppeImpl getArbeitsgruppe();
 	/**
 	 * Methode liefert alle Wochenübersichten für die Bereichsleiterübersicht	
 	 * @return
 	 */
-		public Collection<Wochenuebersicht> getAlleWocheneuebersichten();
+		public Collection<WochenuebersichtImpl> getAlleWocheneuebersichten();
 }

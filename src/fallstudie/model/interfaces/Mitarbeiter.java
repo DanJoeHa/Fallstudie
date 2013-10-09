@@ -8,7 +8,7 @@ public interface Mitarbeiter {
 	 * @return Objekt Mitarbeiter
 	 */
 
-		public Mitarbeiter Mitarbeiter (String benutzername);
+		public void MitarbeiterImpl(String benutzername, String passwort);
 	
 	/**
 	 * Muss auch Mitarbeiter heiﬂen, ‹berladener Konstruktor
@@ -17,7 +17,7 @@ public interface Mitarbeiter {
 	 * @return MitarbeiterObjekt
 	 */
 	
-		public Mitarbeiter Mitarbeiter1 (String suchBegriff);
+		public void MitarbeiterImpl(String suchBegriff);
 	
 	/**
 	 * ‹berladener Konstruktor #2 , wird verwendet wenn ein Mitarbeiter neu angelegt wird.
@@ -29,7 +29,7 @@ public interface Mitarbeiter {
 	 * @return MitarbeiterObjekt
 	 */
 	
-		public Mitarbeiter Mitarbeiter2 (String benutzername, String passwort,  String vorname, 
+		public void MitarbeiterImpl(String benutzername, String passwort,  String vorname, 
 											String nachname, Rolle tolle);
 	
 	
