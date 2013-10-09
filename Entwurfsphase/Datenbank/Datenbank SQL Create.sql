@@ -125,11 +125,11 @@ Beim Löschen von Mitarbeiter wird die Rolle entzogen.*/';
 CREATE TABLE IF NOT EXISTS `Fallstudie`.`Wochenuebersicht` (
   `Kalenderjahr` INT NOT NULL,
   `Kalenderwoche` INT NOT NULL,
-  `Schriftwechselsumme` INT NULL,
-  `Erstattungensumme` INT NULL,
-  `Arbeitsgruppe` INT NOT NULL,
-  `Bereich` INT NOT NULL,
-  PRIMARY KEY (`Kalenderjahr`, `Kalenderwoche`),
+  `Arbeitsgruppe` INT NULL,
+  `Bereich` INT NULL,
+  `Schriftwechselsumme` INT NOT NULL,
+  `Erstattungensumme` INT NOT NULL,
+  PRIMARY KEY (`Kalenderjahr`, `Kalenderwoche`, `Arbeitsgruppe`, `Bereich`),
   INDEX `Arbeitsgruppe_Einträge_FK_idx` (`Arbeitsgruppe` ASC),
   INDEX `Bereich_hat_Einträge_FK_idx` (`Bereich` ASC),
   CONSTRAINT `Arbeitsgruppe_hat_Einträge_FK`
@@ -151,11 +151,11 @@ COMMENT = 'Wird im Programm generiert.';
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Fallstudie`.`Jahresuebersicht` (
   `Kalenderjahr` INT NOT NULL,
-  `Schriftwechselsumme` INT NULL,
-  `Erstattungensumme` INT NULL,
-  `Arbeitsgruppe` INT NOT NULL,
-  `Bereich` INT NOT NULL,
-  PRIMARY KEY (`Kalenderjahr`),
+  `Arbeitsgruppe` INT NULL,
+  `Bereich` INT NULL,
+  `Schriftwechselsumme` INT NOT NULL,
+  `Erstattungensumme` INT NOT NULL,
+  PRIMARY KEY (`Kalenderjahr`, `Arbeitsgruppe`, `Bereich`),
   INDEX `Jahresuebersicht_hat_Bereich_idx` (`Bereich` ASC),
   INDEX `Jahresuebersicht_hat_Gruppe_idx` (`Arbeitsgruppe` ASC),
   CONSTRAINT `Jahresuebersicht_hat_Bereich`
