@@ -4,20 +4,20 @@ public interface Rechte {
 
 	
 	/**
-	 * Konstruktor durch Übergabe vom Recht
+	 * Konstruktor
 	 * @param Name
 	 * @return
 	 */
 		public Rechte Rechte(String Name);
 		
 	/**
-	 * Name des Rechts holen
+	 * Name holen	
 	 * @return
 	 */
 		public String getName();
 		
 	/**
-	 * Beschreibung des Rechts holen	
+	 * Beschreibung holen	
 	 * @return
 	 */
 		public String getBeschreibung();

@@ -1,31 +1,13 @@
 package fallstudie.model.interfaces;
 
-import java.util.Collection;
-
 public interface Bereich {
 
 	/**
-	 * Konstruktor beim Anlegen eines neuen Bereichs (fehlende Parameter werden NULL gesetzt)
-	 * abfangen im programm selber
+	 * Konstruktor
 	 * @param BereichID
 	 * @return
 	 */
-		public Bereich Bereich(String kurzbezeichnung, String beschreibung, Mitarbeiter leiter);
-	
-	/**
-	 * Bereichrückgabe bei Suche von Bereichen	
-	 * @param suchbegriff
-	 * @return
-	 */
-		
-		public Bereich Bereich1 (String suchbegriff);
-		
-	/**
-	 * Rückgabe aller verfügbaren Bereiche bei Suche/Dropdown
-	 * @return
-	 */
-		
-		public Collection <Bereich> Bereich2();
+		public Bereich Bereich(int BereichID);
 		
 	/**
 	 * Beschreibung ändern
@@ -78,11 +60,4 @@ public interface Bereich {
 	 * @return
 	 */
 		public Mitarbeiter getMitarbeiter();
-		
-	/**
-	 * Holt anhand der Kurzbezeichnung eines Bereichs die dazugehörige ID (PK in Datenbank)	
-	 * @param kurzbezeichnung
-	 * @return
-	 */
-		public int getID (String kurzbezeichnung);
 }

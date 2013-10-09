@@ -1,67 +1,49 @@
 package fallstudie.model.interfaces;
 
-import java.sql.ResultSet;
-import java.util.Collection;
-
 public interface Wochenuebersicht {
 
 	/**
-	 * Konstruktor beim auslesen von Wochenuebersichten einer arbeitsgruppe
+	 * Konstruktor
 	 * @param kalenderjahr
-	 * @param kalenderwoche
 	 * @param Arbeitsgruppe
-	 * @return
-	 */
-		public Wochenuebersicht Wochenuebersicht(int kalenderjahr, int kalenderwoche,
-									Arbeitsgruppe Arbeitsgruppe);
-		
-	/**
-	 * 	Konstruktor beim auslesen von Wochenuebersichten eines Bereichs
-	 * @param kalenderjahr
-	 * @param kalenderwoche
 	 * @param Bereich
 	 * @return
 	 */
-		public Wochenuebersicht Wochenuebersicht(int kalenderjahr, int kalenderwoche,
-												Bereich Bereich);
+		public Wochenuebersicht Wochenuebersicht(int kalenderjahr, int kalenderwoche, Arbeitsgruppe Arbeitsgruppe, Bereich Bereich);
+		
 	/**
-	 * Erstattungensumme holen (je nach Bereichs oder arbeitsgruppenobjekt)
+	 * Erstattungensumme holen
 	 * @return
 	 */
 		public int getErstattungenSumme();
 		
 	/**
-	 * Schriftwechselsumme holen (je nach Bereichs oder arbeitsgruppenobjekt)
+	 * Schriftwechselsumme holen
 	 * @return
 	 */
 		public int getSchriftwechselSumme();
 		
 	/**
-	 * Kalenderjahr holen 
+	 * Kalenderjahr holen
 	 * @return
 	 */
 		public int getKalenderjahr();
 		
 	/**
-	 * Kalenderwoche holen 
+	 * Kalenderwoche holen
 	 * @return
 	 */
 		public int getKalenderwoche();
 		
-	/** 
-	 * Bereich holen Beim Arbeitsgruppenobjekt
+	/*
+	 * Bereich holen
 	 * @return
 	 */
 		public Bereich getBereich();
 		
 	/**
-	 * Arbeitsgruppe holen bei einem Bereichsobjekt
+	 * Arbeitsgruppe holen
 	 * @return
 	 */
 		public Arbeitsgruppe getArbeitsgruppe();
-	/**
-	 * Methode liefert alle Wochenübersichten für die Bereichsleiterübersicht	
-	 * @return
-	 */
-		public Collection<Wochenuebersicht> getAlleWocheneuebersichten();
 }

@@ -1,55 +1,53 @@
 package fallstudie.model.interfaces;
 
 public interface Jahresuebersicht {
-	
-	
+
 	/**
-	 * Konstruktor beim auslesen von Jahresübersichten einer bestimmten arbeitsgruppe
+	 * Konstruktor
 	 * @param kalenderjahr
 	 * @param Arbeitsgruppe
-	 * @return
-	 */
-		public Jahresuebersicht Jahresuebersicht(int kalenderjahr, Arbeitsgruppe Arbeitsgruppe);
-		
-		
-	/**
-	 * Konstruktor beim auslesen von Jahresübersichten eines ganzen Bereichs	
-	 * @param kalenderjahr
 	 * @param Bereich
 	 * @return
 	 */
-		public Jahresuebersicht Jahresuebersicht (int kalenderjahr, Bereich Bereich);
+		public Jahresuebersicht Jahresuebersicht(int kalenderjahr, Arbeitsgruppe Arbeitsgruppe, Bereich Bereich);
+		
 	/**
-	 * Erstattungensumme holen (je nach Objekt geht es dabei um die arbeitsgruppe oder den Bereich)
+	 * Erstattungensumme holen
 	 * @return
 	 */
 		public int getErstattungenSumme();
 		
 	/**
-	 * Schriftwechselsumme holen (je nach Objekt geht es dabei um die arbeitsgruppe oder den Bereich)
+	 * Schriftwechselsumme holen
 	 * @return
 	 */
 		public int getSchriftwechselSumme();
 		
 	/**
-	 * Kalenderjahr holen (je nach Objekt geht es dabei um die arbeitsgruppe oder den Bereich)
+	 * Kalenderjahr holen
 	 * @return
 	 */
 		public int getKalenderjahr();
 		
-	/**
-	 * Bereich holen bei Arbeitsgruppenobjekt
+	/*
+	 * Bereich holen
 	 * @return
 	 */
 		public Bereich getBereich();
 		
 	/**
-	 * Arbeitsgruppe holen bei Bereichsobjekt
+	 * Arbeitsgruppe holen
 	 * @return
 	 */
 		public Arbeitsgruppe getArbeitsgruppe();
 		
-
+	/**
+	 * Uebersicht 
+	 * @param schriftwechselsumme
+	 * @param erstattungensumme
+	 * @return
+	 */
+		public boolean insertUebersicht(int schriftwechselsumme, int erstattungensumme);
 
 
 }
