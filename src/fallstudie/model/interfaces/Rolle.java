@@ -11,6 +11,14 @@ public interface Rolle {
 	 */
 		public Rolle Rolle(String rollenbezeichnung);
 	
+		
+	/**
+	 * Überladener Konstruktor von Rolle
+	 * Bei Auswahlmaske Mitarbeiter bearbeiten oder Anlegen 
+	 * Liste von allen verfügbaren Rollen
+	 * @return
+	 */
+		public Collection<Rolle> Rolle1();
 	/**
 	 * Collection der Berechtigungen pro Rolle
 	 * @return

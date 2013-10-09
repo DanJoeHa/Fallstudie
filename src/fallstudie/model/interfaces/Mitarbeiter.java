@@ -3,29 +3,73 @@ package fallstudie.model.interfaces;
 public interface Mitarbeiter {
 	
 	/**
-	 * Konstruktor
+	 * Konstruktor wenn sich Mitarbeiter einloggt
 	 * @param Benutzername
-	 * @return
+	 * @return Objekt Mitarbeiter
 	 */
 
-	public String Mitarbeiter (String Benutzername);
+		public Mitarbeiter Mitarbeiter (String benutzername);
 	
 	/**
+	 * Muss auch Mitarbeiter heißen, Überladener Konstruktor
+	 * wird verwendet um anhand eines Suchbegriffes einen Mitarbeiter zu finden (Volltextsuche!)
+	 * @param suchBegriff
+	 * @return MitarbeiterObjekt
+	 */
+	
+		public Mitarbeiter Mitarbeiter1 (String suchBegriff);
+	
+	/**
+	 * Überladener Konstruktor #2 , wird verwendet wenn ein Mitarbeiter neu angelegt wird.
+	 * @param Benutzername
+	 * @param Passwort
+	 * @param Vorname
+	 * @param Nachname
+	 * @param Rolle
+	 * @return MitarbeiterObjekt
+	 */
+	
+		public Mitarbeiter Mitarbeiter2 (String benutzername, String passwort,  String vorname, 
+											String nachname, Rolle tolle);
+	
+	
+	/**
+	 * MUSS STATIC SEIN -> Ohne Mitarbeiterobjekt aufrufbar
 	 * Einloggen und Ausloggen
 	 * @param Benutzername
 	 * @param Passwort
 	 * @return boolean
 	 */
-		public boolean einloggen (String Benutzername, String Passwort);
+		public boolean einloggen (String benutzername, String passwort);
+		
+		
+	/**
+	 * Mitarbeiter ausloggen	
+	 * @return
+	 */
 		public boolean ausloggen ();
 
 	/**
-	 * Rolle zuordnen
+	 * Bereich ändern
+	 * @param Bereich
+	 * @return boolean
+	 */
+		public boolean setBereich(Bereich bereich);
+		
+	/**
+	 * Bereich holen
+	 * @return
+	 */
+		public Bereich getBereich();
+	
+	
+	/**
+	 * Rolle ändern
 	 * @param Rolle
 	 * @return
 	 */
 		
-		public boolean setRolle (Rolle Rolle);
+		public boolean setRolle (Rolle rolle);
 	
 	/**
 	 * Rolle finden
@@ -34,11 +78,17 @@ public interface Mitarbeiter {
 		public Rolle getRolle ();
 		
 	/**
-	 * Benutzername ändern und bekommen
+	 * Benutzername ändern
+	 * @return
+	 */
+		
+		public boolean setBenutzername(String newBenutzername);
+		
+	/**
+	 * Benutzernamen bekommen
 	 * @return
 	 */
 		public String getBenutzername();
-		public boolean setBenutzername(String newBenutzername);
 		
 	 /**
 	 * Passwort bekommen
@@ -54,32 +104,55 @@ public interface Mitarbeiter {
 		public boolean setPasswort(String newPasswort);
 		
      /**
-	 * Arbeitsgruppen Methoden
+	 * Arbeitsgruppen ändern
 	 * @return String Arbeitsgruppe
 	 */
-		public boolean setArbeitsgruppe(Arbeitsgruppe Arbeitsgruppe);
+		public boolean setArbeitsgruppe(Arbeitsgruppe arbeitsgruppe);
+		
+		
+	/**
+	 * Arbeitsgruppe bekommen
+	 * @return
+	 */
 		public Arbeitsgruppe getArbeitsgruppe();
 		
 	/**
-	 * Mitarbeiter deaktivieren oder aktivieren
+	 * Mitarbeiter status ändern
 	 * @return boolean
 	 */
 		public boolean setAktiv(boolean aktiv);
-		public boolean getAktiv();
+		
+	/**
+	 * Status erfragen
+	 * @return 0 oder 1, da Datenbank TINYINT
+	 */
+		public int getAktiv();
 		
 	/**
 	 * Nachnamen- Methoden
 	 * @return String Nachname
 	 */
 		public String getNachname();
-		public void setNachname(String Nachname);
+		
+		
 	/**
-	 * Vorname-Methoden
+	 * Nachname bekommen
+	 * @param nachname
+	 */
+		public void setNachname(String nachname);
+	/**
+	 * Vorname bekommen
 	 * @param Vorname
 	 * @reutn String Vorname
 	 */
 		public String getVorname();
-		public void setVorname(String Vorname);
+		
+		
+	/**
+	 * Vorname ändern
+	 * @param Vorname
+	 */
+		public void setVorname(String vorname);
 		
 	/**
 	 * Letzter Login
@@ -94,16 +167,5 @@ public interface Mitarbeiter {
 	 */
 		public boolean checkRecht(String recht);
 		
-	/**
-	 * Bereich festlegen
-	 * @param Bereich
-	 * @return
-	 */
-		public boolean setBereich(Bereich Bereich);
 	
-	/**
-	 * Bereich holen
-	 * @return
-	 */
-		public Bereich getBereich();
 }
