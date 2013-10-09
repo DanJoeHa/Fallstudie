@@ -1,7 +1,11 @@
 package fallstudie.model.impl;
 
 import fallstudie.model.interfaces.*;
-
+/** CHANGELOG
+ * @author Phil, 09.10.2013
+ * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
+ * @author 
+ */
 public class MitarbeiterImpl {
 	
 	//-----------------------------------------------------------
