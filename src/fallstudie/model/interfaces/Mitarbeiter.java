@@ -5,13 +5,10 @@ public interface Mitarbeiter {
 	/**
 	 * Konstruktor
 	 * @param Benutzername
-	 * @param Passwort
-	 * @param Vorname
-	 * @param Nachname
-	 * @return MitarbeiterObjekt
+	 * @return
 	 */
 
-	public String Mitarbeiter(String Benutzername, String Passwort, String Vorname, String Nachname, String Rolle);
+	public String Mitarbeiter (String Benutzername);
 	
 	/**
 	 * Einloggen und Ausloggen
@@ -21,41 +18,55 @@ public interface Mitarbeiter {
 	 */
 		public boolean einloggen (String Benutzername, String Passwort);
 		public boolean ausloggen ();
+
 	/**
-	 * RolleZuordnenMethode
+	 * Rolle zuordnen
 	 * @param Rolle
-	 * @return boolean
+	 * @return
 	 */
-		public boolean zuordnenRolle (Rolle Rolle);
+		
+		public boolean setRolle (Rolle Rolle);
+	
 	/**
-	 * Benutzernamenverwaltung
+	 * Rolle finden
+	 * @return
+	 */
+		public Rolle getRolle ();
+		
+	/**
+	 * Benutzername ändern und bekommen
 	 * @return
 	 */
 		public String getBenutzername();
-		public void setBenutzername(String newBenutzername);
+		public boolean setBenutzername(String newBenutzername);
+		
 	 /**
-	 * Passwort verwaltung
+	 * Passwort bekommen
 	 * @return String Passwort
 	 */
 		public String getPasswort();
+		
 	/**
-	 * 
+	 * Passwort ändern
 	 * @param newPasswort
 	 * @return boolean
 	 */
 		public boolean setPasswort(String newPasswort);
+		
      /**
 	 * Arbeitsgruppen Methoden
 	 * @return String Arbeitsgruppe
 	 */
-		public String getArbeitsgruppe();
-		public void setArbeitsgruppe(String arbeitsgruppe);
+		public boolean setArbeitsgruppe(Arbeitsgruppe Arbeitsgruppe);
+		public Arbeitsgruppe getArbeitsgruppe();
+		
 	/**
-	 * Mitarbeiter deaktivieren
+	 * Mitarbeiter deaktivieren oder aktivieren
 	 * @return boolean
 	 */
-		public boolean mitarbeiterDeaktivieren();
-	
+		public boolean setAktiv(boolean aktiv);
+		public boolean getAktiv();
+		
 	/**
 	 * Nachnamen- Methoden
 	 * @return String Nachname
@@ -69,11 +80,30 @@ public interface Mitarbeiter {
 	 */
 		public String getVorname();
 		public void setVorname(String Vorname);
+		
 	/**
-	 * LetzterLogin
-	 * @return String LetzterLogin
+	 * Letzter Login
+	 * @return
 	 */
-		public String getLetzterLogin();
+		public String getLogin();
 	
+	/**
+	 * Check der Rechte
+	 * @param recht
+	 * @return
+	 */
+		public boolean checkRecht(String recht);
+		
+	/**
+	 * Bereich festlegen
+	 * @param Bereich
+	 * @return
+	 */
+		public boolean setBereich(Bereich Bereich);
 	
+	/**
+	 * Bereich holen
+	 * @return
+	 */
+		public Bereich getBereich();
 }
