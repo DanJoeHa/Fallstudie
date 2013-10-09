@@ -1,4 +1,4 @@
-package mysql.connector;
+package fallstudie.model.mysql.connector;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
