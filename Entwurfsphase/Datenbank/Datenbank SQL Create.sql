@@ -2,7 +2,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-DROP SCHEMA IF EXISTS `Fallstudie` ;
 CREATE SCHEMA IF NOT EXISTS `Fallstudie` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `Fallstudie` ;
 
@@ -105,7 +104,6 @@ CREATE TABLE IF NOT EXISTS `Fallstudie`.`Eintrag` (
   `Arbeitsgruppe` INT NOT NULL,
   `Schriftwechsel` INT NULL,
   `Erstattungen` INT NULL,
-  `JobRun` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`EintragID`),
   INDEX `Arbeitsgruppe_FK_idx` (`Arbeitsgruppe` ASC),
   CONSTRAINT `Eintrag_Mitarbeiter_FK`
@@ -127,11 +125,11 @@ Beim Löschen von Mitarbeiter wird die Rolle entzogen.*/';
 CREATE TABLE IF NOT EXISTS `Fallstudie`.`Wochenuebersicht` (
   `Kalenderjahr` INT NOT NULL,
   `Kalenderwoche` INT NOT NULL,
-  `Schriftwechselsumme` INT NULL,
-  `Erstattungensumme` INT NULL,
-  `Arbeitsgruppe` INT NOT NULL,
-  `Bereich` INT NOT NULL,
-  PRIMARY KEY (`Kalenderjahr`, `Kalenderwoche`),
+  `Arbeitsgruppe` INT NULL,
+  `Bereich` INT NULL,
+  `Schriftwechselsumme` INT NOT NULL,
+  `Erstattungensumme` INT NOT NULL,
+  PRIMARY KEY (`Kalenderjahr`, `Kalenderwoche`, `Arbeitsgruppe`, `Bereich`),
   INDEX `Arbeitsgruppe_Einträge_FK_idx` (`Arbeitsgruppe` ASC),
   INDEX `Bereich_hat_Einträge_FK_idx` (`Bereich` ASC),
   CONSTRAINT `Arbeitsgruppe_hat_Einträge_FK`
@@ -153,11 +151,11 @@ COMMENT = 'Wird im Programm generiert.';
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Fallstudie`.`Jahresuebersicht` (
   `Kalenderjahr` INT NOT NULL,
-  `Schriftwechselsumme` INT NULL,
-  `Erstattungensumme` INT NULL,
-  `Arbeitsgruppe` INT NOT NULL,
-  `Bereich` INT NOT NULL,
-  PRIMARY KEY (`Kalenderjahr`),
+  `Arbeitsgruppe` INT NULL,
+  `Bereich` INT NULL,
+  `Schriftwechselsumme` INT NOT NULL,
+  `Erstattungensumme` INT NOT NULL,
+  PRIMARY KEY (`Kalenderjahr`, `Arbeitsgruppe`, `Bereich`),
   INDEX `Jahresuebersicht_hat_Bereich_idx` (`Bereich` ASC),
   INDEX `Jahresuebersicht_hat_Gruppe_idx` (`Arbeitsgruppe` ASC),
   CONSTRAINT `Jahresuebersicht_hat_Bereich`
