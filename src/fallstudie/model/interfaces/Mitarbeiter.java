@@ -10,7 +10,7 @@ public interface Mitarbeiter {
 	 * @param Nachname
 	 * @return MitarbeiterObjekt
 	 */
-	
+
 	public String Mitarbeiter(String Benutzername, String Passwort, String Vorname, String Nachname, String Rolle);
 	
 	/**
