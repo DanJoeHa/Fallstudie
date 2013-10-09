@@ -27,9 +27,11 @@ CREATE TABLE IF NOT EXISTS `Fallstudie`.`Mitarbeiter` (
   `Vorname` VARCHAR(45) NULL,
   `Nachname` VARCHAR(45) NULL,
   `LetzterLogin` DATE NULL,
+  `Bereich` INT NULL,
   PRIMARY KEY (`Benutzername`),
   INDEX `Arbeitsgruppe_idx` (`Arbeitsgruppe` ASC),
   INDEX `Rolle_idx` (`Rolle` ASC),
+  INDEX `Mitarbeiter_Bereich_FK_idx` (`Bereich` ASC),
   CONSTRAINT `Mitarbeiter_Arbeitsgruppe_FK`
     FOREIGN KEY (`Arbeitsgruppe`)
     REFERENCES `Fallstudie`.`Arbeitsgruppe` (`ArbeitsgruppeID`)
@@ -38,6 +40,11 @@ CREATE TABLE IF NOT EXISTS `Fallstudie`.`Mitarbeiter` (
   CONSTRAINT `Mitarbeiter_Rolle_FK`
     FOREIGN KEY (`Rolle`)
     REFERENCES `Fallstudie`.`Rolle` (`Rollenbezeichnung`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Mitarbeiter_Bereich_FK`
+    FOREIGN KEY (`Bereich`)
+    REFERENCES `Fallstudie`.`Bereich` (`BereichID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
