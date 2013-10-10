@@ -8,12 +8,18 @@ import java.util.Collection;
  */
 public class ArbeitsgruppeImpl {
 
-
+	private String beschreibung;
+	private String kurzbezeichnung;
+	private BereichImpl bereich;
+	private boolean aktiv;
+	private MitarbeiterImpl mitarbeiter;
+	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
 	/**
-	 * Konstruktor wenn nur die Kurzbezeichnung übergeben wird, alles andere wird in der Datenbank geholt mit SELECT
+	 * Konstruktor wenn nur die Kurzbezeichnung übergeben wird, 
+	 * alles andere wird in der Datenbank geholt mit SELECT
 	 * @param kurzbezeichnung
 	 * @return 
 	 * @return
@@ -33,7 +39,7 @@ public class ArbeitsgruppeImpl {
 	 * @return
 	 */
 	public ArbeitsgruppeImpl(String kurzbezeichnung, String beschreibung,
-			BereichImpl bereich, MitarbeiterImpl mitarbeiter) {
+			BereichImpl bereich, MitarbeiterImpl leiter) {
 		// TODO Auto-generated method stub
 
 	}

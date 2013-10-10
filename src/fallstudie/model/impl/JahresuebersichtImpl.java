@@ -3,10 +3,14 @@ package fallstudie.model.impl;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
- * @author 
+ * @author variablen eingefügt
  */
 public class JahresuebersichtImpl {
-
+	
+	private int schriftwechselSumme;
+	private int erstattungenSumme;
+	private ArbeitsgruppeImpl arbeitsgruppe;
+	private BereichImpl bereich;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------

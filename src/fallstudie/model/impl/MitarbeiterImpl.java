@@ -4,9 +4,19 @@ import fallstudie.model.interfaces.*;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
+ * @version 1.0 Attribute ergänzt
  * @author 
  */
 public class MitarbeiterImpl {
+	
+	private String benutzername;
+	private String passwort;
+	private String vorname;
+	private String nachname;
+	private ArbeitsgruppeImpl arbeitsgruppe;
+	private BereichImpl bereich;
+	private String letzterLogin;
+	private boolean aktiv;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -45,7 +55,7 @@ public class MitarbeiterImpl {
 	 */
 	
 	public MitarbeiterImpl(String benutzername, String passwort,
-			String vorname, String nachname, Rolle tolle) {
+			String vorname, String nachname, RolleImpl tolle) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -54,7 +64,7 @@ public class MitarbeiterImpl {
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
 	
-	public boolean einloggen(String benutzername, String passwort) {
+	public static boolean einloggen(String benutzername, String passwort) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -66,25 +76,25 @@ public class MitarbeiterImpl {
 	}
 
 	
-	public boolean setBereich(Bereich bereich) {
+	public boolean setBereich(BereichImpl bereich) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	
-	public Bereich getBereich() {
+	public BereichImpl getBereich() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	
-	public boolean setRolle(Rolle rolle) {
+	public boolean setRolle(RolleImpl rolle) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	
-	public Rolle getRolle() {
+	public RolleImpl getRolle() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -114,13 +124,13 @@ public class MitarbeiterImpl {
 	}
 
 	
-	public boolean setArbeitsgruppe(Arbeitsgruppe arbeitsgruppe) {
+	public boolean setArbeitsgruppe(ArbeitsgruppeImpl arbeitsgruppe) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	
-	public Arbeitsgruppe getArbeitsgruppe() {
+	public ArbeitsgruppeImpl getArbeitsgruppe() {
 		// TODO Auto-generated method stub
 		return null;
 	}
