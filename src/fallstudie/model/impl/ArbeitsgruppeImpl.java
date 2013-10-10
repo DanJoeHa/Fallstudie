@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
@@ -54,19 +56,7 @@ public class ArbeitsgruppeImpl {
 	 * @return 
 	 * @return
 	 */
-	public ArbeitsgruppeImpl(String suchbegriff) {
 
-
-		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-			RemoteConnection.connect();
-		};
-		
-
-	}
-
-	//-----------------------------------------------------------
-	//---------------------KONSTRUKTOREN-------------------------
-	//-----------------------------------------------------------
 	
 	/**
 	 * Methode wenn nur die Kurzbezeichnung übergeben wird, 
@@ -76,29 +66,24 @@ public class ArbeitsgruppeImpl {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public static ArbeitsgruppeImpl getArbeitsgruppeByKurzbezeichnung
-								(String kurzbezeichnung) throws SQLException {
+	public ArbeitsgruppeImpl(String kurzbezeichnung, String dummy) throws SQLException {
 
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
 		
 		ResultSet resultSet = RemoteConnection.sql.executeQuery
-								("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
-		
+			("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
+		System.out.println
+			("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
 		//Variablen für den späteren Konstruktoraufruf
-		int arbeitsgruppeID= 0;
-		String kurzbezeichnungUebergabe= null;
-		MitarbeiterImpl mitarbeiter= null;
-		BereichImpl bereich = null;
-		String beschreibung = null;
-		boolean aktiv = false;
+
 		
 		
 		// Obtain the number of columns in the returned table
 		int columnCount = resultSet.getMetaData().getColumnCount();
 		
-		kurzbezeichnungUebergabe = kurzbezeichnung;
+		this.kurzbezeichnung = kurzbezeichnung;
 
 		// Iterate over each row of the resulting table
 		
@@ -111,49 +96,48 @@ public class ArbeitsgruppeImpl {
 
 				// Get the name of the current column
 				String columName = resultSet.getMetaData().getColumnLabel(i);
+				//System.out.println(columName);
 				
-				if (columName=="ArbeitsgruppeID")
+				if (columName.equals("ArbeitsgruppeID"))
 				{
 					 arbeitsgruppeID = resultSet.getInt(i);
 				}
 				
-				if (columName == "Leiter")
+				if (columName.equals("Leiter"));
 				{
 					// Get the value of this column of the current row
 					String leiter = resultSet.getString(i);
 					//Mitarbeiter wird generiert aus dem Suchbegriff-Konstruktor
-					 mitarbeiter = new MitarbeiterImpl(leiter);
+					 this.mitarbeiter = new MitarbeiterImpl(leiter);
 					
 				}
-				if (columName=="Bereich")
+				if (columName.equals("Bereich"))
 				{
 					//Get the value of this column of the current row
 					String bereichBezeichnung = resultSet.getString(i);
 					//Bereich wird generiert aus dem Suchbegriff-Konstruktor
-					 bereich = new BereichImpl(bereichBezeichnung);
+					this.bereich = new BereichImpl(bereichBezeichnung);
 				}
-				if (columName=="Beschreibung")
+				if (columName.equals("Beschreibung"))
 				{
 					//Get the value of this column of the current row
-					 beschreibung = resultSet.getString(i);
+					this.beschreibung = resultSet.getString(i);
 				}
-				if (columName=="aktiv")
+				if (columName.equals("aktiv"))
 				{
 					//Get the value of this column of the current row
-					 aktiv = resultSet.getBoolean(i);
+					this.aktiv = resultSet.getBoolean(i);
 				}
 				
 			}
 		}
-		
-		ArbeitsgruppeImpl returnGruppe = 
-						new ArbeitsgruppeImpl(kurzbezeichnung, beschreibung, bereich, mitarbeiter);
-		return returnGruppe;
-		
-		
-
 	}
 
+	//-----------------------------------------------------------
+	//---------------------KONSTRUKTOREN-------------------------
+	//-----------------------------------------------------------
+	
+	
 	
 	
 	public boolean setBeschreibung(String beschreibung) {
@@ -184,7 +168,7 @@ public class ArbeitsgruppeImpl {
 	
 	public String getKurzbezeichnung() {
 		
-		return null;
+		return this.kurzbezeichnung;
 	}
 
 	
@@ -199,7 +183,7 @@ public class ArbeitsgruppeImpl {
 	
 	public BereichImpl getBereich() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.bereich;
 	}
 
 	
@@ -214,7 +198,7 @@ public class ArbeitsgruppeImpl {
 	
 	public MitarbeiterImpl getLeiter() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.mitarbeiter;
 	}
 
 	
@@ -229,15 +213,20 @@ public class ArbeitsgruppeImpl {
 	
 	public boolean getAktiv() {
 		// TODO Auto-generated method stub
-		return false;
+		return this.aktiv;
 	}
 
 	
-	public int getID(String kurzbezeichnung) {
+	public int getIDbyKurzbezeichnung(String kurzbezeichnung) {
 		// TODO Auto-generated method stub
+		int id = 0;
+		return id;
+	}
+	
+	public int getID()
+	{
 		return this.arbeitsgruppeID;
 	}
-
 	
 	public Collection<ArbeitsgruppeImpl> getAlleArbeitsgruppen() {
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
