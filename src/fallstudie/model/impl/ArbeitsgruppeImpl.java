@@ -1,6 +1,8 @@
 package fallstudie.model.impl;
 
 import java.util.Collection;
+
+import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
@@ -14,6 +16,7 @@ public class ArbeitsgruppeImpl {
 	private boolean aktiv;
 	private MitarbeiterImpl mitarbeiter;
 	
+	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
@@ -25,7 +28,14 @@ public class ArbeitsgruppeImpl {
 	 * @return
 	 */
 	public ArbeitsgruppeImpl(String kurzbezeichnung, String Dummy) {
-		// TODO Auto-generated method stub
+
+
+
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
+		
 
 	}
 
@@ -40,7 +50,12 @@ public class ArbeitsgruppeImpl {
 	 */
 	public ArbeitsgruppeImpl(String kurzbezeichnung, String beschreibung,
 			BereichImpl bereich, MitarbeiterImpl leiter) {
-		// TODO Auto-generated method stub
+
+
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 
 	}
 
@@ -51,7 +66,12 @@ public class ArbeitsgruppeImpl {
 	 * @return
 	 */
 	public ArbeitsgruppeImpl(String suchbegriff) {
-		// TODO Auto-generated method stub
+
+
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 
 	}
 
@@ -60,31 +80,42 @@ public class ArbeitsgruppeImpl {
 	//-----------------------------------------------------------
 	
 	public boolean setBeschreibung(String beschreibung) {
-		// TODO Auto-generated method stub
+
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
 	
 	public String getBeschreibung() {
-		// TODO Auto-generated method stub
+		
+		
 		return null;
 	}
 
 	
 	public boolean setKurzbezeichnung(String kurzbezeichnung) {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
 	
 	public String getKurzbezeichnung() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	
 	public boolean setBereich(BereichImpl bereich) {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
@@ -96,7 +127,10 @@ public class ArbeitsgruppeImpl {
 
 	
 	public boolean setLeiter(MitarbeiterImpl mitarbeiter) {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
@@ -108,7 +142,10 @@ public class ArbeitsgruppeImpl {
 
 	
 	public boolean setAktiv(boolean aktiv) {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
@@ -126,7 +163,10 @@ public class ArbeitsgruppeImpl {
 
 	
 	public Collection<ArbeitsgruppeImpl> getAlleArbeitsgruppen() {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return null;
 	}
 
