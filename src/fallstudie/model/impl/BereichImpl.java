@@ -4,11 +4,16 @@ import java.util.Collection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
+ * @version 1.0 Attribute aktualisiert
  * @author 
  */
 public class BereichImpl {
 
-
+	private String beschreibung;
+	private String kurzbezeichnung;
+	private boolean aktiv;
+	private MitarbeiterImpl Mitarbeiter;
+	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
