@@ -8,10 +8,14 @@ import java.util.Collection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
+ * @version 1.0
  * @author 
  */
 public class RolleImpl  {
 
+	String rollenbeschreibung;
+	String rollenbezeichnung;
+	
 	//--------------------KONSTRUKTOR--------------------
 	
 	/**
@@ -32,7 +36,7 @@ public class RolleImpl  {
 		return RollenCollection;
 	}
 
-	public Collection<RechteImpl> getBerechtigung() {
+	public Collection<RechteImpl> getBerechtigungenzuRolle() {
 
 		Collection<RechteImpl> RechteCollection = null;
 		return RechteCollection;
@@ -43,7 +47,7 @@ public class RolleImpl  {
 		return null;
 	}
 
-	public String getRollenbeschreibung() {
+	public String setRollenbeschreibung() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -11,6 +11,12 @@ import fallstudie.model.interfaces.Bereich;
  */
 public class WochenuebersichtImpl {
 
+	private int schriftwechselSumme;
+	private int erstattungenSumme;
+	private int kalenderjahr;
+	private int kalenderwoche;
+	private ArbeitsgruppeImpl arbeitsgruppe;
+	private BereichImpl bereich;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -24,7 +30,7 @@ public class WochenuebersichtImpl {
 	 * @return
 	 */
 	public WochenuebersichtImpl(int kalenderjahr, int kalenderwoche,
-			Arbeitsgruppe Arbeitsgruppe) {
+			ArbeitsgruppeImpl Arbeitsgruppe) {
 		// TODO Auto-generated method stub
 
 	}
@@ -37,7 +43,7 @@ public class WochenuebersichtImpl {
 	 * @return
 	 */
 	public WochenuebersichtImpl(int kalenderjahr, int kalenderwoche,
-			Bereich Bereich) {
+			BereichImpl Bereich) {
 		// TODO Auto-generated method stub
 
 	}

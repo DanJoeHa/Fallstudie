@@ -9,6 +9,12 @@ import java.util.Date;
 
 public class EintragImpl {
 
+	
+	private Date datum;
+	private ArbeitsgruppeImpl arbeitsgruppe;
+	private int schriftwechsel;
+	private int erstattungen;
+	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOR--------------------------
 	//-----------------------------------------------------------

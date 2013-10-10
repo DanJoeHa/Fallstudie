@@ -6,10 +6,14 @@ package fallstudie.model.impl;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
+ * @version 1.0 Attribute ergänzt
  * @author 
  */
 public class RechteImpl {
 
+	String name;
+	String beschreibung;
+	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOR-------------------------
 	//-----------------------------------------------------------
