@@ -109,7 +109,6 @@ CREATE TABLE IF NOT EXISTS `Eintrag` (
   `Arbeitsgruppe` INT NOT NULL,
   `Schriftwechsel` INT NULL,
   `Erstattungen` INT NULL,
-  `JobRun` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`EintragID`),
   INDEX `Arbeitsgruppe_FK_idx` (`Arbeitsgruppe` ASC),
   CONSTRAINT `Eintrag_Mitarbeiter_FK`
