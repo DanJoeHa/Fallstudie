@@ -19,10 +19,10 @@ public class EintragImpl {
 	//---------------------KONSTRUKTOR--------------------------
 	//-----------------------------------------------------------
 	
-	public EintragImpl(Date datum, ArbeitsgruppeImpl arbeitsgruppe,
-			int schriftwechsel, int erstattungen) {
+	public EintragImpl(ArbeitsgruppeImpl arbeitsgruppe,
+			int schriftwechsel, int erstattungen, int kalenderjahr, int kalenderwoche) {
 		// TODO Auto-generated method stub
-		
+		//Datum generieren
 	}
 
 }
