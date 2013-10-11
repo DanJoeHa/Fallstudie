@@ -1,0 +1,77 @@
+package fallstudie.view.impl;
+
+import javax.swing.JPanel;
+import java.awt.SystemColor;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Rectangle;
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JTextPane;
+import java.awt.Dimension;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+
+public class mitarbeiter_bearbeiten extends JPanel {
+	private JTextField T_Arbeitsgruppe;
+
+	/**
+	 * Create the panel.
+	 */
+	public mitarbeiter_bearbeiten() {
+		setPreferredSize(new Dimension(600, 700));
+		setMinimumSize(new Dimension(600, 700));
+		setMaximumSize(new Dimension(600, 700));
+		setFont(new Font("Tahoma", Font.PLAIN, 14));
+		setBounds(new Rectangle(0, 0, 600, 700));
+		setBorder(new LineBorder(new Color(0, 0, 0)));
+		setBackground(SystemColor.window);
+		setLayout(null);
+				
+		//L_Ueberschrift
+		JLabel L_Ueberschrift = new JLabel("Mitarbeiter bearbeiten");
+		L_Ueberschrift.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		L_Ueberschrift.setBounds(10, 11, 580, 17);
+		add(L_Ueberschrift);
+		
+		//C_Bereich
+		JComboBox C_Bereich = new JComboBox();
+		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		C_Bereich.setBounds(170, 208, 181, 20);
+		add(C_Bereich);
+				
+		//C_Rolle
+		JComboBox C_Rolle = new JComboBox();
+		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		C_Rolle.setBounds(170, 176, 181, 20);
+		add(C_Rolle);
+		
+		//T_Arbeitsgruppe
+		T_Arbeitsgruppe = new JTextField();
+		T_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		T_Arbeitsgruppe.setColumns(10);
+		T_Arbeitsgruppe.setBounds(170, 239, 181, 20);
+		add(T_Arbeitsgruppe);
+
+		//B_SucheArbeitshgruppe mit Lupe
+		JButton B_SucheArbeitshgruppe = new JButton("suchen");
+		B_SucheArbeitshgruppe.setIcon(null);
+		B_SucheArbeitshgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_SucheArbeitshgruppe.setBounds(361, 238, 106, 23);
+		add(B_SucheArbeitshgruppe);
+
+		//B_Zurücksetzen
+		JButton B_Abbrechen = new JButton("Abbrechen");
+		B_Abbrechen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_Abbrechen.setBounds(70, 382, 150, 23);
+		add(B_Abbrechen);
+		
+		//B_Anlegen entspricht Speichern
+		JButton B_Anlegen = new JButton("Speichern");
+		B_Anlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_Anlegen.setBounds(305, 384, 150, 23);
+		add(B_Anlegen);
+
+	}
+}
