@@ -18,7 +18,7 @@ import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import java.awt.Font;
 
-public class mitarbeiter_bearbeiten {
+public class mitarbeiter_anlegen {
 
 private JFrame frame;
 
@@ -29,7 +29,7 @@ public static void main(String[] args) {
 EventQueue.invokeLater(new Runnable() {
 public void run() {
 try {
-	mitarbeiter_bearbeiten window = new mitarbeiter_bearbeiten();
+	mitarbeiter_anlegen window = new mitarbeiter_anlegen();
 	window.frame.setVisible(true);
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -41,7 +41,7 @@ try {
 /**
 * Create the application.
 */
-public mitarbeiter_bearbeiten() {
+public mitarbeiter_anlegen() {
 initialize();
 }
 
@@ -109,7 +109,7 @@ arbeitsbereich.setBounds(210, 11, 400, 550);
 frame.getContentPane().add(arbeitsbereich);
 arbeitsbereich.setLayout(null);
 
-JLabel lblEineberschrift = new JLabel("Mitarbeiter bearbeiten");
+JLabel lblEineberschrift = new JLabel("Mitarbeiter anlegen");
 lblEineberschrift.setBounds(10, 11, 185, 14);
 arbeitsbereich.add(lblEineberschrift);
 JLabel lblNewLabel = new JLabel("Vorname");
@@ -121,6 +121,9 @@ arbeitsbereich.add(lblNachname);
 JLabel lblBenutzername = new JLabel("Benutzername");
 lblBenutzername.setBounds(10, 132, 90, 14);
 arbeitsbereich.add(lblBenutzername);
+JLabel lblRolle = new JLabel("Passwort");
+lblRolle.setBounds(10, 157, 90, 14);
+arbeitsbereich.add(lblRolle);
 JLabel lblBereich = new JLabel("Rolle");
 lblBereich.setBounds(10, 182, 90, 14);
 arbeitsbereich.add(lblBereich);
