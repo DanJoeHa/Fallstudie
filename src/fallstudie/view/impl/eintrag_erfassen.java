@@ -20,7 +20,7 @@ import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 
-public class erfassen_gruppenleiter {
+public class eintrag_erfassen {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -33,7 +33,7 @@ public class erfassen_gruppenleiter {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					erfassen_gruppenleiter window = new erfassen_gruppenleiter();
+					eintrag_erfassen window = new eintrag_erfassen();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class erfassen_gruppenleiter {
 	/**
 	 * Create the application.
 	 */
-	public erfassen_gruppenleiter() {
+	public eintrag_erfassen() {
 		initialize();
 	}
 
