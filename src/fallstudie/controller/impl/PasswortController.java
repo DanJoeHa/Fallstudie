@@ -1,9 +1,9 @@
 package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 
-public class PasswortAendernController extends HauptController {
+public class PasswortController extends HauptController {
 
-		public PasswortAendernController(){
+		public PasswortController(){
 			this.activeView = new PasswortAendernView();
 		}
 		
