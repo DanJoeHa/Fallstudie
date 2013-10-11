@@ -93,6 +93,11 @@ public class layout {
 		frame.getContentPane().add(arbeitsbereich);
 		arbeitsbereich.setLayout(null);
 		
+		JLabel lblberschrift = new JLabel("\u00DCberschrift");
+		lblberschrift.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblberschrift.setBounds(75, 22, 277, 24);
+		arbeitsbereich.add(lblberschrift);
+		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnLogout.setPreferredSize(new Dimension(150, 25));
