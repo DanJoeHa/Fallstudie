@@ -110,8 +110,11 @@ frame.getContentPane().add(arbeitsbereich);
 arbeitsbereich.setLayout(null);
 
 JLabel lblEineberschrift = new JLabel("Mitarbeiter bearbeiten");
-lblEineberschrift.setBounds(10, 11, 97, 14);
+lblEineberschrift.setBounds(10, 11, 185, 14);
 arbeitsbereich.add(lblEineberschrift);
+JLabel lblNewLabel = new JLabel("Vorname");
+lblNewLabel.setBounds(10, 82, 90, 14);
+arbeitsbereich.add(lblNewLabel);
 
 JButton btnLogout = new JButton("Logout");
 btnLogout.setPreferredSize(new Dimension(150, 20));

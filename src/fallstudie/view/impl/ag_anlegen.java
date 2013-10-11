@@ -159,7 +159,7 @@ arbeitsbereich.add(btnZurcksetzen);
 JButton btnNewButton = new JButton("");
 btnNewButton.setBackground(SystemColor.window);
 btnNewButton.setBounds(322, 183, 25, 26);
-btnNewButton.setIcon(new ImageIcon("C:\\Users\\Adri\\git\\Fallstudie\\src\\fallstudie\\view\\impl\\lupe3.jpg"));
+btnNewButton.setIcon(new ImageIcon("../fallstudie.view.images/lupe3.jpg"));
 arbeitsbereich.add(btnNewButton);
 
 JButton btnLogout = new JButton("Logout");
