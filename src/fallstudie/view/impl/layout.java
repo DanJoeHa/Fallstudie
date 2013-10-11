@@ -90,7 +90,7 @@ frame.getContentPane().add(arbeitsbereich);
 arbeitsbereich.setLayout(null);
 
 JLabel lblEineberschrift = new JLabel("Eine \u00DCberschrift");
-lblEineberschrift.setBounds(158, 24, 97, 14);
+lblEineberschrift.setBounds(10, 11, 97, 14);
 arbeitsbereich.add(lblEineberschrift);
 
 JButton btnLogout = new JButton("Logout");

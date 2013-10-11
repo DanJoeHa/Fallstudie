@@ -90,10 +90,10 @@ frame.getContentPane().add(arbeitsbereich);
 arbeitsbereich.setLayout(null);
 
 JLabel lblEineberschrift = new JLabel("Herzlich Willkommen Herr XY.");
-lblEineberschrift.setBounds(26, 24, 229, 14);
+lblEineberschrift.setBounds(10, 11, 229, 14);
 arbeitsbereich.add(lblEineberschrift);
 JLabel lblBitteWhlenSie = new JLabel("Bitte w\u00E4hlen sie eine Aktion.");
-lblBitteWhlenSie.setBounds(26, 49, 229, 14);
+lblBitteWhlenSie.setBounds(10, 36, 229, 14);
 arbeitsbereich.add(lblBitteWhlenSie);
 
 JButton btnLogout = new JButton("Logout");
