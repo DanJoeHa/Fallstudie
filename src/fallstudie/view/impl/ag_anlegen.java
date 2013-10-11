@@ -26,7 +26,7 @@ import java.awt.Font;
 
 import javax.swing.JComboBox;
 
-public class AG_anlegen {
+public class ag_anlegen {
 
 private JFrame frame;
 private JTextField textField;
@@ -40,7 +40,7 @@ public static void main(String[] args) {
 EventQueue.invokeLater(new Runnable() {
 public void run() {
 try {
-	AG_anlegen window = new AG_anlegen();
+	ag_anlegen window = new ag_anlegen();
 	window.frame.setVisible(true);
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -52,7 +52,7 @@ try {
 /**
 * Create the application.
 */
-public AG_anlegen() {
+public ag_anlegen() {
 initialize();
 }
 
@@ -144,7 +144,7 @@ textField_1.setBounds(180, 152, 140, 20);
 arbeitsbereich.add(textField_1);
 textField_1.setColumns(10);
 textField_2 = new JTextField();
-textField_2.setBounds(180, 187, 140, 20);
+textField_2.setBounds(180, 183, 140, 26);
 arbeitsbereich.add(textField_2);
 textField_2.setColumns(10);
 JComboBox comboBox = new JComboBox();
@@ -159,7 +159,7 @@ arbeitsbereich.add(btnZurcksetzen);
 JButton btnNewButton = new JButton("");
 btnNewButton.setBackground(SystemColor.window);
 btnNewButton.setBounds(322, 183, 25, 26);
-btnNewButton.setIcon(new ImageIcon("C:\\Users\\Adri\\workspace\\Fallstudie_Fenster\\src\\login\\lupe3.jpg"));
+btnNewButton.setIcon(new ImageIcon("C:\\Users\\Adri\\git\\Fallstudie\\src\\fallstudie\\view\\impl\\lupe3.jpg"));
 arbeitsbereich.add(btnNewButton);
 
 JButton btnLogout = new JButton("Logout");
