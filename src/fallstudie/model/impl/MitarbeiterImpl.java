@@ -1,6 +1,7 @@
 package fallstudie.model.impl;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import fallstudie.model.interfaces.*;
