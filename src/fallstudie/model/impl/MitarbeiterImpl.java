@@ -1,6 +1,7 @@
 package fallstudie.model.impl;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import fallstudie.model.interfaces.*;
@@ -97,6 +98,40 @@ public class MitarbeiterImpl {
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
+		
+		try
+		{
+			// Obtain the number of columns in the returned table
+			@SuppressWarnings("unused")
+			int columnCount = resultSet.getMetaData().getColumnCount();
+			//Nachname
+			this.nachname = resultSet.getString("Nachname");
+			
+			//Vorname
+			this.vorname = resultSet.getString("Vorname");
+			
+			//Benutzername
+			this.benutzername = resultSet.getString("Benutzername");
+			//Passwort
+			this.passwort = resultSet.getString("Passwort");
+			//Letzter Login
+			this.letzterLogin = resultSet.getString("LetzterLogin");
+			//Rolle
+			String Rolle = resultSet.getString("Rollenbezeichnung");
+			this.rolle = new RolleImpl(Rolle);
+			//Arbeitsgruppe Konstruktor anpassen?? Für int ??? @philipp
+			int Arbeitsgruppe = resultSet.getInt("ArbeitsgruppeID");
+			this.arbeitsgruppe = new ArbeitsgruppeImpl(Arbeitsgruppe);
+			//Bereich
+			int Bereich = resultSet.getInt("BereichID");
+			this.bereich = new BereichImpl(Bereich);
+		}
+	catch (SQLException e)
+	{
+		System.err.println(e.getErrorCode());
+		System.err.println(e.getMessage());
+		System.err.println(e.getCause());
+	}
 	}
 	
 	

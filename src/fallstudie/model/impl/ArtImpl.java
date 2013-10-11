@@ -2,7 +2,11 @@ package fallstudie.model.impl;
 
 import java.sql.ResultSet;
 import java.util.Collection;
-
+/**
+ * 11.10.13 Klasse erstellt
+ * @author Phil
+ *@version 1.0
+ */
 public class ArtImpl {
 
 	private String name;

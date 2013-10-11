@@ -90,9 +90,21 @@ public class ArbeitsgruppeImpl {
 	catch (SQLException e)
 	{
 		System.err.println(e.getErrorCode());
+		System.err.println(e.getMessage());
+		System.err.println(e.getCause());
 	}
 	}
+	/**
+	 * ArbeitsgruppeObjekt per ID (Primärschlüssel) erzeugen
+	 * @param arbeitsgruppeid
+	 */
 	
+	public ArbeitsgruppeImpl(int arbeitsgruppeid) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	/**
 	 * Methode wenn nur die Kurzbezeichnung übergeben wird, 
 	 * alles andere wird in der Datenbank geholt mit SELECT
@@ -101,13 +113,22 @@ public class ArbeitsgruppeImpl {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public static ArbeitsgruppeImpl getArbeitsgruppeImplByName
-											(String kurzbezeichnung){
-
-		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-			RemoteConnection.connect();
-		};
+	public static ArbeitsgruppeImpl getArbeitsgruppeImplByName(String kurzbezeichnung){
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null )
+			{
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println(e.getMessage());
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
 		ArbeitsgruppeImpl ag = null;
+		
 		try
 		{
 			
@@ -122,12 +143,17 @@ public class ArbeitsgruppeImpl {
 			
 			
 		}
-		catch (SQLException e)
-		{
-			
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
 		}
+
 		return ag;
 	}
+		
 		
 
 	//-----------------------------------------------------------
