@@ -19,9 +19,4 @@ public interface Controller extends ActionListener {
 	 */
 	public View getView();
 	
-	/**
-	 * Schnittstelle zum Zurücksetzen der View
-	 * 
-	 */
-	public void reset();
 }

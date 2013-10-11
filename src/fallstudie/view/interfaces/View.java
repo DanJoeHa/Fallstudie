@@ -16,4 +16,10 @@ public interface View {
 	 */
 	public void setController( Controller c );
 	
+	/**
+	 * Schnittstelle zum Zurücksetzen der View
+	 * 
+	 */
+	public void reset();
+	
 }
