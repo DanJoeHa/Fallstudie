@@ -72,8 +72,8 @@ public class ArbeitsgruppeImpl {
 			this.arbeitsgruppeID = resultSet.getInt("ArbeitgsuppeID");
 			
 			//Mitarbeiterobjekt aus der ID
-				int leiterID = resultSet.getInt("Leiter");
-			
+				String leiterID = resultSet.getString("Leiter");
+			//checken
 			this.leiter = new MitarbeiterImpl(leiterID);
 			
 			//Bereichobjekt aus der BereichsID
