@@ -22,11 +22,11 @@ public class PasswortController extends HauptController {
 					//�ndern aufgrund Verschl�sselung
 					if(wdhPasswort.equals(neuesPasswort)){
 						activeUser.setPasswort(neuesPasswort);
-						hauptfenster.setInfoBox("Passwort erfolgreich ge�ndert");
+						hauptfenster.setInfoBox("Passwort erfolgreich geändert");
 					}
 					else
 					{
-						hauptfenster.setInfoBox("Passw�rter stimmen nicht �berein");
+						hauptfenster.setInfoBox("Passw�rter stimmen nicht überein");
 					}
 				}
 				else
