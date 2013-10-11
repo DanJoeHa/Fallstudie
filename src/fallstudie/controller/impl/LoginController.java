@@ -4,9 +4,13 @@ import java.awt.event.ActionEvent;
 
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.LoginView;
+import fallstudie.view.impl.PopupSchliessenView;
+import fallstudie.view.interfaces.View;
 
 public class LoginController extends HauptController
 {
+	private LoginView activeView;
+	
 	public LoginController()
 	{
 		this.activeView = new LoginView();
@@ -19,10 +23,11 @@ public class LoginController extends HauptController
 			activeUser = Mitarbeiter.einloggen(this.activeView.getBenutzername(), this.activeView.getPasswort());
 		}
 		if(button == "Passwort vergessen"){
-			PopupSchlie�en popup = new PopupSchließen();
+			PopupSchliessenView popup = new PopupSchliessenView();
 			popup.setHinweis("Bitte kontaktieren Sie Ihren IT-Support");
-			popup.setButtonName("Schlie�en");
+			popup.setButtonName("Schließen");
 			popup.setUeberschrift("Passwort vergessen");
 		}
 	}
+	
 }
