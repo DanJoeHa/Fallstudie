@@ -1,22 +1,19 @@
 package fallstudie.model.impl;
 
 import java.util.Collection;
-
-import fallstudie.model.interfaces.Arbeitsgruppe;
-import fallstudie.model.interfaces.Bereich;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
  * @author 
  */
-public class WochenuebersichtImpl {
+public class Wochenuebersicht {
 
 	private int schriftwechselSumme;
 	private int erstattungenSumme;
 	private int kalenderjahr;
 	private int kalenderwoche;
-	private ArbeitsgruppeImpl arbeitsgruppe;
-	private BereichImpl bereich;
+	private Arbeitsgruppe arbeitsgruppe;
+	private Bereich bereich;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -29,8 +26,8 @@ public class WochenuebersichtImpl {
 	 * @return 
 	 * @return
 	 */
-	public WochenuebersichtImpl(int kalenderjahr, int kalenderwoche,
-			ArbeitsgruppeImpl Arbeitsgruppe) {
+	public Wochenuebersicht(int kalenderjahr, int kalenderwoche,
+			Arbeitsgruppe Arbeitsgruppe) {
 		// TODO Auto-generated method stub
 
 	}
@@ -42,8 +39,8 @@ public class WochenuebersichtImpl {
 	 * @param Bereich
 	 * @return
 	 */
-	public WochenuebersichtImpl(int kalenderjahr, int kalenderwoche,
-			BereichImpl Bereich) {
+	public Wochenuebersicht(int kalenderjahr, int kalenderwoche,
+			Bereich Bereich) {
 		// TODO Auto-generated method stub
 
 	}
@@ -76,19 +73,19 @@ public class WochenuebersichtImpl {
 	}
 
 	
-	public Collection<WochenuebersichtImpl> getAlleWocheneuebersichten() {
+	public Collection<Wochenuebersicht> getAlleWocheneuebersichten() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	
-	public BereichImpl getBereich() {
+	public Bereich getBereich() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	
-	public ArbeitsgruppeImpl getArbeitsgruppe() {
+	public Arbeitsgruppe getArbeitsgruppe() {
 		// TODO Auto-generated method stub
 		return null;
 	}

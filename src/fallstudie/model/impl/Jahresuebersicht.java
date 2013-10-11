@@ -10,14 +10,14 @@ import java.util.Collection;
  * @date 11.10.2013
  * @version 1.1 - aktualisiert mit technisches Db modell
  */
-public class JahresuebersichtImpl {
+public class Jahresuebersicht {
 	
 	private int summe;
-	private ArtImpl art;
-	private Collection<ZeileImpl> zeile;
+	private Art art;
+	private Collection<Zeile> zeile;
 	private int kalenderjahr;
-	private ArbeitsgruppeImpl arbeitsgruppe;
-	private BereichImpl bereich;
+	private Arbeitsgruppe arbeitsgruppe;
+	private Bereich bereich;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -29,8 +29,8 @@ public class JahresuebersichtImpl {
 	 * @return 
 	 * @return
 	 */
-	public JahresuebersichtImpl(int kalenderjahr,
-			ArbeitsgruppeImpl Arbeitsgruppe) {
+	public Jahresuebersicht(int kalenderjahr,
+			Arbeitsgruppe Arbeitsgruppe) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -42,7 +42,7 @@ public class JahresuebersichtImpl {
 	 * @return 
 	 * @return
 	 */
-	public JahresuebersichtImpl(int kalenderjahr, BereichImpl Bereich) {
+	public Jahresuebersicht(int kalenderjahr, Bereich Bereich) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -73,7 +73,7 @@ public class JahresuebersichtImpl {
 	 * Bereich der Jahresuebersicht
 	 * @return
 	 */
-	public BereichImpl getBereich() {
+	public Bereich getBereich() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -82,12 +82,12 @@ public class JahresuebersichtImpl {
 	 * Arbeitsgruppe der Jahresuebersicht
 	 * @return
 	 */
-	public ArbeitsgruppeImpl getArbeitsgruppe() {
+	public Arbeitsgruppe getArbeitsgruppe() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	public Collection<ZeileImpl> getZeile()
+	public Collection<Zeile> getZeile()
 	{
 		return null;
 	}

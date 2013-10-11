@@ -7,7 +7,7 @@ import java.util.Collection;
  * @author Phil
  *@version 1.0
  */
-public class ArtImpl {
+public class Art {
 
 	private String name;
 	private boolean aktiv;
@@ -16,7 +16,7 @@ public class ArtImpl {
 	 * Konstruktor beim Anlegen einer neuen Art 
 	 * @param name
 	 */
-	public ArtImpl(String name)
+	public Art(String name)
 	{
 		
 	}
@@ -24,7 +24,7 @@ public class ArtImpl {
 	 * Methode liefert aus resultset ein ArtObjekt
 	 * @param resultSet
 	 */
-	public ArtImpl(ResultSet resultSet)
+	public Art(ResultSet resultSet)
 	{
 		
 	}
@@ -32,7 +32,7 @@ public class ArtImpl {
 	 * Liefert alle Arten zurück, die es gibt
 	 * @return
 	 */
-	public static Collection<ArtImpl> getAlleArten()
+	public static Collection<Art> getAlleArten()
 	{
 		return null;
 		
