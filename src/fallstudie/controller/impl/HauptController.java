@@ -59,15 +59,26 @@ public class HauptController implements Controller, TreeSelectionListener {
 		}
 
 	}
-
+	
+	/**
+	 * Hoert auf Menuebaum
+	 * 
+	 * @author Marc
+	 * @version 0.1 - Aktion für Passwort ändern
+	 * 
+	 * @author Johannes
+	 * @version 0.2 - Kommentierung
+	 */
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
-		// TODO Auto-generated method stub
+		//Aktion bestimmen
 		TreePath path = e.getNewLeadSelectionPath();
 		String aktion = path.getLastPathComponent().toString();
+		
+		//Aktion ausführen
 		switch(aktion)
 		{
-			case "Passwort �ndern":
+			case "Passwort ändern":
 					activeController = new PasswortAendernController();
 					hauptfenster.setContent(activeController.getView());
 					break;
@@ -93,11 +104,16 @@ public class HauptController implements Controller, TreeSelectionListener {
 				System.out.println("Keine definierte Aktion ausgew�hlt!");
 		}
 	}
-
+	
+	/**
+	 * Liefert den derzeit angezeigten Content zurück
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
 	@Override
 	public View getView() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.activeView;
 	}
 
 }
