@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-import com.mysql.jdbc.PreparedStatement;
-
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
@@ -57,6 +55,41 @@ public class ArbeitsgruppeImpl {
 	 * @return
 	 */
 
+	/**
+	 * Durch überreichen des Resultsets werden die Objekte vom Typ ArbeitsgruppeImpl erzeugt
+	 * @param resultSet
+	 * @throws SQLException 
+	 */
+	public ArbeitsgruppeImpl (ResultSet resultSet) throws SQLException
+	{
+		try
+		{
+			// Obtain the number of columns in the returned table
+			int columnCount = resultSet.getMetaData().getColumnCount();
+			//ID der Arbeitsgruppe
+			this.arbeitsgruppeID = resultSet.getInt("ArbeitgsuppeID");
+			
+			//Mitarbeiterobjekt aus der ID
+				int leiterID = resultSet.getInt("Leiter");
+			
+			this.mitarbeiter = new MitarbeiterImpl(leiterID);
+			
+			//Bereichobjekt aus der BereichsID
+				int bereichID = resultSet.getInt("Bereich");
+			//Bereich aus der ID generieren
+			this.bereich = new BereichImpl(bereichID);
+			//Beschreibung der Arbeitsgruppe
+			this.beschreibung = resultSet.getString("Beschreibung");
+			//Kurzbezeichnung der Arbeitsgruppe
+			this.kurzbezeichnung = resultSet.getString("Kurzbezeichnung");
+			//Status der Arbeitsgruppe
+			this.aktiv = resultSet.getBoolean("Aktiv");
+		}
+	catch (SQLException e)
+	{
+		System.err.println(e.getErrorCode());
+	}
+	}
 	
 	/**
 	 * Methode wenn nur die Kurzbezeichnung übergeben wird, 
@@ -66,72 +99,34 @@ public class ArbeitsgruppeImpl {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public ArbeitsgruppeImpl(String kurzbezeichnung, String dummy) throws SQLException {
+	public static ArbeitsgruppeImpl getArbeitsgruppeImplByName
+											(String kurzbezeichnung){
 
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
-		
-		ResultSet resultSet = RemoteConnection.sql.executeQuery
-			("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
-		System.out.println
-			("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
-		//Variablen für den späteren Konstruktoraufruf
-
-		
-		
-		// Obtain the number of columns in the returned table
-		int columnCount = resultSet.getMetaData().getColumnCount();
-		
-		this.kurzbezeichnung = kurzbezeichnung;
-
-		// Iterate over each row of the resulting table
-		
-		while (resultSet.next())
+		ArbeitsgruppeImpl ag = null;
+		try
 		{
-
-			// Output the value of each column of the current row
-			for (int i = 1; i <= columnCount; ++i) 
-			{
-
-				// Get the name of the current column
-				String columName = resultSet.getMetaData().getColumnLabel(i);
-				//System.out.println(columName);
-				
-				if (columName.equals("ArbeitsgruppeID"))
-				{
-					 arbeitsgruppeID = resultSet.getInt(i);
-				}
-				
-				if (columName.equals("Leiter"));
-				{
-					// Get the value of this column of the current row
-					String leiter = resultSet.getString(i);
-					//Mitarbeiter wird generiert aus dem Suchbegriff-Konstruktor
-					 this.mitarbeiter = new MitarbeiterImpl(leiter);
-					
-				}
-				if (columName.equals("Bereich"))
-				{
-					//Get the value of this column of the current row
-					String bereichBezeichnung = resultSet.getString(i);
-					//Bereich wird generiert aus dem Suchbegriff-Konstruktor
-					this.bereich = new BereichImpl(bereichBezeichnung);
-				}
-				if (columName.equals("Beschreibung"))
-				{
-					//Get the value of this column of the current row
-					this.beschreibung = resultSet.getString(i);
-				}
-				if (columName.equals("aktiv"))
-				{
-					//Get the value of this column of the current row
-					this.aktiv = resultSet.getBoolean(i);
-				}
-				
-			}
+			
+		
+			ResultSet resultSet = RemoteConnection.sql.executeQuery
+				("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
+			System.out.println
+				("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
+			//Variablen für den späteren Konstruktoraufruf
+	
+			ag = new ArbeitsgruppeImpl(resultSet);
+			
+			
 		}
+		catch (SQLException e)
+		{
+			
+		}
+		return ag;
 	}
+		
 
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
