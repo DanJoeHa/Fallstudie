@@ -1,5 +1,7 @@
 package fallstudie.model.impl;
 
+import java.util.Collection;
+
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
@@ -54,6 +56,7 @@ public class JahresuebersichtImpl {
 	 */
 	public int getSumme()
 	{
+		return summe;
 		
 	}
 
