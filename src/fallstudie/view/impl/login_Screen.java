@@ -111,6 +111,9 @@ textField = new JTextField();
 textField.setBounds(219, 124, 97, 20);
 arbeitsbereich.add(textField);
 textField.setColumns(10);
+JLabel lblNewLabel = new JLabel("Bitte geben Sie ihren Benutzernamen und ihr Passwort ein.");
+lblNewLabel.setBounds(10, 56, 380, 14);
+arbeitsbereich.add(lblNewLabel);
 
 JButton btnHilfe = new JButton("Hilfe?");
 btnHilfe.setBounds(620, 42, 150, 20);

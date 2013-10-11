@@ -176,6 +176,9 @@ arbeitsbereich.add(btnNewButton);
 JButton btnSpeichern = new JButton("Speichern");
 btnSpeichern.setBounds(205, 382, 132, 23);
 arbeitsbereich.add(btnSpeichern);
+JButton btnNewButton_1 = new JButton("Generieren");
+btnNewButton_1.setBounds(248, 153, 116, 23);
+arbeitsbereich.add(btnNewButton_1);
 
 JButton btnLogout = new JButton("Logout");
 btnLogout.setPreferredSize(new Dimension(150, 20));

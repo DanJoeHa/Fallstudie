@@ -9,7 +9,7 @@ public class popup_PW_vergessen{
                 Object[] options = {"Schlieﬂen"};
  
                 int selected = JOptionPane.showOptionDialog(null,
-                                                            "Melden sie sich bitte bei ihrem User Help Desk unter der Telefonnummer 777/12345",
+                                                            "Melden Sie sich bitte bei Ihrem User Help Desk unter der Telefonnummer 777/12345",
                                                             "Passwort vergessen?",
                                                             JOptionPane.DEFAULT_OPTION, 
                                                             JOptionPane.INFORMATION_MESSAGE, 
