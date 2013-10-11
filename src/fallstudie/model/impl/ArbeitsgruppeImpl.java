@@ -93,6 +93,12 @@ public class ArbeitsgruppeImpl {
 	}
 	}
 	
+	public ArbeitsgruppeImpl(int arbeitsgruppe) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	/**
 	 * Methode wenn nur die Kurzbezeichnung übergeben wird, 
 	 * alles andere wird in der Datenbank geholt mit SELECT
