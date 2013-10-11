@@ -4,11 +4,16 @@ package fallstudie.model.impl;
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
  * @author variablen eingefügt
+ * @autor Phil
+ * @date 11.10.2013
+ * @version 1.1 - aktualisiert mit technisches Db modell
  */
 public class JahresuebersichtImpl {
 	
-	private int schriftwechselSumme;
-	private int erstattungenSumme;
+	private int summe;
+	private ArtImpl art;
+	private Collection<ZeileImpl> zeile;
+	private int kalenderjahr;
 	private ArbeitsgruppeImpl arbeitsgruppe;
 	private BereichImpl bereich;
 	
@@ -43,33 +48,44 @@ public class JahresuebersichtImpl {
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
 	
-	public int getErstattungenSumme() {
-		// TODO Auto-generated method stub
-		return 0;
+	/**
+	 * Summe erhalten
+	 * @return
+	 */
+	public int getSumme()
+	{
+		
 	}
 
-	
-	public int getSchriftwechselSumme() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
+	/**
+	 * Kalenderjahr erhalten
+	 * @return
+	 */
 	public int getKalenderjahr() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	
+	/**
+	 * Bereich der Jahresuebersicht
+	 * @return
+	 */
 	public BereichImpl getBereich() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
+	/**
+	 * Arbeitsgruppe der Jahresuebersicht
+	 * @return
+	 */
 	public ArbeitsgruppeImpl getArbeitsgruppe() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public Collection<ZeileImpl> getZeile()
+	{
+		return null;
+	}
 }
