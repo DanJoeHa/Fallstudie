@@ -7,9 +7,12 @@ import java.util.Collection;
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
- * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
- * @version 1.0 Attribute ergänzt
- * @author 
+ *	 	generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
+ *		 @version 1.0 Attribute ergänzt
+ * @author Phil
+ * 		@date 11.10.2013
+ *		@version 1.1
+ *		@change checkPasswort() eingefügt und ausloggen kommentiert
  */
 public class Mitarbeiter {
 	
