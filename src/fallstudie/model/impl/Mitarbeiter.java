@@ -158,7 +158,7 @@ public class Mitarbeiter {
 	 * @return
 	 */
 	public boolean ausloggen() {
-		// TODO Auto-generated method stub
+		// LastLogin wird gesetzt
 		return false;
 	}
 
@@ -218,7 +218,17 @@ public class Mitarbeiter {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	/**
+	 * Methode prüft ob eingegebenes Passwort bei Passwort vergessen View,
+	 * das ist welches in der Datenbank abgelegt ist. Dient zur Identifizierung des Mitarbeiters
+	 * @param altesPasswort
+	 * @return boolean
+	 */
+	public boolean checkPasswort(String altesPasswort)
+	{
+		return aktiv;
+		//Passwort verschlüsseln und in der Datenbank abfragen
+	}
 	/**
 	 * bekommt das Passwort des Mitarbeiters
 	 * @return
