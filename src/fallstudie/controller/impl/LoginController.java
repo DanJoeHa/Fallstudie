@@ -13,6 +13,7 @@ public class LoginController extends HauptController
 	
 	public LoginController()
 	{
+		//View laden
 		this.view = new LoginView();
 	}
 	
