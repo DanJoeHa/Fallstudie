@@ -18,13 +18,13 @@ import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
 
 public class erfassen_gruppenleiter {
 
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -110,12 +110,8 @@ public class erfassen_gruppenleiter {
 		arbeitsbereich.add(lblKalenderwoche);
 		
 		JLabel lblBearbeiteteErstattungen = new JLabel("Bearbeitete Erstattungen:");
-		lblBearbeiteteErstattungen.setBounds(10, 241, 181, 14);
+		lblBearbeiteteErstattungen.setBounds(10, 278, 142, 14);
 		arbeitsbereich.add(lblBearbeiteteErstattungen);
-		
-		JLabel lblBearbeiteteSchriftwechsel = new JLabel("Bearbeitete Schriftwechsel:");
-		lblBearbeiteteSchriftwechsel.setBounds(10, 278, 181, 14);
-		arbeitsbereich.add(lblBearbeiteteSchriftwechsel);
 		
 		JButton btnZurcksetzen = new JButton("Zur\u00FCcksetzen");
 		btnZurcksetzen.setBounds(10, 400, 150, 23);
@@ -142,22 +138,21 @@ public class erfassen_gruppenleiter {
 		arbeitsbereich.add(rdbtnWocheJetzt);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(200, 238, 86, 20);
+		textField_1.setBounds(177, 275, 86, 20);
 		arbeitsbereich.add(textField_1);
 		textField_1.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(200, 275, 86, 20);
-		arbeitsbereich.add(textField_2);
-		textField_2.setColumns(10);
-		
 		JButton button = new JButton("+");
-		button.setBounds(301, 237, 89, 23);
+		button.setBounds(268, 274, 48, 23);
 		arbeitsbereich.add(button);
 		
-		JButton button_1 = new JButton("+");
-		button_1.setBounds(301, 274, 89, 23);
-		arbeitsbereich.add(button_1);
+		JLabel lblArtAuswhlen = new JLabel("Art ausw\u00E4hlen");
+		lblArtAuswhlen.setBounds(10, 243, 150, 14);
+		arbeitsbereich.add(lblArtAuswhlen);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(177, 244, 139, 20);
+		arbeitsbereich.add(comboBox);
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.setPreferredSize(new Dimension(150, 20));
