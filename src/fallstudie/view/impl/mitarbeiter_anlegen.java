@@ -17,10 +17,18 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import java.awt.Font;
+import javax.swing.JComboBox;
+import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
 
 public class mitarbeiter_anlegen {
 
 private JFrame frame;
+private JTextField textField;
+private JTextField textField_1;
+private JTextField textField_2;
+private JPasswordField passwordField;
+private JPasswordField passwordField_1;
 
 /**
 * Launch the application.
@@ -133,6 +141,41 @@ arbeitsbereich.add(lblArbeitsgruppe);
 JLabel lblArbeitsgruppe_1 = new JLabel("Arbeitsgruppe");
 lblArbeitsgruppe_1.setBounds(10, 232, 90, 14);
 arbeitsbereich.add(lblArbeitsgruppe_1);
+textField = new JTextField();
+textField.setBounds(110, 79, 130, 20);
+arbeitsbereich.add(textField);
+textField.setColumns(10);
+textField_1 = new JTextField();
+textField_1.setColumns(10);
+textField_1.setBounds(110, 104, 130, 20);
+arbeitsbereich.add(textField_1);
+textField_2 = new JTextField();
+textField_2.setColumns(10);
+textField_2.setBounds(110, 129, 130, 20);
+arbeitsbereich.add(textField_2);
+JComboBox comboBox = new JComboBox();
+comboBox.setBounds(110, 204, 130, 20);
+arbeitsbereich.add(comboBox);
+JComboBox comboBox_1 = new JComboBox();
+comboBox_1.setBounds(110, 179, 130, 20);
+arbeitsbereich.add(comboBox_1);
+passwordField = new JPasswordField();
+passwordField.setBounds(110, 154, 130, 20);
+arbeitsbereich.add(passwordField);
+passwordField_1 = new JPasswordField();
+passwordField_1.setBounds(110, 229, 130, 20);
+arbeitsbereich.add(passwordField_1);
+JButton btnLupe = new JButton("");
+btnLupe.setIcon(new ImageIcon("../Fallstudie/src/fallstudie/view/images/lupe3.jpg"));
+btnLupe.setBackground(Color.WHITE);
+btnLupe.setBounds(250, 228, 25, 26);
+arbeitsbereich.add(btnLupe);
+JButton btnNewButton = new JButton("Zur\u00FCcksetzten");
+btnNewButton.setBounds(63, 382, 132, 23);
+arbeitsbereich.add(btnNewButton);
+JButton btnSpeichern = new JButton("Speichern");
+btnSpeichern.setBounds(205, 382, 132, 23);
+arbeitsbereich.add(btnSpeichern);
 
 JButton btnLogout = new JButton("Logout");
 btnLogout.setPreferredSize(new Dimension(150, 20));
