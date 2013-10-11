@@ -1,26 +1,38 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
+
 import java.awt.Dimension;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
+
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
-public class PasswortAendernView extends JPanel {
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
+
+public class PasswortAendernView extends JPanel implements View {
+
+
+	private static final long serialVersionUID = -5269473857849047666L;
 	private JPasswordField P_AltesPasswort;
 	private JPasswordField P_WdhPasswort;
 	private JPasswordField P_NeuesPasswort;
 
 	/**
-	 * Create the panel.
+	 * Sicht erstellen.
+	 * 
+	 * @author Natalja
+	 * @version 1.0
 	 */
 	public PasswortAendernView() {
 		setPreferredSize(new Dimension(600, 700));
@@ -85,5 +97,65 @@ public class PasswortAendernView extends JPanel {
 		B_Speichern.setBounds(306, 280, 150, 23);
 		add(B_Speichern);
 		
+	}
+
+	/**
+	 * liest die Eingabe aus dem Textfeld "altesPasswort" aus und gibt diese zurück
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * @return (String) altes Passwort
+	 */
+	public String getAltesPasswort(){
+		return String.valueOf( this.P_AltesPasswort.getPassword());
+	}
+	
+	/**
+	 * liest die Eingabe aus dem Textfeld "neuesPasswort" aus und gibt diese zurück
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * @return (String) Passwortwiederholung
+	 */
+	public String getWdhPasswort(){
+		return String.valueOf( this.P_WdhPasswort.getPassword());
+	}
+	
+	/**
+	 * liest die Eingabe aus dem Textfeld "WdhPasswort" aus und gibt diese zurück
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * @return (String) Passwort
+	 */
+	public String getNeuesPasswort(){
+		return String.valueOf( this.P_NeuesPasswort.getPassword());
+	}
+	
+	/**
+	 * ActionListener auf die Buttons setzen
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * @param controller
+	 */
+	@Override
+	public void setController(Controller c) {
+		this.P_AltesPasswort.addActionListener(c);
+		this.P_NeuesPasswort.addActionListener(c);
+		this.P_WdhPasswort.addActionListener(c);		
+	}
+
+	/**
+	 * Textfeld auf Maske leeren
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
+	@Override
+	public void reset() {
+		this.P_AltesPasswort.setText("");
+		this.P_NeuesPasswort.setText("");
+		this.P_WdhPasswort.setText("");
 	}
 }
