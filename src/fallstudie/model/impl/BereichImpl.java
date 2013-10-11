@@ -43,6 +43,15 @@ public class BereichImpl {
 		// TODO Auto-generated method stub
 
 	}
+	
+	/**
+	 * findet anhand der BereichsID den Bereich
+	 * @param bereichID
+	 */
+
+	public BereichImpl(int bereichID) {
+		// TODO Auto-generated constructor stub
+	}
 
 
 	//-----------------------------------------------------------
