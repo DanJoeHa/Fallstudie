@@ -9,13 +9,13 @@ import java.util.Date;
  * @version 1.1 - Aktualisiert
  */
 
-public class EintragImpl {
+public class Eintrag {
 
 	
 	private Date datum;
-	private ArbeitsgruppeImpl arbeitsgruppe;
+	private Arbeitsgruppe arbeitsgruppe;
 	private int anzahl;
-	private ArtImpl art;
+	private Art art;
 	private int kalenderwoche;
 	private int kalenderjahr;
 	
@@ -30,8 +30,8 @@ public class EintragImpl {
 	 * @param arbeitsgruppe
 	 * @param art
 	 */
-	public EintragImpl(int kalenderjahr, int kalenderwoche, int anzahl, 
-			ArbeitsgruppeImpl arbeitsgruppe, ArtImpl art) {
+	public Eintrag(int kalenderjahr, int kalenderwoche, int anzahl, 
+			Arbeitsgruppe arbeitsgruppe, Art art) {
 		// TODO Auto-generated method stub
 		// datum genereiren
 	}

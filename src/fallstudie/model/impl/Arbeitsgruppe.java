@@ -11,14 +11,14 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  * @author Phil 11.10.2013
  * 
  */
-public class ArbeitsgruppeImpl {
+public class Arbeitsgruppe {
 
 	private  String beschreibung;
 	private  String kurzbezeichnung;
 	private  int arbeitsgruppeID;
-	private  BereichImpl bereich;
+	private  Bereich bereich;
 	private  boolean aktiv;
-	private  MitarbeiterImpl leiter;
+	private  Mitarbeiter leiter;
 	
 	
 	//-----------------------------------------------------------
@@ -34,8 +34,8 @@ public class ArbeitsgruppeImpl {
 	 * @return 
 	 * @return
 	 */
-	public ArbeitsgruppeImpl(String kurzbezeichnung, String beschreibung,
-			BereichImpl bereich, MitarbeiterImpl leiter) {
+	public Arbeitsgruppe(String kurzbezeichnung, String beschreibung,
+			Bereich bereich, Mitarbeiter leiter) {
 
 
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -56,7 +56,7 @@ public class ArbeitsgruppeImpl {
 	 * @param resultSet
 	 * @throws SQLException 
 	 */
-	public ArbeitsgruppeImpl (ResultSet resultSet) throws SQLException
+	public Arbeitsgruppe (ResultSet resultSet) throws SQLException
 	{
 
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -74,12 +74,12 @@ public class ArbeitsgruppeImpl {
 			//Mitarbeiterobjekt aus der ID
 				String leiterID = resultSet.getString("Leiter");
 			//checken
-			this.leiter = new MitarbeiterImpl(leiterID);
+			this.leiter = new Mitarbeiter(leiterID);
 			
 			//Bereichobjekt aus der BereichsID
 				int bereichID = resultSet.getInt("Bereich");
 			//Bereich aus der ID generieren
-			this.bereich = new BereichImpl(bereichID);
+			this.bereich = new Bereich(bereichID);
 			//Beschreibung der Arbeitsgruppe
 			this.beschreibung = resultSet.getString("Beschreibung");
 			//Kurzbezeichnung der Arbeitsgruppe
@@ -99,7 +99,7 @@ public class ArbeitsgruppeImpl {
 	 * @param arbeitsgruppeid
 	 */
 	
-	public ArbeitsgruppeImpl(int arbeitsgruppeid) {
+	public Arbeitsgruppe(int arbeitsgruppeid) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -113,7 +113,7 @@ public class ArbeitsgruppeImpl {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public static ArbeitsgruppeImpl getArbeitsgruppeImplByName(String kurzbezeichnung){
+	public static Arbeitsgruppe getArbeitsgruppeImplByName(String kurzbezeichnung){
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null )
@@ -127,7 +127,7 @@ public class ArbeitsgruppeImpl {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		
-		ArbeitsgruppeImpl ag = null;
+		Arbeitsgruppe ag = null;
 		
 		try
 		{
@@ -139,7 +139,7 @@ public class ArbeitsgruppeImpl {
 				("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
 			//Variablen für den späteren Konstruktoraufruf
 	
-			ag = new ArbeitsgruppeImpl(resultSet);
+			ag = new Arbeitsgruppe(resultSet);
 			
 			
 		}
@@ -207,7 +207,7 @@ public class ArbeitsgruppeImpl {
 	 * @param bereich
 	 * @return
 	 */
-	public boolean setBereich(BereichImpl bereich) {
+	public boolean setBereich(Bereich bereich) {
 		
 		return false;
 	}
@@ -218,7 +218,7 @@ public class ArbeitsgruppeImpl {
 	 * @return
 	 */
 	
-	public BereichImpl getBereich() {
+	public Bereich getBereich() {
 		// TODO Auto-generated method stub
 		return this.bereich;
 	}
@@ -229,7 +229,7 @@ public class ArbeitsgruppeImpl {
 	 * @param mitarbeiter
 	 * @return boolean ob erfolgreich
 	 */
-	public boolean setLeiter(MitarbeiterImpl mitarbeiter) {
+	public boolean setLeiter(Mitarbeiter mitarbeiter) {
 		
 		return false;
 	}
@@ -239,7 +239,7 @@ public class ArbeitsgruppeImpl {
 	 * der in der Tabelle Mitarbeiter generiert wird
 	 * @return
 	 */
-	public MitarbeiterImpl getLeiter() {
+	public Mitarbeiter getLeiter() {
 		// TODO Auto-generated method stub
 		return this.leiter;
 	}
@@ -289,7 +289,7 @@ public class ArbeitsgruppeImpl {
 	 * einer Arbeitsgruppe hinzugefügt wird oder geändert wird
 	 * @return
 	 */
-	public Collection<ArbeitsgruppeImpl> getAlleArbeitsgruppen() {
+	public Collection<Arbeitsgruppe> getAlleArbeitsgruppen() {
 
 		
 		return null;
@@ -300,7 +300,7 @@ public class ArbeitsgruppeImpl {
 	 * @param suchbegriff
 	 * @return
 	 */
-	public static Collection<ArbeitsgruppeImpl> suche(String suchbegriff)
+	public static Collection<Arbeitsgruppe> suche(String suchbegriff)
 	{
 
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){

@@ -2,7 +2,7 @@ package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
 
-import fallstudie.model.impl.MitarbeiterImpl;
+import fallstudie.model.impl.Mitarbeiter;
 
 public class LoginController extends HauptController
 {
@@ -15,7 +15,7 @@ public class LoginController extends HauptController
 		String button = e.getActionCommand();
 		if(button == "Login")
 		{
-			activeUser = MitarbeiterImpl.einloggen(this.activeView.getBenutzername(), this.activeView.getPasswort());
+			activeUser = Mitarbeiter.einloggen(this.activeView.getBenutzername(), this.activeView.getPasswort());
 		}
 		if(button == "Passwort vergessen"){
 			PopupSchlieﬂen popup = new PopupSchlieﬂen();

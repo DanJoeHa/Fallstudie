@@ -9,12 +9,12 @@ import java.util.Collection;
  * @author Phil, 11.10.2013, aktualisiert
  * @version 1.1
  */
-public class BereichImpl {
+public class Bereich {
 
 	private String beschreibung;
 	private String kurzbezeichnung;
 	private boolean aktiv;
-	private MitarbeiterImpl leiter;
+	private Mitarbeiter leiter;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -27,8 +27,8 @@ public class BereichImpl {
 	 * @return
 	 */
 	
-	public BereichImpl(String kurzbezeichnung, String beschreibung,
-			MitarbeiterImpl leiter) {
+	public Bereich(String kurzbezeichnung, String beschreibung,
+			Mitarbeiter leiter) {
 		// TODO Auto-generated method stub
 
 	}
@@ -41,7 +41,7 @@ public class BereichImpl {
 	 * @return
 	 */
 		
-	public BereichImpl(String suchbegriff) {
+	public Bereich(String suchbegriff) {
 		// TODO Auto-generated method stub
 
 	}
@@ -51,7 +51,7 @@ public class BereichImpl {
 	 * @param bereichID
 	 */
 
-	public BereichImpl(int bereichID) {
+	public Bereich(int bereichID) {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -59,7 +59,7 @@ public class BereichImpl {
 	 * Bereich wird anhand eines Resultsets erstellt
 	 * @param resultSet
 	 */
-	public BereichImpl(ResultSet resultSet)
+	public Bereich(ResultSet resultSet)
 	{
 		
 	}
@@ -142,7 +142,7 @@ public class BereichImpl {
 	 * @return
 	 */
 	
-	public Collection<BereichImpl> getAlleBereiche() {
+	public Collection<Bereich> getAlleBereiche() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -153,7 +153,7 @@ public class BereichImpl {
 	 * @return
 	 */
 	
-	public boolean setLeiter(MitarbeiterImpl Mitarbeiter) {
+	public boolean setLeiter(Mitarbeiter Mitarbeiter) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -163,7 +163,7 @@ public class BereichImpl {
 	 * Leiter eines Bereichs bekommen
 	 * @return
 	 */
-	public MitarbeiterImpl getMitarbeiter() {
+	public Mitarbeiter getMitarbeiter() {
 		// TODO Auto-generated method stub
 		return null;
 	}

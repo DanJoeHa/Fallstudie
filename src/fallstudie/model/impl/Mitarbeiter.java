@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-import fallstudie.model.interfaces.*;
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
@@ -12,15 +11,15 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  * @version 1.0 Attribute ergänzt
  * @author 
  */
-public class MitarbeiterImpl {
+public class Mitarbeiter {
 	
 	private String benutzername;
 	private String passwort;
 	private String vorname;
 	private String nachname;
-	private RolleImpl rolle;
-	private ArbeitsgruppeImpl arbeitsgruppe;
-	private BereichImpl bereich;
+	private Rolle rolle;
+	private Arbeitsgruppe arbeitsgruppe;
+	private Bereich bereich;
 	private String letzterLogin;
 	private boolean aktiv;
 	
@@ -34,7 +33,7 @@ public class MitarbeiterImpl {
 	 * @return Objekt Mitarbeiter
 	 */
 	
-	public MitarbeiterImpl(String benutzername, String passwort) {
+	public Mitarbeiter(String benutzername, String passwort) {
 		// TODO Auto-generated method stub
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
@@ -47,7 +46,7 @@ public class MitarbeiterImpl {
 	 * @param suchBegriff
 	 * @return MitarbeiterObjekt
 	 */
-	public MitarbeiterImpl(String suchBegriff) {
+	public Mitarbeiter(String suchBegriff) {
 		// TODO Auto-generated method stub
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
@@ -64,8 +63,8 @@ public class MitarbeiterImpl {
 	 * @param bereich
 	 */
 	
-	public MitarbeiterImpl(String benutzername, String passwort,
-			String vorname, String nachname, RolleImpl rolle, BereichImpl bereich) {
+	public Mitarbeiter(String benutzername, String passwort,
+			String vorname, String nachname, Rolle rolle, Bereich bereich) {
 		// TODO Auto-generated method stub
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
@@ -81,8 +80,8 @@ public class MitarbeiterImpl {
 	 * @param rolle
 	 * @param arbeitsgruppe
 	 */
-	public MitarbeiterImpl(String benutzername, String passwort,
-			String vorname, String nachname, RolleImpl rolle, ArbeitsgruppeImpl arbeitsgruppe) {
+	public Mitarbeiter(String benutzername, String passwort,
+			String vorname, String nachname, Rolle rolle, Arbeitsgruppe arbeitsgruppe) {
 		// TODO Auto-generated method stub
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
@@ -93,7 +92,7 @@ public class MitarbeiterImpl {
 	 * Überladener Konstruktor #4, wird verwendet wenn ein Mitarbeiter neu angelegt wird
 	 * @param resultSet
 	 */
-	public MitarbeiterImpl(ResultSet resultSet){
+	public Mitarbeiter(ResultSet resultSet){
 		// TODO Auto-generated method stub
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
@@ -118,13 +117,13 @@ public class MitarbeiterImpl {
 			this.letzterLogin = resultSet.getString("LetzterLogin");
 			//Rolle
 			String Rolle = resultSet.getString("Rollenbezeichnung");
-			this.rolle = new RolleImpl(Rolle);
+			this.rolle = new Rolle(Rolle);
 			//Arbeitsgruppe Konstruktor anpassen?? Für int ??? @philipp
 			int Arbeitsgruppe = resultSet.getInt("ArbeitsgruppeID");
-			this.arbeitsgruppe = new ArbeitsgruppeImpl(Arbeitsgruppe);
+			this.arbeitsgruppe = new Arbeitsgruppe(Arbeitsgruppe);
 			//Bereich
 			int Bereich = resultSet.getInt("BereichID");
-			this.bereich = new BereichImpl(Bereich);
+			this.bereich = new Bereich(Bereich);
 		}
 	catch (SQLException e)
 	{
@@ -159,7 +158,7 @@ public class MitarbeiterImpl {
 	 * @return
 	 */
 	public boolean ausloggen() {
-		// TODO Auto-generated method stub
+		// LastLogin wird gesetzt
 		return false;
 	}
 
@@ -168,7 +167,7 @@ public class MitarbeiterImpl {
 	 * @param bereich
 	 * @return
 	 */
-	public boolean setBereich(BereichImpl bereich) {
+	public boolean setBereich(Bereich bereich) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -177,7 +176,7 @@ public class MitarbeiterImpl {
 	 * bekommt den Bereich des Mitarbeiters
 	 * @return
 	 */
-	public BereichImpl getBereich() {
+	public Bereich getBereich() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -187,7 +186,7 @@ public class MitarbeiterImpl {
 	 * @param rolle
 	 * @return
 	 */
-	public boolean setRolle(RolleImpl rolle) {
+	public boolean setRolle(Rolle rolle) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -196,7 +195,7 @@ public class MitarbeiterImpl {
 	 * bekommt die Rolle des Mitarbeiters
 	 * @return
 	 */
-	public RolleImpl getRolle() {
+	public Rolle getRolle() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -219,7 +218,17 @@ public class MitarbeiterImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	/**
+	 * Methode prüft ob eingegebenes Passwort bei Passwort vergessen View,
+	 * das ist welches in der Datenbank abgelegt ist. Dient zur Identifizierung des Mitarbeiters
+	 * @param altesPasswort
+	 * @return boolean
+	 */
+	public boolean checkPasswort(String altesPasswort)
+	{
+		return aktiv;
+		//Passwort verschlüsseln und in der Datenbank abfragen
+	}
 	/**
 	 * bekommt das Passwort des Mitarbeiters
 	 * @return
@@ -244,7 +253,7 @@ public class MitarbeiterImpl {
 	 * @param arbeitsgruppe
 	 * @return
 	 */
-	public boolean setArbeitsgruppe(ArbeitsgruppeImpl arbeitsgruppe) {
+	public boolean setArbeitsgruppe(Arbeitsgruppe arbeitsgruppe) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -253,7 +262,7 @@ public class MitarbeiterImpl {
 	 * bekommt die Arbeitsgruppe
 	 * @return
 	 */
-	public ArbeitsgruppeImpl getArbeitsgruppe() {
+	public Arbeitsgruppe getArbeitsgruppe() {
 		// TODO Auto-generated method stub
 		return null;
 	}

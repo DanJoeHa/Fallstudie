@@ -4,10 +4,10 @@ package fallstudie.model.impl;
  *@author Phil
  *@version 1.0 - erstellt
  */
-public class ZeileImpl {
+public class Zeile {
 
 	private int summe;
-	private ArtImpl art;
+	private Art art;
 	
 	
 	/**
@@ -15,7 +15,7 @@ public class ZeileImpl {
 	 * @param summe
 	 * @param art
 	 */
-	public ZeileImpl (int summe, ArtImpl art)
+	public Zeile (int summe, Art art)
 	{
 		
 	}

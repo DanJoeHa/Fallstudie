@@ -9,7 +9,7 @@ package fallstudie.model.impl;
  * @version 1.0 Attribute ergänzt
  * @author 
  */
-public class RechteImpl {
+public class Rechte {
 
 	String name;
 	String beschreibung;
@@ -23,7 +23,7 @@ public class RechteImpl {
 	 * @param Name
 	 * @return
 	 */
-	public RechteImpl(String Name) {
+	public Rechte(String Name) {
 		// TODO Auto-generated method stub
 
 	}

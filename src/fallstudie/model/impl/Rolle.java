@@ -11,7 +11,7 @@ import java.util.Collection;
  * @version 1.0
  * @author 
  */
-public class RolleImpl  {
+public class Rolle  {
 
 	String rollenbeschreibung;
 	String rollenbezeichnung;
@@ -24,21 +24,21 @@ public class RolleImpl  {
 	 * @return 
 	 * @return
 	 */
-	public RolleImpl(String rollenbezeichnung) {
+	public Rolle(String rollenbezeichnung) {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	//--------------------KONSTRUKTOR--------------------
 	
-	public Collection<RolleImpl> getAlleRolleImpl() {
-		Collection<RolleImpl> RollenCollection = null;
+	public Collection<Rolle> getAlleRollen() {
+		Collection<Rolle> RollenCollection = null;
 		return RollenCollection;
 	}
 
-	public Collection<RechteImpl> getBerechtigungenzuRolle() {
+	public Collection<Rechte> getBerechtigungenzuRolle() {
 
-		Collection<RechteImpl> RechteCollection = null;
+		Collection<Rechte> RechteCollection = null;
 		return RechteCollection;
 	}
 
