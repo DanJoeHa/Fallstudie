@@ -14,7 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
-public class passwort_aendern extends JPanel {
+public class PasswortAendernView extends JPanel {
 	private JPasswordField P_AltesPasswort;
 	private JPasswordField P_WdhPasswort;
 	private JPasswordField P_NeuesPasswort;
@@ -22,7 +22,7 @@ public class passwort_aendern extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public passwort_aendern() {
+	public PasswortAendernView() {
 		setPreferredSize(new Dimension(600, 700));
 		setMinimumSize(new Dimension(600, 700));
 		setMaximumSize(new Dimension(600, 700));
