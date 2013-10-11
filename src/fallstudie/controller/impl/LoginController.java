@@ -9,18 +9,18 @@ import fallstudie.view.interfaces.View;
 
 public class LoginController extends HauptController
 {
-	private LoginView activeView;
+	private LoginView view;
 	
 	public LoginController()
 	{
-		this.activeView = new LoginView();
+		this.view = new LoginView();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 		if(button == "Login")
 		{
-			activeUser = Mitarbeiter.einloggen(this.activeView.getBenutzername(), this.activeView.getPasswort());
+			activeUser = Mitarbeiter.einloggen(this.view.getBenutzername(), this.view.getPasswort());
 		}
 		if(button == "Passwort vergessen"){
 			PopupSchliessenView popup = new PopupSchliessenView();

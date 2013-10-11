@@ -13,7 +13,7 @@ import fallstudie.view.interfaces.View;
  */
 public class PasswortController extends HauptController {
 	
-	private PasswortAendernView activeView;
+	private PasswortAendernView view;
 	
 	/**
 	 * Zeigt die Passwort-Ändern Maske
@@ -22,7 +22,7 @@ public class PasswortController extends HauptController {
 	 * @version 1.0
 	 */
 	public PasswortController(){
-		this.activeView = new PasswortAendernView();
+		this.view = new PasswortAendernView();
 	}
 	
 	/**
@@ -41,9 +41,9 @@ public class PasswortController extends HauptController {
 		if(button == "Speichern")
 		{
 			//Hole Daten aus View
-			String neuesPasswort = this.activeView.getNeuesPasswort();
-			String wdhPasswort = this.activeView.getWdhPasswort();
-			String altesPasswort = this.activeView.getAltesPasswort();
+			String neuesPasswort = this.view.getNeuesPasswort();
+			String wdhPasswort = this.view.getWdhPasswort();
+			String altesPasswort = this.view.getAltesPasswort();
 			
 			//Prüfe, ob altes Passwort mit derzeitigem Passwort übereinstimmt
 			if( activeUser.checkPasswort(altesPasswort)){

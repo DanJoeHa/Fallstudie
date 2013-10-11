@@ -21,7 +21,7 @@ import fallstudie.view.interfaces.View;
 public class HauptController implements Controller, TreeSelectionListener {
 
 	private Controller activeController;
-	protected View activeView;
+	protected View view;
 	protected static HauptView hauptfenster;
 	protected static Mitarbeiter activeUser;
 	
@@ -129,7 +129,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 	 */
 	@Override
 	public View getView() {
-		return this.activeView;
+		return this.view;
 	}
 
 }
