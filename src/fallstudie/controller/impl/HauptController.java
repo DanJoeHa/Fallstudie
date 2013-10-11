@@ -22,8 +22,22 @@ public class HauptController implements Controller, TreeSelectionListener {
 
 	private Controller activeController;
 	protected View activeView;
-	protected static Hauptfenster hauptfenster;
+	protected static HauptView hauptfenster;
 	protected static Mitarbeiter activeUser;
+	
+	/**
+	 * Ruft das Hauptfenster der Anwendung auf und läd die LoginView hinein
+	 */
+	public HauptController(){
+		
+		//aktiven Controller auf LoginController setzen
+		activeController = new LoginController();
+		
+		//Hauptfenster
+		hauptfenster = new HauptView();
+		hauptfenster.setUeberschrift("Login");
+		hauptfenster.setContent( activeController.getView() );
+	}
 	
 	/**
 	 * Hoert auf Buttons "Logout" und "Hilfe"
@@ -47,6 +61,8 @@ public class HauptController implements Controller, TreeSelectionListener {
 				
 				//LoginController erstellen und Sicht auf Login wechseln
 				activeController = new LoginController();
+				hauptfenster.setUeberschrift("Login");
+				hauptfenster.setInfoBox("Sie haben sich erfolgreich ausgeloggt.");
 				hauptfenster.setContent(activeController.getView());
 			}
 				
@@ -79,7 +95,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 		switch(aktion)
 		{
 			case "Passwort ändern":
-					activeController = new PasswortAendernController();
+					activeController = new PasswortController();
 					hauptfenster.setContent(activeController.getView());
 					break;
 			case "Test":

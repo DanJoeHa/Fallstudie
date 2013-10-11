@@ -13,8 +13,10 @@ import fallstudie.view.interfaces.View;
  */
 public class PasswortController extends HauptController {
 	
+	private PasswortAendernView activeView;
+	
 	/**
-	 * Zeit die Passwort-Ändern Maske
+	 * Zeigt die Passwort-Ändern Maske
 	 * 
 	 * @author Marc
 	 * @version 1.0
