@@ -7,8 +7,8 @@ import java.sql.Statement;
 
 public class RemoteConnection {
 	
-	protected static Connection connection = null;
-	protected static Statement sql = null;
+	public static Connection connection = null;
+	public static Statement sql = null;
 	
 	public static void connect(){
 		try{

@@ -59,11 +59,20 @@ public class MitarbeiterImpl {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * holt aus dem Primärschlüssen einen Mitarbeiter aus der Datenbank
+	 * @param leiterID
+	 */
+	public MitarbeiterImpl(int leiterID) {
+		
+	}
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
 	
+	
+
 	public static boolean einloggen(String benutzername, String passwort) {
 		// TODO Auto-generated method stub
 		return false;
