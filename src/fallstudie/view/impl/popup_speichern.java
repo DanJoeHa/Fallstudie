@@ -1,7 +1,7 @@
 package fallstudie.view.impl;
 import javax.swing.JOptionPane;
  
-public class Popup_speichern{
+public class popup_speichern{
         public static void main(String[] bla){
  
                 // Erstellung Array vom Datentyp Object, Hinzufügen der Optionen               

@@ -19,11 +19,12 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 import javax.swing.JPasswordField;
 
-public class Login_Screen {
+public class pw_aendern {
 
 private JFrame frame;
+private JPasswordField passwordField;
 private JPasswordField passwordField_1;
-private JTextField textField;
+private JPasswordField passwordField_2;
 
 /**
 * Launch the application.
@@ -32,7 +33,7 @@ public static void main(String[] args) {
 EventQueue.invokeLater(new Runnable() {
 public void run() {
 try {
-	Login_Screen window = new Login_Screen();
+	pw_aendern window = new pw_aendern();
 	window.frame.setVisible(true);
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -44,7 +45,7 @@ try {
 /**
 * Create the application.
 */
-public Login_Screen() {
+public pw_aendern() {
 initialize();
 }
 
@@ -72,10 +73,13 @@ frame.getContentPane().add(navigationsbereich);
 
 JTree navigationsbaum = new JTree();
 navigationsbaum.setModel(new DefaultTreeModel(
-	new DefaultMutableTreeNode("Aktionen") {
-		{
-		}
-	}
+new DefaultMutableTreeNode("Aktionen") {
+{
+add(new DefaultMutableTreeNode("Punkt1"));
+add(new DefaultMutableTreeNode("Punkt2"));
+add(new DefaultMutableTreeNode("Passwort \u00E4ndern"));
+}
+}
 ));
 navigationsbereich.add(navigationsbaum);
 
@@ -89,28 +93,35 @@ arbeitsbereich.setBounds(210, 11, 400, 550);
 frame.getContentPane().add(arbeitsbereich);
 arbeitsbereich.setLayout(null);
 
-JLabel lblEineberschrift = new JLabel("Anmeldung");
+JLabel lblEineberschrift = new JLabel("Passwort \u00C4ndern");
 lblEineberschrift.setBounds(10, 11, 97, 14);
 arbeitsbereich.add(lblEineberschrift);
-JLabel lblAltesPasswort = new JLabel("Benutzername:");
+JLabel lblAltesPasswort = new JLabel("Altes Passwort:");
 lblAltesPasswort.setBounds(35, 127, 128, 14);
 arbeitsbereich.add(lblAltesPasswort);
-JLabel lblNeuesPasswort = new JLabel("Passwort:");
+passwordField = new JPasswordField();
+passwordField.setBounds(219, 125, 97, 17);
+arbeitsbereich.add(passwordField);
+JLabel lblNeuesPasswort = new JLabel("Neues Passwort:");
 lblNeuesPasswort.setBounds(35, 166, 128, 14);
 arbeitsbereich.add(lblNeuesPasswort);
+JLabel lblPasswortWiederholen = new JLabel("Neues Passwort wiederholen:");
+lblPasswortWiederholen.setBounds(35, 211, 149, 17);
+arbeitsbereich.add(lblPasswortWiederholen);
 passwordField_1 = new JPasswordField();
 passwordField_1.setBounds(219, 163, 97, 17);
 arbeitsbereich.add(passwordField_1);
-JButton btnNewButton = new JButton("Login");
-btnNewButton.setBounds(188, 218, 128, 23);
+passwordField_2 = new JPasswordField();
+passwordField_2.setBounds(219, 210, 97, 17);
+arbeitsbereich.add(passwordField_2);
+JButton btnNewButton = new JButton("Speichern");
+btnNewButton.setBounds(188, 359, 128, 23);
 arbeitsbereich.add(btnNewButton);
-JButton btnPasswortVergessen = new JButton("Passwort vergessen?");
-btnPasswortVergessen.setBounds(119, 252, 197, 23);
-arbeitsbereich.add(btnPasswortVergessen);
-textField = new JTextField();
-textField.setBounds(219, 124, 97, 20);
-arbeitsbereich.add(textField);
-textField.setColumns(10);
+
+JButton btnLogout = new JButton("Logout");
+btnLogout.setPreferredSize(new Dimension(150, 20));
+btnLogout.setBounds(620, 11, 150, 20);
+frame.getContentPane().add(btnLogout);
 
 JButton btnHilfe = new JButton("Hilfe?");
 btnHilfe.setBounds(620, 42, 150, 20);
