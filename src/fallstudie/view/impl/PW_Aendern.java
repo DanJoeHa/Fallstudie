@@ -94,7 +94,7 @@ frame.getContentPane().add(arbeitsbereich);
 arbeitsbereich.setLayout(null);
 
 JLabel lblEineberschrift = new JLabel("Passwort \u00C4ndern");
-lblEineberschrift.setBounds(35, 27, 97, 14);
+lblEineberschrift.setBounds(10, 11, 97, 14);
 arbeitsbereich.add(lblEineberschrift);
 JLabel lblAltesPasswort = new JLabel("Altes Passwort:");
 lblAltesPasswort.setBounds(35, 127, 128, 14);
