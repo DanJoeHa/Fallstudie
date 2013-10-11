@@ -3,6 +3,7 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 
 import fallstudie.model.impl.Mitarbeiter;
+import fallstudie.view.impl.LoginView;
 
 public class LoginController extends HauptController
 {
@@ -18,9 +19,9 @@ public class LoginController extends HauptController
 			activeUser = Mitarbeiter.einloggen(this.activeView.getBenutzername(), this.activeView.getPasswort());
 		}
 		if(button == "Passwort vergessen"){
-			PopupSchließen popup = new PopupSchließen();
+			PopupSchlieï¿½en popup = new PopupSchlieÃŸen();
 			popup.setHinweis("Bitte kontaktieren Sie Ihren IT-Support");
-			popup.setButtonName("Schließen");
+			popup.setButtonName("Schlieï¿½en");
 			popup.setUeberschrift("Passwort vergessen");
 		}
 	}

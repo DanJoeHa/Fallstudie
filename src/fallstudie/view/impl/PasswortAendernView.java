@@ -100,7 +100,7 @@ public class PasswortAendernView extends JPanel implements View {
 	}
 
 	/**
-	 * liest die Eingabe aus dem Textfeld "altesPasswort" aus und gibt diese zurück
+	 * liest die Eingabe aus dem Textfeld "altesPasswort" aus und gibt diese zurï¿½ck
 	 * 
 	 * @author Johannes
 	 * @version 1.0
@@ -111,7 +111,7 @@ public class PasswortAendernView extends JPanel implements View {
 	}
 	
 	/**
-	 * liest die Eingabe aus dem Textfeld "neuesPasswort" aus und gibt diese zurück
+	 * liest die Eingabe aus dem Textfeld "neuesPasswort" aus und gibt diese zurï¿½ck
 	 * 
 	 * @author Johannes
 	 * @version 1.0
@@ -122,7 +122,7 @@ public class PasswortAendernView extends JPanel implements View {
 	}
 	
 	/**
-	 * liest die Eingabe aus dem Textfeld "WdhPasswort" aus und gibt diese zurück
+	 * liest die Eingabe aus dem Textfeld "WdhPasswort" aus und gibt diese zurï¿½ck
 	 * 
 	 * @author Johannes
 	 * @version 1.0
@@ -147,7 +147,7 @@ public class PasswortAendernView extends JPanel implements View {
 	}
 
 	/**
-	 * Textfeld auf Maske leeren
+	 * Textfelder auf Maske leeren
 	 * 
 	 * @author Johannes
 	 * @version 1.0
