@@ -18,8 +18,8 @@ public class PasswortController extends HauptController {
 				String wdhPasswort = this.activeView.getWdhPasswort();
 				String altesPasswort =this.activeView.getAltesPasswort();
 				
-				if( altesPasswort.equals(activeUser.getPasswort() ){
-					//�ndern aufgrund Verschl�sselung
+				if( activeUser.checkPasswort(altesPasswort)){
+				
 					if(wdhPasswort.equals(neuesPasswort)){
 						activeUser.setPasswort(neuesPasswort);
 						hauptfenster.setInfoBox("Passwort erfolgreich geändert");
