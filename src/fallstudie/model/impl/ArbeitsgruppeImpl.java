@@ -1,6 +1,10 @@
 package fallstudie.model.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
+
+import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
@@ -8,27 +12,18 @@ import java.util.Collection;
  */
 public class ArbeitsgruppeImpl {
 
-	private String beschreibung;
-	private String kurzbezeichnung;
-	private BereichImpl bereich;
-	private boolean aktiv;
-	private MitarbeiterImpl mitarbeiter;
+	private  String beschreibung;
+	private  String kurzbezeichnung;
+	private  int arbeitsgruppeID;
+	private  BereichImpl bereich;
+	private  boolean aktiv;
+	private  MitarbeiterImpl mitarbeiter;
+	
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
-	/**
-	 * Konstruktor wenn nur die Kurzbezeichnung übergeben wird, 
-	 * alles andere wird in der Datenbank geholt mit SELECT
-	 * @param kurzbezeichnung
-	 * @return 
-	 * @return
-	 */
-	public ArbeitsgruppeImpl(String kurzbezeichnung, String Dummy) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	/**
 	 * Neue Arbeitsgruppe anlegen Konstruktor, alle Parameter werden von GUI übergeben	
 	 * @param kurzbezeichnung
@@ -40,7 +35,16 @@ public class ArbeitsgruppeImpl {
 	 */
 	public ArbeitsgruppeImpl(String kurzbezeichnung, String beschreibung,
 			BereichImpl bereich, MitarbeiterImpl leiter) {
-		// TODO Auto-generated method stub
+
+
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
+		this.beschreibung = beschreibung;
+		this.kurzbezeichnung = kurzbezeichnung;
+		this.bereich = bereich;
+		this.mitarbeiter = leiter;
 
 	}
 
@@ -50,83 +54,180 @@ public class ArbeitsgruppeImpl {
 	 * @return 
 	 * @return
 	 */
-	public ArbeitsgruppeImpl(String suchbegriff) {
-		// TODO Auto-generated method stub
 
+	/**
+	 * Durch überreichen des Resultsets werden die Objekte vom Typ ArbeitsgruppeImpl erzeugt
+	 * @param resultSet
+	 * @throws SQLException 
+	 */
+	public ArbeitsgruppeImpl (ResultSet resultSet) throws SQLException
+	{
+		try
+		{
+			// Obtain the number of columns in the returned table
+			int columnCount = resultSet.getMetaData().getColumnCount();
+			//ID der Arbeitsgruppe
+			this.arbeitsgruppeID = resultSet.getInt("ArbeitgsuppeID");
+			
+			//Mitarbeiterobjekt aus der ID
+				int leiterID = resultSet.getInt("Leiter");
+			
+			this.mitarbeiter = new MitarbeiterImpl(leiterID);
+			
+			//Bereichobjekt aus der BereichsID
+				int bereichID = resultSet.getInt("Bereich");
+			//Bereich aus der ID generieren
+			this.bereich = new BereichImpl(bereichID);
+			//Beschreibung der Arbeitsgruppe
+			this.beschreibung = resultSet.getString("Beschreibung");
+			//Kurzbezeichnung der Arbeitsgruppe
+			this.kurzbezeichnung = resultSet.getString("Kurzbezeichnung");
+			//Status der Arbeitsgruppe
+			this.aktiv = resultSet.getBoolean("Aktiv");
+		}
+	catch (SQLException e)
+	{
+		System.err.println(e.getErrorCode());
 	}
+	}
+	
+	/**
+	 * Methode wenn nur die Kurzbezeichnung übergeben wird, 
+	 * alles andere wird in der Datenbank geholt mit SELECT
+	 * @param kurzbezeichnung
+	 * @return 
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static ArbeitsgruppeImpl getArbeitsgruppeImplByName
+											(String kurzbezeichnung){
+
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		ArbeitsgruppeImpl ag = null;
+		try
+		{
+			
+		
+			ResultSet resultSet = RemoteConnection.sql.executeQuery
+				("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
+			System.out.println
+				("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
+			//Variablen für den späteren Konstruktoraufruf
+	
+			ag = new ArbeitsgruppeImpl(resultSet);
+			
+			
+		}
+		catch (SQLException e)
+		{
+			
+		}
+		return ag;
+	}
+		
 
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
 	
+	
+	
+	
 	public boolean setBeschreibung(String beschreibung) {
-		// TODO Auto-generated method stub
+
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
 	
 	public String getBeschreibung() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		
+		return this.beschreibung;
 	}
 
 	
 	public boolean setKurzbezeichnung(String kurzbezeichnung) {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
 	
 	public String getKurzbezeichnung() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.kurzbezeichnung;
 	}
 
 	
 	public boolean setBereich(BereichImpl bereich) {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
 	
 	public BereichImpl getBereich() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.bereich;
 	}
 
 	
 	public boolean setLeiter(MitarbeiterImpl mitarbeiter) {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
 	
 	public MitarbeiterImpl getLeiter() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.mitarbeiter;
 	}
 
 	
 	public boolean setAktiv(boolean aktiv) {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return false;
 	}
 
 	
 	public boolean getAktiv() {
 		// TODO Auto-generated method stub
-		return false;
+		return this.aktiv;
 	}
 
 	
-	public int getID(String kurzbezeichnung) {
+	public int getIDbyKurzbezeichnung(String kurzbezeichnung) {
 		// TODO Auto-generated method stub
-		return 0;
+		int id = 0;
+		return id;
 	}
-
+	
+	public int getID()
+	{
+		return this.arbeitsgruppeID;
+	}
 	
 	public Collection<ArbeitsgruppeImpl> getAlleArbeitsgruppen() {
-		// TODO Auto-generated method stub
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		return null;
 	}
 
