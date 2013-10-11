@@ -129,6 +129,8 @@ public class MitarbeiterImpl {
 	catch (SQLException e)
 	{
 		System.err.println(e.getErrorCode());
+		System.err.println(e.getMessage());
+		System.err.println(e.getCause());
 	}
 	}
 	
