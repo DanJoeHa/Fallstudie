@@ -4,36 +4,63 @@ import java.awt.event.ActionEvent;
 import fallstudie.view.impl.PasswortAendernView;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Controller zur Passwortänderung
+ * 
+ * @author Marc, Johannes
+ * @version 1.0
+ *
+ */
 public class PasswortController extends HauptController {
-
-		public PasswortController(){
-			this.activeView = new PasswortAendernView();
-		}
+	
+	/**
+	 * Zeit die Passwort-Ändern Maske
+	 * 
+	 * @author Marc
+	 * @version 1.0
+	 */
+	public PasswortController(){
+		this.activeView = new PasswortAendernView();
+	}
+	
+	/**
+	 * Hört auf Button "Speichern", prüft ob Passwörter übereinstimmen und informiert User über Erfolg der Operation
+	 * 
+	 * @author Marc, Johannes
+	 * @version 1.0
+	 * 
+	 */
+	public void actionPerformed(ActionEvent e) {
 		
-		public void actionPerformed(ActionEvent e) {
-			String button = e.getActionCommand();
-			if(button == "Speichern")
-			{
-				String neuesPasswort = this.activeView.getNeuesPasswort();
-				String wdhPasswort = this.activeView.getWdhPasswort();
-				String altesPasswort =this.activeView.getAltesPasswort();
+		//get action
+		String button = e.getActionCommand();
+		
+		// wenn button "Speichern" angeklickt wurde
+		if(button == "Speichern")
+		{
+			//Hole Daten aus View
+			String neuesPasswort = this.activeView.getNeuesPasswort();
+			String wdhPasswort = this.activeView.getWdhPasswort();
+			String altesPasswort = this.activeView.getAltesPasswort();
+			
+			//Prüfe, ob altes Passwort mit derzeitigem Passwort übereinstimmt
+			if( activeUser.checkPasswort(altesPasswort)){
 				
-				if( activeUser.checkPasswort(altesPasswort)){
-				
-					if(wdhPasswort.equals(neuesPasswort)){
-						activeUser.setPasswort(neuesPasswort);
-						hauptfenster.setInfoBox("Passwort erfolgreich geändert");
-					}
-					else
-					{
-						hauptfenster.setInfoBox("Passw�rter stimmen nicht überein");
-					}
+				//Prüfe, ob neues Passwort und dessen Wiederholung gleich sind
+				if(wdhPasswort.equals(neuesPasswort)){
+					activeUser.setPasswort(neuesPasswort);
+					hauptfenster.setInfoBox("Passwort erfolgreich geändert");
 				}
 				else
 				{
-					hauptfenster.setInfoBox("Altes Passwort falsch");
+					hauptfenster.setInfoBox("Passwörter stimmen nicht überein");
 				}
 			}
-			
+			else
+			{
+				hauptfenster.setInfoBox("Altes Passwort falsch");
+			}
 		}
+		
+	}
 }

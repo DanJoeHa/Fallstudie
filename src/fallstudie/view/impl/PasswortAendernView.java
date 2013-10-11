@@ -27,6 +27,7 @@ public class PasswortAendernView extends JPanel implements View {
 	private JPasswordField P_AltesPasswort;
 	private JPasswordField P_WdhPasswort;
 	private JPasswordField P_NeuesPasswort;
+	private JButton B_Speichern;
 
 	/**
 	 * Sicht erstellen.
@@ -92,7 +93,7 @@ public class PasswortAendernView extends JPanel implements View {
 		add(P_WdhPasswort);
 
 		//B_Speichern
-		JButton B_Speichern = new JButton("Speichern");
+		B_Speichern = new JButton("Speichern");
 		B_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Speichern.setBounds(306, 280, 150, 23);
 		add(B_Speichern);
@@ -141,9 +142,7 @@ public class PasswortAendernView extends JPanel implements View {
 	 */
 	@Override
 	public void setController(Controller c) {
-		this.P_AltesPasswort.addActionListener(c);
-		this.P_NeuesPasswort.addActionListener(c);
-		this.P_WdhPasswort.addActionListener(c);		
+		this.B_Speichern.addActionListener(c);	
 	}
 
 	/**
