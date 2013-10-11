@@ -1,15 +1,25 @@
 package fallstudie;
 
+import fallstudie.controller.impl.HauptController;
 
-import java.sql.SQLException;
 
-import fallstudie.model.impl.ArbeitsgruppeImpl;
-
+/**
+ * Initiiert das Programm
+ * 
+ * @author Johannes Haag
+ * @version 1.0
+ *
+ */
 public class Fallstudie {
 
-	public static void main(String[] args) throws SQLException {
-		
-		
+	/**
+	 * Ruft den Hauptcontroller auf
+	 * 
+	 * @author Johannes Haag
+	 * @version 1.0
+	 */
+	public static void main(String[] args) {
+		new HauptController();
 	}
 
 }
