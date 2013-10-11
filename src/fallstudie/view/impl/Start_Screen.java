@@ -89,9 +89,12 @@ arbeitsbereich.setBounds(210, 11, 400, 550);
 frame.getContentPane().add(arbeitsbereich);
 arbeitsbereich.setLayout(null);
 
-JLabel lblEineberschrift = new JLabel("Eine \u00DCberschrift");
-lblEineberschrift.setBounds(158, 24, 97, 14);
+JLabel lblEineberschrift = new JLabel("Herzlich Willkommen Herr XY.");
+lblEineberschrift.setBounds(26, 24, 229, 14);
 arbeitsbereich.add(lblEineberschrift);
+JLabel lblBitteWhlenSie = new JLabel("Bitte w\u00E4hlen sie eine Aktion.");
+lblBitteWhlenSie.setBounds(26, 49, 229, 14);
+arbeitsbereich.add(lblBitteWhlenSie);
 
 JButton btnLogout = new JButton("Logout");
 btnLogout.setPreferredSize(new Dimension(150, 20));
@@ -111,6 +114,6 @@ txtNachrichtenfeld.setMaximumSize(new Dimension(150, 488));
 txtNachrichtenfeld.setBackground(SystemColor.control);
 txtNachrichtenfeld.setBounds(620, 73, 150, 488);
 frame.getContentPane().add(txtNachrichtenfeld);
-txtNachrichtenfeld.setText("Nachrichtenfeld\r\n");
+txtNachrichtenfeld.setText("Ihre Letzte Anmeldung \r\nerfolgte am XX.YY.ZZ.");
 }
 }
