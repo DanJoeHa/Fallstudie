@@ -7,7 +7,7 @@ import fallstudie.view.interfaces.View;
 public class PasswortController extends HauptController {
 
 		public PasswortController(){
-			this.activeView = (View) new PasswortAendernView();
+			this.activeView = new PasswortAendernView();
 		}
 		
 		public void actionPerformed(ActionEvent e) {
@@ -19,14 +19,14 @@ public class PasswortController extends HauptController {
 				String altesPasswort =this.activeView.getAltesPasswort();
 				
 				if( altesPasswort.equals(activeUser.getPasswort() ){
-					//ändern aufgrund Verschlüsselung
+					//ï¿½ndern aufgrund Verschlï¿½sselung
 					if(wdhPasswort.equals(neuesPasswort)){
 						activeUser.setPasswort(neuesPasswort);
-						hauptfenster.setInfoBox("Passwort erfolgreich geändert");
+						hauptfenster.setInfoBox("Passwort erfolgreich geï¿½ndert");
 					}
 					else
 					{
-						hauptfenster.setInfoBox("Passwörter stimmen nicht überein");
+						hauptfenster.setInfoBox("Passwï¿½rter stimmen nicht ï¿½berein");
 					}
 				}
 				else
