@@ -59,7 +59,7 @@ public class layout {
 		frame.getContentPane().setLayout(null);
 		
 		JPanel navigationsbereich = new JPanel();
-		navigationsbereich.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		navigationsbereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		navigationsbereich.setPreferredSize(new Dimension(190, 700));
 		navigationsbereich.setMinimumSize(new Dimension(190, 700));
 		navigationsbereich.setMaximumSize(new Dimension(190, 700));
@@ -79,11 +79,11 @@ public class layout {
 				}
 			}
 		));
-		tree.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		tree.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		navigationsbereich.add(tree);
 		
 		JPanel arbeitsbereich = new JPanel();
-		arbeitsbereich.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		arbeitsbereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		arbeitsbereich.setPreferredSize(new Dimension(600, 700));
 		arbeitsbereich.setMinimumSize(new Dimension(600, 700));
 		arbeitsbereich.setMaximumSize(new Dimension(600, 700));
@@ -94,19 +94,19 @@ public class layout {
 		arbeitsbereich.setLayout(null);
 		
 		JLabel lblberschrift = new JLabel("\u00DCberschrift");
-		lblberschrift.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblberschrift.setBounds(75, 22, 277, 24);
+		lblberschrift.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblberschrift.setBounds(10, 11, 580, 24);
 		arbeitsbereich.add(lblberschrift);
 		
 		JButton btnLogout = new JButton("Logout");
-		btnLogout.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnLogout.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnLogout.setPreferredSize(new Dimension(150, 25));
 		btnLogout.setBounds(824, 11, 150, 25);
 		frame.getContentPane().add(btnLogout);
 		
 		JButton btnHilfe = new JButton("Hilfe?");
 		btnHilfe.setPreferredSize(new Dimension(59, 25));
-		btnHilfe.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnHilfe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnHilfe.setBounds(824, 42, 150, 25);
 		frame.getContentPane().add(btnHilfe);
 		
