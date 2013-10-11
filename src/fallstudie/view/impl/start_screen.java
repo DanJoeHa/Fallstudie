@@ -18,7 +18,7 @@ import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import java.awt.Font;
 
-public class Start_Screen {
+public class start_screen {
 
 private JFrame frame;
 
@@ -29,7 +29,7 @@ public static void main(String[] args) {
 EventQueue.invokeLater(new Runnable() {
 public void run() {
 try {
-	Start_Screen window = new Start_Screen();
+	start_screen window = new start_screen();
 	window.frame.setVisible(true);
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -41,7 +41,7 @@ try {
 /**
 * Create the application.
 */
-public Start_Screen() {
+public start_screen() {
 initialize();
 }
 

@@ -5,33 +5,26 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
 import java.awt.SystemColor;
-
 import javax.swing.JButton;
-
 import java.awt.Dimension;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
-
 import java.awt.Font;
+import javax.swing.JPasswordField;
 
-import javax.swing.JComboBox;
-
-public class AG_anlegen {
+public class pw_aendern {
 
 private JFrame frame;
-private JTextField textField;
-private JTextField textField_1;
-private JTextField textField_2;
+private JPasswordField passwordField;
+private JPasswordField passwordField_1;
+private JPasswordField passwordField_2;
 
 /**
 * Launch the application.
@@ -40,7 +33,7 @@ public static void main(String[] args) {
 EventQueue.invokeLater(new Runnable() {
 public void run() {
 try {
-	AG_anlegen window = new AG_anlegen();
+	pw_aendern window = new pw_aendern();
 	window.frame.setVisible(true);
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -52,7 +45,7 @@ try {
 /**
 * Create the application.
 */
-public AG_anlegen() {
+public pw_aendern() {
 initialize();
 }
 
@@ -80,33 +73,13 @@ frame.getContentPane().add(navigationsbereich);
 
 JTree navigationsbaum = new JTree();
 navigationsbaum.setModel(new DefaultTreeModel(
-	new DefaultMutableTreeNode("Aktionen") {
-		{
-			DefaultMutableTreeNode node_1;
-			node_1 = new DefaultMutableTreeNode("Art");
-				node_1.add(new DefaultMutableTreeNode("Anlegen"));
-				node_1.add(new DefaultMutableTreeNode("L\u00F6schen"));
-			add(node_1);
-			node_1 = new DefaultMutableTreeNode("Mitarbeiter");
-				node_1.add(new DefaultMutableTreeNode("Anlegen"));
-				node_1.add(new DefaultMutableTreeNode("Bearbeiten"));
-				node_1.add(new DefaultMutableTreeNode("L\u00F6schen"));
-			add(node_1);
-			node_1 = new DefaultMutableTreeNode("Gruppe");
-				node_1.add(new DefaultMutableTreeNode("Anlegen"));
-				node_1.add(new DefaultMutableTreeNode("Bearbeiten"));
-				node_1.add(new DefaultMutableTreeNode("L\u00F6schen"));
-			add(node_1);
-			node_1 = new DefaultMutableTreeNode("Bereich");
-				node_1.add(new DefaultMutableTreeNode("Anlegen"));
-				node_1.add(new DefaultMutableTreeNode("Bearbeiten"));
-				node_1.add(new DefaultMutableTreeNode("L\u00F6schen"));
-			add(node_1);
-			add(new DefaultMutableTreeNode("Daten anzeigen"));
-			add(new DefaultMutableTreeNode("Konfiguration"));
-			add(new DefaultMutableTreeNode("Passwort \u00E4ndern"));
-		}
-	}
+new DefaultMutableTreeNode("Aktionen") {
+{
+add(new DefaultMutableTreeNode("Punkt1"));
+add(new DefaultMutableTreeNode("Punkt2"));
+add(new DefaultMutableTreeNode("Passwort \u00E4ndern"));
+}
+}
 ));
 navigationsbereich.add(navigationsbaum);
 
@@ -120,46 +93,29 @@ arbeitsbereich.setBounds(210, 11, 400, 550);
 frame.getContentPane().add(arbeitsbereich);
 arbeitsbereich.setLayout(null);
 
-JLabel lblEineberschrift = new JLabel("Arbeitsgruppe anlegen");
-lblEineberschrift.setBounds(10, 11, 380, 14);
+JLabel lblEineberschrift = new JLabel("Passwort \u00C4ndern");
+lblEineberschrift.setBounds(10, 11, 97, 14);
 arbeitsbereich.add(lblEineberschrift);
-JLabel lblNewLabel = new JLabel("Kurzbezeichnung:");
-lblNewLabel.setBounds(10, 119, 120, 14);
-arbeitsbereich.add(lblNewLabel);
-JLabel lblBezeichnung = new JLabel("Bezeichnung:");
-lblBezeichnung.setBounds(10, 155, 120, 14);
-arbeitsbereich.add(lblBezeichnung);
-JLabel lblGruppenleiter = new JLabel("Gruppenleiter:");
-lblGruppenleiter.setBounds(10, 190, 120, 14);
-arbeitsbereich.add(lblGruppenleiter);
-JLabel lblBereich = new JLabel("Bereich:");
-lblBereich.setBounds(10, 228, 120, 14);
-arbeitsbereich.add(lblBereich);
-textField = new JTextField();
-textField.setBounds(180, 116, 140, 20);
-arbeitsbereich.add(textField);
-textField.setColumns(10);
-textField_1 = new JTextField();
-textField_1.setBounds(180, 152, 140, 20);
-arbeitsbereich.add(textField_1);
-textField_1.setColumns(10);
-textField_2 = new JTextField();
-textField_2.setBounds(180, 187, 140, 20);
-arbeitsbereich.add(textField_2);
-textField_2.setColumns(10);
-JComboBox comboBox = new JComboBox();
-comboBox.setBounds(180, 227, 140, 17);
-arbeitsbereich.add(comboBox);
-JButton btnAnlegen = new JButton("Speichern");
-btnAnlegen.setBounds(220, 395, 150, 23);
-arbeitsbereich.add(btnAnlegen);
-JButton btnZurcksetzen = new JButton("Zur\u00FCcksetzen");
-btnZurcksetzen.setBounds(29, 395, 150, 23);
-arbeitsbereich.add(btnZurcksetzen);
-JButton btnNewButton = new JButton("");
-btnNewButton.setBackground(SystemColor.window);
-btnNewButton.setBounds(322, 183, 25, 26);
-btnNewButton.setIcon(new ImageIcon("C:\\Users\\Adri\\workspace\\Fallstudie_Fenster\\src\\login\\lupe3.jpg"));
+JLabel lblAltesPasswort = new JLabel("Altes Passwort:");
+lblAltesPasswort.setBounds(35, 127, 128, 14);
+arbeitsbereich.add(lblAltesPasswort);
+passwordField = new JPasswordField();
+passwordField.setBounds(219, 125, 97, 17);
+arbeitsbereich.add(passwordField);
+JLabel lblNeuesPasswort = new JLabel("Neues Passwort:");
+lblNeuesPasswort.setBounds(35, 166, 128, 14);
+arbeitsbereich.add(lblNeuesPasswort);
+JLabel lblPasswortWiederholen = new JLabel("Neues Passwort wiederholen:");
+lblPasswortWiederholen.setBounds(35, 211, 149, 17);
+arbeitsbereich.add(lblPasswortWiederholen);
+passwordField_1 = new JPasswordField();
+passwordField_1.setBounds(219, 163, 97, 17);
+arbeitsbereich.add(passwordField_1);
+passwordField_2 = new JPasswordField();
+passwordField_2.setBounds(219, 210, 97, 17);
+arbeitsbereich.add(passwordField_2);
+JButton btnNewButton = new JButton("Speichern");
+btnNewButton.setBounds(188, 359, 128, 23);
 arbeitsbereich.add(btnNewButton);
 
 JButton btnLogout = new JButton("Logout");

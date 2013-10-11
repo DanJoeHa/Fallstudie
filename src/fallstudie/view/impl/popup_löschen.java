@@ -1,16 +1,15 @@
 package fallstudie.view.impl;
-
 import javax.swing.JOptionPane;
-
-public class PopUpPW_Vergessen{
+ 
+public class popup_löschen{
         public static void main(String[] bla){
  
                 // Erstellung Array vom Datentyp Object, Hinzufügen der Optionen               
-                Object[] options = {"Schließen"};
+                Object[] options = {"Abbrechen", "Speichern"};
  
                 int selected = JOptionPane.showOptionDialog(null,
-                                                            "Melden sie sich bitte bei ihrem User Help Desk unter der Telefonnummer 777/12345",
-                                                            "Passwort vergessen?",
+                                                            "Wollen Sie wirklich löschen?",
+                                                            "Alternativen",
                                                             JOptionPane.DEFAULT_OPTION, 
                                                             JOptionPane.INFORMATION_MESSAGE, 
                                                             null, options, options[0]);
@@ -20,3 +19,4 @@ public class PopUpPW_Vergessen{
  
         }
 }
+
