@@ -8,7 +8,8 @@ import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
- * @author 
+ * @author Phil 11.10.2013
+ * 
  */
 public class ArbeitsgruppeImpl {
 
@@ -17,7 +18,7 @@ public class ArbeitsgruppeImpl {
 	private  int arbeitsgruppeID;
 	private  BereichImpl bereich;
 	private  boolean aktiv;
-	private  MitarbeiterImpl mitarbeiter;
+	private  MitarbeiterImpl leiter;
 	
 	
 	//-----------------------------------------------------------
@@ -44,16 +45,11 @@ public class ArbeitsgruppeImpl {
 		this.beschreibung = beschreibung;
 		this.kurzbezeichnung = kurzbezeichnung;
 		this.bereich = bereich;
-		this.mitarbeiter = leiter;
+		this.leiter = leiter;
 
 	}
 
-	/**
-	 * Arbeitsgruppe Suchen Konstruktor	in Suchenmaske
-	 * @param suchbegriff
-	 * @return 
-	 * @return
-	 */
+
 
 	/**
 	 * Durch überreichen des Resultsets werden die Objekte vom Typ ArbeitsgruppeImpl erzeugt
@@ -62,17 +58,23 @@ public class ArbeitsgruppeImpl {
 	 */
 	public ArbeitsgruppeImpl (ResultSet resultSet) throws SQLException
 	{
+
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
 		try
 		{
 			// Obtain the number of columns in the returned table
+			@SuppressWarnings("unused")
 			int columnCount = resultSet.getMetaData().getColumnCount();
 			//ID der Arbeitsgruppe
 			this.arbeitsgruppeID = resultSet.getInt("ArbeitgsuppeID");
 			
 			//Mitarbeiterobjekt aus der ID
-				int leiterID = resultSet.getInt("Leiter");
-			
-			this.mitarbeiter = new MitarbeiterImpl(leiterID);
+				String leiterID = resultSet.getString("Leiter");
+			//checken
+			this.leiter = new MitarbeiterImpl(leiterID);
 			
 			//Bereichobjekt aus der BereichsID
 				int bereichID = resultSet.getInt("Bereich");
@@ -134,101 +136,152 @@ public class ArbeitsgruppeImpl {
 	
 	
 	
-	
+	/**
+	 * Mehode ändert die Beschreibung einer Arbeitsgruppe
+	 * @param beschreibung
+	 * @return boolean ob erfolgreich 
+	 */
 	public boolean setBeschreibung(String beschreibung) {
-
-		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-			RemoteConnection.connect();
-		};
 		
 		return false;
 	}
 
-	
+	/**
+	 * Methode liefert Beschreibung zur Arbeitsgruppe zurück
+	 * @return
+	 */
 	public String getBeschreibung() {
 		
 		
 		return this.beschreibung;
 	}
 
-	
+	/**
+	 * Methode ändert Kurzbezeichnung der Arbeitsgruppe
+	 * @param kurzbezeichnung
+	 * @return
+	 */
 	public boolean setKurzbezeichnung(String kurzbezeichnung) {
-		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-			RemoteConnection.connect();
-		};
 		
 		return false;
 	}
 
+	/**
+	 * Methode liefert Kurzbezeichnung der Arbeitsgruppe
+	 * @return
+	 */
 	
 	public String getKurzbezeichnung() {
 		
 		return this.kurzbezeichnung;
 	}
 
-	
+	/**
+	 * Methode ändert Bereich der arbeitsgruppe
+	 * @param bereich
+	 * @return
+	 */
 	public boolean setBereich(BereichImpl bereich) {
-		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-			RemoteConnection.connect();
-		};
 		
 		return false;
 	}
-
+	
+	/**
+	 * Methode liefert Bereichsobjekt des dazugehörigen Bereichs der
+	 * Arbeitsgruppe
+	 * @return
+	 */
 	
 	public BereichImpl getBereich() {
 		// TODO Auto-generated method stub
 		return this.bereich;
 	}
 
-	
+	/**
+	 * Methode ändert Leiter der ARbeitsgruppe, 
+	 * übergeben wird ein Mitarbeiterobjekt
+	 * @param mitarbeiter
+	 * @return boolean ob erfolgreich
+	 */
 	public boolean setLeiter(MitarbeiterImpl mitarbeiter) {
-		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-			RemoteConnection.connect();
-		};
 		
 		return false;
 	}
 
-	
+	/**
+	 * Methode liefert Leiter der Arbeitsgruppe anhand des Benutzernamens
+	 * der in der Tabelle Mitarbeiter generiert wird
+	 * @return
+	 */
 	public MitarbeiterImpl getLeiter() {
 		// TODO Auto-generated method stub
-		return this.mitarbeiter;
+		return this.leiter;
 	}
 
-	
-	public boolean setAktiv(boolean aktiv) {
-		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-			RemoteConnection.connect();
-		};
-		
+	/**
+	 * Methode löscht die Arbeitsgruppe
+	 * -> wird auf Inaktiv gesetzt in der DB
+	 * @return
+	 */
+	public boolean loeschen() {
+
 		return false;
 	}
 
-	
+	/**
+	 * Methode liefert den Status der Arbeitsgruppe
+	 * 1: aktiv, 0: gelöscht
+	 * @return
+	 */
 	public boolean getAktiv() {
 		// TODO Auto-generated method stub
 		return this.aktiv;
 	}
 
-	
+	/**
+	 * Methode liefert zur Kurzbezeichnung die dazugehörige ID
+	 * der Arbeitsgruppe
+	 * @param kurzbezeichnung
+	 * @return
+	 */
 	public int getIDbyKurzbezeichnung(String kurzbezeichnung) {
 		// TODO Auto-generated method stub
 		int id = 0;
 		return id;
 	}
 	
+	/**
+	 * Methode liefert ID zur Arbeitsgruppe
+	 * @return
+	 */
 	public int getID()
 	{
 		return this.arbeitsgruppeID;
 	}
-	
+	/**
+	 * Wird gebraucht um die Comboboxen zu befüllen wo ein Mitarbeiter
+	 * einer Arbeitsgruppe hinzugefügt wird oder geändert wird
+	 * @return
+	 */
 	public Collection<ArbeitsgruppeImpl> getAlleArbeitsgruppen() {
+
+		
+		return null;
+	}
+	/**
+	 * Methode liefert anhand des Suchbegriffs eine Collection
+	 * von übereinstimmungen zurück (In Tabellenform in der Gui auszugeben)
+	 * @param suchbegriff
+	 * @return
+	 */
+	public static Collection<ArbeitsgruppeImpl> suche(String suchbegriff)
+	{
+
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
 		
 		return null;
+		
 	}
-
 }

@@ -1,5 +1,6 @@
 package fallstudie.model.impl;
 
+import java.sql.ResultSet;
 import java.util.Collection;
 
 public class ArtImpl {
@@ -12,6 +13,14 @@ public class ArtImpl {
 	 * @param name
 	 */
 	public ArtImpl(String name)
+	{
+		
+	}
+	/**
+	 * Methode liefert aus resultset ein ArtObjekt
+	 * @param resultSet
+	 */
+	public ArtImpl(ResultSet resultSet)
 	{
 		
 	}
@@ -30,11 +39,19 @@ public class ArtImpl {
 	 * @param aktiv
 	 * @return
 	 */
-	public boolean setAktiv(boolean aktiv)
+	public boolean loeschen()
+	{
+		return false;
+		
+	}
+	/**
+	 * Liefert Status der Art
+	 * @return
+	 */
+	public boolean getAktiv()
 	{
 		return aktiv;
 		
 	}
-	
 	
 }
