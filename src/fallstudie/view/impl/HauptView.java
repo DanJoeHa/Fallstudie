@@ -113,6 +113,26 @@ public class HauptView extends JFrame implements View{
 		this.setVisible(true);
 	}
 	
+	public void setSachbearbeiter(){
+		
+	}
+	
+	public void setGruppenleiter(){
+		
+	}
+	
+	public void setBereichsleiter(){
+		
+	}
+	
+	public void setZentralbereichsleiter(){
+		
+	}
+	
+	public void setStabstelle(){
+		
+	}
+	
 	public void setUeberschrift(String ueberschrift){
 		this.L_Ueberschrift.setText( ueberschrift );
 	}
