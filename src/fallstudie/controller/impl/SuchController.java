@@ -3,11 +3,11 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
-
-import de.MVCExcample.model.Right;
+import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.SuchenView;
+import fallstudie.view.interfaces.View;
 
 public class SuchController implements Controller {
 	
@@ -36,8 +36,9 @@ public class SuchController implements Controller {
 	public void setOperation(String operation){
 		this.operation = operation;
 	}
-	
-	public void actionPerfomed(ActionEvent e){
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 
 		if( this.suchdomain == "Mitarbeiter" ){
@@ -140,6 +141,10 @@ public class SuchController implements Controller {
 				}
 			}
 		}
-		
+	}
+
+	@Override
+	public View getView() {
+		return this.view;
 	}
 }
