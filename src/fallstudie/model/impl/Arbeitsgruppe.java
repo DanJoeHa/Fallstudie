@@ -12,7 +12,9 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
  * @author Phil 11.10.2013
- * 
+ * @author Phil, 12.10.2013
+ * @version 1.1
+ * @change Alle Methoden implementiert.
  */
 public class Arbeitsgruppe {
 
