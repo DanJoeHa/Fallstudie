@@ -7,8 +7,7 @@ public class TesterKlasse {
 	 */
 	public static void main(String[] args) {
 		
-		Arbeitsgruppe ag = new Arbeitsgruppe(2);
-		System.out.println(ag.getBeschreibung());
+		
 	}
 
 }
