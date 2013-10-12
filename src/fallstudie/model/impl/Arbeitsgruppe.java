@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import com.sun.jmx.snmp.daemon.CommunicationException;
+
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
@@ -33,9 +35,10 @@ public class Arbeitsgruppe {
 	 * @param mitarbeiter
 	 * @return 
 	 * @return
+	 * @throws Exception 
 	 */
 	public Arbeitsgruppe(String kurzbezeichnung, String beschreibung,
-			Bereich bereich, Mitarbeiter leiter) {
+			Bereich bereich, Mitarbeiter leiter) throws Exception {
 
 	try
 	{
@@ -52,19 +55,26 @@ public class Arbeitsgruppe {
 		
 	String benutzername = leiter.getBenutzername();
 	int bereichID = bereich.getID(bereich.getKurzbezeichnung());
-	
-		try {
-			
-			
-			int RowsAffected = RemoteConnection.sql.executeUpdate(
-					"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter)"  +
-					"VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"'");
-			
+	try {
+		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+				"SELECT Kurzbezeichnung From Arbeitsgruppe");
 		
-			System.out.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter)"  +
-					"VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"'"
-																		+"||"+"Rows Affected: "+RowsAffected+"");
+		while (checkObVorhanden.next()) 
+		{
+
+				String value = checkObVorhanden.getString("Kurzbezeichnung");
+				
+				if (kurzbezeichnung.equals(value)) throw new Exception ("Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon!");
+
 		}
+		System.out.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter)"  +
+				"VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"'");
+
+			int RowsAffected = RemoteConnection.sql.executeUpdate(
+"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"'");
+			System.out.println("Rows Affected: "+RowsAffected+"");
+		
+				}
 		
 		
 		catch (SQLException e) {
@@ -115,7 +125,7 @@ public class Arbeitsgruppe {
 			
 				//Mitarbeiter Resultset holen
 			if (leiterBenutzername!=null)
-			{
+			{	System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
 				ResultSet mitarbeiterResult = RemoteConnection.sql.executeQuery(
 					"SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
 				this.leiter = new Mitarbeiter(mitarbeiterResult);
@@ -140,7 +150,7 @@ public class Arbeitsgruppe {
 		}
 	catch (SQLException e)
 	{
-
+		System.err.println("ResultSet ist Leer. Bitte SQL Statement überprüfen!");
 		System.err.println(e.getMessage());
 	}
 	}
@@ -163,10 +173,10 @@ public class Arbeitsgruppe {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		try
-		{
+		{	System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
+		
 			ResultSet resultSet = RemoteConnection.sql.executeQuery
 						("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
-			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
 			Arbeitsgruppe ag = new Arbeitsgruppe(resultSet);
 			
 			this.arbeitsgruppeID = arbeitsgruppeid;
@@ -193,7 +203,7 @@ public class Arbeitsgruppe {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public static Arbeitsgruppe getArbeitsgruppeImplByName(String kurzbezeichnung){
+	public static Arbeitsgruppe getArbeitsgruppeByName(String kurzbezeichnung){
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null )
@@ -222,6 +232,7 @@ public class Arbeitsgruppe {
 			ag = new Arbeitsgruppe(resultSet);
 			
 			
+			
 		}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -230,7 +241,11 @@ public class Arbeitsgruppe {
 			System.err.println(e.getCause());
 			System.err.println(e.getMessage());
 		}
-
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte kein Ergebnis mit der Kurzbezeichnung finden.");
+		}
+		
 		return ag;
 	}
 		
@@ -244,12 +259,46 @@ public class Arbeitsgruppe {
 	
 	/**
 	 * Mehode ändert die Beschreibung einer Arbeitsgruppe
+	 * Abfrage ob die alte Beschreibung identisch mit der Neuen ist, 
+	 * wenn ja dann wird das Setzen nicht vollzogen.
 	 * @param beschreibung
 	 * @return boolean ob erfolgreich 
 	 */
 	public boolean setBeschreibung(String beschreibung) {
+			
+		boolean erfolgreich = false;
+		try 
+		{
+			String alteBeschreibung = this.getBeschreibung();
+			if (!alteBeschreibung.equals(beschreibung))
+			{
+				int RowsAffected = RemoteConnection.sql.executeUpdate(
+					"UPDATE Arbeitsgruppe SET Beschreibung='"+beschreibung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+	
+				System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"+beschreibung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"
+					+" Rows Affected: "+RowsAffected);
+				
+				erfolgreich=true;
 		
-		return false;
+			}
+			else
+			{
+				System.err.println("Alte und Neue Beschreibung sind Identisch! Bitte andere Beschreibung wählen.");
+				erfolgreich= false;
+			}
+		}
+			catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+		catch(NullPointerException e)
+		{
+			System.err.println("Fehler beim Suchen der alten Beschreibung.");
+		}
+		return erfolgreich;
 	}
 
 	/**
@@ -268,7 +317,39 @@ public class Arbeitsgruppe {
 	 */
 	public boolean setKurzbezeichnung(String kurzbezeichnung) {
 		
-		return false;
+		boolean erfolgreich = false;
+		try 
+		{
+			String alteKurzbezeichnung = this.getKurzbezeichnung();
+			if (!alteKurzbezeichnung.equals(kurzbezeichnung))
+			{
+				int RowsAffected = RemoteConnection.sql.executeUpdate(
+					"UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+	
+				System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"
+					+" Rows Affected: "+RowsAffected);
+				
+				erfolgreich=true;
+		
+			}
+			else
+			{
+				System.err.println("Alte und Neue Kurzbezeichnung sind Identisch! Bitte andere Beschreibung wählen.");
+				erfolgreich= false;
+			}
+		}
+			catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+			catch(NullPointerException e)
+			{
+				System.err.println("Fehler beim Suchen der alten Kurzbezeichnung.");
+			}
+		return erfolgreich;
 	}
 
 	/**
@@ -286,9 +367,43 @@ public class Arbeitsgruppe {
 	 * @param bereich
 	 * @return
 	 */
+	
 	public boolean setBereich(Bereich bereich) {
+		boolean erfolgreich = false;
+		//Mitgegebener Bereich ID 
+		int bereichID = bereich.getID();
+		//Aktueller Bereich ID
+		int alterBereichID = this.bereich.getID();
 		
-		return false;
+		try 
+		{	//VERGLEICH DER BEIDEN
+			if(!(alterBereichID==bereichID))
+			{
+				int RowsAffect = RemoteConnection.sql.executeUpdate(
+				"UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+				
+				System.out.println("UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"+ "Rows Affected: "+RowsAffect);
+				erfolgreich=true;
+			}
+			else
+			{
+				System.err.println("Alter und Neuer Bereich sind Identisch! Bitte anderen Bereich wählen.");
+				erfolgreich= false;
+			}
+		}
+		
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+			catch(NullPointerException e)
+			{
+				System.err.println("Fehler beim Suchen des alten Bereichs.");
+			}
+		return erfolgreich;
 	}
 	
 	/**
@@ -298,7 +413,7 @@ public class Arbeitsgruppe {
 	 */
 	
 	public Bereich getBereich() {
-		// TODO Auto-generated method stub
+		
 		return this.bereich;
 	}
 
@@ -310,7 +425,41 @@ public class Arbeitsgruppe {
 	 */
 	public boolean setLeiter(Mitarbeiter mitarbeiter) {
 		
-		return false;
+		boolean erfolgreich = false;
+		//Mitgegebener Bereich ID 
+		String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
+		//Aktueller Bereich ID
+		String alterLeiterBenutzername = this.leiter.getBenutzername();
+		
+		try 
+		{	//VERGLEICH DER BEIDEN
+			if(!alterLeiterBenutzername.equals(neuerLeiterBenutzername))
+			{
+				int RowsAffect = RemoteConnection.sql.executeUpdate(
+				"UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+				
+				System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"+ "Rows Affected: "+RowsAffect);
+				erfolgreich=true;
+			}
+			else
+			{
+				System.err.println("Alter und Neuer Leiter sind Identisch! Bitte anderen Leiter wählen.");
+				erfolgreich= false;
+			}
+		}
+		
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+			catch(NullPointerException e)
+			{
+				System.err.println("Fehler beim Suchen des alten Leiters.");
+			}
+		return erfolgreich;
 	}
 
 	/**
@@ -319,7 +468,7 @@ public class Arbeitsgruppe {
 	 * @return
 	 */
 	public Mitarbeiter getLeiter() {
-		// TODO Auto-generated method stub
+	
 		return this.leiter;
 	}
 
@@ -329,8 +478,29 @@ public class Arbeitsgruppe {
 	 * @return
 	 */
 	public boolean loeschen() {
-
-		return false;
+		boolean erfolgreich = false;
+		boolean aktuellerStatus = this.getAktiv();
+		
+		try 
+		{	if(aktuellerStatus==true)
+			{
+				int RowsAffect = RemoteConnection.sql.executeUpdate(
+				"UPDATE Arbeitsgruppe SET Aktiv ='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+				
+				System.out.println("UPDATE Arbeitsgruppe SET Aktiv='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"+ "Rows Affected: "+RowsAffect);
+				erfolgreich=true;
+			}
+			
+		}
+		
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+		return erfolgreich;
 	}
 
 	/**
@@ -349,9 +519,34 @@ public class Arbeitsgruppe {
 	 * @param kurzbezeichnung
 	 * @return
 	 */
-	public int getIDbyKurzbezeichnung(String kurzbezeichnung) {
-		// TODO Auto-generated method stub
+	public static int getIDbyKurzbezeichnung(String kurzbezeichnung) {
 		int id = 0;
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
+		
+		try {
+			System.out.println("SELECT ArbeitsgruppeID FROM Arbeitsgruppe WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
+			ResultSet resultSet = RemoteConnection.sql.executeQuery("SELECT ArbeitsgruppeID FROM Arbeitsgruppe WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
+			resultSet.next();
+			id = resultSet.getInt("ArbeitsgruppeID");
+		
+		} 
+		
+		
+		catch (SQLException e) {
+			System.err.println("Fehler beim Suchen. Keine Arbeitsgruppe mit dieser Kurzbezeichnung vorhanden.");
+		}
+		catch (NullPointerException e1)
+		{
+			System.err.println("Konnte keine Arbeitsgruppe mit dieser Kurzbezeichnung finden.");
+		}
+		catch (CommunicationException e)
+		{
+			System.err.println("keine Connection zur Db");
+		}
+		
 		return id;
 	}
 	

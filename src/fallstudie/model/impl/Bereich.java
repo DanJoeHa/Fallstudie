@@ -15,6 +15,7 @@ public class Bereich {
 	private String kurzbezeichnung;
 	private boolean aktiv;
 	private Mitarbeiter leiter;
+	private int bereichID;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -135,7 +136,14 @@ public class Bereich {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	/**
+	 * Liefert ID des Bereichs ohne parameter.
+	 * @return
+	 */
+	public int getID()
+	{
+		return this.bereichID;
+	}
 	/**
 	 * Alle Bereiche werden ausgegeben
 	 * wird gebraucht bei Combobox

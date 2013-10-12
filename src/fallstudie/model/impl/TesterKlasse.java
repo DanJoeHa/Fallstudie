@@ -7,7 +7,12 @@ public class TesterKlasse {
 	 */
 	public static void main(String[] args) {
 		
-	
+		int id = Arbeitsgruppe.getIDbyKurzbezeichnung("E");
+		
+		
+		System.out.println(id + "");
+		
+		
 	}
 
 }
