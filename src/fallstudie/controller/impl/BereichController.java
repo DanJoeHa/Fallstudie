@@ -21,12 +21,14 @@ public class BereichController implements Controller {
 		if( this.operation.equals("anlegen") || this.operation.equals("bearbeiten") )
 		{
 			this.view = new BereichBearbeitenAnlegenView();
+			this.view.setController( this );
 		}
 		else
 		{
 			if(this.operation.equals("loeschen"))
 			{
-				this.view = new BereichLoeschenView();
+				this.viewLoesch = new BereichLoeschenView();
+				this.viewLoesch.setController( this );
 			}
 		}
 	}

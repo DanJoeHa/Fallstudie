@@ -9,6 +9,7 @@ public class KonfigController implements Controller {
 	public KonfigController(){
 		this.view = new KonfigurationView();
 		this.view.setAnzahlMonate(Konfig.getJobIntervall());
+		this.view.setController( this );
 	}
 	
 	public void actionPerformed(ActionEvent e)

@@ -15,10 +15,7 @@ public class WelcomeController implements Controller {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void actionPerformed(ActionEvent e) {}
 
 	@Override
 	public View getView() {

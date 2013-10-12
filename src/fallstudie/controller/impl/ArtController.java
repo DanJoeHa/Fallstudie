@@ -21,12 +21,14 @@ public class ArtController implements Controller {
 		if( this.operation.equals("anlegen"))
 		{
 			this.view = new ArtAnlegenView();
+			this.view.setController( this );
 		}
 		else
 		{
 			if(this.operation.equals("loeschen"))
 			{
-				this.view = new ArtLoeschenView();
+				this.viewLoeschen = new ArtLoeschenView();
+				this.viewLoeschen.setController( this );
 				this.viewLoeschen.setArt(Art.getAlleArten()); //Collection in String Array umwandeln
 			}
 		}
