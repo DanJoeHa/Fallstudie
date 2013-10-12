@@ -7,7 +7,7 @@ import fallstudie.view.impl.LoginView;
 import fallstudie.view.impl.PopupSchliessenView;
 import fallstudie.view.interfaces.View;
 
-public class LoginController extends HauptController
+public class LoginController implements Controller
 {
 	private LoginView view;
 	
