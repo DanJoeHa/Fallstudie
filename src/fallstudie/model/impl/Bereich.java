@@ -1,7 +1,13 @@
 package fallstudie.model.impl;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
+
+import com.sun.jmx.snmp.daemon.CommunicationException;
+
+import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
  * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
@@ -26,24 +32,160 @@ public class Bereich {
 	 * @param BereichID
 	 * @return 
 	 * @return
+	 * @throws Exception 
 	 */
 	
 	public Bereich(String kurzbezeichnung, String beschreibung,
-			Mitarbeiter leiter) {
-		// TODO Auto-generated method stub
+			Mitarbeiter leiter) throws Exception {
+		
+		String leiterBenutzername=null;
+		
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+			
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println(e.getMessage());
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		try
+		{
+		 leiterBenutzername = leiter.getBenutzername();
+		 
+			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+					"SELECT Kurzbezeichnung From Arbeitsgruppe");
+			
+			while (checkObVorhanden.next()) 
+			{
 
+					String value = checkObVorhanden.getString("Kurzbezeichnung");
+					
+					if (kurzbezeichnung.equals(value)) throw new Exception ("Bereich mit selber Kurzbezeichnung existiert schon.");
+
+			}
+			
+			System.out.println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)" +
+					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"', '"+leiterBenutzername+"'");
+		
+			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)" +
+					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"', '"+leiterBenutzername+"'");
+			
+			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensätze eingefügt.");
+			
+		} 
+		
+		
+		catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println("SQL Statement ist fehlerhaft!");
+		}
+		catch(NullPointerException e)
+		{
+			System.err.println("Der Leiter hat keinen Benutzernamen. Bitte prüfen sie.");
+			
+		}
+		this.kurzbezeichnung = kurzbezeichnung;
+		this.beschreibung = beschreibung;
+		this.leiter = leiter;
 	}
 
-
 	/**
-	 * Bereichrückgabe bei Suche von Bereichen	
+	 * Fügt einen Bereich ohne Leiter in die Datenbank ein.
+	 * @param kurzbezeichnung
+	 * @param beschreibung
+	 * @throws Exception 
+	 */
+	public Bereich(String kurzbezeichnung, String beschreibung) throws Exception {
+		
+		String kurzUp = kurzbezeichnung.toUpperCase();
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+			
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println(e.getMessage());
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		try
+		{
+		 
+			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+					"SELECT Kurzbezeichnung From Arbeitsgruppe");
+			
+			while (checkObVorhanden.next()) 
+			{
+
+					String value = checkObVorhanden.getString("Kurzbezeichnung");
+					String valueUp = value.toUpperCase();
+					if (kurzbezeichnung.equals(valueUp)) throw new Exception ("Bereich mit selber Kurzbezeichnung existiert schon.");
+
+			}
+			
+			System.out.println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)" +
+					"VALUES ('"+kurzUp+"', '"+beschreibung+"'");
+		
+			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)" +
+					"VALUES ('"+kurzUp+"', '"+beschreibung+"'");
+			
+			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensätze eingefügt.");
+			
+		} 
+		
+		
+		catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println("SQL Statement ist fehlerhaft!");
+		}
+		this.kurzbezeichnung = kurzbezeichnung;
+		this.beschreibung = beschreibung;
+		this.leiter = null;
+	}
+	/**
+	 * Alle bereiche mit dem Suchbegriff werden zurückgegeben
 	 * @param suchbegriff
 	 * @return 
 	 * @return
 	 */
 		
-	public Bereich(String suchbegriff) {
-		// TODO Auto-generated method stub
+	public static Collection<Bereich> suche(String suchbegriff) {
+		Collection<Bereich> result = new LinkedList<>();
+		
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null )
+			{
+				RemoteConnection.connect();
+			};
+		ResultSet resultSet = null;
+		try 
+		{	
+			System.out.println("SELECT * FROM Bereich WHERE BereichID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
+					" Beschreibung LIKE '%"+suchbegriff+"' OR Kurzbezeichnung LIKE '%"+suchbegriff+"'");
+				resultSet = RemoteConnection.sql.executeQuery(
+						"SELECT * FROM Bereich WHERE BereichID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
+								" Beschreibung LIKE '%"+suchbegriff+"' OR Kurzbezeichnung LIKE '%"+suchbegriff+"'");
+				//Abfrage ob überhaupt Datensätze gefunden worden sind
+				resultSet.last();
+				int resultLength = resultSet.getRow();
+				resultSet.beforeFirst();
+				if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
+				while (resultSet.next()) 
+				{
+					result.add(new Bereich(resultSet));
+				}
+				resultSet.close();
+		}
+		catch (SQLException e) 
+		{
+			System.err.println("SELECT Statement ist fehlerhaft. Bitte überprüfen.");
+		}
+		return result;
 
 	}
 	
@@ -53,15 +195,98 @@ public class Bereich {
 	 */
 
 	public Bereich(int bereichID) {
-		// TODO Auto-generated constructor stub
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println(e.getMessage());
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		try
+		{	System.out.println("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
+		
+			ResultSet resultSet = RemoteConnection.sql.executeQuery
+						("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
+			resultSet.last();
+			int resultLength = resultSet.getRow();
+			resultSet.beforeFirst();
+			if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
+			resultSet.next();
+			Bereich bereich = new Bereich(resultSet);
+			
+			this.bereichID = bereich.getID();
+			this.aktiv = bereich.getAktiv();
+			this.beschreibung = bereich.getBeschreibung();
+			this.kurzbezeichnung = bereich.getKurzbezeichnung();
+			this.leiter = bereich.getLeiter();
+			
+		}
+		catch (SQLException e)
+		{;
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	/**
 	 * Bereich wird anhand eines Resultsets erstellt
 	 * @param resultSet
+	 * @throws SQLException 
 	 */
 	public Bereich(ResultSet resultSet)
 	{
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println(e.getMessage());
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		try
+		{	
+			// Obtain the number of columns in the returned table
+			
+			int columnCount = resultSet.getMetaData().getColumnCount();
+			
+			//Mitarbeiterobjekt aus der ID
+				String leiterBenutzername = resultSet.getString("Leiter");
+			
+				//Mitarbeiter Resultset holen
+			if (leiterBenutzername!=null)
+			{	System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
+				ResultSet mitarbeiterResult = RemoteConnection.sql.executeQuery(
+					"SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
+				//LEITER SETZEn
+				this.leiter = new Mitarbeiter(mitarbeiterResult);
+			}
+			//checken
+			else
+			{
+				this.leiter=null;
+			}
+			
+			//Bereichobjekt aus der BereichsID
+			this.bereichID= resultSet.getInt("BereichID");
+			//Beschreibung der Arbeitsgruppe
+			this.beschreibung = resultSet.getString("Beschreibung");
+			//Kurzbezeichnung der Arbeitsgruppe
+			this.kurzbezeichnung = resultSet.getString("Kurzbezeichnung");
+			//Status der Arbeitsgruppe
+			this.aktiv = resultSet.getBoolean("Aktiv");
+			resultSet.close();
+		}
+	catch (SQLException e)
+	{
+		System.err.println("ResultSet ist Leer. Bitte SQL Statement überprüfen!");
+		System.err.println(e.getMessage());
+	}
 		
 	}
 	//-----------------------------------------------------------
@@ -75,8 +300,39 @@ public class Bereich {
 	 */
 	
 	public boolean setBeschreibung(String beschreibung) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean erfolgreich = false;
+		try 
+		{
+			String alteBeschreibung = this.getBeschreibung();
+			if (!alteBeschreibung.equals(beschreibung))
+			{
+				System.out.println("UPDATE Bereich SET Beschreibung='"+beschreibung+"' WHERE BereichID='"+this.bereichID+"'");
+				int RowsAffected = RemoteConnection.sql.executeUpdate(
+					"UPDATE Bereich SET Beschreibung='"+beschreibung+"' WHERE BereichID='"+this.bereichID+"'");
+			
+				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensätze geändert.");
+				
+				erfolgreich=true;
+		
+			}
+			else
+			{
+				System.err.println("Alte und Neue Beschreibung sind Identisch! Bitte andere Beschreibung wählen.");
+				erfolgreich= false;
+			}
+		}
+			catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+		catch(NullPointerException e)
+		{
+			System.err.println("Fehler beim Suchen der alten Beschreibung.");
+		}
+		return erfolgreich;
 	}
 
 	/**
@@ -84,8 +340,8 @@ public class Bereich {
 	 * @return
 	 */
 	public String getBeschreibung() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.beschreibung;
 	}
 
 	/**
@@ -94,17 +350,49 @@ public class Bereich {
 	 * @return
 	 */
 	public boolean setKurzbezeichnung(String kurzbezeichnung) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean erfolgreich = false;
+		try 
+		{
+			String alteKurzbezeichnung = this.getKurzbezeichnung();
+			if (!alteKurzbezeichnung.equals(kurzbezeichnung))
+			{
+				System.out.println("UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
+				int RowsAffected = RemoteConnection.sql.executeUpdate(
+						"UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
+	
+				
+				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensätze geändert.");
+				
+				
+				erfolgreich=true;
+		
+			}
+			else
+			{
+				System.err.println("Alte und Neue Kurzbezeichnung sind Identisch! Bitte andere Beschreibung wählen.");
+				erfolgreich= false;
+			}
+		}
+			catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+			catch(NullPointerException e)
+			{
+				System.err.println("Fehler beim Suchen der alten Kurzbezeichnung.");
+			}
+		return erfolgreich;
 	}
-
 	/**
 	 * Kurzbezeichnung wird erhalten von Bereich
 	 * @return
 	 */
 	public String getKurzbezeichnung() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.kurzbezeichnung;
 	}
 
 	/**
@@ -114,17 +402,42 @@ public class Bereich {
 	 * @return
 	 */
 	public boolean loeschen() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean erfolgreich = false;
+		boolean aktuellerStatus = this.getAktiv();
+		
+		try 
+		{	if(aktuellerStatus==true)
+			{
+				System.out.println("UPDATE Bereich SET Aktiv='0' WHERE BereichID='"+this.bereichID+"'");
+			
+				int RowsAffect = RemoteConnection.sql.executeUpdate(
+				"UPDATE Bereich SET Aktiv ='0' WHERE BereichID='"+this.bereichID+"'");
+				
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelöscht.");
+				
+				erfolgreich=true;
+			}
+			
+		}
+		
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+		return erfolgreich;
 	}
+
 
 	/**
 	 * Status erhalten
 	 * @return
 	 */
 	public boolean getAktiv() {
-		// TODO Auto-generated method stub
-		return false;
+	
+		return this.aktiv;
 	}
 
 	/**
@@ -132,10 +445,37 @@ public class Bereich {
 	 * @param kurzbezeichnung
 	 * @return
 	 */
-	public int getID(String kurzbezeichnung) {
-		// TODO Auto-generated method stub
-		return 0;
+	public static int getIDByKurzbezeichnung(String kurzbezeichnung) {
+		int id = 0;
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		
+		
+		try {
+			System.out.println("SELECT BereichID FROM Bereich WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
+			ResultSet resultSet = RemoteConnection.sql.executeQuery("SELECT BereichID FROM Bereich WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
+			resultSet.next();
+			id = resultSet.getInt("BereichID");
+		
+		} 
+		
+		
+		catch (SQLException e) {
+			System.err.println("Fehler beim Suchen. Keine Arbeitsgruppe mit dieser Kurzbezeichnung vorhanden.");
+		}
+		catch (NullPointerException e1)
+		{
+			System.err.println("Konnte keinen Bereich mit dieser Kurzbezeichnung finden.");
+		}
+		catch (CommunicationException e)
+		{
+			System.err.println("keine Connection zur Db");
+		}
+		
+		return id;
 	}
+	
 	/**
 	 * Liefert ID des Bereichs ohne parameter.
 	 * @return
@@ -171,9 +511,9 @@ public class Bereich {
 	 * Leiter eines Bereichs bekommen
 	 * @return
 	 */
-	public Mitarbeiter getMitarbeiter() {
+	public Mitarbeiter getLeiter() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.leiter;
 	}
 
 }

@@ -7,25 +7,18 @@ public class TesterKlasse {
 
 	/**
 	 * @param args
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+	
+		Collection<Arbeitsgruppe> a = Arbeitsgruppe.getAlleArbeitsgruppen();
 		
-		Collection<Arbeitsgruppe> alleGruppen;
-		try {
-			alleGruppen = Arbeitsgruppe.suche("5");
-		 
-		for (Iterator<Arbeitsgruppe> i = alleGruppen.iterator(); i.hasNext();)
+		for (Iterator i = a.iterator(); i.hasNext();)
 		{
-			Arbeitsgruppe s = i.next();
-			System.out.println(s.getKurzbezeichnung());
-		}
-		}
-		catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Arbeitsgruppe b = (Arbeitsgruppe) i.next();
+			System.out.println(b.getBeschreibung());
 		}
 		
-		
-	}
 
+}
 }
