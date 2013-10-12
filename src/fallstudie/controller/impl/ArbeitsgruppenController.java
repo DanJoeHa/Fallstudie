@@ -23,6 +23,7 @@ public class ArbeitsgruppenController implements Controller {
 		
 		//View laden
 		this.view = new ArbeitsgruppeBearbeitenAnlegenView();	
+		this.view.setController( this );
 		
 	}
 	

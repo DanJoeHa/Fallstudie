@@ -63,7 +63,8 @@ public class SuchController implements Controller {
 				
 				while( i.hasNext() ){
 					Mitarbeiter MA = (Mitarbeiter) i.next();
-					if( this.viewErg.getAuswahl().equalsIgnoreCase(MA.getKurzbezeichnung()) ){
+					String benutzername = MA.getBenutzername();
+					if( benutzername.equals( this.viewErg.getAuswahl() ) ){
 						this.auswahl = MA;
 						break;
 					}
@@ -79,7 +80,8 @@ public class SuchController implements Controller {
 				
 				while( i.hasNext() ){
 					Mitarbeiter MA = (Mitarbeiter) i.next();
-					if( this.viewErg.getAuswahl().equalsIgnoreCase(MA.getKurzbezeichnung()) ){
+					String benutzername = MA.getBenutzername();
+					if( benutzername.equals( this.viewErg.getAuswahl() ) ){
 						if( MA.loeschen() ){
 							HauptController.hauptfenster.setInfoBox("Mitarbeiter gelöscht.");
 						}else{
@@ -114,7 +116,8 @@ public class SuchController implements Controller {
 				
 				while( i.hasNext() ){
 					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
-					if( this.viewErg.getAuswahl().equalsIgnoreCase(AG.getKurzbezeichnung()) ){
+					String kurzbez = AG.getKurzbezeichnung();
+					if( kurzbez.equals( this.viewErg.getAuswahl() ) ){
 						this.auswahl = AG;
 						break;
 					}
@@ -130,7 +133,8 @@ public class SuchController implements Controller {
 				
 				while( i.hasNext() ){
 					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
-					if( this.viewErg.getAuswahl().equalsIgnoreCase(AG.getKurzbezeichnung()) ){
+					String kurzbez = AG.getKurzbezeichnung();
+					if( kurzbez.equals( this.viewErg.getAuswahl() ) ){
 						if( AG.loeschen() ){
 							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe gelöscht.");
 						}else{

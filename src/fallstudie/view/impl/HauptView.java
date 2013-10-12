@@ -77,7 +77,7 @@ public class HauptView extends JFrame implements View{
 		arbeitsbereich.setLayout(null);
 		
 		//Ueberschrift
-		L_Ueberschrift = new JLabel("");
+		L_Ueberschrift = new JLabel("L_Ueberschrift");
 		L_Ueberschrift.setFont(new Font("Tahoma", Font.BOLD, 14));
 		L_Ueberschrift.setBounds(10, 11, 580, 24);
 		arbeitsbereich.add(L_Ueberschrift);
@@ -87,7 +87,6 @@ public class HauptView extends JFrame implements View{
 		B_Logout.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Logout.setPreferredSize(new Dimension(150, 25));
 		B_Logout.setBounds(824, 11, 150, 25);
-		B_Logout.setVisible(false);
 		this.getContentPane().add(B_Logout);
 		
 		//Hilfe-Button
@@ -98,7 +97,7 @@ public class HauptView extends JFrame implements View{
 		this.getContentPane().add(B_Hilfe);
 		
 		//Info-Box
-		InfoBox = new JTextArea();
+		InfoBox = new JTextArea("");
 		InfoBox.setEditable(false);
 		InfoBox.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		InfoBox.setSize(new Dimension(150, 488));
@@ -107,9 +106,9 @@ public class HauptView extends JFrame implements View{
 		InfoBox.setBackground(SystemColor.control);
 		InfoBox.setBounds(824, 73, 150, 628);
 		this.getContentPane().add(InfoBox);
-		InfoBox.setText("Nachrichtenfeld\r\n");
 		
 		//Fenster anzeigen
+		this.setLoggedOut();
 		this.setVisible(true);
 	}
 	
@@ -135,6 +134,7 @@ public class HauptView extends JFrame implements View{
 	
 	public void setLoggedOut(){
 		this.B_Logout.setVisible(false);
+		this.Navigation.setVisible(false);
 	}
 	
 	public void setUeberschrift(String ueberschrift){
