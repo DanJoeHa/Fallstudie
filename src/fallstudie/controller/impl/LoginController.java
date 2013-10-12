@@ -21,14 +21,14 @@ public class LoginController implements Controller
 		String button = e.getActionCommand();
 		if(button == "Login")
 		{
-			activeUser = Mitarbeiter.einloggen(this.view.getBenutzername(), this.view.getPasswort());
+			HauptController.activeUser = Mitarbeiter.einloggen(this.view.getBenutzername(), this.view.getPasswort());
 			
-			if( activeUser.getLogin() == null ){
+			if( HauptController.activeUser.getLogin() == null ){
 				PasswortController pc = new PasswortController();
-				hauptfenster.setContent( pc.getView() );
+				HauptController.hauptfenster.setContent( pc.getView() );
 			}else{
 				WelcomeController wc = new WelcomeController();
-				hauptfenster.setContent( wc.getView() );
+				HauptController.hauptfenster.setContent( wc.getView() );
 			}
 		}
 		if(button == "Passwort vergessen"){
