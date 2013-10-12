@@ -50,18 +50,17 @@ public class HauptView extends JFrame implements View{
 		
 		//Menuebaum
 		this.Navigation = new JTree();
-		this.Navigation.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Aktionen") {
+		DefaultMutableTreeNode aktionMA = new DefaultMutableTreeNode("Mitarbeiter"){
+			private static final long serialVersionUID = -4459245092488416529L;
 
-				private static final long serialVersionUID = -4459245092488416529L;
-
-				{
-					add(new DefaultMutableTreeNode("Punkt1"));
-					add(new DefaultMutableTreeNode("Punkt2"));
-					add(new DefaultMutableTreeNode("Passwort \u00E4ndern"));
-				}
+			{
+				add(new DefaultMutableTreeNode("anlegen"));
+				add(new DefaultMutableTreeNode("bearbeiten"));
+				add(new DefaultMutableTreeNode("löschen"));
 			}
-		));
+		};
+		DefaultTreeModel treeModel = new DefaultTreeModel(aktionMA);
+		this.Navigation.setModel(treeModel);
 		this.Navigation.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		navigationsbereich.add(this.Navigation);
 		
@@ -88,6 +87,7 @@ public class HauptView extends JFrame implements View{
 		B_Logout.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Logout.setPreferredSize(new Dimension(150, 25));
 		B_Logout.setBounds(824, 11, 150, 25);
+		B_Logout.setVisible(false);
 		this.getContentPane().add(B_Logout);
 		
 		//Hilfe-Button
@@ -111,6 +111,30 @@ public class HauptView extends JFrame implements View{
 		
 		//Fenster anzeigen
 		this.setVisible(true);
+	}
+	
+	public void setSachbearbeiter(){
+		this.B_Logout.setVisible(true);
+	}
+	
+	public void setGruppenleiter(){
+		this.B_Logout.setVisible(true);
+	}
+	
+	public void setBereichsleiter(){
+		this.B_Logout.setVisible(true);
+	}
+	
+	public void setZentralbereichsleiter(){
+		this.B_Logout.setVisible(true);
+	}
+	
+	public void setStabstelle(){
+		this.B_Logout.setVisible(true);
+	}
+	
+	public void setLoggedOut(){
+		this.B_Logout.setVisible(false);
 	}
 	
 	public void setUeberschrift(String ueberschrift){
