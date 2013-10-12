@@ -37,10 +37,40 @@ public class Arbeitsgruppe {
 	public Arbeitsgruppe(String kurzbezeichnung, String beschreibung,
 			Bereich bereich, Mitarbeiter leiter) {
 
-
+	try
+	{
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
+		
+	}
+	catch (NullPointerException e)
+	{
+		System.err.println(e.getMessage());
+		System.err.println("Konnte keine Datenbankverbindung herstellen!");
+	}
+		
+	String benutzername = leiter.getBenutzername();
+	int bereichID = bereich.getID(bereich.getKurzbezeichnung());
+	
+		try {
+			
+			
+			int RowsAffected = RemoteConnection.sql.executeUpdate(
+					"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter)"  +
+					"VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"'");
+			
+		
+			System.out.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter)"  +
+					"VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"'"
+																		+"||"+"Rows Affected: "+RowsAffected+"");
+		}
+		
+		
+		catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println("SQL Statement ist fehlerhaft!");
+		}
 		
 		this.beschreibung = beschreibung;
 		this.kurzbezeichnung = kurzbezeichnung;
@@ -57,27 +87,47 @@ public class Arbeitsgruppe {
 	 * @throws SQLException 
 	 */
 	public Arbeitsgruppe (ResultSet resultSet) throws SQLException
-	{
-
-		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-			RemoteConnection.connect();
-		};
-		
+	{	
 		try
 		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println(e.getMessage());
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		try
+		{	
+		
+			resultSet.next();
+		
 			// Obtain the number of columns in the returned table
 			@SuppressWarnings("unused")
 			int columnCount = resultSet.getMetaData().getColumnCount();
 			//ID der Arbeitsgruppe
-			this.arbeitsgruppeID = resultSet.getInt("ArbeitgsuppeID");
+			this.arbeitsgruppeID = resultSet.getInt("ArbeitsgruppeID");
 			
 			//Mitarbeiterobjekt aus der ID
-				String leiterID = resultSet.getString("Leiter");
+				String leiterBenutzername = resultSet.getString("Leiter");
+			
+				//Mitarbeiter Resultset holen
+			if (leiterBenutzername!=null)
+			{
+				ResultSet mitarbeiterResult = RemoteConnection.sql.executeQuery(
+					"SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
+				this.leiter = new Mitarbeiter(mitarbeiterResult);
+			}
 			//checken
-			this.leiter = new Mitarbeiter(leiterID);
+			else
+			{
+				this.leiter=null;
+			}
 			
 			//Bereichobjekt aus der BereichsID
-				int bereichID = resultSet.getInt("Bereich");
+			int bereichID = resultSet.getInt("Bereich");
 			//Bereich aus der ID generieren
 			this.bereich = new Bereich(bereichID);
 			//Beschreibung der Arbeitsgruppe
@@ -86,12 +136,12 @@ public class Arbeitsgruppe {
 			this.kurzbezeichnung = resultSet.getString("Kurzbezeichnung");
 			//Status der Arbeitsgruppe
 			this.aktiv = resultSet.getBoolean("Aktiv");
+		
 		}
 	catch (SQLException e)
 	{
-		System.err.println(e.getErrorCode());
+
 		System.err.println(e.getMessage());
-		System.err.println(e.getCause());
 	}
 	}
 	/**
@@ -100,7 +150,32 @@ public class Arbeitsgruppe {
 	 */
 	
 	public Arbeitsgruppe(int arbeitsgruppeid) {
-		// TODO Auto-generated constructor stub
+		
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println(e.getMessage());
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		try
+		{
+			ResultSet resultSet = RemoteConnection.sql.executeQuery
+						("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
+			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
+			this.arbeitsgruppeID = arbeitsgruppeid;
+			Arbeitsgruppe ag = new Arbeitsgruppe(resultSet);
+			
+			
+		}
+		catch (SQLException e)
+		{;
+			System.err.println(e.getMessage());
+		}
 	}
 
 
@@ -177,8 +252,7 @@ public class Arbeitsgruppe {
 	 * @return
 	 */
 	public String getBeschreibung() {
-		
-		
+	
 		return this.beschreibung;
 	}
 
