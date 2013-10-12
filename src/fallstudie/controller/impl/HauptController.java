@@ -128,7 +128,6 @@ public class HauptController implements Controller, TreeSelectionListener {
 					activeController = new BereichController();
 					activeController.setOperation("loeschen");
 					break;
-<<<<<<< HEAD
 			case "Mitarbeiter anlegen":
 					break;
 			case "Mitarbeiter bearbeiten":
@@ -137,12 +136,10 @@ public class HauptController implements Controller, TreeSelectionListener {
 					activeController = new SuchController();
 					activeController.setSuchdomain("Mitarbeiter");
 					activeController.setOperation("löschen");
-=======
 			case "Art anlegen":
 					activeController = new ArtController();
 					activeController.setOperation("anlegen");
 					hauptfenster.setContent(activeController.getView());
->>>>>>> branch 'master' of https://github.com/DanJoeHa/Fallstudie.git
 					break;
 			case "Art loeschen":
 					activeController = new ArtController();
