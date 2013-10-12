@@ -24,8 +24,8 @@ public class HauptController implements Controller, TreeSelectionListener {
 
 	private Controller activeController;
 	protected View view;
-	protected static HauptView hauptfenster;
-	protected static Mitarbeiter activeUser;
+	public static HauptView hauptfenster;
+	public static Mitarbeiter activeUser;
 	
 	/**
 	 * Ruft das Hauptfenster der Anwendung auf und läd die LoginView hinein
