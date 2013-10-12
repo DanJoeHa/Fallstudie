@@ -61,7 +61,7 @@ public class ArbeitsgruppenController extends HauptController {
 			Mitarbeiter gewaehlterAGLeiter = (Mitarbeiter) suche.getAuswahl();
 			
 			//an Maske übergeben & Maske anzeigen
-			this.view.setAGLeiter( gewaehlterAGLeiter.setBenutzername() );
+			this.view.setAGLeiter( gewaehlterAGLeiter.getBenutzername() );
 			hauptfenster.setContent( this.getView() );
 		}
 	}
