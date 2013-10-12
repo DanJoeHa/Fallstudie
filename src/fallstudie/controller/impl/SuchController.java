@@ -9,7 +9,10 @@ public class SuchController extends HauptController {
 	private String operation;
 	
 	public SuchController(){
-	
+		
+		//Suchen View ausgeben
+		this.view = new SuchenView();
+		this.view.setController
 	}
 	
 	public void setSuchdomain (String suchdomain){
