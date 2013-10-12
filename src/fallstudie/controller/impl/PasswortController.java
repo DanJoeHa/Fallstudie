@@ -24,6 +24,7 @@ public class PasswortController implements Controller {
 	 */
 	public PasswortController(){
 		this.view = new PasswortAendernView();
+		this.view.setController( this );
 	}
 	
 	/**
@@ -39,7 +40,7 @@ public class PasswortController implements Controller {
 		String button = e.getActionCommand();
 		
 		// wenn button "Speichern" angeklickt wurde
-		if(button.equals("Speichern")
+		if(button.equals("Speichern"))
 		{
 			//Hole Daten aus View
 			String neuesPasswort = this.view.getNeuesPasswort();
@@ -47,21 +48,21 @@ public class PasswortController implements Controller {
 			String altesPasswort = this.view.getAltesPasswort();
 			
 			//Prüfe, ob altes Passwort mit derzeitigem Passwort übereinstimmt
-			if( activeUser.checkPasswort(altesPasswort)){
+			if( HauptController.activeUser.checkPasswort(altesPasswort)){
 				
 				//Prüfe, ob neues Passwort und dessen Wiederholung gleich sind
 				if(wdhPasswort.equals(neuesPasswort)){
-					activeUser.setPasswort(neuesPasswort);
-					hauptfenster.setInfoBox("Passwort erfolgreich geändert");
+					HauptController.activeUser.setPasswort(neuesPasswort);
+					HauptController.hauptfenster.setInfoBox("Passwort erfolgreich geändert");
 				}
 				else
 				{
-					hauptfenster.setInfoBox("Passwörter stimmen nicht überein");
+					HauptController.hauptfenster.setInfoBox("Passwörter stimmen nicht überein");
 				}
 			}
 			else
 			{
-				hauptfenster.setInfoBox("Altes Passwort falsch");
+				HauptController.hauptfenster.setInfoBox("Altes Passwort falsch");
 			}
 		}
 		
@@ -69,7 +70,6 @@ public class PasswortController implements Controller {
 
 	@Override
 	public View getView() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.view;
 	}
 }
