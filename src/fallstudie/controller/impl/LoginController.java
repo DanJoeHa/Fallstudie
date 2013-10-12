@@ -2,12 +2,12 @@ package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
 
-import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.LoginView;
+import fallstudie.view.impl.PopupSchliessenView;
 import fallstudie.view.interfaces.View;
 
-public class LoginController implements Controller
+public class LoginController extends HauptController
 {
 	private LoginView view;
 	
@@ -18,7 +18,6 @@ public class LoginController implements Controller
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
 		String button = e.getActionCommand();
 		if(button == "Login")
 		{
@@ -33,16 +32,11 @@ public class LoginController implements Controller
 			}
 		}
 		if(button == "Passwort vergessen"){
-			/*PopupSchliessenView popup = new PopupSchliessenView();
+			PopupSchliessenView popup = new PopupSchliessenView();
 			popup.setHinweis("Bitte kontaktieren Sie Ihren IT-Support");
 			popup.setButtonName("Schließen");
-			popup.setUeberschrift("Passwort vergessen");*/
+			popup.setUeberschrift("Passwort vergessen");
 		}
-	}
-
-	@Override
-	public View getView() {
-		return this.view;
 	}
 	
 }
