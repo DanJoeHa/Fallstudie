@@ -167,9 +167,14 @@ public class Arbeitsgruppe {
 			ResultSet resultSet = RemoteConnection.sql.executeQuery
 						("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
 			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
-			this.arbeitsgruppeID = arbeitsgruppeid;
 			Arbeitsgruppe ag = new Arbeitsgruppe(resultSet);
 			
+			this.arbeitsgruppeID = arbeitsgruppeid;
+			this.aktiv = ag.getAktiv();
+			this.bereich = ag.getBereich();
+			this.beschreibung = ag.getBeschreibung();
+			this.kurzbezeichnung = ag.getKurzbezeichnung();
+			this.leiter = ag.getLeiter();
 			
 		}
 		catch (SQLException e)
