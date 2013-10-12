@@ -1,6 +1,7 @@
 package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 
+import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.impl.PasswortAendernView;
 import fallstudie.view.interfaces.View;
 
@@ -11,7 +12,7 @@ import fallstudie.view.interfaces.View;
  * @version 1.0
  *
  */
-public class PasswortController extends HauptController {
+public class PasswortController implements Controller {
 	
 	private PasswortAendernView view;
 	
@@ -64,5 +65,11 @@ public class PasswortController extends HauptController {
 			}
 		}
 		
+	}
+
+	@Override
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,6 +1,11 @@
 package fallstudie.controller.impl;
 
-public class DatenAnzeigenController extends HauptController {
+import java.awt.event.ActionEvent;
+
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
+
+public class DatenAnzeigenController implements Controller {
 	
 	private DatenAnzeigenAuswahlView view;
 	private DatenAnzeigenArbeitsgruppeView viewAnzeigenAG;
@@ -11,5 +16,17 @@ public class DatenAnzeigenController extends HauptController {
 	}
 	
 	public void setSuchdomain(String suchdomain){
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

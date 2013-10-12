@@ -1,11 +1,14 @@
 package fallstudie.controller.impl;
 
+import java.awt.event.ActionEvent;
 import java.util.Collection;
 
+import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
+import fallstudie.view.interfaces.View;
 
-public class ArbeitsgruppenController extends HauptController {
+public class ArbeitsgruppenController implements Controller {
 	
 	private ArbeitsgruppeBearbeitenAnlegenView view;
 	private String operation;
@@ -64,6 +67,18 @@ public class ArbeitsgruppenController extends HauptController {
 			this.view.setAGLeiter( gewaehlterAGLeiter.getBenutzername() );
 			hauptfenster.setContent( this.getView() );
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

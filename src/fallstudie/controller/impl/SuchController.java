@@ -9,7 +9,7 @@ import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.SuchenView;
 
-public class SuchController extends HauptController {
+public class SuchController implements Controller {
 	
 	private SuchenView view;
 	private TabelleView viewErg;
@@ -52,7 +52,7 @@ public class SuchController extends HauptController {
 				
 				//Content auf Tabellen-Sicht wechseln
 				this.viewErg.setTabelle( this.suchergebnisse.toArray() );
-				hauptfenster.setContent( this.viewErg );
+				HauptController.hauptfenster.setContent( this.viewErg );
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
@@ -80,9 +80,9 @@ public class SuchController extends HauptController {
 					Mitarbeiter MA = (Mitarbeiter) i.next();
 					if( this.viewErg.getAuswahl().equalsIgnoreCase(MA.getKurzbezeichnung()) ){
 						if( MA.loeschen() ){
-							hauptfenster.setInfoBox("Mitarbeiter gelöscht.");
+							HauptController.hauptfenster.setInfoBox("Mitarbeiter gelöscht.");
 						}else{
-							hauptfenster.setInfoBox("Mitarbeiter konnte nicht gelöscht werden. Bitte stellen Sie sicher, dass der Mitarbeiter keiner Arbeitsgruppe/keinem Bereich als Leiter zugeordnet ist.");
+							HauptController.hauptfenster.setInfoBox("Mitarbeiter konnte nicht gelöscht werden. Bitte stellen Sie sicher, dass der Mitarbeiter keiner Arbeitsgruppe/keinem Bereich als Leiter zugeordnet ist.");
 						}
 						break;
 					}
@@ -131,9 +131,9 @@ public class SuchController extends HauptController {
 					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
 					if( this.viewErg.getAuswahl().equalsIgnoreCase(AG.getKurzbezeichnung()) ){
 						if( AG.loeschen() ){
-							hauptfenster.setInfoBox("Arbeitsgruppe gelöscht.");
+							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe gelöscht.");
 						}else{
-							hauptfenster.setInfoBox("Arbeitsgruppe konnte nicht gelöscht werden. Bitte ordnen Sie zunächst alle Mitarbeiter einer anderen Organisationseinheit zu.");
+							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe konnte nicht gelöscht werden. Bitte ordnen Sie zunächst alle Mitarbeiter einer anderen Organisationseinheit zu.");
 						}
 						break;
 					}

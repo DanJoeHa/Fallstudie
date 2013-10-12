@@ -1,6 +1,6 @@
 package fallstudie.controller.impl;
 
-public class WelcomeController extends HauptController {
+public class WelcomeController implements Controller {
 	
 	private WelcomeView view;
 	

@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.util.Calendar;
 
+import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Eintrag;
+import fallstudie.view.interfaces.View;
 
-public class ErfassenController extends HauptController {
+public class ErfassenController implements Controller {
 	
 	private static final int FULL = 0;
 	private static final int MEDIUM = 0;
@@ -25,11 +27,17 @@ public class ErfassenController extends HauptController {
 		{	
 			
 			Eintrag eintrag = new Eintrag(activeUser.getArbeitsgruppe(),view.getKalenderjahr(),view.getKalenderwoche(),view.getAnzahl(), view.getArt());
-			//kein Objekt Art übergeben, sondern String, weil aus dem String kann kein Objekt erzeugt w-erden, da ansonsten über den Konstruktor der Modell-Schicht eine Art angelegt wird
+			//kein Objekt Art ï¿½bergeben, sondern String, weil aus dem String kann kein Objekt erzeugt w-erden, da ansonsten ï¿½ber den Konstruktor der Modell-Schicht eine Art angelegt wird
 			Calendar cal = Calendar.getInstance();
 		    DateFormat df;
 		    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
 			hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am"+ df.format(cal.getTime()) +"erfasst");
 		}
+	}
+
+	@Override
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

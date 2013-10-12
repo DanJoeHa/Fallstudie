@@ -2,9 +2,11 @@ package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
 
+import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Art;
+import fallstudie.view.interfaces.View;
 
-public class ArtController extends HauptController {
+public class ArtController implements Controller {
 	
 	private ArtAnlegenView view;
 	private ArtLoeschenView viewLoeschen;
@@ -34,7 +36,7 @@ public class ArtController extends HauptController {
 	{
 		String button = e.getActionCommand();
 		
-		//Popup-Bestaetigung abfragen + Ausgaben in Infobox hinzufügen
+		//Popup-Bestaetigung abfragen + Ausgaben in Infobox hinzufï¿½gen
 		if(button.equals("Speichern")
 		{
 			new Art(this.view.getArt());
@@ -46,6 +48,12 @@ public class ArtController extends HauptController {
 				Art.loeschen(this.view.getArt());
 			}
 		}
+	}
+
+	@Override
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

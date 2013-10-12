@@ -38,12 +38,6 @@ public class LoginView extends JPanel implements View {
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
-		//L_Ueberschrift
-		JLabel L_Ueberschrift = new JLabel("Anmelden");
-		L_Ueberschrift.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Ueberschrift.setBounds(10, 11, 580, 17);
-		add(L_Ueberschrift);
-		
 		//L_Benutzername
 		JLabel L_Benutzername = new JLabel("Benutzername:");
 		L_Benutzername.setFont(new Font("Tahoma", Font.PLAIN, 14));

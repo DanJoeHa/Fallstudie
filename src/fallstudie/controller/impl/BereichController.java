@@ -2,9 +2,11 @@ package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
 
+import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Bereich;
+import fallstudie.view.interfaces.View;
 
-public class BereichController extends HauptController {
+public class BereichController implements Controller {
 	
 	private String operation;
 	private BereichBearbeitenAnlegenView view;
@@ -31,5 +33,11 @@ public class BereichController extends HauptController {
 	
 	public void actionPerformed(ActionEvent e) {
 		
+	}
+
+	@Override
+	public View getView() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

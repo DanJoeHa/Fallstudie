@@ -2,7 +2,7 @@ package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
 
-public class KonfigController extends HauptController {
+public class KonfigController implements Controller {
 	
 	private KonfigurationView view;
 	
@@ -15,11 +15,11 @@ public class KonfigController extends HauptController {
 	{
 		String button = e.getActionCommand();
 	
-		//Popup hinzufügen + Infoboxausgabe
+		//Popup hinzufï¿½gen + Infoboxausgabe
 		if(button.equals("Speichern"))
 		{
 				Konfig.setJobIntervall(this.view.getAnzahlMonate());
-				//Prüfung, dass nur int zurückgegeben werden in GUI Klasse einfügen
+				//Prï¿½fung, dass nur int zurï¿½ckgegeben werden in GUI Klasse einfï¿½gen
 		}
 	}
 }
