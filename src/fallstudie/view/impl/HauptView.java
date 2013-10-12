@@ -88,6 +88,7 @@ public class HauptView extends JFrame implements View{
 		B_Logout.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Logout.setPreferredSize(new Dimension(150, 25));
 		B_Logout.setBounds(824, 11, 150, 25);
+		B_Logout.setVisible(false);
 		this.getContentPane().add(B_Logout);
 		
 		//Hilfe-Button
@@ -114,23 +115,27 @@ public class HauptView extends JFrame implements View{
 	}
 	
 	public void setSachbearbeiter(){
-		
+		this.B_Logout.setVisible(true);
 	}
 	
 	public void setGruppenleiter(){
-		
+		this.B_Logout.setVisible(true);
 	}
 	
 	public void setBereichsleiter(){
-		
+		this.B_Logout.setVisible(true);
 	}
 	
 	public void setZentralbereichsleiter(){
-		
+		this.B_Logout.setVisible(true);
 	}
 	
 	public void setStabstelle(){
-		
+		this.B_Logout.setVisible(true);
+	}
+	
+	public void setLoggedOut(){
+		this.B_Logout.setVisible(false);
 	}
 	
 	public void setUeberschrift(String ueberschrift){
