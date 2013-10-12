@@ -1,19 +1,26 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
 import java.awt.Dimension;
 
-public class WelcomeView extends JPanel {
+public class WelcomeView extends JPanel implements View{
+
+	private static final long serialVersionUID = 6282583046506172098L;
+	private JTextArea Hinweis;
 
 	/**
-	 * Create the panel.
+	 * Erstellt die WillkommensView, die nach dem Login des Users angezeigt wird.
+	 * 
+	 * @author Natalja
+	 * @version 0.1
 	 */
 	public WelcomeView() {
 		setPreferredSize(new Dimension(600, 700));
@@ -25,17 +32,40 @@ public class WelcomeView extends JPanel {
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
-		//L_Ueberschrift Startbildschirm
-		JLabel L_Ueberschrift = new JLabel("Herzlich Willkommen Herr/ Frau XY.");
-		L_Ueberschrift.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Ueberschrift.setBounds(10, 11, 580, 17);
-		add(L_Ueberschrift);
-		
 		//L_Hinweis
-		JLabel L_Hinweis = new JLabel("Bitte w\u00E4hlen Sie eine Aktion.");
-		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Hinweis.setBounds(10, 39, 580, 17);
-		add(L_Hinweis);
+		Hinweis = new JTextArea();
+		Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		Hinweis.setBounds(10, 39, 580, 17);
+		this.add(Hinweis);
 		
 	}
+	
+	/**
+	 * Setzt Willkommensnachricht auf dem ersten Screen nach dem Login.
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * @param (String) Willkommensnachricht
+	 */
+	public void setHinweis(String Willkommensnachricht){
+		this.Hinweis.setText(Willkommensnachricht);
+	}
+	
+	/**
+	 * Methode ist in dieser View nicht relevant, da keine Aktionen ausgeführt werden können.
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
+	@Override
+	public void setController(Controller c) {}
+	
+	/**
+	 * Methode ist in dieser View nicht relevant, da keine User-Eingaben erfolgen.
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
+	@Override
+	public void reset() {}
 }
