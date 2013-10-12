@@ -98,7 +98,10 @@ public class HauptController implements Controller, TreeSelectionListener {
 					activeController = new PasswortController();
 					hauptfenster.setContent(activeController.getView());
 					break;
-			case "Test":
+			case "Arbeitsgruppe bearbeiten":
+					activeController = new ArbeitsgruppenController();
+					activeController.setOperation("bearbeiten");
+					hauptfenster.setContent( activeController.getView() );
 					break;
 			case "a":
 					break;

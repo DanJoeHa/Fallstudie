@@ -3,6 +3,7 @@ package fallstudie.controller.impl;
 import java.util.Collection;
 
 import fallstudie.model.impl.Bereich;
+import fallstudie.model.impl.Mitarbeiter;
 
 public class ArbeitsgruppenController extends HauptController {
 	
