@@ -22,6 +22,14 @@ public class LoginController extends HauptController
 		if(button == "Login")
 		{
 			activeUser = Mitarbeiter.einloggen(this.view.getBenutzername(), this.view.getPasswort());
+			
+			if( activeUser.getLogin() == null ){
+				PasswortController pc = new PasswortController();
+				hauptfenster.setContent( pc.getView() );
+			}else{
+				WelcomeController wc = new WelcomeController();
+				hauptfenster.setContent( wc.getView() );
+			}
 		}
 		if(button == "Passwort vergessen"){
 			PopupSchliessenView popup = new PopupSchliessenView();
