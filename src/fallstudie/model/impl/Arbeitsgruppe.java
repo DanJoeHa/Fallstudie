@@ -3,6 +3,7 @@ package fallstudie.model.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import com.sun.jmx.snmp.daemon.CommunicationException;
 
@@ -111,9 +112,6 @@ public class Arbeitsgruppe {
 		}
 		try
 		{	
-		
-			resultSet.next();
-		
 			// Obtain the number of columns in the returned table
 			@SuppressWarnings("unused")
 			int columnCount = resultSet.getMetaData().getColumnCount();
@@ -177,6 +175,7 @@ public class Arbeitsgruppe {
 		
 			ResultSet resultSet = RemoteConnection.sql.executeQuery
 						("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
+			resultSet.next();
 			Arbeitsgruppe ag = new Arbeitsgruppe(resultSet);
 			
 			this.arbeitsgruppeID = arbeitsgruppeid;
@@ -228,7 +227,7 @@ public class Arbeitsgruppe {
 			System.out.println
 				("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
 			//Variablen für den späteren Konstruktoraufruf
-	
+			resultSet.next();
 			ag = new Arbeitsgruppe(resultSet);
 			
 			
@@ -563,25 +562,71 @@ public class Arbeitsgruppe {
 	 * einer Arbeitsgruppe hinzugefügt wird oder geändert wird
 	 * @return
 	 */
-	public Collection<Arbeitsgruppe> getAlleArbeitsgruppen() {
+	public static Collection<Arbeitsgruppe> getAlleArbeitsgruppen() {
 
+		Collection<Arbeitsgruppe> result = new LinkedList<>();
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		ResultSet resultSet = null;
+		try 
+		{	
+			System.out.println("SELECT * FROM ARBEITSGRUPPE");
+				resultSet = RemoteConnection.sql.executeQuery(
+					"Select * From Arbeitsgruppe");
 		
-		return null;
+				while (resultSet.next()) 
+				{
+					result.add(new Arbeitsgruppe(resultSet));
+				}
+				resultSet.close();
+		}
+		catch (SQLException e) 
+		{
+			System.err.println("Keine Connection zur DB");
+		}
+		return result;
 	}
 	/**
 	 * Methode liefert anhand des Suchbegriffs eine Collection
 	 * von übereinstimmungen zurück (In Tabellenform in der Gui auszugeben)
 	 * @param suchbegriff
 	 * @return
+	 * @throws Exception 
 	 */
-	public static Collection<Arbeitsgruppe> suche(String suchbegriff)
+	public static Collection<Arbeitsgruppe> suche(String suchbegriff) throws Exception
 	{
+		Collection<Arbeitsgruppe> result = new LinkedList<>();
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null )
+			{
+				RemoteConnection.connect();
+			};
+		ResultSet resultSet = null;
+		try 
+		{	
+			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
+					" Bereich LIKE '%"+suchbegriff+"' OR Beschreibung LIKE '%"+suchbegriff+"' OR" +
+							" Kurzbezeichnung LIKE '%"+suchbegriff+"'");
+				resultSet = RemoteConnection.sql.executeQuery(
+						"SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
+								" Bereich LIKE '%"+suchbegriff+"' OR Beschreibung LIKE '%"+suchbegriff+"' OR" +
+										" Kurzbezeichnung LIKE '%"+suchbegriff+"'");
+				//Abfrage ob überhaupt Datensätze gefunden worden sind
+				resultSet.last();
+				int resultLength = resultSet.getRow();
+				resultSet.beforeFirst();
+				if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
+				while (resultSet.next()) 
+				{
+					result.add(new Arbeitsgruppe(resultSet));
+				}
+				resultSet.close();
+		}
+		catch (SQLException e) 
+		{
+			System.err.println("Select Statement ist fehlerhaft. Bitte überprüfen.");
+		}
+		return result;
+	}	
 
-		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-			RemoteConnection.connect();
-		};
-		
-		return null;
-		
-	}
 }
