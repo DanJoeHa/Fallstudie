@@ -8,7 +8,6 @@ public class DatenAnzeigenController extends HauptController {
 	private String suchdomain;
 	
 	public DatenAnzeigenController(){
-		
 	}
 	
 	public void setSuchdomain(String suchdomain){

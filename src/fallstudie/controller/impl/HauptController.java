@@ -122,9 +122,15 @@ public class HauptController implements Controller, TreeSelectionListener {
 					activeController.setOperation("loeschen");
 					hauptfenster.setContent(activeController.getView());
 					break;
-			case "e":
+			case "Art anlegen":
+					activeController = new ArtController();
+					activeController.setOperation("anlegen");
+					hauptfenster.setContent(activeController.getView());
 					break;
-			case "f":
+			case "Art loeschen":
+					activeController = new ArtController();
+					activeController.setOperation("loeschen");
+					hauptfenster.setContent(activeController.getView());
 					break;
 			case "g":
 					break;
