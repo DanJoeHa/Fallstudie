@@ -50,18 +50,17 @@ public class HauptView extends JFrame implements View{
 		
 		//Menuebaum
 		this.Navigation = new JTree();
-		this.Navigation.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Aktionen") {
+		DefaultMutableTreeNode aktionMA = new DefaultMutableTreeNode("Mitarbeiter"){
+			private static final long serialVersionUID = -4459245092488416529L;
 
-				private static final long serialVersionUID = -4459245092488416529L;
-
-				{
-					add(new DefaultMutableTreeNode("Punkt1"));
-					add(new DefaultMutableTreeNode("Punkt2"));
-					add(new DefaultMutableTreeNode("Passwort \u00E4ndern"));
-				}
+			{
+				add(new DefaultMutableTreeNode("anlegen"));
+				add(new DefaultMutableTreeNode("bearbeiten"));
+				add(new DefaultMutableTreeNode("löschen"));
 			}
-		));
+		};
+		DefaultTreeModel treeModel = new DefaultTreeModel(aktionMA);
+		this.Navigation.setModel(treeModel);
 		this.Navigation.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		navigationsbereich.add(this.Navigation);
 		
