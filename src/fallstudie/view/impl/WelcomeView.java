@@ -10,12 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 import java.awt.Dimension;
 
-public class startbildschirm extends JPanel {
+public class WelcomeView extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public startbildschirm() {
+	public WelcomeView() {
 		setPreferredSize(new Dimension(600, 700));
 		setMinimumSize(new Dimension(600, 700));
 		setMaximumSize(new Dimension(600, 700));
