@@ -41,8 +41,7 @@ public class LoginController implements Controller
 
 	@Override
 	public View getView() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.view;
 	}
 	
 }
