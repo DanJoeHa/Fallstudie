@@ -45,13 +45,23 @@ public class ArbeitsgruppenController extends HauptController {
 		//wenn Bearbeiten einer Arbeitsgruppe
 		if( this.operation == "bearbeiten" ){
 			
-			//TODO: nach Arbeitsgruppe suchen
-			//--> Suchcontroller hier oder aus Main?!
+			// nach Arbeitsgruppe suchen
 			SuchController suche = new SuchController();
 			suche.setSuchdomain("Arbeitsgruppe");
 			suche.setOperation("auswahl");
+			hauptfenster.setContent( suche.getView() );
 			
+			//warte auf Auswahl
+			while( suche.getAuswahl() == null ){
+				suche.getAuswahl();
+			}
 			
+			//ausgewählten Mitarbeiter holen
+			Mitarbeiter gewaehlterAGLeiter = (Mitarbeiter) suche.getAuswahl();
+			
+			//an Maske übergeben & Maske anzeigen
+			this.view.setAGLeiter( gewaehlterAGLeiter.setBenutzername() );
+			hauptfenster.setContent( this.getView() );
 		}
 	}
 	

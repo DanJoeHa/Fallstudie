@@ -7,6 +7,7 @@ public class SuchController extends HauptController {
 	private String suchdomain;
 	private Collection<Object> suchergebnisse;
 	private String operation;
+	private Object auswahl;
 	
 	public SuchController(){
 	
@@ -17,6 +18,9 @@ public class SuchController extends HauptController {
 	
 	public Object getAuswahl(){
 		
+		
+		
+		return this.auswahl;
 	}
 
 	public void setOperation(String operation){
