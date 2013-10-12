@@ -2,12 +2,14 @@ package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JPanel;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Mitarbeiter;
+import fallstudie.view.impl.HauptView;
 import fallstudie.view.interfaces.View;
 
 
@@ -35,6 +37,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 		
 		//Hauptfenster
 		hauptfenster = new HauptView();
+		hauptfenster.setController( this );
 		hauptfenster.setUeberschrift("Login");
 		hauptfenster.setContent( activeController.getView() );
 	}
@@ -50,12 +53,15 @@ public class HauptController implements Controller, TreeSelectionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		//Aktion auslesen
 		String button = e.getActionCommand();
 		
 		//Wenn Button "Logout" gedrückt wurde
 		if(button == "Logout")
 		{
+			System.out.println("Logout");
+			
 			//Mitarbeiter ausloggen
 			if( activeUser.ausloggen() ){
 				
@@ -69,8 +75,9 @@ public class HauptController implements Controller, TreeSelectionListener {
 		}
 		
 		//Wenn Button "Hilfe gedrückt wurde"
-		if(button == "Hilfe")
+		if(button == "Hilfe?")
 		{
+			System.out.println("Hilfe");
 			//internalFrame oder Popup? 
 		}
 
@@ -96,33 +103,39 @@ public class HauptController implements Controller, TreeSelectionListener {
 		{
 			case "Passwort ändern":
 					activeController = new PasswortController();
-					hauptfenster.setContent(activeController.getView());
 					break;
 			case "Arbeitsgruppe bearbeiten":
 					activeController = new ArbeitsgruppenController();
 					activeController.setOperation("bearbeiten");
-					hauptfenster.setContent( activeController.getView() );
+					break;
+			case "Arbeitsgruppe löschen":
+					activeController = new SuchController();
+					activeController.setOperation("löschen");
+					activeController.setSuchdomain("Arbeitsgruppe");
 					break;
 			case "Eintrag erfassen":
 					activeController = new ErfassenController();
-					hauptfenster.setContent(activeController.getView());
 					break;
 			case "Bereich anlegen":
-					activeController = new BereichBearbeitenAnlegenView();
+					activeController = new BereichController();
 					activeController.setOperation("anlegen");
-					hauptfenster.setContent(activeController.getView());
 					break;
 			case "Bereich bearbeiten":
-					activeController = new BereichBearbeitenAnlegenView();
+					activeController = new BereichController();
 					activeController.setOperation("bearbeiten");
-					hauptfenster.setContent(activeController.getView());
 					break;
 			case "Bereich löschen":
-					activeController = new BereichLoeschenView();
+					activeController = new BereichController();
 					activeController.setOperation("loeschen");
-					hauptfenster.setContent(activeController.getView());
 					break;
-			case "e":
+			case "Mitarbeiter anlegen":
+					break;
+			case "Mitarbeiter bearbeiten":
+					break;
+			case "Mitarbeiter löschen":
+					activeController = new SuchController();
+					activeController.setSuchdomain("Mitarbeiter");
+					activeController.setOperation("löschen");
 					break;
 			case "f":
 					break;
@@ -133,6 +146,9 @@ public class HauptController implements Controller, TreeSelectionListener {
 			default:
 				System.out.println("Keine definierte Aktion ausgewaehlt!");
 		}
+		
+		//Anzeigen
+		hauptfenster.setContent( activeController.getView() );
 	}
 	
 	/**
