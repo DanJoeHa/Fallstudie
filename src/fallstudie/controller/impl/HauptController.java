@@ -103,13 +103,24 @@ public class HauptController implements Controller, TreeSelectionListener {
 					activeController.setOperation("bearbeiten");
 					hauptfenster.setContent( activeController.getView() );
 					break;
-			case "a":
+			case "Eintrag erfassen":
+					activeController = new ErfassenController();
+					hauptfenster.setContent(activeController.getView());
 					break;
-			case "b":
+			case "Bereich anlegen":
+					activeController = new BereichBearbeitenAnlegenView();
+					activeController.setOperation("anlegen");
+					hauptfenster.setContent(activeController.getView());
 					break;
-			case "c":
+			case "Bereich bearbeiten":
+					activeController = new BereichBearbeitenAnlegenView();
+					activeController.setOperation("bearbeiten");
+					hauptfenster.setContent(activeController.getView());
 					break;
-			case "d":
+			case "Bereich loeschen":
+					activeController = new BereichLoeschenView();
+					activeController.setOperation("loeschen");
+					hauptfenster.setContent(activeController.getView());
 					break;
 			case "e":
 					break;
@@ -120,7 +131,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 			case "Th":
 					break;
 			default:
-				System.out.println("Keine definierte Aktion ausgew�hlt!");
+				System.out.println("Keine definierte Aktion ausgewaehlt!");
 		}
 	}
 	
