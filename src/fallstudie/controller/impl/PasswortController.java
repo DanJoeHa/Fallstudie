@@ -38,7 +38,7 @@ public class PasswortController extends HauptController {
 		String button = e.getActionCommand();
 		
 		// wenn button "Speichern" angeklickt wurde
-		if(button == "Speichern")
+		if(button.equals("Speichern")
 		{
 			//Hole Daten aus View
 			String neuesPasswort = this.view.getNeuesPasswort();
