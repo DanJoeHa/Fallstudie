@@ -117,7 +117,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 					activeController.setOperation("bearbeiten");
 					hauptfenster.setContent(activeController.getView());
 					break;
-			case "Bereich loeschen":
+			case "Bereich löschen":
 					activeController = new BereichLoeschenView();
 					activeController.setOperation("loeschen");
 					hauptfenster.setContent(activeController.getView());
