@@ -1,9 +1,9 @@
 package fallstudie.model.mysql.connector;
 
 
-import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -33,5 +33,12 @@ public class RemoteConnection {
 			System.err.println(e.getMessage());
 			
 		}
+		
+	}
+	public ResultSet executeQueryStatement(String statement) throws SQLException {
+		Statement sqlStmt = connection.createStatement();
+
+		// execute the statement and check whether there is a result
+		return sqlStmt.executeQuery(statement);
 	}
 }

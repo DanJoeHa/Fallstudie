@@ -2,6 +2,7 @@ package fallstudie.model.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -192,9 +193,12 @@ public class Bereich {
 	/**
 	 * findet anhand der BereichsID den Bereich
 	 * @param bereichID
+	 * @throws SQLException 
 	 */
 
-	public Bereich(int bereichID) {
+	public Bereich(int bereichID) throws SQLException {
+		
+		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -209,15 +213,11 @@ public class Bereich {
 		try
 		{	System.out.println("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
 		
-			ResultSet resultSet = RemoteConnection.sql.executeQuery
-						("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
-			resultSet.last();
-			int resultLength = resultSet.getRow();
-			resultSet.beforeFirst();
-			if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
-			resultSet.next();
-			Bereich bereich = new Bereich(resultSet);
+		ResultSet BereichResult = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
 			
+			BereichResult.next();
+		
+			Bereich bereich = new Bereich(BereichResult);
 			this.bereichID = bereich.getID();
 			this.aktiv = bereich.getAktiv();
 			this.beschreibung = bereich.getBeschreibung();
@@ -226,8 +226,9 @@ public class Bereich {
 			
 		}
 		catch (SQLException e)
-		{;
+		{   System.err.println("Dieser Fehler ist aufgetreten in Bereich (id):");
 			System.err.println(e.getMessage());
+			
 		}
 	}
 	
@@ -236,13 +237,18 @@ public class Bereich {
 	 * @param resultSet
 	 * @throws SQLException 
 	 */
-	public Bereich(ResultSet resultSet)
-	{
+	public Bereich(ResultSet resultSet) throws SQLException
+	{	
+		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 				RemoteConnection.connect();
-			};
+			}
+			else
+			{
+				
+			}
 		}
 		catch (NullPointerException e)
 		{
@@ -254,17 +260,17 @@ public class Bereich {
 			// Obtain the number of columns in the returned table
 			
 			int columnCount = resultSet.getMetaData().getColumnCount();
-			
+			//System.out.println(columnCount);
 			//Mitarbeiterobjekt aus der ID
 				String leiterBenutzername = resultSet.getString("Leiter");
 			
 				//Mitarbeiter Resultset holen
 			if (leiterBenutzername!=null)
 			{	System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
-				ResultSet mitarbeiterResult = RemoteConnection.sql.executeQuery(
-					"SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
+				ResultSet mitarbeiterResult = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
 				//LEITER SETZEn
 				this.leiter = new Mitarbeiter(mitarbeiterResult);
+				mitarbeiterResult.close();
 			}
 			//checken
 			else
@@ -280,11 +286,10 @@ public class Bereich {
 			this.kurzbezeichnung = resultSet.getString("Kurzbezeichnung");
 			//Status der Arbeitsgruppe
 			this.aktiv = resultSet.getBoolean("Aktiv");
-			resultSet.close();
 		}
 	catch (SQLException e)
 	{
-		System.err.println("ResultSet ist Leer. Bitte SQL Statement überprüfen!");
+		System.err.println("Dieser Fehler ist in Bereich(ResultSet) aufgetreten:");
 		System.err.println(e.getMessage());
 	}
 		

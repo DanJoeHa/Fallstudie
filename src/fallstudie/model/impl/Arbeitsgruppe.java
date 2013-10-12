@@ -1,5 +1,6 @@
 package fallstudie.model.impl;
 
+import java.rmi.Remote;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -24,6 +25,7 @@ public class Arbeitsgruppe {
 	private  Bereich bereich;
 	private  boolean aktiv;
 	private  Mitarbeiter leiter;
+	public static ResultSet resultSet;
 	
 	
 	//-----------------------------------------------------------
@@ -57,7 +59,7 @@ public class Arbeitsgruppe {
 	}
 		
 	String benutzername = leiter.getBenutzername();
-	int bereichID = bereich.getID(bereich.getKurzbezeichnung());
+	int bereichID = bereich.getIDByKurzbezeichnung(bereich.getKurzbezeichnung());
 	try {
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 				"SELECT Kurzbezeichnung From Arbeitsgruppe");
@@ -138,21 +140,25 @@ public class Arbeitsgruppe {
 			
 			//Bereichobjekt aus der BereichsID
 			int bereichID = resultSet.getInt("Bereich");
-			//Bereich aus der ID generieren
-			this.bereich = new Bereich(bereichID);
 			//Beschreibung der Arbeitsgruppe
 			this.beschreibung = resultSet.getString("Beschreibung");
 			//Kurzbezeichnung der Arbeitsgruppe
 			this.kurzbezeichnung = resultSet.getString("Kurzbezeichnung");
 			//Status der Arbeitsgruppe
 			this.aktiv = resultSet.getBoolean("Aktiv");
+			//Bereich aus der ID generieren
+			this.bereich= new Bereich(bereichID);
+			
+			
+			
 		
 		}
 	catch (SQLException e)
 	{
-		System.err.println("ResultSet ist Leer. Bitte SQL Statement überprüfen!");
+		System.err.println("Dieser Fehler ist aufgetretn in Arbeitsgruppe (ResultSet):");
 		System.err.println(e.getMessage());
 	}
+	
 	}
 	/**
 	 * ArbeitsgruppeObjekt per ID (Primärschlüssel) erzeugen
@@ -189,7 +195,7 @@ public class Arbeitsgruppe {
 			
 		}
 		catch (SQLException e)
-		{;
+		{	System.err.println("Dieser Fehler ist aufgetreten in Arbeitsgruppe (id)");
 			System.err.println(e.getMessage());
 		}
 	}
@@ -347,7 +353,7 @@ public class Arbeitsgruppe {
 			System.err.println(e.getMessage());
 		}
 			catch(NullPointerException e)
-			{
+			{	System.err.println("Dieser Fehler ist aufgetreten in setKurzbezeichnung Arbeitsgruppe:");
 				System.err.println("Fehler beim Suchen der alten Kurzbezeichnung.");
 			}
 		return erfolgreich;
@@ -570,22 +576,23 @@ public class Arbeitsgruppe {
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
-		ResultSet resultSet = null;
+		resultSet = null;
 		try 
 		{	
-			System.out.println("SELECT * FROM ARBEITSGRUPPE");
+			System.out.println("SELECT * FROM Arbeitsgruppe");
 				resultSet = RemoteConnection.sql.executeQuery(
 					"Select * From Arbeitsgruppe");
-		
+				
 				while (resultSet.next()) 
-				{
+				{	
 					result.add(new Arbeitsgruppe(resultSet));
+					
 				}
-				resultSet.close();
+				
 		}
 		catch (SQLException e) 
-		{
-			System.err.println("Keine Connection zur DB");
+		{	System.err.println("Dieser Fehler ist aufgetreten in getAlleArbeitsgruppen():");
+			System.err.println(e.getMessage());
 		}
 		return result;
 	}
@@ -625,7 +632,7 @@ public class Arbeitsgruppe {
 				resultSet.close();
 		}
 		catch (SQLException e) 
-		{
+		{	System.err.println("Dieser Fehler ist aufgetreten in suche Arbeitsgruppe (suchbegriff):");
 			System.err.println("Select Statement ist fehlerhaft. Bitte überprüfen.");
 		}
 		return result;
