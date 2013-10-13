@@ -511,10 +511,26 @@ public class Arbeitsgruppe {
 	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
-		
+		boolean darfdeletedWerden=false;
+		RemoteConnection Connection = new RemoteConnection();
 		try 
 		{	
+			System.out.println("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
+			ResultSet checkMitarbeiter = Connection.executeQueryStatement("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			checkMitarbeiter.next();
+			String leiter = checkMitarbeiter.getString("Leiter");
+			if (leiter==null) darfdeletedWerden=true;
+			if (leiter!=null) 
+				{
+					throw new Exception("Dieser Arbeitsgruppe ist noch ein Leiter zugeordnet. Bitte zuordnung löschen.");
+				
+				}
+			checkMitarbeiter.close();
+		
+		//Erst fragen ob kein Leiter mehr da ist.
+		if(darfdeletedWerden==true)
+		{
 			if(aktuellerStatus==true)
 			{	
 				System.out.println("UPDATE Arbeitsgruppe SET Aktiv='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
@@ -531,6 +547,7 @@ public class Arbeitsgruppe {
 			throw new Exception("Diese Arbeitsgruppe ist bereits gelöscht.");
 			}
 			
+			}
 		}
 		
 		catch (SQLException e) {
@@ -656,13 +673,13 @@ public class Arbeitsgruppe {
 		ResultSet resultSet = null;
 		try 
 		{	
-			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
-					" Bereich LIKE '%"+suchbegriff+"' OR Beschreibung LIKE '%"+suchbegriff+"' OR" +
-							" Kurzbezeichnung LIKE '%"+suchbegriff+"'");
+			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"%' OR Leiter LIKE '%"+suchbegriff+"%' OR" +
+					" Bereich LIKE '%"+suchbegriff+"%' OR Beschreibung LIKE '%"+suchbegriff+"%' OR" +
+							" Kurzbezeichnung LIKE '%"+suchbegriff+"%'");
 				resultSet = Connection.executeQueryStatement(
-						"SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
-								" Bereich LIKE '%"+suchbegriff+"' OR Beschreibung LIKE '%"+suchbegriff+"' OR" +
-										" Kurzbezeichnung LIKE '%"+suchbegriff+"'");
+						"SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"%' OR Leiter LIKE '%"+suchbegriff+"%' OR" +
+								" Bereich LIKE '%"+suchbegriff+"%' OR Beschreibung LIKE '%"+suchbegriff+"%' OR" +
+										" Kurzbezeichnung LIKE '%"+suchbegriff+"%'");
 				//Abfrage ob überhaupt Datensätze gefunden worden sind
 				resultSet.last();
 				int resultLength = resultSet.getRow();
@@ -670,7 +687,7 @@ public class Arbeitsgruppe {
 				if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
 				else
 				{
-					System.out.println("Es wurden "+resultLength+" Datensätze gefunden.");
+					System.out.println("Es wurden "+resultLength+" Datensätze gefunden. Die Gelöschten Einträge werden nicht angezeigt.");
 				}
 				while (resultSet.next()) 
 				{

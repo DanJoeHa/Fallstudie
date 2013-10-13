@@ -56,7 +56,7 @@ public class Bereich {
 		try
 		{
 		 leiterBenutzername = leiter.getBenutzername();
-		 
+		 	System.out.println("SELECT Kurzbezeichnung From Arbeitsgruppe");
 			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 					"SELECT Kurzbezeichnung From Arbeitsgruppe");
 			
@@ -77,6 +77,11 @@ public class Bereich {
 			
 			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensï¿½tze eingefï¿½gt.");
 			
+		
+			this.kurzbezeichnung = kurzbezeichnung;
+			this.beschreibung = beschreibung;
+			this.leiter = leiter;
+		
 		} 
 		
 		
@@ -86,13 +91,10 @@ public class Bereich {
 		}
 		catch(NullPointerException e)
 		{
-			System.err.println("Der Leiter hat keinen Benutzernamen. Bitte prï¿½fen sie.");
+			System.err.println("Der Leiter hat keinen Benutzernamen. Bitte prüen sie.");
 			
 		}
-		this.kurzbezeichnung = kurzbezeichnung;
-		this.beschreibung = beschreibung;
-		this.leiter = leiter;
-	}
+		}
 
 	/**
 	 * Fï¿½gt einen Bereich ohne Leiter in die Datenbank ein.
@@ -188,7 +190,7 @@ public class Bereich {
 		}
 		catch (SQLException e) 
 		{
-			System.err.println("SELECT Statement ist fehlerhaft. Bitte ï¿½berprï¿½fen.");
+			System.err.println("SELECT Statement ist fehlerhaft. Bitte ï¿½berprüen.");
 		}
 		return result;
 
@@ -302,10 +304,6 @@ public class Bereich {
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 				RemoteConnection.connect();
 			}
-			else
-			{
-				
-			}
 		}
 		catch (NullPointerException e)
 		{
@@ -314,7 +312,7 @@ public class Bereich {
 		}
 		try
 		{	
-			//System.out.println(columnCount);
+	
 			//Mitarbeiterobjekt aus der ID
 				String leiterBenutzername = resultSet.getString("Leiter");
 			

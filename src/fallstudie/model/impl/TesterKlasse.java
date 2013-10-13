@@ -2,6 +2,11 @@ package fallstudie.model.impl;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.concurrent.LinkedBlockingDeque;
+
+
+
 
 public class TesterKlasse {
 
@@ -10,16 +15,14 @@ public class TesterKlasse {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-	
-		Collection<Arbeitsgruppe> a = Arbeitsgruppe.suche("5");
+		
+		Collection<Arbeitsgruppe> a =  new LinkedList<>();
+				a = Arbeitsgruppe.suche("e");
 		
 		for (Iterator i = a.iterator(); i.hasNext();)
 		{
-			Arbeitsgruppe b = (Arbeitsgruppe) i.next();
-			System.out.println(b.getKurzbezeichnung());
-
+			Arbeitsgruppe c = (Arbeitsgruppe) i.next();
+			System.out.println(c.getBeschreibung());
 		}
-		
-
 }
 }
