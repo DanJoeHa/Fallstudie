@@ -14,7 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 public class ArbeitsgruppeBearbeitenAnlegenView extends JPanel {
-	private JTextField T_AG_Leiter_Suchbegriff;
+	private JTextField T_AGLeiterSuchbegriff;
 
 	/**
 	 * Create the panel.
@@ -30,10 +30,10 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends JPanel {
 		setLayout(null);
 		
 		//L_AG_Leiter
-		JLabel L_AG_Leiter = new JLabel("Gruppenleiter:");
-		L_AG_Leiter.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_AG_Leiter.setBounds(30, 200, 150, 30);
-		add(L_AG_Leiter);
+		JLabel L_AGLeiter = new JLabel("Gruppenleiter:");
+		L_AGLeiter.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		L_AGLeiter.setBounds(30, 200, 150, 30);
+		add(L_AGLeiter);
 		
 		//L_Bereich
 		JLabel L_Bereich = new JLabel("Bereich:");
@@ -42,11 +42,11 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends JPanel {
 		add(L_Bereich);
 		
 		//T_AG_Leiter_Suchbegriff
-		T_AG_Leiter_Suchbegriff = new JTextField();
-		T_AG_Leiter_Suchbegriff.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_AG_Leiter_Suchbegriff.setColumns(10);
-		T_AG_Leiter_Suchbegriff.setBounds(200, 200, 220, 30);
-		add(T_AG_Leiter_Suchbegriff);
+		T_AGLeiterSuchbegriff = new JTextField();
+		T_AGLeiterSuchbegriff.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		T_AGLeiterSuchbegriff.setColumns(10);
+		T_AGLeiterSuchbegriff.setBounds(200, 200, 220, 30);
+		add(T_AGLeiterSuchbegriff);
 		
 		//C_Bereich
 		JComboBox C_Bereich = new JComboBox();
@@ -55,11 +55,11 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends JPanel {
 		add(C_Bereich);
 		
 		//B_AG_Leiter_Suche mit Lupe
-		JButton B_AG_Leiter_Suche = new JButton("Suchen");
-		B_AG_Leiter_Suche.setIcon(null);
-		B_AG_Leiter_Suche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_AG_Leiter_Suche.setBounds(440, 200, 150, 30);
-		add(B_AG_Leiter_Suche);
+		JButton B_AGLeiterSuche = new JButton("Suchen");
+		B_AGLeiterSuche.setIcon(null);
+		B_AGLeiterSuche.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_AGLeiterSuche.setBounds(440, 200, 150, 30);
+		add(B_AGLeiterSuche);
 		
 
 	}

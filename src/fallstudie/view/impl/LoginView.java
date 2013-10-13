@@ -20,7 +20,7 @@ public class LoginView extends JPanel implements View {
 	private JPasswordField P_Passwort;
 	private JTextField T_Benutzername;
 	private JButton B_Login;
-	private JButton B_Passwort_vergessen;
+	private JButton B_PasswortVergessen;
 
 	/**
 	 * Sicht erstellen.
@@ -49,6 +49,12 @@ public class LoginView extends JPanel implements View {
 		L_Passwort.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		L_Passwort.setBounds(30, 150, 150, 30);
 		add(L_Passwort);
+		
+		//Hinweis, dass man Daten eingeben soll
+		JLabel L_Hinweis = new JLabel("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein");
+		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		L_Hinweis.setBounds(30, 50, 500, 30);
+		add(L_Hinweis);
 
 		//P_Passwort
 		P_Passwort = new JPasswordField();
@@ -69,16 +75,10 @@ public class LoginView extends JPanel implements View {
 		add(B_Login);
 		
 		//B_Passwort_vergessen
-		B_Passwort_vergessen = new JButton("Passwort vergessen?");
-		B_Passwort_vergessen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Passwort_vergessen.setBounds(200, 250, 300, 30);
-		add(B_Passwort_vergessen);
-		
-		//Hinweis, dass man Daten eingeben soll
-		JLabel L_Hinweis = new JLabel("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein");
-		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Hinweis.setBounds(30, 50, 500, 30);
-		add(L_Hinweis);
+		B_PasswortVergessen = new JButton("Passwort vergessen?");
+		B_PasswortVergessen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_PasswortVergessen.setBounds(200, 250, 300, 30);
+		add(B_PasswortVergessen);
 
 	}
 	
@@ -114,7 +114,7 @@ public class LoginView extends JPanel implements View {
 	@Override
 	public void setController(Controller c) {
 		this.B_Login.addActionListener(c);
-		this.B_Passwort_vergessen.addActionListener(c);
+		this.B_PasswortVergessen.addActionListener(c);
 		
 	}
 	
