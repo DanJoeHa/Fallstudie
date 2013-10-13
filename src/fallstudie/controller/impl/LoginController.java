@@ -34,6 +34,7 @@ public class LoginController implements Controller
 				}
 			}catch(Exception ex){
 				HauptController.hauptfenster.setInfoBox( ex.getMessage() );
+				this.view.reset();
 			}
 		}
 		
