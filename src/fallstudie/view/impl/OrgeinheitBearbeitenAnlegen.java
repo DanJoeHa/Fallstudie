@@ -13,18 +13,18 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-public class orga_bearbeiten_anlegen extends JPanel {
+public class OrgeinheitBearbeitenAnlegen extends JPanel {
 	private JTextField T_Kurzbezeichnung;
 	private JTextField T_Bezeichnung;
 	/**
 	 * Create the panel.
 	 */
-	public orga_bearbeiten_anlegen() {
-		setPreferredSize(new Dimension(600, 700));
-		setMinimumSize(new Dimension(600, 700));
-		setMaximumSize(new Dimension(600, 700));
+	public OrgeinheitBearbeitenAnlegen() {
+		setPreferredSize(new Dimension(620, 660));
+		setMinimumSize(new Dimension(620, 660));
+		setMaximumSize(new Dimension(620, 660));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 600, 700));
+		setBounds(new Rectangle(0, 0, 620, 660));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -32,19 +32,19 @@ public class orga_bearbeiten_anlegen extends JPanel {
 		//L_Kurzbezeichnung
 		JLabel L_Kurzbezeichnung = new JLabel("Kurzbezeichnung:");
 		L_Kurzbezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Kurzbezeichnung.setBounds(10, 107, 210, 17);
+		L_Kurzbezeichnung.setBounds(30, 100, 150, 30);
 		add(L_Kurzbezeichnung);
 				
 		//L_Bezeichnung
 		JLabel L_Bezeichnung = new JLabel("Bezeichnung:");
 		L_Bezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Bezeichnung.setBounds(10, 148, 210, 17);
+		L_Bezeichnung.setBounds(30, 150, 150, 30);
 		add(L_Bezeichnung);
 				
 		//T_Kurzbezeichnung
 		T_Kurzbezeichnung = new JTextField();
 		T_Kurzbezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_Kurzbezeichnung.setBounds(175, 107, 181, 20);
+		T_Kurzbezeichnung.setBounds(200, 100, 300, 30);
 		add(T_Kurzbezeichnung);
 		T_Kurzbezeichnung.setColumns(10);
 				
@@ -52,20 +52,20 @@ public class orga_bearbeiten_anlegen extends JPanel {
 		T_Bezeichnung = new JTextField();
 		T_Bezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Bezeichnung.setColumns(10);
-		T_Bezeichnung.setBounds(175, 148, 181, 20);
+		T_Bezeichnung.setBounds(200, 150, 300, 30);
 		add(T_Bezeichnung);
 				
-		//B_Zurücksetzen
-		JButton B_Zurücksetzen = new JButton("Zur\u00FCcksetzten");
-		B_Zurücksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Zurücksetzen.setBounds(70, 382, 150, 23);
-		add(B_Zurücksetzen);
+		//B_Zuruecksetzen
+		JButton B_Zuruecksetzen = new JButton("Zur\u00FCcksetzten");
+		B_Zuruecksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_Zuruecksetzen.setBounds(30, 600, 150, 30);
+		add(B_Zuruecksetzen);
 				
-		//B_Anlegen entspricht Speichern
-		JButton B_Anlegen = new JButton("Speichern");
-		B_Anlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Anlegen.setBounds(305, 384, 150, 23);
-		add(B_Anlegen);		
+		//B_Speichern
+		JButton B_Speichern = new JButton("Speichern");
+		B_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_Speichern.setBounds(440, 600, 150, 30);
+		add(B_Speichern);	
 
 	}
 }

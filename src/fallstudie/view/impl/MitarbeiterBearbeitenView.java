@@ -13,65 +13,59 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-public class mitarbeiter_bearbeiten extends JPanel {
+public class MitarbeiterBearbeitenView extends JPanel {
 	private JTextField T_Arbeitsgruppe;
 
 	/**
 	 * Create the panel.
 	 */
-	public mitarbeiter_bearbeiten() {
-		setPreferredSize(new Dimension(600, 700));
-		setMinimumSize(new Dimension(600, 700));
-		setMaximumSize(new Dimension(600, 700));
+	public MitarbeiterBearbeitenView() {
+		setPreferredSize(new Dimension(620, 660));
+		setMinimumSize(new Dimension(620, 660));
+		setMaximumSize(new Dimension(620, 660));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 600, 700));
+		setBounds(new Rectangle(0, 0, 620, 660));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
-				
-		//L_Ueberschrift
-		JLabel L_Ueberschrift = new JLabel("Mitarbeiter bearbeiten");
-		L_Ueberschrift.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Ueberschrift.setBounds(10, 11, 580, 17);
-		add(L_Ueberschrift);
 		
 		//C_Bereich
 		JComboBox C_Bereich = new JComboBox();
 		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Bereich.setBounds(170, 208, 181, 20);
+		C_Bereich.setBounds(200, 300, 300, 30);
 		add(C_Bereich);
 				
 		//C_Rolle
 		JComboBox C_Rolle = new JComboBox();
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Rolle.setBounds(170, 176, 181, 20);
+		C_Rolle.setBounds(200, 250, 300, 30);
 		add(C_Rolle);
 		
 		//T_Arbeitsgruppe
 		T_Arbeitsgruppe = new JTextField();
 		T_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Arbeitsgruppe.setColumns(10);
-		T_Arbeitsgruppe.setBounds(170, 239, 181, 20);
+		T_Arbeitsgruppe.setBounds(200, 350, 220, 30);
 		add(T_Arbeitsgruppe);
 
-		//B_SucheArbeitshgruppe mit Lupe
-		JButton B_SucheArbeitshgruppe = new JButton("suchen");
-		B_SucheArbeitshgruppe.setIcon(null);
-		B_SucheArbeitshgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_SucheArbeitshgruppe.setBounds(361, 238, 106, 23);
-		add(B_SucheArbeitshgruppe);
+		//B_SucheArbeitsgruppe 
+		JButton B_SucheArbeitsgruppe = new JButton("Suchen");
+		B_SucheArbeitsgruppe.setIcon(null);
+		B_SucheArbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_SucheArbeitsgruppe.setBounds(440, 350, 150, 30);
+		add(B_SucheArbeitsgruppe);
 
-		//B_Zurücksetzen
+		//B_Abbrechen
 		JButton B_Abbrechen = new JButton("Abbrechen");
 		B_Abbrechen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Abbrechen.setBounds(70, 382, 150, 23);
+		B_Abbrechen.setBounds(30, 600, 150, 30);
 		add(B_Abbrechen);
 		
-		//B_Anlegen entspricht Speichern
-		JButton B_Anlegen = new JButton("Speichern");
-		B_Anlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Anlegen.setBounds(305, 384, 150, 23);
-		add(B_Anlegen);
+		//B_Speichern
+		JButton B_Speichern = new JButton("Speichern");
+		B_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_Speichern.setBounds(440, 600, 150, 30);
+		add(B_Speichern);
 
 	}
 }
