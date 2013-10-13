@@ -3,6 +3,7 @@ package fallstudie.model.impl;
 import java.rmi.Remote;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -327,13 +328,26 @@ public class Arbeitsgruppe {
 	 * Methode ändert Kurzbezeichnung der Arbeitsgruppe
 	 * @param kurzbezeichnung
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean setKurzbezeichnung(String kurzbezeichnung) {
+	public boolean setKurzbezeichnung(String kurzbezeichnung) throws Exception {
 		
 		boolean erfolgreich = false;
 		try 
 		{
 			String alteKurzbezeichnung = this.getKurzbezeichnung();
+			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+					"SELECT Kurzbezeichnung From Arbeitsgruppe");
+			
+			while (checkObVorhanden.next()) 
+			{
+
+					String value = checkObVorhanden.getString("Kurzbezeichnung");
+					
+					if (kurzbezeichnung.equals(value)) throw new Exception ("Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon!");
+
+			}
+			checkObVorhanden.close();
 			if (!alteKurzbezeichnung.equals(kurzbezeichnung))
 			{
 				System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
@@ -492,13 +506,16 @@ public class Arbeitsgruppe {
 	 * Methode löscht die Arbeitsgruppe
 	 * -> wird auf Inaktiv gesetzt in der DB
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean loeschen() {
+	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
 		
 		try 
-		{	if(aktuellerStatus==true)
+		{	
+			
+			if(aktuellerStatus==true)
 			{	
 				System.out.println("UPDATE Arbeitsgruppe SET Aktiv='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
@@ -507,6 +524,11 @@ public class Arbeitsgruppe {
 				
 				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelöscht.");
 				erfolgreich=true;
+			}
+			if(aktuellerStatus==false)
+			{
+				
+			throw new Exception("Diese Arbeitsgruppe ist bereits gelöscht.");
 			}
 			
 		}
@@ -591,7 +613,7 @@ public class Arbeitsgruppe {
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
-		resultSet = null;
+		ResultSet resultSet = null;
 		try 
 		{	
 			System.out.println("SELECT * FROM Arbeitsgruppe");
@@ -600,7 +622,12 @@ public class Arbeitsgruppe {
 				
 				while (resultSet.next()) 
 				{	
+					
+					boolean aktiv = resultSet.getBoolean("Aktiv");
+					if (aktiv==true)
+					{
 					result.add(new Arbeitsgruppe(resultSet));
+					}
 					
 				}
 				resultSet.close();
@@ -647,7 +674,12 @@ public class Arbeitsgruppe {
 				}
 				while (resultSet.next()) 
 				{
+					//NuR Aktive werden ausgegeben
+					boolean aktiv = resultSet.getBoolean("Aktiv");
+					if (aktiv==true)
+					{
 					result.add(new Arbeitsgruppe(resultSet));
+					}
 				}
 				resultSet.close();
 		}
