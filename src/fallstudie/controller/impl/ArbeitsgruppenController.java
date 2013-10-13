@@ -14,7 +14,7 @@ public class ArbeitsgruppenController implements Controller {
 	private String operation;
 	
 	/**
-	 * Zeit  die View zur Arbeitsgruppenbearbeiten/-anlage abhängig von der Operation an
+	 * Zeigt  die View zur Arbeitsgruppenbearbeiten/-anlage abhängig von der Operation an
 	 * 
 	 * @author Johannes
 	 * @version 0.1
@@ -54,7 +54,7 @@ public class ArbeitsgruppenController implements Controller {
 			SuchController suche = new SuchController();
 			suche.setSuchdomain("Arbeitsgruppe");
 			suche.setOperation("auswahl");
-			hauptfenster.setContent( suche.getView() );
+			HauptController.hauptfenster.setContent( suche.getView() );
 			
 			//warte auf Auswahl
 			while( suche.getAuswahl() == null ){
@@ -66,7 +66,7 @@ public class ArbeitsgruppenController implements Controller {
 			
 			//an Maske übergeben & Maske anzeigen
 			this.view.setAGLeiter( gewaehlterAGLeiter.getBenutzername() );
-			hauptfenster.setContent( this.getView() );
+			HauptController.hauptfenster.setContent( this.getView() );
 		}
 	}
 
@@ -75,11 +75,17 @@ public class ArbeitsgruppenController implements Controller {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * Gibt die aktuelle View des Controllers zurück
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * @return (View) aktuelle View
+	 */
 	@Override
 	public View getView() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.view;
 	}
 	
 }

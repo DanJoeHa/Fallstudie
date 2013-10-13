@@ -31,7 +31,7 @@ public class ErfassenController implements Controller {
 			Calendar cal = Calendar.getInstance();
 		    DateFormat df;
 		    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
-			hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am"+ df.format(cal.getTime()) +"erfasst");
+			HauptController.hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am"+ df.format(cal.getTime()) +"erfasst");
 		}
 	}
 

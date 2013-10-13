@@ -39,7 +39,13 @@ public class BereichController implements Controller {
 
 	@Override
 	public View getView() {
-		// TODO Auto-generated method stub
-		return null;
+		switch( this.operation ){
+			case "anlegen": return this.view;
+							break;
+			case "bearbeiten": return this.view;
+							break;
+			case "loeschen": return this.viewLoesch;
+							break;
+		}
 	}
 }

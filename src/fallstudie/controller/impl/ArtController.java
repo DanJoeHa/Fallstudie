@@ -29,7 +29,7 @@ public class ArtController implements Controller {
 			{
 				this.viewLoeschen = new ArtLoeschenView();
 				this.viewLoeschen.setController( this );
-				this.viewLoeschen.setArt(Art.getAlleArten()); //Collection in String Array umwandeln
+				this.viewLoeschen.setArt(Art.getAlleArten().toArray()); //Collection in String Array umwandeln
 			}
 		}
 	}
@@ -39,13 +39,13 @@ public class ArtController implements Controller {
 		String button = e.getActionCommand();
 		
 		//Popup-Bestaetigung abfragen + Ausgaben in Infobox hinzuf�gen
-		if(button.equals("Speichern")
+		if(button.equals("Speichern") )
 		{
 			new Art(this.view.getArt());
 		}
 		else
 		{
-			if(button.equals("Loeschen")
+			if(button.equals("Loeschen") )
 			{
 				Art.loeschen(this.view.getArt());
 			}
@@ -54,8 +54,12 @@ public class ArtController implements Controller {
 
 	@Override
 	public View getView() {
-		// TODO Auto-generated method stub
-		return null;
+		switch( this.operation ){
+			case "anlegen": 	return this.view;
+								break;
+			case "loeschen":	return this.viewLoeschen;
+								break;
+		}
 	}
 
 }

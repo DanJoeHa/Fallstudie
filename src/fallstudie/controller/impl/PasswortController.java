@@ -58,6 +58,7 @@ public class PasswortController implements Controller {
 				else
 				{
 					HauptController.hauptfenster.setInfoBox("Passwörter stimmen nicht überein");
+					this.view.reset();
 				}
 			}
 			else
