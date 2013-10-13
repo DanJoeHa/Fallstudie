@@ -44,7 +44,8 @@ public class Arbeitsgruppe {
 	 */
 	public Arbeitsgruppe(String kurzbezeichnung, String beschreibung,
 			Bereich bereich, Mitarbeiter leiter) throws Exception {
-
+		
+		RemoteConnection Connection = new RemoteConnection();
 	try
 	{
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -61,7 +62,7 @@ public class Arbeitsgruppe {
 	String benutzername = leiter.getBenutzername();
 	int bereichID = bereich.getIDByKurzbezeichnung(bereich.getKurzbezeichnung());
 	try {
-		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+		ResultSet checkObVorhanden = Connection.executeQueryStatement(
 				"SELECT Kurzbezeichnung From Arbeitsgruppe");
 		
 		while (checkObVorhanden.next()) 
@@ -77,7 +78,7 @@ public class Arbeitsgruppe {
 
 			int RowsAffected = RemoteConnection.sql.executeUpdate(
 "INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"'");
-			System.out.println("Rows Affected: "+RowsAffected+"");
+			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz gespeichert.");
 		
 				}
 		
@@ -103,6 +104,7 @@ public class Arbeitsgruppe {
 	 */
 	public Arbeitsgruppe (ResultSet resultSet) throws SQLException
 	{	
+		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -127,8 +129,9 @@ public class Arbeitsgruppe {
 			
 				//Mitarbeiter Resultset holen
 			if (leiterBenutzername!=null)
-			{	System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
-				ResultSet mitarbeiterResult = RemoteConnection.sql.executeQuery(
+			{	
+				System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
+				ResultSet mitarbeiterResult =Connection.executeQueryStatement(
 					"SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
 				this.leiter = new Mitarbeiter(mitarbeiterResult);
 			}
@@ -151,6 +154,7 @@ public class Arbeitsgruppe {
 			
 			
 			
+			
 		
 		}
 	catch (SQLException e)
@@ -166,7 +170,7 @@ public class Arbeitsgruppe {
 	 */
 	
 	public Arbeitsgruppe(int arbeitsgruppeid) {
-		
+		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -181,7 +185,7 @@ public class Arbeitsgruppe {
 		try
 		{	System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
 		
-			ResultSet resultSet = RemoteConnection.sql.executeQuery
+			ResultSet resultSet = Connection.executeQueryStatement
 						("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
 			resultSet.next();
 			Arbeitsgruppe ag = new Arbeitsgruppe(resultSet);
@@ -211,6 +215,8 @@ public class Arbeitsgruppe {
 	 * @throws SQLException 
 	 */
 	public static Arbeitsgruppe getArbeitsgruppeByName(String kurzbezeichnung){
+		
+		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null )
@@ -230,8 +236,8 @@ public class Arbeitsgruppe {
 		{
 			
 		
-			ResultSet resultSet = RemoteConnection.sql.executeQuery
-				("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
+			ResultSet resultSet = Connection.executeQueryStatement(
+					"SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
 			System.out.println
 				("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
 			//Variablen für den späteren Konstruktoraufruf
@@ -279,11 +285,11 @@ public class Arbeitsgruppe {
 			String alteBeschreibung = this.getBeschreibung();
 			if (!alteBeschreibung.equals(beschreibung))
 			{
+				System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"+beschreibung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+					
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 					"UPDATE Arbeitsgruppe SET Beschreibung='"+beschreibung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-	
-				System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"+beschreibung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"
-					+" Rows Affected: "+RowsAffected);
+				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz geändert.");
 				
 				erfolgreich=true;
 		
@@ -330,12 +336,12 @@ public class Arbeitsgruppe {
 			String alteKurzbezeichnung = this.getKurzbezeichnung();
 			if (!alteKurzbezeichnung.equals(kurzbezeichnung))
 			{
+				System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+						
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 					"UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 	
-				System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"
-					+" Rows Affected: "+RowsAffected);
-				
+				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz geändert.");
 				erfolgreich=true;
 		
 			}
@@ -347,7 +353,7 @@ public class Arbeitsgruppe {
 		}
 			catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
+			System.err.println("------SQL ERROR------- in setKurzbezeichnung bei Arbeitsgruppe");
 			System.err.println(e.getErrorCode());
 			System.err.println(e.getCause());
 			System.err.println(e.getMessage());
@@ -386,10 +392,11 @@ public class Arbeitsgruppe {
 		{	//VERGLEICH DER BEIDEN
 			if(!(alterBereichID==bereichID))
 			{
+				System.out.println("UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+				
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-				
-				System.out.println("UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"+ "Rows Affected: "+RowsAffect);
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geändert.");
 				erfolgreich=true;
 			}
 			else
@@ -442,10 +449,12 @@ public class Arbeitsgruppe {
 		{	//VERGLEICH DER BEIDEN
 			if(!alterLeiterBenutzername.equals(neuerLeiterBenutzername))
 			{
+				System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				
-				System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"+ "Rows Affected: "+RowsAffect);
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geändert.");
 				erfolgreich=true;
 			}
 			else
@@ -490,11 +499,13 @@ public class Arbeitsgruppe {
 		
 		try 
 		{	if(aktuellerStatus==true)
-			{
+			{	
+				System.out.println("UPDATE Arbeitsgruppe SET Aktiv='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Aktiv ='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				
-				System.out.println("UPDATE Arbeitsgruppe SET Aktiv='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'"+ "Rows Affected: "+RowsAffect);
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelöscht.");
 				erfolgreich=true;
 			}
 			
@@ -528,6 +539,7 @@ public class Arbeitsgruppe {
 	 */
 	public static int getIDbyKurzbezeichnung(String kurzbezeichnung) {
 		int id = 0;
+		RemoteConnection Connection = new RemoteConnection();
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
@@ -535,21 +547,23 @@ public class Arbeitsgruppe {
 		
 		try {
 			System.out.println("SELECT ArbeitsgruppeID FROM Arbeitsgruppe WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
-			ResultSet resultSet = RemoteConnection.sql.executeQuery("SELECT ArbeitsgruppeID FROM Arbeitsgruppe WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
+			ResultSet resultSet = Connection.executeQueryStatement("SELECT ArbeitsgruppeID FROM Arbeitsgruppe WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
 			resultSet.next();
 			id = resultSet.getInt("ArbeitsgruppeID");
+			resultSet.close();
 		
 		} 
 		
 		
 		catch (SQLException e) {
-			System.err.println("Fehler beim Suchen. Keine Arbeitsgruppe mit dieser Kurzbezeichnung vorhanden.");
+			System.err.println("Fehler aufgetreten in der Methode getIDByKurzbezeichnung in Arbeitsgruppe:");
+			System.err.println(e.getMessage());
 		}
 		catch (NullPointerException e1)
 		{
 			System.err.println("Konnte keine Arbeitsgruppe mit dieser Kurzbezeichnung finden.");
 		}
-		catch (CommunicationException e)
+		catch (CommunicationException e2)
 		{
 			System.err.println("keine Connection zur Db");
 		}
@@ -573,6 +587,7 @@ public class Arbeitsgruppe {
 	public static Collection<Arbeitsgruppe> getAlleArbeitsgruppen() {
 
 		Collection<Arbeitsgruppe> result = new LinkedList<>();
+		RemoteConnection Connection = new RemoteConnection();
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
@@ -580,7 +595,7 @@ public class Arbeitsgruppe {
 		try 
 		{	
 			System.out.println("SELECT * FROM Arbeitsgruppe");
-				resultSet = RemoteConnection.sql.executeQuery(
+				resultSet = Connection.executeQueryStatement(
 					"Select * From Arbeitsgruppe");
 				
 				while (resultSet.next()) 
@@ -588,7 +603,7 @@ public class Arbeitsgruppe {
 					result.add(new Arbeitsgruppe(resultSet));
 					
 				}
-				
+				resultSet.close();
 		}
 		catch (SQLException e) 
 		{	System.err.println("Dieser Fehler ist aufgetreten in getAlleArbeitsgruppen():");
@@ -606,6 +621,7 @@ public class Arbeitsgruppe {
 	public static Collection<Arbeitsgruppe> suche(String suchbegriff) throws Exception
 	{
 		Collection<Arbeitsgruppe> result = new LinkedList<>();
+		RemoteConnection Connection = new RemoteConnection();
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null )
 			{
 				RemoteConnection.connect();
@@ -616,7 +632,7 @@ public class Arbeitsgruppe {
 			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
 					" Bereich LIKE '%"+suchbegriff+"' OR Beschreibung LIKE '%"+suchbegriff+"' OR" +
 							" Kurzbezeichnung LIKE '%"+suchbegriff+"'");
-				resultSet = RemoteConnection.sql.executeQuery(
+				resultSet = Connection.executeQueryStatement(
 						"SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
 								" Bereich LIKE '%"+suchbegriff+"' OR Beschreibung LIKE '%"+suchbegriff+"' OR" +
 										" Kurzbezeichnung LIKE '%"+suchbegriff+"'");
@@ -625,6 +641,10 @@ public class Arbeitsgruppe {
 				int resultLength = resultSet.getRow();
 				resultSet.beforeFirst();
 				if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
+				else
+				{
+					System.out.println("Es wurden "+resultLength+" Datensätze gefunden.");
+				}
 				while (resultSet.next()) 
 				{
 					result.add(new Arbeitsgruppe(resultSet));

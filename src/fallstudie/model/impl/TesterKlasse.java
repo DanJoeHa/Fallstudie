@@ -11,12 +11,13 @@ public class TesterKlasse {
 	 */
 	public static void main(String[] args) throws Exception {
 	
-		Collection<Arbeitsgruppe> a = Arbeitsgruppe.getAlleArbeitsgruppen();
+		Collection<Arbeitsgruppe> a = Arbeitsgruppe.suche("5");
 		
 		for (Iterator i = a.iterator(); i.hasNext();)
 		{
 			Arbeitsgruppe b = (Arbeitsgruppe) i.next();
-			System.out.println(b.getBeschreibung());
+			System.out.println(b.getKurzbezeichnung());
+
 		}
 		
 

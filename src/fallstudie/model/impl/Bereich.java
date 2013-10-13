@@ -223,6 +223,7 @@ public class Bereich {
 			this.beschreibung = bereich.getBeschreibung();
 			this.kurzbezeichnung = bereich.getKurzbezeichnung();
 			this.leiter = bereich.getLeiter();
+			BereichResult.close();
 			
 		}
 		catch (SQLException e)
@@ -286,6 +287,7 @@ public class Bereich {
 			this.kurzbezeichnung = resultSet.getString("Kurzbezeichnung");
 			//Status der Arbeitsgruppe
 			this.aktiv = resultSet.getBoolean("Aktiv");
+			
 		}
 	catch (SQLException e)
 	{
@@ -452,6 +454,8 @@ public class Bereich {
 	 */
 	public static int getIDByKurzbezeichnung(String kurzbezeichnung) {
 		int id = 0;
+		RemoteConnection Connection = new RemoteConnection();
+		
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
@@ -459,7 +463,7 @@ public class Bereich {
 		
 		try {
 			System.out.println("SELECT BereichID FROM Bereich WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
-			ResultSet resultSet = RemoteConnection.sql.executeQuery("SELECT BereichID FROM Bereich WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
+			ResultSet resultSet = Connection.executeQueryStatement("SELECT BereichID FROM Bereich WHERE Kurzbezeichnung='"+kurzbezeichnung+"'");
 			resultSet.next();
 			id = resultSet.getInt("BereichID");
 		
@@ -467,7 +471,8 @@ public class Bereich {
 		
 		
 		catch (SQLException e) {
-			System.err.println("Fehler beim Suchen. Keine Arbeitsgruppe mit dieser Kurzbezeichnung vorhanden.");
+			System.err.println("Fehler ist in Methode getIDByKurzbezeichnung(String) aufgetreten:");
+			System.err.println(e.getMessage());
 		}
 		catch (NullPointerException e1)
 		{
