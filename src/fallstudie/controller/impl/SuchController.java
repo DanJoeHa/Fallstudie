@@ -17,12 +17,10 @@ public class SuchController implements Controller {
 	private Collection<Object> suchergebnisse;
 	private String operation;
 	private Object auswahl = null;
+	private String suchbegriff;
 	
 	public SuchController(){
 		
-		//Suchen View ausgeben
-		this.view = new SuchenView();
-		this.view.setController( this );
 	}
 	
 	public void setSuchdomain (String suchdomain){
@@ -35,8 +33,24 @@ public class SuchController implements Controller {
 
 	public void setOperation(String operation){
 		this.operation = operation;
+		
+		if( this.operation.equals("suchen") || this.operation.equals("loeschen") ){
+			//Suchen View ausgeben
+			this.view = new SuchenView();
+			this.view.setController( this );
+		}
+		
+		if( this.operation.equals("auswahl") ){
+			//Ergebnistabelle anzeigen
+			ActionEvent e = new ActionEvent(this, 1, "suchen");
+			this.actionPerformed(e);
+		}
 	}
-
+	
+	public void setSuchbegriff(String Suchbegriff){
+		this.suchbegriff = Suchbegriff;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
@@ -46,6 +60,7 @@ public class SuchController implements Controller {
 				
 				//initiere Ergebnistabelle
 				this.viewErg = new TabelleView();
+				this.viewErg.setController( this );
 				this.viewErg.setButtonName("auswählen");
 				
 				//hole passende Suchergebnisse
@@ -98,6 +113,7 @@ public class SuchController implements Controller {
 				
 				//initiere Ergebnistabelle
 				this.viewErg = new TabelleView();
+				this.viewErg.setController( this );
 				this.viewErg.setButtonName("auswählen");
 				
 				//hole passende Suchergebnisse
@@ -149,6 +165,12 @@ public class SuchController implements Controller {
 
 	@Override
 	public View getView() {
-		return this.view;
+		if( this.operation.equals("suchen") || this.operation.equals("loeschen") ){
+			//Suchen View liefern
+			return this.view;
+		}else{
+			//Ergebnistabelle liefern
+			return this.viewErg;
+		}
 	}
 }

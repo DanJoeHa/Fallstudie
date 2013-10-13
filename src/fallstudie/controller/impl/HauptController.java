@@ -110,7 +110,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 					break;
 			case "Arbeitsgruppe löschen":
 					activeController = new SuchController();
-					activeController.setOperation("löschen");
+					activeController.setOperation("loeschen");
 					activeController.setSuchdomain("Arbeitsgruppe");
 					break;
 			case "Eintrag erfassen":
