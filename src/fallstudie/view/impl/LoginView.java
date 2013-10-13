@@ -29,9 +29,9 @@ public class LoginView extends JPanel implements View {
 	 * @version 1.0
 	 */
 	public LoginView() {
-		setPreferredSize(new Dimension(600, 700));
-		setMinimumSize(new Dimension(600, 700));
-		setMaximumSize(new Dimension(600, 700));
+		setPreferredSize(new Dimension(620, 655));
+		setMinimumSize(new Dimension(620, 655));
+		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setBounds(new Rectangle(0, 0, 600, 700));
 		setBorder(new LineBorder(new Color(0, 0, 0)));

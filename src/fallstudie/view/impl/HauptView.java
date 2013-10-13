@@ -97,6 +97,7 @@ public class HauptView extends JFrame implements View{
 		
 		//Inhaltsbereich
 		Content = new JPanel();
+		Content.setAutoscrolls(true);
 		Content.setBounds(210, 51, 620, 660);
 		Panel.add(Content);
 		
