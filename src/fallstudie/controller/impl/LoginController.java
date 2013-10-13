@@ -25,6 +25,9 @@ public class LoginController implements Controller
 			try{
 				HauptController.activeUser = Mitarbeiter.einloggen(this.view.getBenutzername(), this.view.getPasswort());
 				
+				//Navigations-Baum entsprechend Rechten von User aufbauen
+				HauptController.hauptfenster.createNavTree(HauptController.activeUser.checkRecht("Daten erfassen"), HauptController.activeUser.checkRecht("Lesen"), HauptController.activeUser.checkRecht("Arbeitsgruppe anlegen"), HauptController.activeUser.checkRecht("Eintragsart anlegen"), HauptController.activeUser.checkRecht("Bereich anlegen"), HauptController.activeUser.checkRecht("Mitarbeiter anlegen"), HauptController.activeUser.checkRecht("Jobintervall festlegen"));
+				
 				if( HauptController.activeUser.getLogin() == null ){
 					PasswortController pc = new PasswortController();
 					HauptController.hauptfenster.setContent( pc.getView() );

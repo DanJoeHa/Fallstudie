@@ -2,8 +2,8 @@ package fallstudie.model.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.sun.jmx.snmp.daemon.CommunicationException;
@@ -158,7 +158,7 @@ public class Bereich {
 		
 	public static Collection<Bereich> suche(String suchbegriff) {
 		Collection<Bereich> result = new LinkedList<>();
-		
+		RemoteConnection Connection = new RemoteConnection();
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null )
 			{
 				RemoteConnection.connect();
@@ -168,7 +168,7 @@ public class Bereich {
 		{	
 			System.out.println("SELECT * FROM Bereich WHERE BereichID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
 					" Beschreibung LIKE '%"+suchbegriff+"' OR Kurzbezeichnung LIKE '%"+suchbegriff+"'");
-				resultSet = RemoteConnection.sql.executeQuery(
+				resultSet = Connection.executeQueryStatement(
 						"SELECT * FROM Bereich WHERE BereichID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
 								" Beschreibung LIKE '%"+suchbegriff+"' OR Kurzbezeichnung LIKE '%"+suchbegriff+"'");
 				//Abfrage ob ï¿½berhaupt Datensï¿½tze gefunden worden sind
@@ -178,7 +178,11 @@ public class Bereich {
 				if (resultLength==0) throw new NullPointerException("Keine Datensï¿½tze gefunden");
 				while (resultSet.next()) 
 				{
-					result.add(new Bereich(resultSet));
+					boolean aktiv = resultSet.getBoolean("Aktiv");
+					if (aktiv==true)
+					{
+						result.add(new Bereich(resultSet));
+					}
 				}
 				resultSet.close();
 		}
@@ -189,7 +193,59 @@ public class Bereich {
 		return result;
 
 	}
-	
+	/**
+	 * Findet Bereich anhand der Kurzbezeichnung.
+	 * @param kurzbezeichnung
+	 * @return
+	 */
+	public static Bereich getBereichByName(String kurzbezeichnung){
+		
+		RemoteConnection Connection = new RemoteConnection();
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null )
+			{
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println(e.getMessage());
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
+		Bereich bereich = null;
+		
+		try
+		{
+			
+			System.out.println
+			("SELECT * FROM Bereich WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
+		
+			ResultSet resultSet = Connection.executeQueryStatement(
+					"SELECT * FROM Bereich WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
+			//Variablen für den späteren Konstruktoraufruf
+			resultSet.next();
+			bereich = new Bereich(resultSet);
+			
+			
+			resultSet.close();
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte kein Ergebnis mit der Kurzbezeichnung finden.");
+		}
+		
+		return bereich;
+	}
+		
 	/**
 	 * findet anhand der BereichsID den Bereich
 	 * @param bereichID
@@ -258,16 +314,14 @@ public class Bereich {
 		}
 		try
 		{	
-			// Obtain the number of columns in the returned table
-			
-			int columnCount = resultSet.getMetaData().getColumnCount();
 			//System.out.println(columnCount);
 			//Mitarbeiterobjekt aus der ID
 				String leiterBenutzername = resultSet.getString("Leiter");
 			
 				//Mitarbeiter Resultset holen
 			if (leiterBenutzername!=null)
-			{	System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
+			{	
+				System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
 				ResultSet mitarbeiterResult = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
 				//LEITER SETZEn
 				this.leiter = new Mitarbeiter(mitarbeiterResult);
@@ -339,6 +393,7 @@ public class Bereich {
 		{
 			System.err.println("Fehler beim Suchen der alten Beschreibung.");
 		}
+		this.beschreibung = beschreibung;
 		return erfolgreich;
 	}
 
@@ -355,13 +410,29 @@ public class Bereich {
 	 * Kurzbezeichnung wird geï¿½ndert
 	 * @param kurzbezeichnung
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean setKurzbezeichnung(String kurzbezeichnung) {
+	public boolean setKurzbezeichnung(String kurzbezeichnung) throws Exception {
 		boolean erfolgreich = false;
+		String NeukurzbezeichnungUP = kurzbezeichnung.toUpperCase();
+		String AltkurzbezeichnungUP = this.kurzbezeichnung.toUpperCase();
+		
 		try 
 		{
-			String alteKurzbezeichnung = this.getKurzbezeichnung();
-			if (!alteKurzbezeichnung.equals(kurzbezeichnung))
+			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+					"SELECT Kurzbezeichnung From Bereich");
+			
+			while (checkObVorhanden.next()) 
+			{
+
+					String value = checkObVorhanden.getString("Kurzbezeichnung").toUpperCase();
+					
+					if (NeukurzbezeichnungUP.equals(value)) throw new Exception ("Bereich mit der selben Kurzbezeichnung existiert schon!");
+
+			}
+			checkObVorhanden.close();
+			
+			if (!AltkurzbezeichnungUP.equals(NeukurzbezeichnungUP))
 			{
 				System.out.println("UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
@@ -391,6 +462,7 @@ public class Bereich {
 			{
 				System.err.println("Fehler beim Suchen der alten Kurzbezeichnung.");
 			}
+		this.kurzbezeichnung = kurzbezeichnung;
 		return erfolgreich;
 	}
 	/**
@@ -407,24 +479,70 @@ public class Bereich {
 	 * ob irgendwo in einer Arbeitsgruppe noch ein
 	 * Bereich zugeordnet ist
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean loeschen() {
+	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
+		RemoteConnection Connection = new RemoteConnection();
+		Collection<Arbeitsgruppe> arbeitsgruppeMitBereich = new LinkedList<>();
 		
 		try 
-		{	if(aktuellerStatus==true)
-			{
-				System.out.println("UPDATE Bereich SET Aktiv='0' WHERE BereichID='"+this.bereichID+"'");
-			
-				int RowsAffect = RemoteConnection.sql.executeUpdate(
-				"UPDATE Bereich SET Aktiv ='0' WHERE BereichID='"+this.bereichID+"'");
+		{	
+				ResultSet arbeitsgruppeCheck = Connection.executeQueryStatement(
+						"SELECT * FROM Arbeitsgruppe WHERE Bereich='"+this.bereichID+"'");
 				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelï¿½scht.");
+				arbeitsgruppeCheck.last();
+				int rows = arbeitsgruppeCheck.getRow();
+				//Abfrage ob der Bereich noch einer Arbeitsgruppe zugeordnet ist.
+				arbeitsgruppeCheck.beforeFirst();
+				if(rows>0)
+				{
+					while (arbeitsgruppeCheck.next()) 
+					{	
+						//Nur aktive werden ausgegeben
+						boolean aktiv = arbeitsgruppeCheck.getBoolean("Aktiv");
+						if (aktiv==true)
+						{
+							arbeitsgruppeMitBereich.add(new Arbeitsgruppe(arbeitsgruppeCheck));
+						}
+						
+						for (Iterator j=arbeitsgruppeMitBereich.iterator();j.hasNext();)
+						{
+							Arbeitsgruppe ag = (Arbeitsgruppe) j.next();
+							throw new Exception("Bereich ist noch zur Arbeitsgruppe "+ag.getKurzbezeichnung()+" zugeordnet. " +
+									"Bitte zuvor diese Zuordnung löschen dann erneut versuchen");
+							
+						}
+						
+					}
+					arbeitsgruppeCheck.close();
+					
+					
+					
+				}
+				else if (rows==0)
+				{
+					
 				
-				erfolgreich=true;
-			}
-			
+					if(aktuellerStatus==true)
+					{
+						System.out.println("UPDATE Bereich SET Aktiv='0' WHERE BereichID='"+this.bereichID+"'");
+					
+						int RowsAffect = RemoteConnection.sql.executeUpdate(
+						"UPDATE Bereich SET Aktiv ='0' WHERE BereichID='"+this.bereichID+"'");
+						
+						if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelöscht.");
+						
+						erfolgreich=true;
+					
+					}
+					else if (aktuellerStatus==false)
+					{
+						throw new Exception("Dieser Bereich ist bereits gelöscht.");
+					}
+				}
+
 		}
 		
 		catch (SQLException e) {
@@ -434,6 +552,7 @@ public class Bereich {
 			System.err.println(e.getCause());
 			System.err.println(e.getMessage());
 		}
+		this.aktiv=false;
 		return erfolgreich;
 	}
 
@@ -501,20 +620,85 @@ public class Bereich {
 	 */
 	
 	public static Collection<Bereich> getAlleBereiche() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+		Collection<Bereich> result = new LinkedList<>();
+		RemoteConnection Connection = new RemoteConnection();
+		
+		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+			RemoteConnection.connect();
+		};
+		ResultSet resultSet = null;
+		try 
+		{	
+			System.out.println("SELECT * FROM Bereich");
+				resultSet = Connection.executeQueryStatement(
+					"Select * From Bereich");
+				
+				while (resultSet.next()) 
+				{	
+					//Nur aktive werden ausgegeben
+					boolean aktiv = resultSet.getBoolean("Aktiv");
+					if (aktiv==true)
+					{
+					result.add(new Bereich(resultSet));
+					}
+				}
+				resultSet.close();
+		}
+		catch (SQLException e) 
+		{	System.err.println("Dieser Fehler ist aufgetreten in getAlleBereiche():");
+			System.err.println(e.getMessage());
+		}
+		return result;
+	}
 	/**
 	 * Leiter eines Bereichs setzen
 	 * @param Mitarbeiter
 	 * @return
 	 */
 	
-	public boolean setLeiter(Mitarbeiter Mitarbeiter) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setLeiter(Mitarbeiter mitarbeiter) {
+
+		boolean erfolgreich = false;
+		//Mitgegebener Bereich ID 
+		String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
+		//Aktueller Bereich ID
+		String alterLeiterBenutzername = this.leiter.getBenutzername();
+		
+		try 
+		{	//VERGLEICH DER BEIDEN
+			if(!alterLeiterBenutzername.equals(neuerLeiterBenutzername))
+			{
+				System.out.println("UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
+			
+				int RowsAffect = RemoteConnection.sql.executeUpdate(
+				"UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
+				
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geändert.");
+				erfolgreich=true;
+			}
+			else
+			{
+				System.err.println("Alter und Neuer Leiter sind Identisch! Bitte anderen Leiter wählen.");
+				erfolgreich= false;
+			}
+			this.leiter  = mitarbeiter;
+		}
+		
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.err.println("------SQL ERROR-------");
+			System.err.println(e.getErrorCode());
+			System.err.println(e.getCause());
+			System.err.println(e.getMessage());
+		}
+			catch(NullPointerException e)
+			{
+				System.err.println("Fehler beim Suchen des alten Leiters.");
+			}
+		return erfolgreich;
 	}
+
 
 
 	/**
@@ -522,7 +706,7 @@ public class Bereich {
 	 * @return
 	 */
 	public Mitarbeiter getLeiter() {
-		// TODO Auto-generated method stub
+	
 		return this.leiter;
 	}
 
