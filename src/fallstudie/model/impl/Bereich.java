@@ -11,7 +11,7 @@ import com.sun.jmx.snmp.daemon.CommunicationException;
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
- * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
+ * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht mï¿½glich ist im Interface
  * @version 1.0 Attribute aktualisiert
  * @author Phil, 11.10.2013, aktualisiert
  * @version 1.1
@@ -75,7 +75,7 @@ public class Bereich {
 			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)" +
 					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"', '"+leiterBenutzername+"'");
 			
-			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensätze eingefügt.");
+			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensï¿½tze eingefï¿½gt.");
 			
 		} 
 		
@@ -86,7 +86,7 @@ public class Bereich {
 		}
 		catch(NullPointerException e)
 		{
-			System.err.println("Der Leiter hat keinen Benutzernamen. Bitte prüfen sie.");
+			System.err.println("Der Leiter hat keinen Benutzernamen. Bitte prï¿½fen sie.");
 			
 		}
 		this.kurzbezeichnung = kurzbezeichnung;
@@ -95,7 +95,7 @@ public class Bereich {
 	}
 
 	/**
-	 * Fügt einen Bereich ohne Leiter in die Datenbank ein.
+	 * Fï¿½gt einen Bereich ohne Leiter in die Datenbank ein.
 	 * @param kurzbezeichnung
 	 * @param beschreibung
 	 * @throws Exception 
@@ -136,7 +136,7 @@ public class Bereich {
 			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)" +
 					"VALUES ('"+kurzUp+"', '"+beschreibung+"'");
 			
-			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensätze eingefügt.");
+			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensï¿½tze eingefï¿½gt.");
 			
 		} 
 		
@@ -150,7 +150,7 @@ public class Bereich {
 		this.leiter = null;
 	}
 	/**
-	 * Alle bereiche mit dem Suchbegriff werden zurückgegeben
+	 * Alle bereiche mit dem Suchbegriff werden zurï¿½ckgegeben
 	 * @param suchbegriff
 	 * @return 
 	 * @return
@@ -171,11 +171,11 @@ public class Bereich {
 				resultSet = RemoteConnection.sql.executeQuery(
 						"SELECT * FROM Bereich WHERE BereichID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR" +
 								" Beschreibung LIKE '%"+suchbegriff+"' OR Kurzbezeichnung LIKE '%"+suchbegriff+"'");
-				//Abfrage ob überhaupt Datensätze gefunden worden sind
+				//Abfrage ob ï¿½berhaupt Datensï¿½tze gefunden worden sind
 				resultSet.last();
 				int resultLength = resultSet.getRow();
 				resultSet.beforeFirst();
-				if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
+				if (resultLength==0) throw new NullPointerException("Keine Datensï¿½tze gefunden");
 				while (resultSet.next()) 
 				{
 					result.add(new Bereich(resultSet));
@@ -184,7 +184,7 @@ public class Bereich {
 		}
 		catch (SQLException e) 
 		{
-			System.err.println("SELECT Statement ist fehlerhaft. Bitte überprüfen.");
+			System.err.println("SELECT Statement ist fehlerhaft. Bitte ï¿½berprï¿½fen.");
 		}
 		return result;
 
@@ -301,7 +301,7 @@ public class Bereich {
 	//-----------------------------------------------------------
 	
 	/**
-	 * Beschreibung eines bereichs ändern
+	 * Beschreibung eines bereichs ï¿½ndern
 	 * @param beschreibung
 	 * @return
 	 */
@@ -317,14 +317,14 @@ public class Bereich {
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 					"UPDATE Bereich SET Beschreibung='"+beschreibung+"' WHERE BereichID='"+this.bereichID+"'");
 			
-				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensätze geändert.");
+				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensï¿½tze geï¿½ndert.");
 				
 				erfolgreich=true;
 		
 			}
 			else
 			{
-				System.err.println("Alte und Neue Beschreibung sind Identisch! Bitte andere Beschreibung wählen.");
+				System.err.println("Alte und Neue Beschreibung sind Identisch! Bitte andere Beschreibung wï¿½hlen.");
 				erfolgreich= false;
 			}
 		}
@@ -352,7 +352,7 @@ public class Bereich {
 	}
 
 	/**
-	 * Kurzbezeichnung wird geändert
+	 * Kurzbezeichnung wird geï¿½ndert
 	 * @param kurzbezeichnung
 	 * @return
 	 */
@@ -368,7 +368,7 @@ public class Bereich {
 						"UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
 	
 				
-				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensätze geändert.");
+				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensï¿½tze geï¿½ndert.");
 				
 				
 				erfolgreich=true;
@@ -376,7 +376,7 @@ public class Bereich {
 			}
 			else
 			{
-				System.err.println("Alte und Neue Kurzbezeichnung sind Identisch! Bitte andere Beschreibung wählen.");
+				System.err.println("Alte und Neue Kurzbezeichnung sind Identisch! Bitte andere Beschreibung wï¿½hlen.");
 				erfolgreich= false;
 			}
 		}
@@ -403,7 +403,7 @@ public class Bereich {
 	}
 
 	/**
-	 * Löschen von einem Bereich, mus abgefangen werden
+	 * Lï¿½schen von einem Bereich, mus abgefangen werden
 	 * ob irgendwo in einer Arbeitsgruppe noch ein
 	 * Bereich zugeordnet ist
 	 * @return
@@ -420,7 +420,7 @@ public class Bereich {
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Bereich SET Aktiv ='0' WHERE BereichID='"+this.bereichID+"'");
 				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelöscht.");
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelï¿½scht.");
 				
 				erfolgreich=true;
 			}
@@ -500,7 +500,7 @@ public class Bereich {
 	 * @return
 	 */
 	
-	public Collection<Bereich> getAlleBereiche() {
+	public static Collection<Bereich> getAlleBereiche() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -7,7 +7,7 @@ import java.util.Collection;
 
 /** CHANGELOG
  * @author Phil, 09.10.2013
- * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
+ * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht mï¿½glich ist im Interface
  * @version 1.0
  * @author 
  */
@@ -31,7 +31,7 @@ public class Rolle  {
 	
 	//--------------------KONSTRUKTOR--------------------
 	
-	public Collection<Rolle> getAlleRollen() {
+	public static Collection<Rolle> getAlleRollen() {
 		Collection<Rolle> RollenCollection = null;
 		return RollenCollection;
 	}

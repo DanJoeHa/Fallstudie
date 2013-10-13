@@ -43,15 +43,19 @@ public class ArtController implements Controller {
 		{
 			new Art(this.view.getArt());
 		}
-		else
+
+		if(button.equals("Loeschen") )
 		{
-			if(button.equals("Loeschen") )
-			{
-				Art.loeschen(this.view.getArt());
-			}
+			Art.loeschen(this.viewLoeschen.getArt());
 		}
 	}
 
+	/**
+	 * Rückgabe der aktiven View
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
 	@Override
 	public View getView() {
 		switch( this.operation ){
