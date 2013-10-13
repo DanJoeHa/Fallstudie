@@ -29,11 +29,11 @@ public class LoginView extends JPanel implements View {
 	 * @version 1.0
 	 */
 	public LoginView() {
-		setPreferredSize(new Dimension(620, 655));
-		setMinimumSize(new Dimension(620, 655));
-		setMaximumSize(new Dimension(620, 655));
+		setPreferredSize(new Dimension(620, 660));
+		setMinimumSize(new Dimension(620, 660));
+		setMaximumSize(new Dimension(620, 660));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 600, 700));
+		setBounds(new Rectangle(0, 0, 620, 660));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -41,38 +41,44 @@ public class LoginView extends JPanel implements View {
 		//L_Benutzername
 		JLabel L_Benutzername = new JLabel("Benutzername:");
 		L_Benutzername.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Benutzername.setBounds(10, 107, 210, 17);
+		L_Benutzername.setBounds(30, 100, 150, 30);
 		add(L_Benutzername);
 		
 		//L_Passwort
 		JLabel L_Passwort = new JLabel("Passwort:");
 		L_Passwort.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Passwort.setBounds(10, 148, 210, 17);
+		L_Passwort.setBounds(30, 150, 150, 30);
 		add(L_Passwort);
 
 		//P_Passwort
 		P_Passwort = new JPasswordField();
-		P_Passwort.setBounds(151, 148, 181, 20);
+		P_Passwort.setBounds(200, 150, 300, 30);
 		add(P_Passwort);
 		
 		//T_Benutzername
 		T_Benutzername = new JTextField();
 		T_Benutzername.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Benutzername.setColumns(10);
-		T_Benutzername.setBounds(151, 105, 181, 20);
+		T_Benutzername.setBounds(200, 100, 300, 30);
 		add(T_Benutzername);
 
 		//B_Login
 		B_Login = new JButton("Login");
 		B_Login.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Login.setBounds(239, 209, 150, 23);
+		B_Login.setBounds(350, 200, 150, 30);
 		add(B_Login);
 		
 		//B_Passwort_vergessen
 		B_Passwort_vergessen = new JButton("Passwort vergessen?");
 		B_Passwort_vergessen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Passwort_vergessen.setBounds(239, 243, 264, 23);
+		B_Passwort_vergessen.setBounds(200, 250, 300, 30);
 		add(B_Passwort_vergessen);
+		
+		//Hinweis, dass man Daten eingeben soll
+		JLabel L_Hinweis = new JLabel("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein");
+		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		L_Hinweis.setBounds(30, 50, 500, 30);
+		add(L_Hinweis);
 
 	}
 	
