@@ -55,19 +55,55 @@ public class HauptView extends JFrame implements View{
 		Panel.add(NavigationBackground);
 		
 		//Navigationsbaum
-		this.Navigation = new JTree();
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Aktionen");
+		
+		DefaultMutableTreeNode erfassen = new DefaultMutableTreeNode("Daten erfassen");
+		root.add(erfassen);
+		DefaultMutableTreeNode anzeigen = new DefaultMutableTreeNode("Daten anzeigen");
+		root.add(anzeigen);
+		
+		DefaultMutableTreeNode arbeitsgruppe = new DefaultMutableTreeNode("Arbeitsgruppe");
+		root.add(arbeitsgruppe);
+		DefaultMutableTreeNode anlegenAG = new DefaultMutableTreeNode("anlegen");
+		arbeitsgruppe.add(anlegenAG);
+		DefaultMutableTreeNode bearbeitenAG = new DefaultMutableTreeNode("bearbeiten");
+		arbeitsgruppe.add(bearbeitenAG);
+		DefaultMutableTreeNode loescheAG = new DefaultMutableTreeNode("löschen");
+		arbeitsgruppe.add(loescheAG);
+		
+		DefaultMutableTreeNode art = new DefaultMutableTreeNode("Art");
+		root.add(art);
+		DefaultMutableTreeNode anlegenArt = new DefaultMutableTreeNode("anlegen");
+		art.add(anlegenArt);
+		DefaultMutableTreeNode loescheArt = new DefaultMutableTreeNode("löschen");
+		art.add(loescheArt);
+		
+		DefaultMutableTreeNode bereich = new DefaultMutableTreeNode("Bereich");
+		root.add(bereich);
+		DefaultMutableTreeNode anlegenBereich = new DefaultMutableTreeNode("anlegen");
+		bereich.add(anlegenBereich);
+		DefaultMutableTreeNode bearbeitenBereich = new DefaultMutableTreeNode("bearbeiten");
+		bereich.add(bearbeitenBereich);
+		DefaultMutableTreeNode loescheBereich = new DefaultMutableTreeNode("löschen");
+		bereich.add(loescheBereich);
+		
+		DefaultMutableTreeNode mitarbeiter = new DefaultMutableTreeNode("Mitarbeiter");
+		root.add(mitarbeiter);
+		DefaultMutableTreeNode anlegenMA = new DefaultMutableTreeNode("anlegen");
+		mitarbeiter.add(anlegenMA);
+		DefaultMutableTreeNode bearbeiteMA = new DefaultMutableTreeNode("bearbeiten");
+		mitarbeiter.add(bearbeiteMA);
+		DefaultMutableTreeNode loescheMA = new DefaultMutableTreeNode("löschen");
+		mitarbeiter.add(loescheMA);
+		
+		DefaultMutableTreeNode changepw = new DefaultMutableTreeNode("Passwort ändern");
+		root.add(changepw);
+		
+		DefaultMutableTreeNode jobconfig = new DefaultMutableTreeNode("Job-Einstellungen");
+		root.add(jobconfig);
+		
+		this.Navigation = new JTree(root);
 		this.Navigation.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		DefaultMutableTreeNode aktionMA = new DefaultMutableTreeNode("Mitarbeiter"){
-			private static final long serialVersionUID = -4459245092488416529L;
-
-			{
-				add(new DefaultMutableTreeNode("anlegen"));
-				add(new DefaultMutableTreeNode("bearbeiten"));
-				add(new DefaultMutableTreeNode("löschen"));
-			}
-		};
-		DefaultTreeModel treeModel = new DefaultTreeModel(aktionMA);
-		this.Navigation.setModel(treeModel);
 		NavigationBackground.add(this.Navigation);
 		
 		//Logout-Button
@@ -90,7 +126,7 @@ public class HauptView extends JFrame implements View{
 		Panel.add(InfoBox);
 		
 		//Titelzeile
-		L_Ueberschrift = new JLabel("\u00DCberschrift");
+		L_Ueberschrift = new JLabel("Überschrift");
 		L_Ueberschrift.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		L_Ueberschrift.setBounds(209, 12, 620, 30);
 		Panel.add(L_Ueberschrift);
