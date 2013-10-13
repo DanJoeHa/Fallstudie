@@ -15,14 +15,6 @@ public class TesterKlasse {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		
-		Collection<Arbeitsgruppe> a =  new LinkedList<>();
-				a = Arbeitsgruppe.suche("e");
-		
-		for (Iterator i = a.iterator(); i.hasNext();)
-		{
-			Arbeitsgruppe c = (Arbeitsgruppe) i.next();
-			System.out.println(c.getBeschreibung());
-		}
+
 }
 }

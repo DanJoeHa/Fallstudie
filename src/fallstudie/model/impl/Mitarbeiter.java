@@ -346,6 +346,7 @@ public class Mitarbeiter {
 	 */
 	public static Mitarbeiter einloggen(String benutzername, String passwort) throws Exception {
 		RemoteConnection Connection = new RemoteConnection();
+		Mitarbeiter mitarbeiter = null;
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -368,13 +369,16 @@ public class Mitarbeiter {
 			
 			//Passwort muss abgefragt werden
 			String passwortInDatabase = mitarbeiterResult.getString("Passwort");
+			System.out.println(passwortInDatabase);
+			System.out.println(verschluesseltesPW);
 
 
-			Mitarbeiter mitarbeiter;
+			
 			
 			//Wenn Passwörter übereinstimmen
 			if (verschluesseltesPW.equals(passwortInDatabase))
-			{
+			{	
+				
 				mitarbeiter= new Mitarbeiter(mitarbeiterResult);
 				
 			}
@@ -385,8 +389,8 @@ public class Mitarbeiter {
 			mitarbeiterResult.close();
 			//System.out.println(verschluesseltesPW);
 			//System.out.println(passwortInDatabase);
-			return mitarbeiter;
-		
+			
+			
 		}
 		
 		catch (NoSuchAlgorithmException e)
@@ -401,7 +405,7 @@ public class Mitarbeiter {
 			System.err.println(e.getMessage());
 			System.err.println("Bitte Benutzernamen überprüfen.");
 		}
-		return null;
+		return mitarbeiter;
 	}
 
 	/**
