@@ -22,24 +22,24 @@ public class SuchenView extends JPanel implements View {
 	 * Create the panel.
 	 */
 	public SuchenView() {
-		setPreferredSize(new Dimension(600, 700));
-		setMinimumSize(new Dimension(600, 700));
-		setMaximumSize(new Dimension(600, 700));
+		setPreferredSize(new Dimension(620, 660));
+		setMinimumSize(new Dimension(620, 660));
+		setMaximumSize(new Dimension(620, 660));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 600, 700));
+		setBounds(new Rectangle(0, 0, 620, 660));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
 		//T_Suchfeld
 		T_Suchfeld = new JTextField("");
-		T_Suchfeld.setBounds(170, 145, 181, 20);
+		T_Suchfeld.setBounds(30, 300, 300, 30);
 		add(T_Suchfeld);
 		
 		//B_Suchen
-		B_Suchen = new JButton("suchen");
+		B_Suchen = new JButton("Suchen");
 		B_Suchen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Suchen.setBounds(361, 144, 134, 23);
+		B_Suchen.setBounds(350, 300, 150, 30);
 		add(B_Suchen);
 		
 
