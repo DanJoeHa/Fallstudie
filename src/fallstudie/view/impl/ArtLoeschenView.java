@@ -1,19 +1,28 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+
 import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
-public class ArtLoeschenView extends JPanel {
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
+
+public class ArtLoeschenView extends JPanel implements View{
 
 	/**
 	 * Create the panel.
@@ -46,5 +55,25 @@ public class ArtLoeschenView extends JPanel {
 		C_Art.setBounds(200, 300, 300, 30);
 		add(C_Art);
 
+	}
+
+	
+	public String getArt(){
+		return null;
+	}
+	
+	public void setArt(String[] Arten){
+		
+	}
+	@Override
+	public void setController(Controller c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 }

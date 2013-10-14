@@ -1,19 +1,29 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+
 import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class ArtAnlegenView extends JPanel {
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
+
+public class ArtAnlegenView extends JPanel implements View{
 	private JTextField T_Art;
+	private JButton B_Speichern;
 
 	/**
 	 * Create the panel.
@@ -29,7 +39,7 @@ public class ArtAnlegenView extends JPanel {
 		setLayout(null);
 		
 		//B_Speichern
-		JButton B_Speichern = new JButton("Speichern");
+		B_Speichern = new JButton("Speichern");
 		B_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Speichern.setBounds(440, 600, 150, 30);
 		add(B_Speichern);
@@ -56,5 +66,17 @@ public class ArtAnlegenView extends JPanel {
 	 */
 	public String getArt(){
 		return this.T_Art.getText();
+	}
+
+	@Override
+	public void setController(Controller c) {
+		// TODO Auto-generated method stub
+		this.B_Speichern.addActionListener(c);
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		this.T_Art.setText("");
 	}
 }
