@@ -32,19 +32,19 @@ public class OrgeinheitBearbeitenAnlegen extends JPanel {
 		//L_Kurzbezeichnung
 		JLabel L_Kurzbezeichnung = new JLabel("Kurzbezeichnung:");
 		L_Kurzbezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Kurzbezeichnung.setBounds(30, 100, 150, 30);
+		L_Kurzbezeichnung.setBounds(30, 13, 150, 30);
 		add(L_Kurzbezeichnung);
 				
 		//L_Bezeichnung
 		JLabel L_Bezeichnung = new JLabel("Bezeichnung:");
 		L_Bezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Bezeichnung.setBounds(30, 150, 150, 30);
+		L_Bezeichnung.setBounds(30, 63, 150, 30);
 		add(L_Bezeichnung);
 				
 		//T_Kurzbezeichnung
 		T_Kurzbezeichnung = new JTextField();
 		T_Kurzbezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_Kurzbezeichnung.setBounds(200, 100, 300, 30);
+		T_Kurzbezeichnung.setBounds(200, 13, 390, 30);
 		add(T_Kurzbezeichnung);
 		T_Kurzbezeichnung.setColumns(10);
 				
@@ -52,7 +52,7 @@ public class OrgeinheitBearbeitenAnlegen extends JPanel {
 		T_Bezeichnung = new JTextField();
 		T_Bezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Bezeichnung.setColumns(10);
-		T_Bezeichnung.setBounds(200, 150, 300, 30);
+		T_Bezeichnung.setBounds(200, 63, 390, 30);
 		add(T_Bezeichnung);
 				
 		//B_Zuruecksetzen

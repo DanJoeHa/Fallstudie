@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
-public class BereichBearbeitenAnlegenView extends JPanel implements View {
+public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen implements View {
 	private JTextField T_BreichsleiterSuchbegriff;
 	private JButton B_BereichsleiterSuche;
 	/**
@@ -40,20 +40,20 @@ public class BereichBearbeitenAnlegenView extends JPanel implements View {
 		//L_Bereichsleiter
 		JLabel L_Bereichsleiter = new JLabel("Bereichsleiter:");
 		L_Bereichsleiter.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Bereichsleiter.setBounds(30, 200, 150, 30);
+		L_Bereichsleiter.setBounds(30, 117, 150, 30);
 		add(L_Bereichsleiter);
 		
 		//T_Bereichsleiter_Suchbegriff
 		T_BreichsleiterSuchbegriff = new JTextField();
 		T_BreichsleiterSuchbegriff.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_BreichsleiterSuchbegriff.setBounds(200, 200, 220, 30);
+		T_BreichsleiterSuchbegriff.setBounds(200, 118, 220, 30);
 		add(T_BreichsleiterSuchbegriff);
 		T_BreichsleiterSuchbegriff.setColumns(10);
 		
 		//B_Bereichsleiter_Suche
 		B_BereichsleiterSuche = new JButton("Suchen");
 		B_BereichsleiterSuche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_BereichsleiterSuche.setBounds(440, 200, 150, 30);
+		B_BereichsleiterSuche.setBounds(432, 117, 158, 30);
 		add(B_BereichsleiterSuche);
 
 	}
