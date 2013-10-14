@@ -23,6 +23,8 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  *		@version 1.2
  *		@change alle Methoden implementiert
  *@author Patrick
+ *@author Phil
+ *	@change getFullName() hinzugefügt.
  *
  */
 
@@ -797,7 +799,14 @@ catch (SQLException e)
 		
 		return this.nachname;
 	}
-
+	/**
+	 * Gibt kompletten Namen aus
+	 */
+	public String getFullName()
+	{
+		String fullname = this.vorname+""+this.nachname;
+		return fullname;
+	}
 	/**
 	 * wei�t Nachnamen zu
 	 * @param nachname
