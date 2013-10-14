@@ -30,7 +30,7 @@ public class ErfassenView extends JPanel implements View {
 	private JTextField T_Anzahl_Erfassen;
 	private JButton B_Zuruecksetzen, B_Anlegen;
 	private JRadioButton R_KalenderwocheDavor, R_KalenderwocheAktuell;
-	private JComboBox<String> Combo_Art_waehlen;
+	private JComboBox<String> C_Art;
 
 	/**
 	 * Create the panel.
@@ -129,10 +129,10 @@ public class ErfassenView extends JPanel implements View {
 	    });
 	    
 	    //Combo_Art_waehlen
-	    Combo_Art_waehlen = new JComboBox<String>();
-	    Combo_Art_waehlen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    Combo_Art_waehlen.setBounds(157, 99, 181, 20);
-	    add(Combo_Art_waehlen);
+	    C_Art = new JComboBox<String>();
+	    C_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	    C_Art.setBounds(157, 99, 181, 20);
+	    add(C_Art);
 	    
 		//B_Zurücksetzen
 		B_Zuruecksetzen = new JButton("Zurücksetzen");
@@ -175,11 +175,13 @@ public class ErfassenView extends JPanel implements View {
 	}
 	
 	public String getArt(){
-		return null;
+		return this.C_Art.getSelectedItem().toString();
 	}
 	
 	public void setArten(String[] arten){
-		
+		for( int i = 0; i < arten.length; i++){
+			this.C_Art.addItem( arten[i] );
+		}
 	}
 	
 	@Override
@@ -191,5 +193,16 @@ public class ErfassenView extends JPanel implements View {
 	@Override
 	public void reset() {
 		this.T_Anzahl_Erfassen.setText("");
+	}
+	
+	/**
+	 * Liefert die Anzahl
+	 * 
+	 * @author Marc
+	 * @version 1.0
+	 * @return (int) Anzahl
+	 */
+	public int getAnzahl(){
+		return Integer.parseInt(T_Anzahl_Erfassen.getText());
 	}
 }
