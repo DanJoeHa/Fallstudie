@@ -39,6 +39,7 @@ public class Mitarbeiter {
 	private Bereich bereich;
 	private String letzterLogin;
 	private boolean aktiv;
+	private boolean pwChanged;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -646,7 +647,7 @@ catch (SQLException e)
 				
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Passwort ='"+newPasswortVerschluesselt+"',PWCHanged='1' WHERE Benutzername='"+this.benutzername+"'");
 			if (rowsAffect==0) erfolgreich =false;
-			if (rowsAffect==1) erfolgreich =true; this.passwort=newPasswortVerschluesselt;
+			if (rowsAffect==1) erfolgreich =true; this.passwort=newPasswortVerschluesselt; this.pwChanged=true;
 			
 		}
 		
