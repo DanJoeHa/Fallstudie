@@ -1,9 +1,12 @@
 package fallstudie.model.impl;
 
+import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingDeque;
+
+import fallstudie.model.mysql.connector.RemoteConnection;
 
 
 
@@ -15,20 +18,23 @@ public class TesterKlasse {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		
-		Collection<Rechte> alleRechteVonRolle = new LinkedList<>();
-		Rolle r = new Rolle("Sachbearbeiter");
-		alleRechteVonRolle = r.getBerechtigungenzuRolle();
-		for (Iterator i = alleRechteVonRolle.iterator(); i.hasNext();)
-
+		RemoteConnection Connection = new RemoteConnection();
+		try
 		{
-
-		Rechte rechte = (Rechte) i.next();
-
-		String rechtName = rechte.getName();
-		System.out.println(rechtName);
-
-
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
 		}
-}
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
+		System.out.println("SELECT * FROM Config");
+		
+		ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Config");
+		resultSet.next();
+		String jobIntervall=resultSet.getString("Jobintervall");
+
+	}
 }

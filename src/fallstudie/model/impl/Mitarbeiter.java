@@ -424,7 +424,7 @@ public class Mitarbeiter {
 	 * @return
 	 */
 	public boolean ausloggen() {
-		
+		//Heutiges Datum generieren
 		SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String heutigesDatum =simpleFormat.format(date);
