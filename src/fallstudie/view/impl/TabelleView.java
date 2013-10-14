@@ -109,7 +109,9 @@ public class TabelleView extends JPanel implements View {
 		return null;
 	}
 	
+	//Tabelle befüllen
 	public void setTabelle(String[] tabellendefinition){
+		tabellendefinition.
 		
 	}
 	
