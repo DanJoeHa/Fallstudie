@@ -43,10 +43,10 @@ public class HauptView extends JFrame implements View{
 		
 		//Frame Styling
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 1000, 750));
+		this.setSize(1000, 750);
+		this.setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 750);
 		
 		//Panel für allen Inhalt des Frames
 		JPanel Panel = new JPanel();
