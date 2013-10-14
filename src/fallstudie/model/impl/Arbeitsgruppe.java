@@ -532,13 +532,13 @@ public class Arbeitsgruppe {
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Aktiv ='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gel�scht.");
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelöscht.");
 				erfolgreich=true;
 			}
 			if(aktuellerStatus==false)
 			{
 				
-			throw new Exception("Diese Arbeitsgruppe ist bereits gel�scht.");
+				erfolgreich=false;
 			}
 			
 			}

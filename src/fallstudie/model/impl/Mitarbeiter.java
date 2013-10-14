@@ -709,7 +709,7 @@ catch (SQLException e)
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean loeschen() throws Exception {
+	public boolean loeschen()  {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
 		boolean darfdeletedWerdenBereich=false;
@@ -730,8 +730,7 @@ catch (SQLException e)
 				 if (leiter==null) darfdeletedWerdenBereich=true;
 					if (leiter!=null) 
 						{
-							throw new Exception("Diesem Bereich ist der Mitarbeiter noch als Leiter zugeordnet: "+bereich+" Bitte zuordnung l�schen.");
-						
+							darfdeletedWerdenBereich=false;
 						}
 			}
 			checkMitarbeiterInBereich.close();
@@ -748,8 +747,7 @@ catch (SQLException e)
 				 if (leiter==null) darfdeletedWerdenArbeitsgruppe=true;
 					if (leiter!=null) 
 						{
-							throw new Exception("Dieser Arbeitsgruppe ist der Mitarbeiter noch als Leiter zugeordnet: "+arbeitsgruppe+" Bitte zuordnung l�schen.");
-						
+							darfdeletedWerdenArbeitsgruppe=false;
 						}
 			}
 			checkMitarbeiterInArbeitsgruppe.close();
