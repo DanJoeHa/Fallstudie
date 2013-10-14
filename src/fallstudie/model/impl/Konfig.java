@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import fallstudie.model.mysql.connector.RemoteConnection;
 
 public class Konfig {
-
-	String jobIntervall;
 	
 	/**
 	 * Ändert das Jobintervall, Standard ist 3= 3 Monate
@@ -40,6 +38,11 @@ public class Konfig {
 		
 		
 	}
+	/**
+	 * Returnt das JobIntervall
+	 * @return
+	 * @throws SQLException
+	 */
 	public static String getJobIntervall() throws SQLException
 	{	RemoteConnection Connection = new RemoteConnection();
 		try
