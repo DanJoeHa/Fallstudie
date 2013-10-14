@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Bereich;
+import fallstudie.view.impl.BereichBearbeitenAnlegenView;
+import fallstudie.view.impl.BereichLoeschenView;
 import fallstudie.view.interfaces.View;
 
 public class BereichController implements Controller {
