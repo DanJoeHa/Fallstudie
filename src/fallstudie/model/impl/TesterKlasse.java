@@ -17,7 +17,6 @@ public class TesterKlasse {
 
 		Arbeitsgruppe arbeitsgruppe = new Arbeitsgruppe(2);
 		Jahresuebersicht a = new Jahresuebersicht(2013, arbeitsgruppe);
-		
 		Collection<Zeile> a1 = new LinkedList<>();
 		a1 = a.getZeile();
 		for(Iterator j=a1.iterator();j.hasNext();)
