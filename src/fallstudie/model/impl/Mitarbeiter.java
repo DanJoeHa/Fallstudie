@@ -989,5 +989,26 @@ catch (SQLException e)
 	}
 	return result;
 }
+/**
+ * Liefert ergebnis ob Passwort schon geändert wurde
+ * @return
+ */
+	public boolean passwortIsChanged()
+	{	boolean erfolgreich = false;
+	try
+	{
+		RemoteConnection Connection = new RemoteConnection();
+		System.out.println("SELECT PWCHanged FROM Mitarbeiter WHERE Benutzername='"+this.benutzername+"'");
+		ResultSet resultSet = Connection.executeQueryStatement("SELECT PWCHanged FROM Mitarbeiter WHERE Benutzername='"+this.benutzername+"'");
+		resultSet.next();
+		erfolgreich = resultSet.getBoolean("PWCHanged");
+		
+	}
+		catch (SQLException e) {
+			System.err.println("------SQL ERROR-------");
 
+			System.err.println(e.getMessage());
+		}
+		return erfolgreich;
+	}
 }

@@ -18,23 +18,7 @@ public class TesterKlasse {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		RemoteConnection Connection = new RemoteConnection();
-		try
-		{
-			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-				RemoteConnection.connect();
-			};
-		}
-		catch (NullPointerException e)
-		{
-			System.err.println("Konnte keine Datenbankverbindung herstellen!");
-		}
-		
-		System.out.println("SELECT * FROM Config");
-		
-		ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Config");
-		resultSet.next();
-		String jobIntervall=resultSet.getString("Jobintervall");
-
-	}
+		Mitarbeiter a = new Mitarbeiter("Sachbearbeiter");
+		System.out.println(a.passwortIsChanged());
+}
 }
