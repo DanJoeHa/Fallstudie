@@ -2,10 +2,12 @@ package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
 import java.util.Collection;
+import java.util.Iterator;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
+import fallstudie.view.impl.ArbeitsgruppeBearbeitenAnlegenView;
 import fallstudie.view.interfaces.View;
 
 public class ArbeitsgruppenController implements Controller {
@@ -40,15 +42,23 @@ public class ArbeitsgruppenController implements Controller {
 		this.operation = operation;
 		
 		//wenn Neuanlage einer Arbeitsgruppe
-		if( this.operation == "anlegen" ){
+		if( this.operation.equals( "anlegen" ) ){
 			
 			//alle Bereiche holen und an View geben
 			Collection<Bereich> bereiche = Bereich.getAlleBereiche();
-			this.view.setBereich( bereiche.toArray() );
+			Iterator<Bereich> i = bereiche.iterator();
+			
+			String[] sBereiche = new String[ bereiche.size() ];
+			int x = 0;
+			while( i.hasNext() ){
+				sBereiche[x] = i.next().getKurzbezeichnung();
+				x++;
+			}			
+			this.view.setBereich( sBereiche );
 		}
 		
 		//wenn Bearbeiten einer Arbeitsgruppe
-		if( this.operation == "bearbeiten" ){
+		if( this.operation.equals( "bearbeiten" ) ){
 			
 			// nach Arbeitsgruppe suchen
 			SuchController suche = new SuchController();
