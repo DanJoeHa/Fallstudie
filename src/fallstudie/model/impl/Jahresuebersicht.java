@@ -71,7 +71,7 @@ public class Jahresuebersicht {
 		}
 		catch (SQLException e)
 		{   
-			System.err.println("Dieser Fehler ist aufgetreten in Jahresuebersicht():");
+			System.err.println("Dieser Fehler ist aufgetreten in Jahresuebersicht(Arbeitsgruppe):");
 			System.err.println(e.getMessage());
 			
 		}
@@ -122,7 +122,7 @@ public class Jahresuebersicht {
 		}
 		catch (SQLException e)
 		{   
-			System.err.println("Dieser Fehler ist aufgetreten in Rolle (String):");
+			System.err.println("Dieser Fehler ist aufgetreten in Jahresuebersicht(Bereich):");
 			System.err.println(e.getMessage());
 			
 		}
@@ -198,7 +198,7 @@ public class Jahresuebersicht {
 		}
 		catch (SQLException e) 
 		{	
-			System.err.println("Dieser Fehler ist aufgetreten in getAlleRollen():");
+			System.err.println("Dieser Fehler ist aufgetreten in getZeileArbeitsgruppe():");
 			System.err.println(e.getMessage());
 		}
 		return result;
@@ -247,7 +247,7 @@ public class Jahresuebersicht {
 		}
 		catch (SQLException e) 
 		{	
-			System.err.println("Dieser Fehler ist aufgetreten in getAlleRollen():");
+			System.err.println("Dieser Fehler ist aufgetreten in getZeileBereich():");
 			System.err.println(e.getMessage());
 		}
 		return result;
