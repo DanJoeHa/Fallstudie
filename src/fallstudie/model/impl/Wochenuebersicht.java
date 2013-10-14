@@ -1,5 +1,6 @@
 package fallstudie.model.impl;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -11,6 +12,9 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  * 
  * @author Phil, 09.10.2013 generiert + implements (Interface) wurde entfernt,
  *         da Konstruktor nicht möglich ist im Interface
+ * @author Jenny
+ * @date 14.10.13
+ * @change Methoden implementiert
  * @version 1.1 - aktualisiert mit technisches Db modell
  */
 public class Wochenuebersicht {
@@ -37,7 +41,45 @@ public class Wochenuebersicht {
 	 */
 	public Wochenuebersicht(int kalenderjahr, int kalenderwoche,
 			Arbeitsgruppe arbeitsgruppe) {
-		// TODO Auto-generated method stub
+		
+		RemoteConnection Connection = new RemoteConnection();
+		
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
+		//ArbeitsgruppenID harausbekommen
+		int arbeitsgruppeID = arbeitsgruppe.getID();
+		
+		try
+		{
+			ResultSet jahresuebersichtResult = Connection.executeQueryStatement(
+					"SELECT * FROM Wochenuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND Kalenderwoche='"
+							+kalenderwoche+"' AND Arbeitsgruppe='"+ arbeitsgruppeID +"'");
+			
+			jahresuebersichtResult.next();
+			
+			this.kalenderjahr = kalenderjahr;
+			this.kalenderwoche = kalenderwoche;
+			this.arbeitsgruppe = arbeitsgruppe;
+			int bereich = jahresuebersichtResult.getInt("Bereich");
+			this.bereich = new Bereich(bereich);
+		
+
+		}
+		catch (SQLException e)
+		{   
+			System.err.println("Dieser Fehler ist aufgetreten in Wochenuebersicht(Arbeitsgruppe):");
+			System.err.println(e.getMessage());
+			
+		}
 	
 	}
 
@@ -51,6 +93,44 @@ public class Wochenuebersicht {
 	 */
 	public Wochenuebersicht(int kalenderjahr, int kalenderwoche, Bereich Bereich) {
 		// TODO Auto-generated method stub
+		RemoteConnection Connection = new RemoteConnection();
+		
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
+		//ArbeitsgruppenID harausbekommen
+		int bereichID = bereich.getID();
+		
+		try
+		{
+			ResultSet jahresuebersichtResult = Connection.executeQueryStatement(
+					"SELECT * FROM Wochenuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND Kalenderwoche='"
+							+kalenderwoche+"' AND Bereich='"+ bereichID +"'");
+			
+			jahresuebersichtResult.next();
+			
+			this.kalenderjahr = kalenderjahr;
+			this.kalenderwoche = kalenderwoche;
+			this.bereich = bereich;
+			int arbeitsgruppe = jahresuebersichtResult.getInt("Arbeitsgruppe");
+			this.arbeitsgruppe = new Arbeitsgruppe(arbeitsgruppe);
+		
+
+		}
+		catch (SQLException e)
+		{   
+			System.err.println("Dieser Fehler ist aufgetreten in Wochenuebersicht(Bereich):");
+			System.err.println(e.getMessage());
+			
+		}
 
 	}
 
@@ -58,19 +138,15 @@ public class Wochenuebersicht {
 	// ---------------------KONSTRUKTOREN-------------------------
 	// -----------------------------------------------------------
 
-	public int getSumme() {
-		// TODO Auto-generated method stub
-		return summe;
-	}
-
+	
 	public int getKalenderjahr() {
 		// TODO Auto-generated method stub
-		return kalenderjahr;
+		return this.kalenderjahr;
 	}
 
 	public int getKalenderwoche() {
 		// TODO Auto-generated method stub
-		return kalenderwoche;
+		return this.kalenderwoche;
 	}
 
 	public Bereich getBereich() {
@@ -82,9 +158,100 @@ public class Wochenuebersicht {
 		// TODO Auto-generated method stub
 		return this.arbeitsgruppe;
 	}
-
-	public Collection<Zeile> getZeile() {
-		return null;
+	
+	public Collection<Zeile> getZeileArbeitsgruppe() throws Exception
+	{
+		
+		//Collection Zeile zu Uebersicht
+		Collection<Zeile> result = new LinkedList<>();
+		//Attribute festlegen
+		RemoteConnection Connection = new RemoteConnection();
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+					System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		//Initialisieren
+		ResultSet resultSet = null;
+		try 
+		{			
+			System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
+			resultSet = Connection.executeQueryStatement(
+					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
+				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
+				{	
+					int Zeilensumme = resultSet.getInt("Summe");
+					String Zeilenart = resultSet.getString("Art");
+					Art art = Art.getArtByName(Zeilenart);
+					result.add(new Zeile(Zeilensumme,art));
+							
+				}
+				resultSet.close();
+		}
+		catch (SQLException e) 
+		{	
+			System.err.println("Dieser Fehler ist aufgetreten in getZeileArbeitsgruppe():");
+			System.err.println(e.getMessage());
+		}
+		return result;
+		
+	}
+	
+	/**
+	 * Alle Zeilen einer Jahresuebersicht wenn man nach einem Bereich sucht Jahresuebersicht(bereich)
+	 * @return
+	 * @throws Exception
+	 */
+	public Collection<Zeile> getZeileBereich() throws Exception
+	{
+		
+		//Collection Zeile zu Uebersicht
+		Collection<Zeile> result = new LinkedList<>();
+		//Attribute festlegen
+		RemoteConnection Connection = new RemoteConnection();
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+					System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		//Initialisieren
+		ResultSet resultSet = null;
+		try 
+		{			
+			System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Bereich ='"+this.bereich.getID()+"'");
+			resultSet = Connection.executeQueryStatement(
+					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Bereich ='"+this.bereich.getID()+"'");
+				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
+				{	
+					int Zeilensumme = resultSet.getInt("Summe");
+					String Zeilenart = resultSet.getString("Art");
+					Art art = Art.getArtByName(Zeilenart);
+					result.add(new Zeile(Zeilensumme,art));
+							
+				}
+				resultSet.close();
+		}
+		catch (SQLException e) 
+		{	
+			System.err.println("Dieser Fehler ist aufgetreten in getZeileBereich():");
+			System.err.println(e.getMessage());
+		}
+		return result;
+		
 	}
 
 }
