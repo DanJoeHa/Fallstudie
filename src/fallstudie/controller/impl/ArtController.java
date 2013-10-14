@@ -62,7 +62,20 @@ public class ArtController implements Controller {
 		//Popup-Bestaetigung abfragen + Ausgaben in Infobox hinzuf�gen
 		if(button.equals("Speichern") )
 		{
-			new Art(this.view.getArt());
+			try{
+				
+			
+				new Art(this.view.getArt());
+			
+				
+			}
+			catch(Exception ex){
+				HauptController.hauptfenster.setInfoBox(ex.getMessage());
+			}
+				
+			finally{
+				this.view.reset();
+			}
 		}
 
 		if(button.equals("Loeschen") )
