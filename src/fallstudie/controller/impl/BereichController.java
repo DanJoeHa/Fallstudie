@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Bereich;
+import fallstudie.view.impl.BereichBearbeitenAnlegenView;
+import fallstudie.view.impl.BereichLoeschenView;
 import fallstudie.view.interfaces.View;
 
 public class BereichController implements Controller {
@@ -41,11 +43,9 @@ public class BereichController implements Controller {
 	public View getView() {
 		switch( this.operation ){
 			case "anlegen": return this.view;
-							break;
 			case "bearbeiten": return this.view;
-							break;
 			case "loeschen": return this.viewLoesch;
-							break;
 		}
+		return null;
 	}
 }
