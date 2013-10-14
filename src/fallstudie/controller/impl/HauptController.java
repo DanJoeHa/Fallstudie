@@ -148,7 +148,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 					this.activeController = acedit;
 					hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
 					break;
-				case "loeschen":
+				case "löschen":
 					SuchController ascdelete = new SuchController();
 					ascdelete.setSuchdomain("Arbeitsgruppe");
 					ascdelete.setOperation("loeschen");
