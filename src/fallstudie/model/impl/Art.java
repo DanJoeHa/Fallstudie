@@ -50,7 +50,7 @@ public class Art {
 				String value = checkObVorhanden.getString("Name");
 				
 				if (name.equals(value)) throw new Exception ("Art mit dem selben Namen existiert schon.");
-				checkObVorhanden.close();
+				
 		}
 		
 		System.out.println("INSERT INTO Art (Name) VALUES ('"+this.name+"')");
@@ -61,7 +61,7 @@ public class Art {
 			System.out.println("Es wurde "+rowsAffected+" Datensatz gespeichert.");
 			throw new Exception("Datensatz erfolgreich gespeichert");
 			}
-		
+		checkObVorhanden.close();
 	}
 	catch (SQLException e) {
 		System.err.println(e.getMessage());
@@ -179,7 +179,7 @@ public class Art {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean loeschen() throws Exception
+	public boolean loeschen()
 	{
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
