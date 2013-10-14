@@ -12,6 +12,12 @@ public class WelcomeController implements Controller {
 	
 	public WelcomeController(){
 		this.view = new WelcomeView();
+		
+		String headline = "Herzlich Willkommen " + HauptController.activeUser.getFullName();
+		HauptController.hauptfenster.setUeberschrift(headline);
+		
+		String msg = headline + ", \n \n bitte wählen Sie eine Aktion im Menübaum.";
+		this.view.setHinweis(msg);
 	}
 
 	@Override

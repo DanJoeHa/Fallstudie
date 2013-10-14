@@ -54,6 +54,7 @@ public class PasswortController implements Controller {
 				if(wdhPasswort.equals(neuesPasswort)){
 					HauptController.activeUser.setPasswort(neuesPasswort);
 					HauptController.hauptfenster.setInfoBox("Passwort erfolgreich geändert");
+					this.view.reset();
 				}
 				else
 				{
