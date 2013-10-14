@@ -9,6 +9,8 @@ import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;
+import fallstudie.view.impl.MitarbeiterAnlegenView;
+import fallstudie.view.impl.MitarbeiterBearbeitenView;
 import fallstudie.view.interfaces.View;
 
 /**
@@ -190,6 +192,7 @@ public class MitarbeiterController implements Controller {
 				return ix;
 			}
 		}
+		return null;
 	}
 	
 	/**
@@ -209,6 +212,7 @@ public class MitarbeiterController implements Controller {
 				return ix;
 			}
 		}
+		return null;
 	}
 	
 	/**
@@ -220,10 +224,8 @@ public class MitarbeiterController implements Controller {
 	@Override
 	public View getView() {
 		switch( this.operation ){
-			case "anlegen": return this.viewAnlegen;
-							break;
-			case "bearbeiten": return this.view;
-							break;
+			case "anlegen": return (View) this.viewAnlegen;
+			case "bearbeiten": return (View) this.view;
 		}
 	}
 }
