@@ -1,6 +1,8 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
+import java.util.Collection;
+import java.util.Iterator;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Art;
@@ -13,6 +15,7 @@ public class ArtController implements Controller {
 	private ArtAnlegenView view;
 	private ArtLoeschenView viewLoeschen;
 	private String operation;
+	
 	
 	public ArtController(){
 		
@@ -31,7 +34,21 @@ public class ArtController implements Controller {
 			{
 				this.viewLoeschen = new ArtLoeschenView();
 				this.viewLoeschen.setController( this );
-				this.viewLoeschen.setArt(Art.getAlleArten().toArray()); //Collection in String Array umwandeln
+				//this.viewLoeschen.setArt(Art.getAlleArten().toArray()); //Collection in String Array umwandeln
+				
+				
+
+				Collection<Art> art = Art.getAlleArten();
+				Iterator<Art> i = art.iterator();
+
+				String[] sArt = new String[ art.size() ];
+				int x = 0;
+				while( i.hasNext() ){
+					sArt[x] = i.next().getName();
+					x++;
+				} 
+				this.viewLoeschen.setArt( sArt );
+				
 			}
 		}
 	}
@@ -64,6 +81,7 @@ public class ArtController implements Controller {
 			case "anlegen": 	return (View) this.view;
 			case "loeschen":	return (View) this.viewLoeschen;
 		}
+		return null;
 	}
 
 }

@@ -24,6 +24,8 @@ import fallstudie.view.interfaces.View;
 
 public class ArtLoeschenView extends JPanel implements View{
 
+	
+	private JButton B_Speichern;
 	/**
 	 * Create the panel.
 	 */
@@ -57,18 +59,27 @@ public class ArtLoeschenView extends JPanel implements View{
 
 	}
 
-	
+	/**
+	 * Art löschen
+	 * @return
+	 */
 	public String getArt(){
+		
+		
 		return null;
 	}
 	
+	/**
+	 * Combobox befüllen
+	 * @param Arten
+	 */
 	public void setArt(String[] Arten){
 		
 	}
 	@Override
 	public void setController(Controller c) {
 		// TODO Auto-generated method stub
-		
+		this.B_Speichern.addActionListener(c);
 	}
 
 	@Override
