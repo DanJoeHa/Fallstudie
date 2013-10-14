@@ -21,14 +21,14 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-public class eintrag_erfassen extends JPanel {
+public class ErfassenView extends JPanel {
 	private JTextField T_Kalenderjahr;
 	private JTextField T_Anzahl_Erfassen;
 
 	/**
 	 * Create the panel.
 	 */
-	public eintrag_erfassen() {
+	public ErfassenView() {
 		setPreferredSize(new Dimension(600, 700));
 		setMinimumSize(new Dimension(600, 700));
 		setMaximumSize(new Dimension(600, 700));
@@ -107,11 +107,11 @@ public class eintrag_erfassen extends JPanel {
 	    Combo_Art_waehlen.setBounds(352, 182, 150, 20);
 	    add(Combo_Art_waehlen);
 	    
-		//B_Zurücksetzen
-		JButton B_Zurücksetzen = new JButton("Zur\u00FCcksetzten");
-		B_Zurücksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Zurücksetzen.setBounds(70, 382, 150, 23);
-		add(B_Zurücksetzen);
+		//B_Zurï¿½cksetzen
+		JButton B_Zurï¿½cksetzen = new JButton("Zur\u00FCcksetzten");
+		B_Zurï¿½cksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_Zurï¿½cksetzen.setBounds(70, 382, 150, 23);
+		add(B_Zurï¿½cksetzen);
 		
 		//B_Anlegen entspricht Speichern
 		JButton B_Anlegen = new JButton("Speichern");
