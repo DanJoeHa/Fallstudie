@@ -50,5 +50,11 @@ public class ArtAnlegenView extends JPanel {
 
 	}
 	
-	public String 
+	/**
+	 * neue Art anlegen
+	 * @return
+	 */
+	public String getArt(){
+		return this.T_Art.getText();
+	}
 }
