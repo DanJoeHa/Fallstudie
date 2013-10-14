@@ -55,13 +55,13 @@ public class ErfassenController implements Controller {
 			Calendar cal = Calendar.getInstance();
 		    DateFormat df;
 		    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
-			HauptController.hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am"+ df.format(cal.getTime()) +"erfasst");
+			HauptController.hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am "+ df.format(cal.getTime()) +" erfasst");
+			view.reset();
 		}
 	}
 
 	@Override
 	public View getView() {
-		// TODO Auto-generated method stub
 		return this.view;
 	}
 	

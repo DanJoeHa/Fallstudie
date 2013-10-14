@@ -368,7 +368,7 @@ public class Mitarbeiter {
 			System.err.println(e.getMessage());
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
-		
+		if(benutzername.equals("") && passwort.equals("")) throw new Exception("Bitte Login Daten eingeben.");
 		try {
 			String verschluesseltesPW = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 			
@@ -379,40 +379,44 @@ public class Mitarbeiter {
 			int zeilen = mitarbeiterResult.getRow();
 			mitarbeiterResult.beforeFirst();
 			
-			if(zeilen == 0) throw new Exception("Benutzername ist falsch");
+			if(zeilen == 0) throw new Exception("Benutzername ist falsch.");
 			mitarbeiterResult.next();
 			
 			//Passwort muss abgefragt werden
 			String passwortInDatabase = mitarbeiterResult.getString("Passwort");
-//			System.out.println(passwortInDatabase);
-//			System.out.println(verschluesseltesPW);
+			boolean aktiv = mitarbeiterResult.getBoolean("Aktiv");
 
 
+			if(aktiv==true)
+			{
 			
-			
-			//Wenn Passw�rter �bereinstimmen
-			if (verschluesseltesPW.equals(passwortInDatabase))
-			{	
-				
-				mitarbeiter= new Mitarbeiter(mitarbeiterResult);
-				
+				//Wenn Passw�rter �bereinstimmen
+				if (verschluesseltesPW.equals(passwortInDatabase))
+				{	
+					
+					mitarbeiter= new Mitarbeiter(mitarbeiterResult);
+					
+				}
+				else
+				{
+					
+					mitarbeiter = null;
+					throw new Exception("Passwort ist falsch.");
+				}
+				mitarbeiterResult.close();
+				//System.out.println(verschluesseltesPW);
+				//System.out.println(passwortInDatabase);
 			}
 			else
 			{
-				
-				mitarbeiter = null;
-				throw new Exception("Passwort ist falsch.");
+				throw new Exception("Benutzer existiert nicht.");
 			}
-			mitarbeiterResult.close();
-			//System.out.println(verschluesseltesPW);
-			//System.out.println(passwortInDatabase);
-			
 			
 		}
 		
 		catch (NoSuchAlgorithmException e)
 		{
-			System.err.println("FEHLER beim Verschl�sseln:");
+			System.err.println("FEHLER beim Verschlüsseln:");
 			System.err.println(e.getMessage());
 		}
 		
