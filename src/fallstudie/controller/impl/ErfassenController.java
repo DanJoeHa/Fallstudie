@@ -27,7 +27,7 @@ public class ErfassenController implements Controller {
 		if(button == "Speichern")
 		{	
 			
-			Eintrag eintrag = new Eintrag(activeUser.getArbeitsgruppe(),view.getKalenderjahr(),view.getKalenderwoche(),view.getAnzahl(), view.getArt());
+			Eintrag eintrag = new Eintrag(HauptController.activeUser.getArbeitsgruppe(),view.getKalenderjahr(),view.getKalenderwoche(),view.getAnzahl(), view.getArt());
 			//kein Objekt Art �bergeben, sondern String, weil aus dem String kann kein Objekt erzeugt w-erden, da ansonsten �ber den Konstruktor der Modell-Schicht eine Art angelegt wird
 			Calendar cal = Calendar.getInstance();
 		    DateFormat df;
