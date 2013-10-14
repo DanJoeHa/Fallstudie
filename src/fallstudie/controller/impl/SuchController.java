@@ -16,10 +16,12 @@ public class SuchController implements Controller {
 	private SuchenView view;
 	private TabelleView viewErg;
 	private String suchdomain;
-	private Collection<Object> suchergebnisse;
+	private Collection<Mitarbeiter> suchergebnisseMa;
+	private Collection<Arbeitsgruppe> suchergebnisseAg;
 	private String operation;
 	private Object auswahl = null;
 	private String suchbegriff;
+	
 	
 	public SuchController(){
 		
@@ -66,17 +68,18 @@ public class SuchController implements Controller {
 				this.viewErg.setButtonName("auswählen");
 				
 				//hole passende Suchergebnisse
-				this.suchergebnisse = Mitarbeiter.suche( this.view.getSuchbegriff() );
+				this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff() );
 				
 				//Content auf Tabellen-Sicht wechseln
-				this.viewErg.setTabelle( this.suchergebnisse.toArray() );
+			
+				this.viewErg.setTabelle( Funktionen.MitarbeiterCollection2Array(this.suchergebnisseMa ));
 				HauptController.hauptfenster.setContent( this.viewErg );
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button == "auswählen" ){
 				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
-				Iterator<Object> i = this.suchergebnisse.iterator();
+				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 				
 				while( i.hasNext() ){
 					Mitarbeiter MA = (Mitarbeiter) i.next();
@@ -93,7 +96,7 @@ public class SuchController implements Controller {
 				//TODO: popup wirklich löschen
 				
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
-				Iterator<Object> i = this.suchergebnisse.iterator();
+				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 				
 				while( i.hasNext() ){
 					Mitarbeiter MA = (Mitarbeiter) i.next();
@@ -119,18 +122,18 @@ public class SuchController implements Controller {
 				this.viewErg.setButtonName("auswählen");
 				
 				//hole passende Suchergebnisse
-				this.suchergebnisse = Arbeitsgruppe.suche( this.view.getSuchbegriff() );
+				this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff() );
 				
 				//Content auf Tabellen-Sicht wechseln
-				this.viewErg.setTabelle( this.suchergebnisse.toArray() );
-				hauptfenster.setContent( this.viewErg );
+				this.viewErg.setTabelle( Funktionen.ArbeitsgruppeCollection2Array(this.suchergebnisseAg) );
+				HauptController.hauptfenster.setContent( this.viewErg );
 				
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button == "auswählen" ){
 				//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
-				Iterator<Object> i = this.suchergebnisse.iterator();
+				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
 				
 				while( i.hasNext() ){
 					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
@@ -147,7 +150,7 @@ public class SuchController implements Controller {
 				//TODO: popup wirklich löschen
 				
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
-				Iterator<Object> i = this.suchergebnisse.iterator();
+				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
 				
 				while( i.hasNext() ){
 					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();

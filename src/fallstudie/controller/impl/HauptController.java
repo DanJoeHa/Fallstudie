@@ -94,146 +94,153 @@ public class HauptController implements Controller, TreeSelectionListener {
 	 */
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
-		//Aktion bestimmen
-		TreePath path = e.getNewLeadSelectionPath();		
-		Object[] pfad = path.getPath();
-		int pfadlaenge = pfad.length;
-		String action = pfad[pfadlaenge - 1].toString();
-		String folder = "";
-		System.out.println("Pfad ist: " + folder + " > " + action);
 		
-		//Aktionen-Root Knoten
-		if( action.equals("Aktionen") ){
-			activeController = new WelcomeController();
-		}else{
-			folder = pfad[pfadlaenge - 2].toString();
-		}
+		//verhindern, dass User sein erstes Passwort beibehält
+		if( activeUser.getLogin() != null ){
 		
-		//Aktionen im Root
-		if( folder.equals("Aktionen") ){
+			//Aktion bestimmen
+			TreePath path = e.getNewLeadSelectionPath();		
+			Object[] pfad = path.getPath();
+			int pfadlaenge = pfad.length;
+			String action = pfad[pfadlaenge - 1].toString();
+			String folder = "";
+			System.out.println("Pfad ist: " + folder + " > " + action);
 			
-			switch(action){
-				case "Daten erfassen":
-					activeController = new ErfassenController();
-					hauptfenster.setUeberschrift("Eintrag erfassen");
-					break;
-				case "Daten anzeigen":
-					hauptfenster.setUeberschrift("Daten anzeigen");
-					break;
-				case "Job-Einstellungen":
-					activeController = new KonfigController();
-					hauptfenster.setUeberschrift("Job Einstellungen ändern");
-					break;
-				case "Passwort ändern":	
-					activeController = new PasswortController();
-					hauptfenster.setUeberschrift("Passwort ändern");
-					break;
+			//Aktionen-Root Knoten
+			if( action.equals("Aktionen") ){
+				activeController = new WelcomeController();
+			}else{
+				folder = pfad[pfadlaenge - 2].toString();
 			}
 			
-		}
-		
-		//Aktionen für Arbeitsgruppe
-		if( folder.equals("Arbeitsgruppe") ){
-			
-			switch(action){
-				case "anlegen":
-					ArbeitsgruppenController accreate = new ArbeitsgruppenController();
-					accreate.setOperation("anlegen");
-					this.activeController = accreate;
-					hauptfenster.setUeberschrift("Arbeitsgruppe anlegen");
-					break;
-				case "bearbeiten":
-					ArbeitsgruppenController acedit = new ArbeitsgruppenController();
-					acedit.setOperation("bearbeiten");
-					this.activeController = acedit;
-					hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
-					break;
-				case "löschen":
-					SuchController ascdelete = new SuchController();
-					ascdelete.setSuchdomain("Arbeitsgruppe");
-					ascdelete.setOperation("loeschen");
-					this.activeController = ascdelete;
-					hauptfenster.setUeberschrift("Arbeitsgruppe löschen");
-					break;
-			}
-			
-		}
-		
-		//Aktionen für Art
-		if( folder.equals("Art") ){
-			
-			switch(action){
-				case "anlegen":
-					ArtController artccreate = new ArtController();
-					artccreate.setOperation("anlegen");
-					this.activeController = artccreate;
-					hauptfenster.setUeberschrift("Art anlegen");
-					break;
-				case "löschen":
-					ArtController artcdelete = new ArtController();
-					artcdelete.setOperation("loeschen");
-					this.activeController = artcdelete;
-					hauptfenster.setUeberschrift("Art löschen");
-					break;
-			}
-			
-		}
-		
-		//Aktionen für Bereich
-		if( folder.equals("Bereich") ){
-			
-			switch(action){
-				case "anlegen":
-					BereichController bccreate = new BereichController();
-					bccreate.setOperation("anlegen");
-					this.activeController = bccreate;
-					hauptfenster.setUeberschrift("Bereich anlegen");
-					break;
-				case "bearbeiten":
-					BereichController bcedit = new BereichController();
-					bcedit.setOperation("bearbeiten");
-					this.activeController = bcedit;
-					hauptfenster.setUeberschrift("Bereich bearbeiten");
-					break;
-				case "löschen":
-					BereichController bcdelete = new BereichController();
-					bcdelete.setOperation("loeschen");
-					this.activeController = bcdelete;
-					hauptfenster.setUeberschrift("Bereich löschen");
-					break;
-			}
-			
-		}
-		
-		//Aktionen für Mitarbeiter
-		if( folder.equals("Mitarbeiter") ){
-			
-			switch(action){
-				case "anlegen":
-					MitarbeiterController mccreate = new MitarbeiterController();
-					mccreate.setOperation("anlegen");
-					this.activeController = mccreate;
-					hauptfenster.setUeberschrift("Mitarbeiter anlegen");
-					break;
-				case "bearbeiten":
-					MitarbeiterController mcedit = new MitarbeiterController();
-					mcedit.setOperation("bearbeiten");
-					this.activeController = mcedit;
-					hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
-					break;
-				case "löschen":
-					SuchController mscdelete = new SuchController();
-					mscdelete.setSuchdomain("Mitarbeiter");
-					mscdelete.setOperation("loeschen");
-					this.activeController = mscdelete;
-					hauptfenster.setUeberschrift("Mitarbeiter löschen");
-					break;
-			}
-			
-		}
+			//Aktionen im Root
+			if( folder.equals("Aktionen") ){
 				
-		//Anzeigen
-		hauptfenster.setContent( activeController.getView() );
+				switch(action){
+					case "Daten erfassen":
+						activeController = new ErfassenController();
+						hauptfenster.setUeberschrift("Eintrag erfassen");
+						break;
+					case "Daten anzeigen":
+						hauptfenster.setUeberschrift("Daten anzeigen");
+						break;
+					case "Job-Einstellungen":
+						activeController = new KonfigController();
+						hauptfenster.setUeberschrift("Job Einstellungen ändern");
+						break;
+					case "Passwort ändern":	
+						activeController = new PasswortController();
+						hauptfenster.setUeberschrift("Passwort ändern");
+						break;
+				}
+				
+			}
+			
+			//Aktionen für Arbeitsgruppe
+			if( folder.equals("Arbeitsgruppe") ){
+				
+				switch(action){
+					case "anlegen":
+						ArbeitsgruppenController accreate = new ArbeitsgruppenController();
+						accreate.setOperation("anlegen");
+						this.activeController = accreate;
+						hauptfenster.setUeberschrift("Arbeitsgruppe anlegen");
+						break;
+					case "bearbeiten":
+						ArbeitsgruppenController acedit = new ArbeitsgruppenController();
+						acedit.setOperation("bearbeiten");
+						this.activeController = acedit;
+						hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
+						break;
+					case "löschen":
+						SuchController ascdelete = new SuchController();
+						ascdelete.setSuchdomain("Arbeitsgruppe");
+						ascdelete.setOperation("loeschen");
+						this.activeController = ascdelete;
+						hauptfenster.setUeberschrift("Arbeitsgruppe löschen");
+						break;
+				}
+				
+			}
+			
+			//Aktionen für Art
+			if( folder.equals("Art") ){
+				
+				switch(action){
+					case "anlegen":
+						ArtController artccreate = new ArtController();
+						artccreate.setOperation("anlegen");
+						this.activeController = artccreate;
+						hauptfenster.setUeberschrift("Art anlegen");
+						break;
+					case "löschen":
+						ArtController artcdelete = new ArtController();
+						artcdelete.setOperation("loeschen");
+						this.activeController = artcdelete;
+						hauptfenster.setUeberschrift("Art löschen");
+						break;
+				}
+				
+			}
+			
+			//Aktionen für Bereich
+			if( folder.equals("Bereich") ){
+				
+				switch(action){
+					case "anlegen":
+						BereichController bccreate = new BereichController();
+						bccreate.setOperation("anlegen");
+						this.activeController = bccreate;
+						hauptfenster.setUeberschrift("Bereich anlegen");
+						break;
+					case "bearbeiten":
+						BereichController bcedit = new BereichController();
+						bcedit.setOperation("bearbeiten");
+						this.activeController = bcedit;
+						hauptfenster.setUeberschrift("Bereich bearbeiten");
+						break;
+					case "löschen":
+						BereichController bcdelete = new BereichController();
+						bcdelete.setOperation("loeschen");
+						this.activeController = bcdelete;
+						hauptfenster.setUeberschrift("Bereich löschen");
+						break;
+				}
+				
+			}
+			
+			//Aktionen für Mitarbeiter
+			if( folder.equals("Mitarbeiter") ){
+				
+				switch(action){
+					case "anlegen":
+						MitarbeiterController mccreate = new MitarbeiterController();
+						mccreate.setOperation("anlegen");
+						this.activeController = mccreate;
+						hauptfenster.setUeberschrift("Mitarbeiter anlegen");
+						break;
+					case "bearbeiten":
+						MitarbeiterController mcedit = new MitarbeiterController();
+						mcedit.setOperation("bearbeiten");
+						this.activeController = mcedit;
+						hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
+						break;
+					case "löschen":
+						SuchController mscdelete = new SuchController();
+						mscdelete.setSuchdomain("Mitarbeiter");
+						mscdelete.setOperation("loeschen");
+						this.activeController = mscdelete;
+						hauptfenster.setUeberschrift("Mitarbeiter löschen");
+						break;
+				}
+				
+			}
+					
+			//Anzeigen
+			hauptfenster.setContent( activeController.getView() );
+		}else{
+			hauptfenster.setInfoBox("Bitte ändern Sie Ihr Initialpasswort!");
+		}
 	}
 	
 	/**

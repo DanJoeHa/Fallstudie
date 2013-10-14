@@ -42,7 +42,7 @@ public class TabelleView extends JPanel implements View {
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
-		B_AuswaehlenLoeschen = new JButton("L\u00F6schen");
+		B_AuswaehlenLoeschen = new JButton("Löschen");
 		B_AuswaehlenLoeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_AuswaehlenLoeschen.setBounds(440, 600, 150, 30);
 		add(B_AuswaehlenLoeschen);
