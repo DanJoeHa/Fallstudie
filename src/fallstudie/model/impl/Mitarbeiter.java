@@ -12,17 +12,20 @@ import java.util.LinkedList;
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
- *	 	generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
- *		 @version 1.0 Attribute ergänzt
+ *	 	generiert + implements (Interface) wurde entfernt, da Konstruktor nicht mï¿½glich ist im Interface
+ *		 @version 1.0 Attribute ergï¿½nzt
  * @author Phil
  * 		@date 11.10.2013
  *		@version 1.1
- *		@change checkPasswort() eingefügt und ausloggen kommentiert
+ *		@change checkPasswort() eingefï¿½gt und ausloggen kommentiert
  *@author Phil
  *		@date 13.10.2013
  *		@version 1.2
  *		@change alle Methoden implementiert
+ *@author Patrick
+ *
  */
+
 public class Mitarbeiter {
 	
 	private String benutzername;
@@ -131,7 +134,7 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * Überladener Konstruktor #2, wird verwendet wenn ein Mitarbeiter neu angelegt wird
+	 * ï¿½berladener Konstruktor #2, wird verwendet wenn ein Mitarbeiter neu angelegt wird
 	 * @param benutzername
 	 * @param passwort
 	 * @param vorname
@@ -169,7 +172,7 @@ public class Mitarbeiter {
 				if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
 				checkObVorhanden.close();
 		}
-		//passwort wird verschlüsselt in die DB geschrieben
+		//passwort wird verschlï¿½sselt in die DB geschrieben
 		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 		
 		
@@ -179,7 +182,7 @@ public class Mitarbeiter {
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+bereichID+"'");
 		
-		if (affectedRows==1)System.out.println("Es wurde "+affectedRows+" Datensatz eingefügt.");
+		if (affectedRows==1)System.out.println("Es wurde "+affectedRows+" Datensatz eingefï¿½gt.");
 		
 		this.benutzername = benutzername;
 		this.passwort = verschluesseltPasswort;
@@ -197,7 +200,7 @@ public class Mitarbeiter {
 	}
 	
 	/**
-	 * Überladener Konstruktor #3, wird verwendet wenn ein Mitarbeiter neu angelegt wird
+	 * ï¿½berladener Konstruktor #3, wird verwendet wenn ein Mitarbeiter neu angelegt wird
 	 * @param benutzername
 	 * @param passwort
 	 * @param vorname
@@ -243,7 +246,7 @@ public class Mitarbeiter {
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+arbeitsgruppeID+"'");
 		
-		if (affectedRows==1)System.out.println("Es wurde "+affectedRows+" Datensatz eingefügt.");
+		if (affectedRows==1)System.out.println("Es wurde "+affectedRows+" Datensatz eingefï¿½gt.");
 		
 		this.benutzername = benutzername;
 		this.passwort = verschluesseltPasswort;
@@ -260,7 +263,7 @@ public class Mitarbeiter {
 	}
 	
 	/**
-	 * Überladener Konstruktor #4, wird verwendet wenn ein Mitarbeiter neu angelegt wird
+	 * ï¿½berladener Konstruktor #4, wird verwendet wenn ein Mitarbeiter neu angelegt wird
 	 * @param resultSet
 	 */
 	public Mitarbeiter(ResultSet resultSet){
@@ -342,7 +345,7 @@ public class Mitarbeiter {
 	
 	
 	/**
-	 * Mitarbeiter einloggen und prüfen ob er schon mal angemeldet war
+	 * Mitarbeiter einloggen und prï¿½fen ob er schon mal angemeldet war
 	 * @param benutzername
 	 * @param passwort
 	 * @return
@@ -369,6 +372,11 @@ public class Mitarbeiter {
 			System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
 			//anhand des Benutzernamens ResultSet kriegen
 			ResultSet mitarbeiterResult = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
+			mitarbeiterResult.last();
+			int zeilen = mitarbeiterResult.getRow();
+			mitarbeiterResult.beforeFirst();
+			
+			if(zeilen == 0) throw new Exception("Benutzername ist falsch");
 			mitarbeiterResult.next();
 			
 			//Passwort muss abgefragt werden
@@ -379,16 +387,18 @@ public class Mitarbeiter {
 
 			
 			
-			//Wenn Passwörter übereinstimmen
+			//Wenn Passwï¿½rter ï¿½bereinstimmen
 			if (verschluesseltesPW.equals(passwortInDatabase))
 			{	
-				System.out.println("Das Passwort ist korrekt.");
+				
 				mitarbeiter= new Mitarbeiter(mitarbeiterResult);
 				
 			}
 			else
 			{
+				
 				mitarbeiter = null;
+				throw new Exception("Passwort ist falsch.");
 			}
 			mitarbeiterResult.close();
 			//System.out.println(verschluesseltesPW);
@@ -399,16 +409,10 @@ public class Mitarbeiter {
 		
 		catch (NoSuchAlgorithmException e)
 		{
-			System.err.println("FEHLER beim Verschlüsseln:");
+			System.err.println("FEHLER beim Verschlï¿½sseln:");
 			System.err.println(e.getMessage());
 		}
-		catch (SQLException e)
-		{
-			System.err.println("Dieser Fehler ist in einloggen(String,String) aufgetreten:");
-			
-			System.err.println(e.getMessage());
-			System.err.println("Bitte Benutzernamen überprüfen.");
-		}
+		
 		return mitarbeiter;
 	}
 
@@ -446,7 +450,7 @@ public class Mitarbeiter {
 	}	
 
 	/**
-	 * weißt den Mitarbeiter einem Bereich zu
+	 * weiï¿½t den Mitarbeiter einem Bereich zu
 	 * @param bereich
 	 * @return
 	 */
@@ -484,7 +488,7 @@ catch (SQLException e)
 	}
 
 	/**
-	 * weißt Mitarbeiter Rolle zu
+	 * weiï¿½t Mitarbeiter Rolle zu
 	 * @param rolle
 	 * @return
 	 */
@@ -522,7 +526,7 @@ catch (SQLException e)
 	}
 
 	/**
-	 * weißt dem Mitarbeiter Benutzername zu
+	 * weiï¿½t dem Mitarbeiter Benutzername zu
 	 * @param newBenutzername
 	 * @return
 	 * @throws Exception 
@@ -579,7 +583,7 @@ catch (SQLException e)
 		return this.benutzername;
 	}
 	/**
-	 * Methode prüft ob eingegebenes Passwort bei Passwort vergessen View,
+	 * Methode prï¿½ft ob eingegebenes Passwort bei Passwort vergessen View,
 	 * das ist welches in der Datenbank abgelegt ist. Dient zur Identifizierung des Mitarbeiters
 	 * @param altesPasswort
 	 * @return boolean
@@ -603,7 +607,7 @@ try
 }
 catch (NoSuchAlgorithmException e)
 {
-	System.err.println("FEHLER beim Verschlüsseln:");
+	System.err.println("FEHLER beim Verschlï¿½sseln:");
 	System.err.println(e.getMessage());
 }
 catch (SQLException e)
@@ -618,7 +622,7 @@ catch (SQLException e)
 	}
 	/**
 	 * bekommt das Passwort des Mitarbeiters
-	 * VERSCHLÜSSELT
+	 * VERSCHLï¿½SSELT
 	 * @return
 	 */
 	public String getPasswort() {
@@ -627,7 +631,7 @@ catch (SQLException e)
 	}
 
 	/**
-	 * verändert Passwort des Mitarbeiters
+	 * verï¿½ndert Passwort des Mitarbeiters
 	 * @param newPasswort
 	 * @return
 	 */
@@ -646,7 +650,7 @@ catch (SQLException e)
 		
 		catch (NoSuchAlgorithmException e)
 		{
-			System.err.println("FEHLER beim Verschlüsseln:");
+			System.err.println("FEHLER beim Verschlï¿½sseln:");
 			System.err.println(e.getMessage());
 		}
 		catch (SQLException e)
@@ -661,7 +665,7 @@ catch (SQLException e)
 			}
 
 	/**
-	 * weißt Arbeitsgruppe zu
+	 * weiï¿½t Arbeitsgruppe zu
 	 * @param arbeitsgruppe
 	 * @return
 	 */
@@ -698,7 +702,7 @@ catch (SQLException e)
 	}
 
 	/**
-	 * löscht Mitarbeiter
+	 * lï¿½scht Mitarbeiter
 	 * @param aktiv
 	 * @return
 	 * @throws Exception 
@@ -713,7 +717,7 @@ catch (SQLException e)
 		RemoteConnection Connection = new RemoteConnection();
 		
 		try 
-		{	//IN Bereich prüfen
+		{	//IN Bereich prï¿½fen
 			System.out.println("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
 			
 			ResultSet checkMitarbeiterInBereich = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
@@ -724,13 +728,13 @@ catch (SQLException e)
 				 if (leiter==null) darfdeletedWerdenBereich=true;
 					if (leiter!=null) 
 						{
-							throw new Exception("Diesem Bereich ist der Mitarbeiter noch als Leiter zugeordnet: "+bereich+" Bitte zuordnung löschen.");
+							throw new Exception("Diesem Bereich ist der Mitarbeiter noch als Leiter zugeordnet: "+bereich+" Bitte zuordnung lï¿½schen.");
 						
 						}
 			}
 			checkMitarbeiterInBereich.close();
 		
-			//IN Arbeitsgruppe prüfen!
+			//IN Arbeitsgruppe prï¿½fen!
 			
 			System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
 			
@@ -742,13 +746,13 @@ catch (SQLException e)
 				 if (leiter==null) darfdeletedWerdenArbeitsgruppe=true;
 					if (leiter!=null) 
 						{
-							throw new Exception("Dieser Arbeitsgruppe ist der Mitarbeiter noch als Leiter zugeordnet: "+arbeitsgruppe+" Bitte zuordnung löschen.");
+							throw new Exception("Dieser Arbeitsgruppe ist der Mitarbeiter noch als Leiter zugeordnet: "+arbeitsgruppe+" Bitte zuordnung lï¿½schen.");
 						
 						}
 			}
 			checkMitarbeiterInArbeitsgruppe.close();
 			
-		//abfrage ob weder im Bereich noch in der Arbeitsgruppe noch als Leiter tätig
+		//abfrage ob weder im Bereich noch in der Arbeitsgruppe noch als Leiter tï¿½tig
 		if(darfdeletedWerdenBereich==true && darfdeletedWerdenArbeitsgruppe==true)
 		{
 			if(aktuellerStatus==true)
@@ -777,7 +781,7 @@ catch (SQLException e)
 			}
 
 	/**
-	 * schaut ob der Mitarbeiter aktiv ist, im Sinne von nicht gelöscht
+	 * schaut ob der Mitarbeiter aktiv ist, im Sinne von nicht gelï¿½scht
 	 * @return
 	 */
 	public boolean getAktiv() {
@@ -795,7 +799,7 @@ catch (SQLException e)
 	}
 
 	/**
-	 * weißt Nachnamen zu
+	 * weiï¿½t Nachnamen zu
 	 * @param nachname
 	 * @return
 	 */
@@ -833,7 +837,7 @@ catch (SQLException e)
 	}
 
 	/**
-	 * weißt den Vornamen zu
+	 * weiï¿½t den Vornamen zu
 	 * @param vorname
 	 * @return
 	 */
@@ -871,7 +875,7 @@ catch (SQLException e)
 	}
 
 	/**
-	 * schaut ob der Mitarbeiter das benötigte Recht hat
+	 * schaut ob der Mitarbeiter das benï¿½tigte Recht hat
 	 * @param recht
 	 * @return
 	 */
@@ -916,14 +920,14 @@ catch (SQLException e)
 					resultSet = Connection.executeQueryStatement(
 							"SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
 									" Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
-					//Abfrage ob überhaupt Datensätze gefunden worden sind
+					//Abfrage ob ï¿½berhaupt Datensï¿½tze gefunden worden sind
 					resultSet.last();
 					int resultLength = resultSet.getRow();
 					resultSet.beforeFirst();
-					if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
+					if (resultLength==0) throw new NullPointerException("Keine Datensï¿½tze gefunden");
 					else
 					{
-						System.out.println("Es wurden "+resultLength+" Datensätze gefunden. Die Gelöschten Einträge werden nicht angezeigt.");
+						System.out.println("Es wurden "+resultLength+" Datensï¿½tze gefunden. Die Gelï¿½schten Eintrï¿½ge werden nicht angezeigt.");
 					}
 					while (resultSet.next()) 
 					{
@@ -938,14 +942,14 @@ catch (SQLException e)
 			}
 			catch (SQLException e) 
 			{	System.err.println("Dieser Fehler ist aufgetreten in suche Arbeitsgruppe (suchbegriff):");
-				System.err.println("Select Statement ist fehlerhaft. Bitte überprüfen.");
+				System.err.println("Select Statement ist fehlerhaft. Bitte ï¿½berprï¿½fen.");
 			}
 			return result;
 		}
 		
 
 	/**
-	 * Gibt alle mitarbeiter zurück
+	 * Gibt alle mitarbeiter zurï¿½ck
 	 * @return
 	 */
 	public static Collection<Mitarbeiter> getAlleMitarbeiter()
