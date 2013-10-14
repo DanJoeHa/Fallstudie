@@ -37,6 +37,9 @@ public class ErfassenView extends JPanel implements View {
 	 */
 	public ErfassenView() {
 				
+		//Intialwert Erfassen 0
+		T_Anzahl_Erfassen.setText("0");
+		
 		//Styling
 		setPreferredSize(new Dimension(600, 700));
 		setMinimumSize(new Dimension(600, 700));
@@ -192,7 +195,7 @@ public class ErfassenView extends JPanel implements View {
 
 	@Override
 	public void reset() {
-		this.T_Anzahl_Erfassen.setText("");
+		this.T_Anzahl_Erfassen.setText("0");
 	}
 	
 	/**
