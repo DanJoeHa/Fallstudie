@@ -22,6 +22,7 @@ public class ErfassenController implements Controller {
 	
 	public ErfassenController(){
 		this.view = new ErfassenView();
+		this.view.setController( this );
 
 		this.art = Art.getAlleArten();
 		Iterator<Art> i = art.iterator();
@@ -64,9 +65,4 @@ public class ErfassenController implements Controller {
 		return this.view;
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		
-		//get action
-		String button = e.getActionCommand();	
-	}
 }
