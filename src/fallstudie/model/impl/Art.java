@@ -23,7 +23,7 @@ public class Art {
 	 */
 	public Art(String name) throws Exception
 	{
-		
+		RemoteConnection Connection = new RemoteConnection();
 	try
 	{
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -39,7 +39,20 @@ public class Art {
 	
 	this.name=name;
 	try
-	{
+	{	
+		ResultSet checkObVorhanden = Connection.executeQueryStatement(
+				"SELECT Name From Art");
+		
+		
+		while (checkObVorhanden.next()) 
+		{
+
+				String value = checkObVorhanden.getString("Name");
+				
+				if (name.equals(value)) throw new Exception ("Art mit dem selben Namen existiert schon.");
+				checkObVorhanden.close();
+		}
+		
 		System.out.println("INSERT INTO Art (Name) VALUES ('"+this.name+"')");
 		int rowsAffected = RemoteConnection.sql.executeUpdate("INSERT INTO Art (Name) VALUES ('"+this.name+"')");
 	
