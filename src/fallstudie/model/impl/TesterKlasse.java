@@ -15,6 +15,7 @@ public class TesterKlasse {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-
+		
+		Rolle r = new Rolle("admin");
 }
 }

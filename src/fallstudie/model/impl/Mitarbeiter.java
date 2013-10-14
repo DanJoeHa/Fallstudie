@@ -18,6 +18,10 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  * 		@date 11.10.2013
  *		@version 1.1
  *		@change checkPasswort() eingefügt und ausloggen kommentiert
+ *@author Phil
+ *		@date 13.10.2013
+ *		@version 1.2
+ *		@change alle Methoden implementiert
  */
 public class Mitarbeiter {
 	
@@ -369,8 +373,8 @@ public class Mitarbeiter {
 			
 			//Passwort muss abgefragt werden
 			String passwortInDatabase = mitarbeiterResult.getString("Passwort");
-			System.out.println(passwortInDatabase);
-			System.out.println(verschluesseltesPW);
+//			System.out.println(passwortInDatabase);
+//			System.out.println(verschluesseltesPW);
 
 
 			
@@ -378,7 +382,7 @@ public class Mitarbeiter {
 			//Wenn Passwörter übereinstimmen
 			if (verschluesseltesPW.equals(passwortInDatabase))
 			{	
-				
+				System.out.println("Das Passwort ist korrekt.");
 				mitarbeiter= new Mitarbeiter(mitarbeiterResult);
 				
 			}
