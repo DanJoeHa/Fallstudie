@@ -24,11 +24,11 @@ public class KonfigController implements Controller {
 		//Popup hinzufügen + Infoboxausgabe
 		if(button.equals("Speichern"))
 		{
-				String msg;
-				if( Konfig.setJobIntervall(this.view.getAnzahlMonate()) ){
-					msg = "Neue Job-Konfiguration gespeichert.";
-				}else{
-					msg = "Job-Konfiguration konnte nicht geändert werden.";
+				String msg = "Neue Job-Konfiguration gespeichert.";
+				try{
+					Konfig.setJobIntervall(this.view.getAnzahlMonate());
+				}catch(Exception ex){
+					msg = ex.getMessage();
 				}
 				HauptController.hauptfenster.setInfoBox(msg);
 		}
