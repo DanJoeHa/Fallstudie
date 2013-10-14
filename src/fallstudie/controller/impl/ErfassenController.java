@@ -44,13 +44,13 @@ public class ErfassenController implements Controller {
 			Iterator<Art> i = this.art.iterator();		
 			while( i.hasNext() ){
 				tempArt = (Art) i.next();
-				String Name = A.getName();
+				String Name = tempArt.getName();
 				if(Name.equals( this.view.getArt())){
 					break;
 				}
 			}
 			
-			Eintrag eintrag = new Eintrag(HauptController.activeUser.getArbeitsgruppe(),view.getKalenderjahr(),view.getKalenderwoche(),view.getAnzahl(), tempArt);
+			Eintrag eintrag = new Eintrag(view.getKalenderjahr(),view.getKalenderwoche(),view.getAnzahl(),HauptController.activeUser.getArbeitsgruppe(), tempArt);
 			Calendar cal = Calendar.getInstance();
 		    DateFormat df;
 		    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
