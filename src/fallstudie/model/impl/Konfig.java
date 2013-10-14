@@ -5,7 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import fallstudie.model.mysql.connector.RemoteConnection;
-
+/**
+ * @date 14.10.2013 - Erstellt und IMplementiert
+ * @author Phil
+ *
+ */
 public class Konfig {
 	
 	/**
