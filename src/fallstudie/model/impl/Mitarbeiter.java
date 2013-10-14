@@ -908,7 +908,7 @@ catch (SQLException e)
 
 
 
-	public static Collection<Mitarbeiter> suche(String suchbegriff){
+	public static Collection<Mitarbeiter> suche(String suchbegriff, String suchdomain){
 		
 			Collection<Mitarbeiter> result = new LinkedList<>();
 			RemoteConnection Connection = new RemoteConnection();
@@ -922,9 +922,12 @@ catch (SQLException e)
 				/*System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
 						" Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
 					*/
-					resultSet = Connection.executeQueryStatement(
-							"SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
-									" Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
+					String query = "SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'";
+					
+					if( suchdomain.equals("Bereichsleiter") || suchdomain.equals("Gruppenleiter") ) query+= " OR Rolle LIKE '%" + suchdomain + "%'";
+										
+					
+					resultSet = Connection.executeQueryStatement(query);
 					//Abfrage ob �berhaupt Datens�tze gefunden worden sind
 					resultSet.last();
 					int resultLength = resultSet.getRow();
