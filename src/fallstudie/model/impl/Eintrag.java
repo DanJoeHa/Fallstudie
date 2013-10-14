@@ -67,12 +67,12 @@ public class Eintrag {
 			System.out
 					.println("INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum)"
 							+ "VALUES ('" + kalenderjahr + "','" + kalenderwoche + "','" + anzahl
-							+ "','" + arbeitsgruppeID + "','" + art + "','" + datum + "'");
+							+ "','" + arbeitsgruppeID + "','" + art.getName() + "','" + datum + "'");
 
 			int RowsAffected = RemoteConnection.sql
 					.executeUpdate("INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum) VALUES ('"
 							+ kalenderjahr + "','" + kalenderwoche + "','" + anzahl + "','" + arbeitsgruppeID
-							+ "','" + art + "','" + datum + "'");
+							+ "','" + art.getName() + "','" + datum + "'");
 			System.out.println("Rows Affected: " + RowsAffected + "");
 
 		}
