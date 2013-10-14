@@ -237,7 +237,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 			}
 					
 			//Anzeigen
-			hauptfenster.setContent( activeController.getView() );
+			hauptfenster.setContent(activeController.getView());
 		}else{
 			hauptfenster.setInfoBox("Bitte ändern Sie Ihr Initialpasswort!");
 		}
