@@ -2,19 +2,25 @@ package fallstudie.view.impl;
 
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
+
 import java.awt.Dimension;
 
 public class WelcomeView extends JPanel implements View{
 
 	private static final long serialVersionUID = 6282583046506172098L;
-	private JTextArea Hinweis;
+	private JTextPane Hinweis;
 
 	/**
 	 * Erstellt die WillkommensView, die nach dem Login des Users angezeigt wird.
@@ -33,9 +39,9 @@ public class WelcomeView extends JPanel implements View{
 		setLayout(null);
 		
 		//L_Hinweis
-		Hinweis = new JTextArea();
+		Hinweis = new JTextPane();
 		Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		Hinweis.setBounds(30, 50, 560, 30);
+		Hinweis.setBounds(30, 50, 560, 100);
 		this.add(Hinweis);
 		
 	}

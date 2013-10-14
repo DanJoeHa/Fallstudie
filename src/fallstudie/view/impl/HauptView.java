@@ -69,7 +69,7 @@ public class HauptView extends JFrame implements View{
 		
 		//InfoBox
 		InfoBox = new JTextPane();
-		InfoBox.setText("Nachrichtenfeld");
+		InfoBox.setText("");
 		InfoBox.setBackground(SystemColor.menu);
 		InfoBox.setBounds(840, 92, 150, 620);
 		Panel.add(InfoBox);
