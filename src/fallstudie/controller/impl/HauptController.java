@@ -68,6 +68,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 				//LoginController erstellen und Sicht auf Login wechseln
 				activeController = new LoginController();
 				hauptfenster.setUeberschrift("Login");
+				hauptfenster.setLoggedOut();
 				hauptfenster.setInfoBox("Sie haben sich erfolgreich ausgeloggt.");
 				hauptfenster.setContent(activeController.getView());
 			}
