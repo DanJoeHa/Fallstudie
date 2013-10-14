@@ -104,13 +104,12 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 	
 	@Override
 	public void setController(Controller c) {
-		// TODO Auto-generated method stub
-		
+		this.B_Speichern.addActionListener(c);
+		this.B_Zuruecksetzen.addActionListener(c);
 	}
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -15,6 +15,7 @@ public class ArbeitsgruppenController implements Controller {
 	
 	private ArbeitsgruppeBearbeitenAnlegenView view;
 	private String operation;
+	private Collection<Bereich> bereiche;
 	
 	/**
 	 * Zeigt  die View zur Arbeitsgruppenbearbeiten/-anlage abhängig von der Operation an
@@ -43,7 +44,7 @@ public class ArbeitsgruppenController implements Controller {
 		this.operation = operation;
 		
 		//alle Bereiche holen
-		Collection<Bereich> bereiche = Bereich.getAlleBereiche();	
+		this.bereiche = Bereich.getAlleBereiche();	
 		String[] sBereiche = Funktionen.BereicheCollection2Array(bereiche);
 		
 		//wenn Neuanlage einer Arbeitsgruppe
@@ -85,8 +86,32 @@ public class ArbeitsgruppenController implements Controller {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		//Button bestimmen
+		String button = e.getActionCommand();
+			
+		//Änderungen speichern
+		if( button.equals("Speichern") ){
+			
+			//Bereichsobjekt zur Auswahl finden
+			Iterator<Bereich> i = this.bereiche.iterator();
+			Bereich oBereich = null;
+			while( i.hasNext() ){
+				oBereich = i.next();
+				if(oBereich.getKurzbezeichnung().equals( this.view.getBereich() ) ) break;
+			}
+			
+			Mitarbeiter oLeiter = new Mitarbeiter( this.view.getAGLeiter() );
+			try {
+				new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter );
+			} catch (Exception e1) {
+				HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+			}
+		}
 		
+		//Zurücksetzen button
+		if( button.equals("Zurücksetzen") ){
+			//TODO: was soll hier passieren?!
+		}
 	}
 	
 	/**
