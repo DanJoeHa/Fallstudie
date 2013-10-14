@@ -903,7 +903,6 @@ catch (SQLException e)
 			Rechte rechte = (Rechte) i.next();
 			String rechtName = rechte.getName();
 			if(rechtName.equals(recht)) erfolgreich=true;
-			if(!rechtName.equals(recht)) erfolgreich=false;
 		}
 		
 			
