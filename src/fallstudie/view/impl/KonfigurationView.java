@@ -1,20 +1,29 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+
 import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class KonfigurationView extends JPanel {
-	private JTextField T_AnzahlMonate;
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
 
+public class KonfigurationView extends JPanel implements View {
+	private JTextField T_AnzahlMonate;
+	private JButton B_Speichern;
 	/**
 	 * Create the panel.
 	 */
@@ -29,13 +38,13 @@ public class KonfigurationView extends JPanel {
 		setLayout(null);
 		
 		//B_Speichern
-		JButton B_Speichern = new JButton("Speichern");
+		B_Speichern = new JButton("Speichern");
 		B_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Speichern.setBounds(440, 600, 150, 30);
 		add(B_Speichern);
 		
 		//L_AnzahlMonate
-		JLabel L_AnzahlMonate = new JLabel("Anzahl der Monate vor dem L\u00F6schen der Eintr\u00E4ge:");
+		JLabel L_AnzahlMonate = new JLabel("Anzahl der Monate vor dem Löschen der Eintr\u00E4ge:");
 		L_AnzahlMonate.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		L_AnzahlMonate.setBounds(30, 300, 400, 30);
 		add(L_AnzahlMonate);
@@ -48,4 +57,23 @@ public class KonfigurationView extends JPanel {
 		T_AnzahlMonate.setColumns(10);
 
 	}
+	
+	public void setAnzahlMonate(String monate){
+		this.T_AnzahlMonate.setText(monate);
+	}
+	
+	public String getAnzahlMonate(){
+		return this.T_AnzahlMonate.getText();
+	}
+	
+	@Override
+	public void setController(Controller c) {
+		this.B_Speichern.addActionListener(c);		
+	}
+	@Override
+	public void reset() {
+		this.T_AnzahlMonate.setText("");
+	}
+	
+	
 }
