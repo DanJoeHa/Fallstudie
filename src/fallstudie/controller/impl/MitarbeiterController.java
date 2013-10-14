@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
+import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;
@@ -24,6 +25,7 @@ public class MitarbeiterController implements Controller {
 	private MitarbeiterBearbeitenView view;
 	private MitarbeiterAnlegenView viewAnlegen;
 	private String operation;
+	private Bereich tempBereich;
 	
 	private Collection<Rolle> rollen;
 	private Collection<Bereich> bereiche;
@@ -40,6 +42,7 @@ public class MitarbeiterController implements Controller {
 		//alle Rollen und Bereiche holen und speichern
 		this.rollen = Rolle.getAlleRollen();
 		this.bereiche = Bereich.getAlleBereiche();
+		
 	}
 	
 	/**
@@ -54,8 +57,8 @@ public class MitarbeiterController implements Controller {
 		
 		if( this.operation.equals("anlegen") ){
 			this.viewAnlegen = new MitarbeiterAnlegenView();
-			this.viewAnlegen.setBereich( this.bereiche.toArray() );
-			this.viewAnlegen.setRolle( this.rollen.toArray() );
+			this.viewAnlegen.setBereich(Funktionen.BereicheCollection2Array(this.bereiche));
+			this.viewAnlegen.setRolle( Funktionen.RollenCollection2Array(this.rollen));
 			this.viewAnlegen.setController( this );
 		}
 		

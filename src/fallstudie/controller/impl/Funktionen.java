@@ -7,6 +7,7 @@ import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
+import fallstudie.model.impl.Rolle;
 
 public abstract class Funktionen {
 	
@@ -58,6 +59,20 @@ public abstract class Funktionen {
 		}
 		
 		return sBereiche;
+	}
+	
+	public static String[] RollenCollection2Array(Collection<Rolle> rollen){
+		
+		Iterator<Rolle> i = rollen.iterator();
+		
+		String[] sRollen = new String[ rollen.size() ];
+		int x = 0;
+		while( i.hasNext() ){
+			sRollen[x] = i.next().getRollenbezeichnung();
+			x++;
+		}
+		
+		return sRollen;
 	}
 
 }
