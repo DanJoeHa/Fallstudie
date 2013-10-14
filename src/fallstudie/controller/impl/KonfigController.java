@@ -3,6 +3,7 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 
 import fallstudie.controller.interfaces.Controller;
+import fallstudie.model.impl.Konfig;
 import fallstudie.view.impl.KonfigurationView;
 import fallstudie.view.interfaces.View;
 
