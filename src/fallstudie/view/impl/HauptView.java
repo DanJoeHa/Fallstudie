@@ -233,9 +233,7 @@ public class HauptView extends JFrame implements View{
 			this.B_Logout.addActionListener(c);
 			this.B_Hilfe.addActionListener(c);
 			this.Navigation.addTreeSelectionListener((TreeSelectionListener) c);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		}catch(Exception e){}
 		
 	}
 
