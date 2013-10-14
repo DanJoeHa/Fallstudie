@@ -1,39 +1,43 @@
 package fallstudie.view.impl;
 
-import javax.swing.JPanel;
-
-import java.awt.SystemColor;
-
-import javax.swing.border.LineBorder;
-
 import java.awt.Color;
-import java.awt.Rectangle;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
-
-import java.awt.Dimension;
-
-import javax.swing.JTextField;
-import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
 public class ErfassenView extends JPanel implements View {
+
+	private static final long serialVersionUID = -4191603780481912694L;
 	private JTextField T_Kalenderjahr;
 	private JTextField T_Anzahl_Erfassen;
+	private JButton B_Zuruecksetzen, B_Anlegen;
+	private JRadioButton R_KalenderwocheDavor, R_KalenderwocheAktuell;
+	private JComboBox<String> Combo_Art_waehlen;
 
-	
-	JButton B_Anlegen;
 	/**
 	 * Create the panel.
 	 */
 	public ErfassenView() {
+				
+		//Styling
 		setPreferredSize(new Dimension(600, 700));
 		setMinimumSize(new Dimension(600, 700));
 		setMaximumSize(new Dimension(600, 700));
@@ -67,22 +71,29 @@ public class ErfassenView extends JPanel implements View {
 		L_Erfassen.setBounds(10, 182, 210, 17);
 		add(L_Erfassen);
 		
+		//Datumswerte bestimmen
+		GregorianCalendar heute = new GregorianCalendar();
+		heute.setTime( new Date() );
+		int jahr = heute.get(Calendar.YEAR);
+		int aktKW = heute.get(GregorianCalendar.WEEK_OF_YEAR);
+		int vorKW = aktKW - 1;
+		
 		//T_Kalenderjahr
 		T_Kalenderjahr = new JTextField();
-		T_Kalenderjahr.setText("jetziges Jahr");
+		T_Kalenderjahr.setText(""+jahr);
 		T_Kalenderjahr.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Kalenderjahr.setColumns(10);
 		T_Kalenderjahr.setBounds(155, 96, 181, 20);
 		add(T_Kalenderjahr);
 		
 		//R_KalenderwocheDavor
-		JRadioButton R_KalenderwocheDavor = new JRadioButton("letzte Woche");
+		R_KalenderwocheDavor = new JRadioButton(""+vorKW);
 		R_KalenderwocheDavor.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		R_KalenderwocheDavor.setBounds(155, 135, 134, 23);
 		add(R_KalenderwocheDavor);
 		
 		//R_KalenderwocheAktuell
-		JRadioButton R_KalenderwocheAktuell = new JRadioButton("diese Woche");
+		R_KalenderwocheAktuell = new JRadioButton(""+aktKW);
 		R_KalenderwocheAktuell.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		R_KalenderwocheAktuell.setBounds(319, 133, 134, 23);
 		add(R_KalenderwocheAktuell);
@@ -92,7 +103,7 @@ public class ErfassenView extends JPanel implements View {
 	    ButtonGroup group = new ButtonGroup();
 	    group.add(R_KalenderwocheDavor);
 	    group.add(R_KalenderwocheAktuell);
-	    
+	   
 	    //T_Anzahl_Erfassen statt die einzelnen Erfassen
 	    T_Anzahl_Erfassen = new JTextField();
 	    T_Anzahl_Erfassen.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -106,14 +117,26 @@ public class ErfassenView extends JPanel implements View {
 	    B_Plus.setBounds(299, 181, 43, 23);
 	    add(B_Plus);
 	    
+	    //Increment-Logik
+	    B_Plus.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int derzeitigerWert =  Integer.parseInt( T_Anzahl_Erfassen.getText() );
+				int neuerWert = derzeitigerWert + 1;
+				T_Anzahl_Erfassen.setText(""+neuerWert);
+			}
+	    	
+	    });
+	    
 	    //Combo_Art_waehlen
-	    JComboBox Combo_Art_waehlen = new JComboBox();
+	    Combo_Art_waehlen = new JComboBox<String>();
 	    Combo_Art_waehlen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	    Combo_Art_waehlen.setBounds(352, 182, 150, 20);
 	    add(Combo_Art_waehlen);
 	    
-		//B_Zur�cksetzen
-		JButton B_Zuruecksetzen = new JButton("Zur\u00FCcksetzten");
+		//B_Zurücksetzen
+		B_Zuruecksetzen = new JButton("Zurücksetzen");
 		B_Zuruecksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Zuruecksetzen.setBounds(70, 382, 150, 23);
 		add(B_Zuruecksetzen);
@@ -121,19 +144,53 @@ public class ErfassenView extends JPanel implements View {
 		//B_Anlegen entspricht Speichern
 		B_Anlegen = new JButton("Speichern");
 		B_Anlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Anlegen.setBounds(305, 384, 150, 23);
+		B_Anlegen.setBounds(352, 382, 150, 23);
 		add(B_Anlegen);
 		
 	}
-
+	
+	/**
+	 * Liefert die gewählte Kalenderwoche zurück.
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * @return (Int) gewählte Kalenderwoche
+	 */
+	public int getKalenderwoche(){
+		if( this.R_KalenderwocheDavor.isSelected() ){
+			return Integer.parseInt( this.R_KalenderwocheDavor.getSelectedObjects().toString() );
+		}else{
+			return Integer.parseInt( this.R_KalenderwocheAktuell.getSelectedObjects().toString() );
+		}
+	}
+	
+	/**
+	 * Liefert das angegebene Kalenderjahr
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * @return (int) Kalenderjahr
+	 */
+	public int getKalenderjahr(){
+		return Integer.parseInt( this.T_Kalenderjahr.getText() );
+	}
+	
+	public String getArt(){
+		return null;
+	}
+	
+	public void setArten(String[] arten){
+		
+	}
+	
 	@Override
 	public void setController(Controller c) {
-		this.B_Anlegen.addActionListener(c);	
+		this.B_Anlegen.addActionListener(c);
+		this.B_Zuruecksetzen.addActionListener(c);
 	}
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-		
+		this.T_Anzahl_Erfassen.setText("");
 	}
 }
