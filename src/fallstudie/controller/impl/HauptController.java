@@ -96,7 +96,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 	public void valueChanged(TreeSelectionEvent e) {
 		
 		//verhindern, dass User sein erstes Passwort beibehält
-		if( activeUser.getLogin() != null ){
+		if( activeUser.passwortIsChanged() ){
 		
 			//Aktion bestimmen
 			TreePath path = e.getNewLeadSelectionPath();		
