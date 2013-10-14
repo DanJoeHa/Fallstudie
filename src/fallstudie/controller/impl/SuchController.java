@@ -59,7 +59,7 @@ public class SuchController implements Controller {
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 
-		if( this.suchdomain == "Mitarbeiter" ){
+		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
 			if( button == "suchen" ){
 				
 				//initiere Ergebnistabelle
@@ -68,7 +68,7 @@ public class SuchController implements Controller {
 				this.viewErg.setButtonName("auswählen");
 				
 				//hole passende Suchergebnisse
-				this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff() );
+				this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff(), this.suchdomain );
 				
 				//Content auf Tabellen-Sicht wechseln
 			
@@ -123,7 +123,7 @@ public class SuchController implements Controller {
 				
 				//hole passende Suchergebnisse
 				try {
-					this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff() );
+					this.suchergebnisseMa = Mitarbeiter.getLeiter( this.view.getSuchbegriff() );
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					HauptController.hauptfenster.setInfoBox(e1.getMessage());
@@ -171,6 +171,8 @@ public class SuchController implements Controller {
 				}
 			}
 		}
+		
+
 	}
 
 	@Override

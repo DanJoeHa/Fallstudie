@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import fallstudie.controller.interfaces.Controller;
+import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.ArbeitsgruppeBearbeitenAnlegenView;
@@ -72,10 +73,13 @@ public class ArbeitsgruppenController implements Controller {
 			}
 			
 			//ausgewählten Mitarbeiter holen
-			Mitarbeiter gewaehlterAGLeiter = (Mitarbeiter) suche.getAuswahl();
+			Arbeitsgruppe gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();
 			
 			//an Maske übergeben & Maske anzeigen
-			this.view.setAGLeiter( gewaehlterAGLeiter.getBenutzername() );
+			this.view.setBereich(bereiche, aktuellerBereich);
+			
+			
+			this.view.setAGLeiter( gewaehlteAG.getLeiter().getBenutzername() );
 			HauptController.hauptfenster.setContent( this.getView() );
 		}
 	}
