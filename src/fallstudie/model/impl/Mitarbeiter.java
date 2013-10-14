@@ -272,15 +272,8 @@ public class Mitarbeiter {
 	 * @param resultSet
 	 */
 	public Mitarbeiter(ResultSet resultSet){
-		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
-			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-				RemoteConnection.connect();
-			}
-		
-		
-		
 		int bereichID = resultSet.getInt("Bereich");
 		if (bereichID!=0)
 		{
@@ -374,7 +367,7 @@ public class Mitarbeiter {
 		try {
 			String verschluesseltesPW = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 			
-			//System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
+			System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
 			//anhand des Benutzernamens ResultSet kriegen
 			ResultSet mitarbeiterResult = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
 			mitarbeiterResult.last();
@@ -1008,7 +1001,7 @@ catch (SQLException e)
 	try
 	{
 		RemoteConnection Connection = new RemoteConnection();
-		System.out.println("SELECT PWCHanged FROM Mitarbeiter WHERE Benutzername='"+this.benutzername+"'");
+		//System.out.println("SELECT PWCHanged FROM Mitarbeiter WHERE Benutzername='"+this.benutzername+"'");
 		ResultSet resultSet = Connection.executeQueryStatement("SELECT PWCHanged FROM Mitarbeiter WHERE Benutzername='"+this.benutzername+"'");
 		resultSet.next();
 		erfolgreich = resultSet.getBoolean("PWCHanged");
