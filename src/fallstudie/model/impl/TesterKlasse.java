@@ -1,12 +1,8 @@
 package fallstudie.model.impl;
 
-import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.concurrent.LinkedBlockingDeque;
-
-import fallstudie.model.mysql.connector.RemoteConnection;
 
 
 
@@ -18,7 +14,23 @@ public class TesterKlasse {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		Mitarbeiter a = new Mitarbeiter("Sachbearbeiter");
-		System.out.println(a.passwortIsChanged());
-}
+
+		Arbeitsgruppe arbeitsgruppe = new Arbeitsgruppe(2);
+		Jahresuebersicht a = new Jahresuebersicht(2013, arbeitsgruppe);
+		
+		Collection<Zeile> a1 = new LinkedList<>();
+		a1 = a.getZeile();
+		for(Iterator j=a1.iterator();j.hasNext();)
+		{
+			
+			Zeile z = (Zeile) j.next();
+			System.out.println(a.getKalenderjahr());
+			System.out.println(z.getSumme());
+			
+			Art p = z.getArt();
+			System.out.println(p.getName());
+		}
+	
+	
+	}
 }
