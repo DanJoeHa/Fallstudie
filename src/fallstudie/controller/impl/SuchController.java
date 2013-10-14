@@ -123,7 +123,7 @@ public class SuchController implements Controller {
 				
 				//hole passende Suchergebnisse
 				try {
-					this.suchergebnisseMa = Mitarbeiter.getLeiter( this.view.getSuchbegriff() );
+					this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff() );
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					HauptController.hauptfenster.setInfoBox(e1.getMessage());
