@@ -56,7 +56,7 @@ public class OrgeinheitBearbeitenAnlegen extends JPanel {
 		add(T_Bezeichnung);
 				
 		//B_Zuruecksetzen
-		JButton B_Zuruecksetzen = new JButton("Zur\u00FCcksetzten");
+		JButton B_Zuruecksetzen = new JButton("Zurücksetzen");
 		B_Zuruecksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Zuruecksetzen.setBounds(30, 600, 150, 30);
 		add(B_Zuruecksetzen);
