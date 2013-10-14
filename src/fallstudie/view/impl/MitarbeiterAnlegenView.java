@@ -27,8 +27,8 @@ public class MitarbeiterAnlegenView extends JPanel implements View{
 	private JTextField T_Arbeitsgruppe;
 	private JTextField T_Passwort1;
 	private JButton B_Speichern;
-	private JComboBox C_Rolle;
-	private JComboBox C_Bereich;
+	private JComboBox<String> C_Rolle;
+	private JComboBox<String> C_Bereich;
 
 	/**
 	 * Create the panel.
@@ -62,13 +62,13 @@ public class MitarbeiterAnlegenView extends JPanel implements View{
 		add(B_PasswortGenerieren);
 		
 		//C_Rolle
-		C_Rolle = new JComboBox();
+		C_Rolle = new JComboBox<String>();
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Rolle.setBounds(200, 250, 300, 30);
 		add(C_Rolle);
 				
 		//C_Bereich
-		C_Bereich = new JComboBox();
+		C_Bereich = new JComboBox<String>();
 		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Bereich.setBounds(200, 300, 300, 30);
 		add(C_Bereich);
