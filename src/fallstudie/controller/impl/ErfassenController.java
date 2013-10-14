@@ -63,4 +63,10 @@ public class ErfassenController implements Controller {
 		// TODO Auto-generated method stub
 		return this.view;
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+		
+		//get action
+		String button = e.getActionCommand();	
+	}
 }

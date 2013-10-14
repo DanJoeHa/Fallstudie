@@ -36,10 +36,7 @@ public class ErfassenView extends JPanel implements View {
 	 * Create the panel.
 	 */
 	public ErfassenView() {
-				
-		//Intialwert Erfassen 0
-		T_Anzahl_Erfassen.setText("0");
-		
+					
 		//Styling
 		setPreferredSize(new Dimension(600, 700));
 		setMinimumSize(new Dimension(600, 700));
@@ -112,6 +109,8 @@ public class ErfassenView extends JPanel implements View {
 	    T_Anzahl_Erfassen.setColumns(10);
 	    T_Anzahl_Erfassen.setBounds(157, 132, 134, 20);
 	    add(T_Anzahl_Erfassen);
+		//Intialwert Erfassen 0
+		T_Anzahl_Erfassen.setText("0");
 	    
 	    //B_Plus
 	    JButton B_Plus = new JButton("+");
