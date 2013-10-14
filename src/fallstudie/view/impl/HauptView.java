@@ -212,8 +212,7 @@ public class HauptView extends JFrame implements View{
 	
 	public void setLoggedOut(){
 		this.B_Logout.setVisible( false );
-		NavigationBackground.removeAll();
-		this.Navigation = null;
+		this.Navigation.setVisible(false);
 	}
 	
 	public void setUeberschrift(String ueberschrift){
