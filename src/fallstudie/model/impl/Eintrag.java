@@ -12,7 +12,7 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  * CHANGELOG
  * 
  * @author Phil, 09.10.2013 generiert + implements (Interface) wurde entfernt,
- *         da Konstruktor nicht möglich ist im Interface
+ *         da Konstruktor nicht mï¿½glich ist im Interface
  * @author Phil
  * @date 11.10.2013
  * @author Jenny
@@ -43,7 +43,7 @@ public class Eintrag {
 	public Eintrag(int kalenderjahr, int kalenderwoche, int anzahl,
 			Arbeitsgruppe arbeitsgruppe, Art art) {
 
-		// TODO Auto-generated method stub
+		int arbeitsgruppeID = arbeitsgruppe.getID();
 
 		try // Kontrolle ob Datenbankverbindung da
 		{
@@ -58,7 +58,7 @@ public class Eintrag {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 
-		// heutiges Datum vom System übergeben
+		// heutiges Datum vom System ï¿½bergeben
 		SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String datum = simpleFormat.format(date);
@@ -67,11 +67,11 @@ public class Eintrag {
 			System.out
 					.println("INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum)"
 							+ "VALUES ('" + kalenderjahr + "','" + kalenderwoche + "','" + anzahl
-							+ "','" + arbeitsgruppe + "','" + art + "','" + datum + "'");
+							+ "','" + arbeitsgruppeID + "','" + art + "','" + datum + "'");
 
 			int RowsAffected = RemoteConnection.sql
 					.executeUpdate("INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum) VALUES ('"
-							+ kalenderjahr + "','" + kalenderwoche + "','" + anzahl + "','" + arbeitsgruppe
+							+ kalenderjahr + "','" + kalenderwoche + "','" + anzahl + "','" + arbeitsgruppeID
 							+ "','" + art + "','" + datum + "'");
 			System.out.println("Rows Affected: " + RowsAffected + "");
 
