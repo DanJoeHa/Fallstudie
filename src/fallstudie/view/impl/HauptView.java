@@ -58,6 +58,7 @@ public class HauptView extends JFrame implements View{
 		B_Logout = new JButton("Logout");
 		B_Logout.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Logout.setBounds(839, 12, 150, 30);
+		B_Logout.setVisible(false);
 		Panel.add(B_Logout);
 		
 		//Hilfe-Button
@@ -86,7 +87,6 @@ public class HauptView extends JFrame implements View{
 		Panel.add(Content);
 		
 		//Fenster anzeigen
-		this.setLoggedOut();
 		this.setVisible(true);
 	}
 	
@@ -202,6 +202,7 @@ public class HauptView extends JFrame implements View{
 	
 	public void setLoggedOut(){
 		this.B_Logout.setVisible( false );
+		NavigationBackground.remove(this.Navigation);
 		this.Navigation = null;
 	}
 	
