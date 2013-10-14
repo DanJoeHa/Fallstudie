@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Art;
+import fallstudie.view.impl.ArtAnlegenView;
+import fallstudie.view.impl.ArtLoeschenView;
 import fallstudie.view.interfaces.View;
 
 public class ArtController implements Controller {
@@ -59,10 +61,8 @@ public class ArtController implements Controller {
 	@Override
 	public View getView() {
 		switch( this.operation ){
-			case "anlegen": 	return this.view;
-								break;
-			case "loeschen":	return this.viewLoeschen;
-								break;
+			case "anlegen": 	return (View) this.view;
+			case "loeschen":	return (View) this.viewLoeschen;
 		}
 	}
 
