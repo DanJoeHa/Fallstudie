@@ -368,7 +368,7 @@ public class Mitarbeiter {
 			System.err.println(e.getMessage());
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
-		
+		if(benutzername.equals("") && passwort.equals("")) throw new Exception("Bitte Login Daten eingeben.");
 		try {
 			String verschluesseltesPW = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 			
