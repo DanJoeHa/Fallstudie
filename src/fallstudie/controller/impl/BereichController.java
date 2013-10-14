@@ -43,11 +43,9 @@ public class BereichController implements Controller {
 	public View getView() {
 		switch( this.operation ){
 			case "anlegen": return this.view;
-							break;
 			case "bearbeiten": return this.view;
-							break;
 			case "loeschen": return this.viewLoesch;
-							break;
 		}
+		return null;
 	}
 }
