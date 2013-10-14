@@ -49,4 +49,6 @@ public class ArtAnlegenView extends JPanel {
 		T_Art.setColumns(10);
 
 	}
+	
+	public String 
 }

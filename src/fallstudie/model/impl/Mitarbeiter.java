@@ -804,7 +804,7 @@ catch (SQLException e)
 	 */
 	public String getFullName()
 	{
-		String fullname = this.vorname+""+this.nachname;
+		String fullname = this.vorname+" "+this.nachname;
 		return fullname;
 	}
 	/**
