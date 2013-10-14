@@ -110,9 +110,20 @@ public class TabelleView extends JPanel implements View {
 	}
 	
 	//Tabelle befüllen
-	public void setTabelle(String[] tabellendefinition){
-		tabellendefinition.
+	public void setTabelle(String[] tabellendefinition, Object[] tabellenwerte){
+		DefaultTableModel TableModel = new DefaultTableModel();
 		
+		//Columnamen vergeben String Array mit Namen
+		for(int i = 0; i < tabellendefinition.length; i++){
+			String Column = tabellendefinition[i];
+			TableModel.addColumn(Column);
+		}
+		
+		//Row wird gefüllt aus Object Array ??? keine Ahnung ob des geht
+		for(int i = 0; i < tabellenwerte.length; i++){
+		Object[] tabelle = (Object[]) tabellenwerte[i];
+		TableModel.addRow(tabelle);
+		}
 	}
 	
 	@Override
