@@ -1,5 +1,7 @@
 package fallstudie.model.impl;
-import java.util.Date;
+import java.sql.SQLException;
+
+import fallstudie.model.mysql.connector.RemoteConnection;
 
 /** CHANGELOG
  * @author Phil, 09.10.2013
@@ -32,8 +34,42 @@ public class Eintrag {
 	 */
 	public Eintrag(int kalenderjahr, int kalenderwoche, int anzahl, 
 			Arbeitsgruppe arbeitsgruppe, Art art) {
+		
 		// TODO Auto-generated method stub
-		// datum genereiren
+		
+		try //Kontrolle ob Datenbankverbindung da
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+			
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println(e.getMessage());
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
+		// TODO Datum generieren
+		datum = today;
+		
+		try
+		{
+			System.out.println("INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum)"  +
+					"VALUES ('"+kalenderjahr+"','"+kalenderwoche+"','"+anzahl+"','"+arbeitsgruppe+"','"+art+"','"+datum+"'");
+
+				int RowsAffected = RemoteConnection.sql.executeUpdate(
+						"INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum) VALUES ('"+kalenderjahr+"','"+kalenderwoche+"','"+anzahl+"','"+arbeitsgruppe+"','"+art+"','"+datum+"'");
+				System.out.println("Rows Affected: "+RowsAffected+"");
+			
+		}
+			
+			
+		catch (SQLException e) 
+		{
+				System.err.println(e.getMessage());
+				System.err.println("SQL Statement ist fehlerhaft!");
+		}
 	}
 
 }
