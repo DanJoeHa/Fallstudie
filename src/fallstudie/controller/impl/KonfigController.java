@@ -21,11 +21,16 @@ public class KonfigController implements Controller {
 	{
 		String button = e.getActionCommand();
 	
-		//Popup hinzuf�gen + Infoboxausgabe
+		//Popup hinzufügen + Infoboxausgabe
 		if(button.equals("Speichern"))
 		{
-				Konfig.setJobIntervall(this.view.getAnzahlMonate());
-				//Pr�fung, dass nur int zur�ckgegeben werden in GUI Klasse einf�gen
+				String msg;
+				if( Konfig.setJobIntervall(this.view.getAnzahlMonate()) ){
+					msg = "Neue Job-Konfiguration gespeichert.";
+				}else{
+					msg = "Job-Konfiguration konnte nicht geändert werden.";
+				}
+				HauptController.hauptfenster.setInfoBox(msg);
 		}
 	}
 	
