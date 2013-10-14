@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LoginView extends JPanel implements View {
 
@@ -76,6 +78,10 @@ public class LoginView extends JPanel implements View {
 		
 		//B_Passwort_vergessen
 		B_PasswortVergessen = new JButton("Passwort vergessen?");
+		B_PasswortVergessen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		B_PasswortVergessen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_PasswortVergessen.setBounds(200, 250, 300, 30);
 		add(B_PasswortVergessen);

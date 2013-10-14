@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
+import javax.swing.JLabel;
 
 public class SuchenView extends JPanel implements View {
 
@@ -33,14 +34,19 @@ public class SuchenView extends JPanel implements View {
 		
 		//T_Suchfeld
 		T_Suchfeld = new JTextField("");
-		T_Suchfeld.setBounds(29, 13, 300, 30);
+		T_Suchfeld.setBounds(182, 13, 264, 30);
 		add(T_Suchfeld);
 		
 		//B_Suchen
 		B_Suchen = new JButton("Suchen");
 		B_Suchen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Suchen.setBounds(341, 12, 150, 30);
+		B_Suchen.setBounds(458, 12, 150, 30);
 		add(B_Suchen);
+		
+		JLabel lblBitteSuchbegriffEingeben = new JLabel("Bitte Suchbegriff eingeben");
+		lblBitteSuchbegriffEingeben.setBounds(12, 16, 167, 23);
+		lblBitteSuchbegriffEingeben.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(lblBitteSuchbegriffEingeben);
 		
 
 		
