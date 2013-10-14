@@ -195,7 +195,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 					this.activeController = bcedit;
 					hauptfenster.setUeberschrift("Bereich bearbeiten");
 					break;
-				case "loeschen":
+				case "löschen":
 					BereichController bcdelete = new BereichController();
 					bcdelete.setOperation("loeschen");
 					this.activeController = bcdelete;
@@ -221,7 +221,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 					this.activeController = mcedit;
 					hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
 					break;
-				case "loeschen":
+				case "löschen":
 					SuchController mscdelete = new SuchController();
 					mscdelete.setSuchdomain("Mitarbeiter");
 					mscdelete.setOperation("loeschen");
