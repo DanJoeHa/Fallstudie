@@ -47,25 +47,32 @@ public class Konfig {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static String getJobIntervall() throws SQLException
+	public static String getJobIntervall()
 	{	RemoteConnection Connection = new RemoteConnection();
+		String jobIntervall = null;
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 				RemoteConnection.connect();
 			};
-		}
-		catch (NullPointerException e)
-		{
-			System.err.println("Konnte keine Datenbankverbindung herstellen!");
-		}
+		
 		
 		System.out.println("SELECT * FROM Config");
 		
 		ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Config");
 		resultSet.next();
-		String jobIntervall=resultSet.getString("Jobintervall");
-
+		
+		jobIntervall=resultSet.getString("Jobintervall");
+		
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		catch (SQLException e)
+		{
+			System.err.println(e.getMessage());
+		}
 
 		return jobIntervall;
 	}

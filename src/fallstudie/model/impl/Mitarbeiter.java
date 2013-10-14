@@ -894,7 +894,6 @@ catch (SQLException e)
 		Rolle rolle = this.rolle;
 		
 		Collection<Rechte> alleRechteVonRolle = new LinkedList<>();
-		
 		//alle Berechtigungen von Rolle geben, Collection festlegen
 		alleRechteVonRolle = rolle.getBerechtigungenzuRolle();
 		//Druch alle Rechte einer Rolle durchiterieren
@@ -904,8 +903,7 @@ catch (SQLException e)
 			String rechtName = rechte.getName();
 			if(rechtName.equals(recht)) erfolgreich=true;
 		}
-		
-			
+
 			return erfolgreich;
 
 		}
