@@ -9,8 +9,8 @@ import fallstudie.model.mysql.connector.RemoteConnection;
 
 /** CHANGELOG
  * @author Phil, 09.10.2013
- * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
- * @author variablen eingefügt
+ * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht mï¿½glich ist im Interface
+ * @author variablen eingefï¿½gt
  * @autor Phil
  * @date 11.10.2013
  * @author Jenny
@@ -21,7 +21,6 @@ import fallstudie.model.mysql.connector.RemoteConnection;
 public class Jahresuebersicht {
 	
 	private int summe;
-	private Art art;
 	private Collection<Zeile> zeile;
 	private int kalenderjahr;
 	private Arbeitsgruppe arbeitsgruppe;
@@ -31,7 +30,7 @@ public class Jahresuebersicht {
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
 	/**
-	 * Konstruktor beim auslesen von Jahresübersichten einer bestimmten arbeitsgruppe
+	 * Konstruktor beim auslesen von Jahresï¿½bersichten einer bestimmten arbeitsgruppe
 	 * @param kalenderjahr
 	 * @param Arbeitsgruppe
 	 * @return 
@@ -81,13 +80,13 @@ public class Jahresuebersicht {
 	}
 
 	/**
-	 * Konstruktor beim auslesen von Jahresübersichten eines ganzen Bereichs	
+	 * Konstruktor beim auslesen von Jahresï¿½bersichten eines ganzen Bereichs	
 	 * @param kalenderjahr
 	 * @param Bereich
 	 * @return 
 	 * @return
 	 */
-	public Jahresuebersicht(int kalenderjahr, Bereich Bereich) {
+	public Jahresuebersicht(int kalenderjahr, Bereich bereich) {
 		// TODO Auto-generated method stub
 		
 		RemoteConnection Connection = new RemoteConnection();
@@ -161,7 +160,7 @@ public class Jahresuebersicht {
 		return this.arbeitsgruppe;
 	}
 	
-	public Collection<Zeile> getZeile() throws Exception
+	public Collection<Zeile> getZeileArbeitsgruppe() throws Exception
 	{
 		
 		//Collection Zeile zu Uebersicht
@@ -182,14 +181,65 @@ public class Jahresuebersicht {
 		ResultSet resultSet = null;
 		try 
 		{			
+			System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
-					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='" + this.kalenderjahr + 
-					"' AND Arbeitsgruppe ='" + this.arbeitsgruppe +"'");
+					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	
 					int Zeilensumme = resultSet.getInt("Summe");
 					String Zeilenart = resultSet.getString("Art");
-					this.art = new Art(Zeilenart);
+					Art art = Art.getArtByName(Zeilenart);
+					result.add(new Zeile(Zeilensumme,art));
+							
+				}
+				resultSet.close();
+		}
+		catch (SQLException e) 
+		{	
+			System.err.println("Dieser Fehler ist aufgetreten in getAlleRollen():");
+			System.err.println(e.getMessage());
+		}
+		return result;
+		
+	}
+	/**
+	 * Alle Zeilen einer Jahresuebersicht wenn man nach einem Bereich sucht Jahresuebersicht(bereich)
+	 * @return
+	 * @throws Exception
+	 */
+	public Collection<Zeile> getZeileBereich() throws Exception
+	{
+		
+		//Collection Zeile zu Uebersicht
+		Collection<Zeile> result = new LinkedList<>();
+		//Attribute festlegen
+		RemoteConnection Connection = new RemoteConnection();
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+					System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		//Initialisieren
+		ResultSet resultSet = null;
+		try 
+		{			
+			System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"' AND Bereich ='"+this.bereich.getID()+"'");
+			resultSet = Connection.executeQueryStatement(
+					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"' AND Bereich ='"+this.bereich.getID()+"'");
+				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
+				{	
+					int Zeilensumme = resultSet.getInt("Summe");
+					String Zeilenart = resultSet.getString("Art");
+					Art art = Art.getArtByName(Zeilenart);
 					result.add(new Zeile(Zeilensumme,art));
 							
 				}

@@ -15,19 +15,18 @@ public class TesterKlasse {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		Arbeitsgruppe arbeitsgruppe = new Arbeitsgruppe(2);
-		Jahresuebersicht a = new Jahresuebersicht(2013, arbeitsgruppe);
+		Bereich bereich = Bereich.getBereichByName("c");
+		Jahresuebersicht a = new Jahresuebersicht(2013, bereich);
 		Collection<Zeile> a1 = new LinkedList<>();
-		a1 = a.getZeile();
+		
+		a1 = a.getZeileBereich();
 		for(Iterator j=a1.iterator();j.hasNext();)
 		{
 			
 			Zeile z = (Zeile) j.next();
-			System.out.println(a.getKalenderjahr());
-			System.out.println(z.getSumme());
 			
 			Art p = z.getArt();
-			System.out.println(p.getName());
+			System.out.println("Bereich: "+a.getBereich().getKurzbezeichnung()+" Summe: "+z.getSumme()+" Art: "+p.getName()+"");
 		}
 	
 	
