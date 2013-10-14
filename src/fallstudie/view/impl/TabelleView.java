@@ -27,7 +27,8 @@ import fallstudie.view.interfaces.View;
 
 public class TabelleView extends JPanel implements View {
 	private JTable TA_Tabelle;
-
+	private JButton B_AuswaehlenLoeschen;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -41,7 +42,7 @@ public class TabelleView extends JPanel implements View {
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
-		JButton B_AuswaehlenLoeschen = new JButton("L\u00F6schen");
+		B_AuswaehlenLoeschen = new JButton("L\u00F6schen");
 		B_AuswaehlenLoeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_AuswaehlenLoeschen.setBounds(440, 600, 150, 30);
 		add(B_AuswaehlenLoeschen);
@@ -99,7 +100,19 @@ public class TabelleView extends JPanel implements View {
 		add(B_Abbrechen);
 
 	}
-
+	
+	public void setButtonName(String buttonbezeichnung){
+		this.B_AuswaehlenLoeschen.setText(buttonbezeichnung);
+	}
+	
+	public String getAuswahl(){
+		return null;
+	}
+	
+	public void setTabelle(String[] tabellendefinition){
+		
+	}
+	
 	@Override
 	public void setController(Controller c) {
 		// TODO Auto-generated method stub

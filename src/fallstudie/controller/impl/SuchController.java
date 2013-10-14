@@ -3,10 +3,12 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.SuchenView;
+import fallstudie.view.impl.TabelleView;
 import fallstudie.view.interfaces.View;
 
 public class SuchController implements Controller {
