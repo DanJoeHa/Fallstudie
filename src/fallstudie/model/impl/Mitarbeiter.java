@@ -52,7 +52,8 @@ public class Mitarbeiter {
 	 */
 	
 	public Mitarbeiter(String benutzername) {
-		
+		if(!benutzername.equals(""))
+	{
 		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
@@ -129,10 +130,11 @@ public class Mitarbeiter {
 		
 		}
 		catch (SQLException e)
-		{   System.err.println("Dieser Fehler ist aufgetreten in Bereich (id):");
+		{   System.err.println("Dieser Fehler ist aufgetreten in Mitarbeiter (String benutzername):");
 			System.err.println(e.getMessage());
 			
 		}
+	}
 	
 	}
 

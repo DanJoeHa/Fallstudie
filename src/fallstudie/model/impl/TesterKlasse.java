@@ -15,20 +15,7 @@ public class TesterKlasse {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		Bereich bereich = Bereich.getBereichByName("c");
-		Jahresuebersicht a = new Jahresuebersicht(2013, bereich);
-		Collection<Zeile> a1 = new LinkedList<>();
-		
-		a1 = a.getZeileBereich();
-		for(Iterator j=a1.iterator();j.hasNext();)
-		{
-			
-			Zeile z = (Zeile) j.next();
-			
-			Art p = z.getArt();
-			System.out.println("Bereich: "+a.getBereich().getKurzbezeichnung()+" Summe: "+z.getSumme()+" Art: "+p.getName()+"");
-		}
-	
+		Mitarbeiter a = new Mitarbeiter("Sachbearbeiter");
 	
 	}
 }

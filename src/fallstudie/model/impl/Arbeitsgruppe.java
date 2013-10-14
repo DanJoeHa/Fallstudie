@@ -45,11 +45,13 @@ public class Arbeitsgruppe {
 			Bereich bereich, Mitarbeiter leiter) throws Exception {
 		
 		RemoteConnection Connection = new RemoteConnection();
+		String benutzername;
 	try
 	{
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
+	
 		
 	}
 	catch (NullPointerException e)
@@ -57,9 +59,8 @@ public class Arbeitsgruppe {
 		System.err.println(e.getMessage());
 		System.err.println("Konnte keine Datenbankverbindung herstellen!");
 	}
-		
-	String benutzername = leiter.getBenutzername();
-	int bereichID = bereich.getIDByKurzbezeichnung(bereich.getKurzbezeichnung());
+	
+	int bereichID =bereich.getID();
 	try {
 		ResultSet checkObVorhanden = Connection.executeQueryStatement(
 				"SELECT Kurzbezeichnung From Arbeitsgruppe");
@@ -72,12 +73,25 @@ public class Arbeitsgruppe {
 				if (kurzbezeichnung.equals(value)) throw new Exception ("Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon!");
 
 		}
-		//System.out.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter)"  +
-		//		"VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"'");
-
+		if (leiter.getBenutzername()!=null)
+		{
+			benutzername = leiter.getBenutzername();
+			
+			System.out.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"')");
+			
 			int RowsAffected = RemoteConnection.sql.executeUpdate(
-"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"'");
-			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz gespeichert.");
+				"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"')");
+							if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz gespeichert.");
+		}
+		else
+		{			
+			System.out.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"')");
+			
+			int RowsAffected = RemoteConnection.sql.executeUpdate(
+				"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"')");
+							if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz gespeichert.");
+		
+		}
 		
 				}
 		
