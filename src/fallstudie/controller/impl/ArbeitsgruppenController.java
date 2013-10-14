@@ -60,14 +60,16 @@ public class ArbeitsgruppenController implements Controller {
 			SuchController suche = new SuchController();
 			suche.setSuchdomain("Arbeitsgruppe");
 			suche.setOperation("auswahl");
+			HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe zur Bearbeitung auswählen");
 			HauptController.hauptfenster.setContent( suche.getView() );
+			
 			
 			//warte auf Auswahl
 			while( suche.getAuswahl() == null ){
 				suche.getAuswahl();
 			}
 			
-			//ausgewählten Mitarbeiter holen
+			//ausgewählte Arbeitsgruppe holen
 			Arbeitsgruppe gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();
 			
 			//an Maske übergeben & Maske anzeigen
@@ -75,7 +77,9 @@ public class ArbeitsgruppenController implements Controller {
 			this.view.setKurzbezeichnung( gewaehlteAG.getKurzbezeichnung() );
 			this.view.setBezeichnung( gewaehlteAG.getBeschreibung() );
 			this.view.setAGLeiter( gewaehlteAG.getLeiter().getBenutzername() );
+			HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
 			HauptController.hauptfenster.setContent( this.getView() );
+			
 		}
 	}
 
