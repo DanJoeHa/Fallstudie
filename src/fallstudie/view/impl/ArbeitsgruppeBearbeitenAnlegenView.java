@@ -20,6 +20,8 @@ import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
 public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen implements View{
+
+	private static final long serialVersionUID = -2078487615780247796L;
 	private JTextField T_AGLeiterSuchbegriff;
 	private JComboBox<String> C_Bereich;
 	private JButton B_AGLeiterSuche;
