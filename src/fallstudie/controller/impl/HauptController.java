@@ -115,14 +115,18 @@ public class HauptController implements Controller, TreeSelectionListener {
 			switch(action){
 				case "Daten erfassen":
 					activeController = new ErfassenController();
+					hauptfenster.setUeberschrift("Eintrag erfassen");
 					break;
 				case "Daten anzeigen":
+					hauptfenster.setUeberschrift("Daten anzeigen");
 					break;
 				case "Job-Einstellungen":
 					activeController = new KonfigController();
+					hauptfenster.setUeberschrift("Job Einstellungen ändern");
 					break;
 				case "Passwort ändern":	
 					activeController = new PasswortController();
+					hauptfenster.setUeberschrift("Passwort ändern");
 					break;
 			}
 			
@@ -136,17 +140,20 @@ public class HauptController implements Controller, TreeSelectionListener {
 					ArbeitsgruppenController accreate = new ArbeitsgruppenController();
 					accreate.setOperation("anlegen");
 					this.activeController = accreate;
+					hauptfenster.setUeberschrift("Arbeitsgruppe anlegen");
 					break;
 				case "bearbeiten":
 					ArbeitsgruppenController acedit = new ArbeitsgruppenController();
 					acedit.setOperation("bearbeiten");
 					this.activeController = acedit;
+					hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
 					break;
 				case "loeschen":
 					SuchController ascdelete = new SuchController();
 					ascdelete.setSuchdomain("Arbeitsgruppe");
 					ascdelete.setOperation("loeschen");
 					this.activeController = ascdelete;
+					hauptfenster.setUeberschrift("Arbeitsgruppe löschen");
 					break;
 			}
 			
@@ -160,11 +167,13 @@ public class HauptController implements Controller, TreeSelectionListener {
 					ArtController artccreate = new ArtController();
 					artccreate.setOperation("anlegen");
 					this.activeController = artccreate;
+					hauptfenster.setUeberschrift("Art anlegen");
 					break;
 				case "loeschen":
 					ArtController artcdelete = new ArtController();
 					artcdelete.setOperation("loeschen");
 					this.activeController = artcdelete;
+					hauptfenster.setUeberschrift("Art löschen");
 					break;
 			}
 			
@@ -178,16 +187,19 @@ public class HauptController implements Controller, TreeSelectionListener {
 					BereichController bccreate = new BereichController();
 					bccreate.setOperation("anlegen");
 					this.activeController = bccreate;
+					hauptfenster.setUeberschrift("Bereich anlegen");
 					break;
 				case "bearbeiten":
 					BereichController bcedit = new BereichController();
 					bcedit.setOperation("bearbeiten");
 					this.activeController = bcedit;
+					hauptfenster.setUeberschrift("Bereich bearbeiten");
 					break;
 				case "loeschen":
 					BereichController bcdelete = new BereichController();
 					bcdelete.setOperation("loeschen");
 					this.activeController = bcdelete;
+					hauptfenster.setUeberschrift("Bereich löschen");
 					break;
 			}
 			
@@ -201,17 +213,20 @@ public class HauptController implements Controller, TreeSelectionListener {
 					MitarbeiterController mccreate = new MitarbeiterController();
 					mccreate.setOperation("anlegen");
 					this.activeController = mccreate;
+					hauptfenster.setUeberschrift("Mitarbeiter anlegen");
 					break;
 				case "bearbeiten":
 					MitarbeiterController mcedit = new MitarbeiterController();
 					mcedit.setOperation("bearbeiten");
 					this.activeController = mcedit;
+					hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
 					break;
 				case "loeschen":
 					SuchController mscdelete = new SuchController();
 					mscdelete.setSuchdomain("Mitarbeiter");
 					mscdelete.setOperation("loeschen");
 					this.activeController = mscdelete;
+					hauptfenster.setUeberschrift("Mitarbeiter löschen");
 					break;
 			}
 			
