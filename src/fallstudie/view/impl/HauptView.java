@@ -207,7 +207,7 @@ public class HauptView extends JFrame implements View{
 		}catch(NullPointerException e){
 			System.out.println("error while removing acitve view");
 		}
-		this.Content.add( v );
+		this.Content.add(v);
 		this.Content.doLayout();
 		this.revalidate();
 		

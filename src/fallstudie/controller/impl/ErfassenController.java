@@ -39,6 +39,6 @@ public class ErfassenController implements Controller {
 	@Override
 	public View getView() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.view;
 	}
 }

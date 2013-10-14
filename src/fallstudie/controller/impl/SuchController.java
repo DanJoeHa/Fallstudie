@@ -122,7 +122,12 @@ public class SuchController implements Controller {
 				this.viewErg.setButtonName("auswählen");
 				
 				//hole passende Suchergebnisse
-				this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff() );
+				try {
+					this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff() );
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					HauptController.hauptfenster.setInfoBox(e1.getMessage());
+				}
 				
 				//Content auf Tabellen-Sicht wechseln
 				this.viewErg.setTabelle( Funktionen.ArbeitsgruppeCollection2Array(this.suchergebnisseAg) );

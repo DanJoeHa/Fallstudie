@@ -21,10 +21,15 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-public class ErfassenView extends JPanel {
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
+
+public class ErfassenView extends JPanel implements View {
 	private JTextField T_Kalenderjahr;
 	private JTextField T_Anzahl_Erfassen;
 
+	
+	JButton B_Anlegen;
 	/**
 	 * Create the panel.
 	 */
@@ -114,10 +119,21 @@ public class ErfassenView extends JPanel {
 		add(B_Zuruecksetzen);
 		
 		//B_Anlegen entspricht Speichern
-		JButton B_Anlegen = new JButton("Speichern");
+		B_Anlegen = new JButton("Speichern");
 		B_Anlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Anlegen.setBounds(305, 384, 150, 23);
 		add(B_Anlegen);
+		
+	}
+
+	@Override
+	public void setController(Controller c) {
+		this.B_Anlegen.addActionListener(c);	
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
 		
 	}
 }
