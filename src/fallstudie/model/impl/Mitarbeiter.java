@@ -709,7 +709,7 @@ catch (SQLException e)
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean loesche() throws Exception {
+	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
 		boolean darfdeletedWerdenBereich=false;
