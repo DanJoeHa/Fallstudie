@@ -60,7 +60,6 @@ public class HauptController implements Controller, TreeSelectionListener {
 		//Wenn Button "Logout" gedrückt wurde
 		if(button == "Logout")
 		{
-			System.out.println("Logout");
 			
 			//Mitarbeiter ausloggen
 			if( activeUser.ausloggen() ){
@@ -100,8 +99,15 @@ public class HauptController implements Controller, TreeSelectionListener {
 		Object[] pfad = path.getPath();
 		int pfadlaenge = pfad.length;
 		String action = pfad[pfadlaenge - 1].toString();
-		String folder = pfad[pfadlaenge - 2].toString();
+		String folder = "";
 		System.out.println("Pfad ist: " + folder + " > " + action);
+		
+		//Aktionen-Root Knoten
+		if( action.equals("Aktionen") ){
+			activeController = new WelcomeController();
+		}else{
+			folder = pfad[pfadlaenge - 2].toString();
+		}
 		
 		//Aktionen im Root
 		if( folder.equals("Aktionen") ){

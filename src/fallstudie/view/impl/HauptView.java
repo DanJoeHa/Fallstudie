@@ -3,18 +3,26 @@ package fallstudie.view.impl;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Rectangle;
+
 import javax.swing.border.LineBorder;
 import javax.swing.event.TreeSelectionListener;
+
 import java.awt.Color;
 import java.awt.SystemColor;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import java.awt.Font;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
@@ -26,6 +34,7 @@ public class HauptView extends JFrame implements View{
 	private JTextPane InfoBox;
 	private JTree Navigation;
 	private JLabel L_Ueberschrift;
+	private TreeSelectionListener tl;
 
 	/**
 	 * Create the frame.
@@ -197,6 +206,7 @@ public class HauptView extends JFrame implements View{
 		
 		this.Navigation = new JTree(root);
 		this.Navigation.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		this.Navigation.addTreeSelectionListener( this.tl );
 		NavigationBackground.add(this.Navigation);
 	}
 	
@@ -232,11 +242,9 @@ public class HauptView extends JFrame implements View{
 	@Override
 	public void setController(Controller c) {
 		
-		try{
-			this.B_Logout.addActionListener(c);
-			this.B_Hilfe.addActionListener(c);
-			this.Navigation.addTreeSelectionListener((TreeSelectionListener) c);
-		}catch(Exception e){}
+		this.B_Logout.addActionListener(c);
+		this.B_Hilfe.addActionListener(c);
+		this.tl = (TreeSelectionListener) c;
 		
 	}
 

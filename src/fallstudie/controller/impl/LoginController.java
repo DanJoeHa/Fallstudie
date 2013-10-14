@@ -32,7 +32,6 @@ public class LoginController implements Controller
 					PasswortController pc = new PasswortController();
 					HauptController.hauptfenster.setContent( pc.getView() );
 				}else{
-					System.out.println("welcome");
 					WelcomeController wc = new WelcomeController();
 					HauptController.hauptfenster.setContent( wc.getView() );
 				}
