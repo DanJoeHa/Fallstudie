@@ -108,10 +108,10 @@ public class ErfassenView extends JPanel {
 	    add(Combo_Art_waehlen);
 	    
 		//B_Zur�cksetzen
-		JButton B_Zur�cksetzen = new JButton("Zur\u00FCcksetzten");
-		B_Zur�cksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Zur�cksetzen.setBounds(70, 382, 150, 23);
-		add(B_Zur�cksetzen);
+		JButton B_Zuruecksetzen = new JButton("Zur\u00FCcksetzten");
+		B_Zuruecksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_Zuruecksetzen.setBounds(70, 382, 150, 23);
+		add(B_Zuruecksetzen);
 		
 		//B_Anlegen entspricht Speichern
 		JButton B_Anlegen = new JButton("Speichern");
