@@ -119,6 +119,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 				case "Daten anzeigen":
 					break;
 				case "Job-Einstellungen":
+					activeController = new KonfigController();
 					break;
 				case "Passwort ändern":	
 					activeController = new PasswortController();
