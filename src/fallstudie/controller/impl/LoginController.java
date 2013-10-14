@@ -28,7 +28,7 @@ public class LoginController implements Controller
 				//Navigations-Baum entsprechend Rechten von User aufbauen
 				HauptController.hauptfenster.createNavTree(HauptController.activeUser.checkRecht("Daten erfassen"), HauptController.activeUser.checkRecht("Lesen"), HauptController.activeUser.checkRecht("Arbeitsgruppe anlegen"), HauptController.activeUser.checkRecht("Eintragsart anlegen"), HauptController.activeUser.checkRecht("Bereich anlegen"), HauptController.activeUser.checkRecht("Mitarbeiter anlegen"), HauptController.activeUser.checkRecht("Jobintervall festlegen"));
 				
-				if( HauptController.activeUser.getLogin() == null ){
+				if( !HauptController.activeUser.passwortIsChanged() ){
 					PasswortController pc = new PasswortController();
 					HauptController.hauptfenster.setContent( pc.getView() );
 				}else{
