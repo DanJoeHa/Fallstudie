@@ -26,6 +26,7 @@ public class ArtLoeschenView extends JPanel implements View{
 
 	
 	private JButton B_Speichern;
+	private JComboBox<String> C_Art;
 	/**
 	 * Create the panel.
 	 */
@@ -52,7 +53,7 @@ public class ArtLoeschenView extends JPanel implements View{
 		add(L_Bezeichnung);
 		
 		//J_Combobox -> Zur Auswahl der Art, die man l�schen m�chte
-		JComboBox C_Art = new JComboBox();
+		C_Art = new JComboBox<String>();
 		C_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Art.setBounds(200, 300, 300, 30);
 		add(C_Art);
@@ -66,7 +67,7 @@ public class ArtLoeschenView extends JPanel implements View{
 	public String getArt(){
 		
 		
-		return null;
+		return this.C_Art.getSelectedItem().toString();
 	}
 	
 	/**
@@ -74,6 +75,9 @@ public class ArtLoeschenView extends JPanel implements View{
 	 * @param Arten
 	 */
 	public void setArt(String[] Arten){
+		for( int i = 0; i < Arten.length; i++){
+			this.C_Art.addItem( Arten[i] );
+		}
 		
 	}
 	@Override

@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Art;
+import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.ArtAnlegenView;
 import fallstudie.view.impl.ArtLoeschenView;
 import fallstudie.view.interfaces.View;
@@ -15,6 +16,7 @@ public class ArtController implements Controller {
 	private ArtAnlegenView view;
 	private ArtLoeschenView viewLoeschen;
 	private String operation;
+	private Object auswahl;
 	
 	
 	public ArtController(){
@@ -65,9 +67,25 @@ public class ArtController implements Controller {
 
 		if(button.equals("Loeschen") )
 		{
-			Art.loeschen(this.viewLoeschen.getArt());
+			//Art.loeschen(this.viewLoeschen.getArt());
+			
+			
+			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
+			
+				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
+				Collection<Art> art = Art.getAlleArten();
+				Iterator<Art> i = art.iterator();		
+				while( i.hasNext() ){
+					Art A = (Art) i.next();
+					String Name = A.getName();
+					if( Name.equals( this.viewLoeschen.getArt() ) ){
+						this.auswahl = A;
+						break;
+					}
+				}
+			}
 		}
-	}
+
 
 	/**
 	 * Rückgabe der aktiven View
