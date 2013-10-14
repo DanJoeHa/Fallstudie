@@ -1,22 +1,34 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+
 import java.awt.Dimension;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
-public class MitarbeiterAnlegenView extends JPanel {
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
+
+public class MitarbeiterAnlegenView extends JPanel implements View{
 	private JTextField T_Arbeitsgruppe;
 	private JTextField T_Passwort1;
+	private JButton B_Speichern;
+	private JComboBox C_Rolle;
+	private JComboBox C_Bereich;
 
 	/**
 	 * Create the panel.
@@ -50,13 +62,13 @@ public class MitarbeiterAnlegenView extends JPanel {
 		add(B_PasswortGenerieren);
 		
 		//C_Rolle
-		JComboBox C_Rolle = new JComboBox();
+		C_Rolle = new JComboBox();
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Rolle.setBounds(200, 250, 300, 30);
 		add(C_Rolle);
 				
 		//C_Bereich
-		JComboBox C_Bereich = new JComboBox();
+		C_Bereich = new JComboBox();
 		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Bereich.setBounds(200, 300, 300, 30);
 		add(C_Bereich);
@@ -76,16 +88,40 @@ public class MitarbeiterAnlegenView extends JPanel {
 		add(B_SucheArbeitsgruppe);
 		
 		//B_Zuruecksetzen
-		JButton B_Zuruecksetzen = new JButton("Zur\u00FCcksetzten");
+		JButton B_Zuruecksetzen = new JButton("Zurücksetzten");
 		B_Zuruecksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Zuruecksetzen.setBounds(30, 600, 150, 30);
 		add(B_Zuruecksetzen);
 		
 		//B_Speichern
-		JButton B_Speichern = new JButton("Speichern");
+		B_Speichern = new JButton("Speichern");
 		B_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Speichern.setBounds(440, 600, 150, 30);
 		add(B_Speichern);
 		
+	}
+
+	@Override
+	public void setController(Controller c) {
+		this.B_Speichern.addActionListener(c);
+		
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void setRolle(String[] rollen){
+		for( int i = 0; i < rollen.length; i++){
+			this.C_Rolle.addItem( rollen[i] );
+		}
+	}
+	
+	public void setBereich(String[] bereiche){
+		for( int i = 0; i < bereiche.length; i++){
+			this.C_Bereich.addItem( bereiche[i] );
+		}
 	}
 }
