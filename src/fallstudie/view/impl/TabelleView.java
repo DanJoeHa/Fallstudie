@@ -1,14 +1,20 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+
 import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +22,10 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 
-public class TabelleView extends JPanel {
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
+
+public class TabelleView extends JPanel implements View {
 	private JTable TA_Tabelle;
 
 	/**
@@ -89,5 +98,17 @@ public class TabelleView extends JPanel {
 		B_Abbrechen.setBounds(30, 600, 150, 30);
 		add(B_Abbrechen);
 
+	}
+
+	@Override
+	public void setController(Controller c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 }
