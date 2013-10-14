@@ -36,10 +36,10 @@ public class DatenAnzeigenArbeitsgruppeView extends JPanel {
 		B_Drucken.setBounds(440, 600, 150, 30);
 		add(B_Drucken);
 		
-		JLabel lblDatenVonKwkj = new JLabel("Daten f\u00FCr Kalenderwoche __ im Kalenderjahr ____");
-		lblDatenVonKwkj.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDatenVonKwkj.setBounds(30, 50, 520, 30);
-		add(lblDatenVonKwkj);
+		JLabel L_Angabe = new JLabel("Daten f\u00FCr Kalenderwoche __ im Kalenderjahr ____");
+		L_Angabe.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		L_Angabe.setBounds(30, 50, 520, 30);
+		add(L_Angabe);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(30, 100, 520, 480);
