@@ -3,6 +3,8 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Iterator;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Art;
@@ -15,10 +17,23 @@ public class ErfassenController implements Controller {
 	private static final int FULL = 0;
 	private static final int MEDIUM = 0;
 	private ErfassenView view;
+	private Collection<Art> art;
+	private Art tempArt;
 	
 	public ErfassenController(){
 		this.view = new ErfassenView();
-		//this.view.setArten(Art.getAlleArten().toString()); //Collection umwandeln in String? Vereinheitlichung? immer String Array?
+
+		this.art = Art.getAlleArten();
+		Iterator<Art> i = art.iterator();
+		
+		String[] sArt = new String[ art.size() ];
+		int x = 0;
+		while( i.hasNext() ){
+			sArt[x] = i.next().getName();
+			x++;
+		} 
+		
+		this.view.setArten(sArt);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -26,9 +41,16 @@ public class ErfassenController implements Controller {
 		
 		if(button == "Speichern")
 		{	
+			Iterator<Art> i = this.art.iterator();		
+			while( i.hasNext() ){
+				tempArt = (Art) i.next();
+				String Name = A.getName();
+				if(Name.equals( this.view.getArt())){
+					break;
+				}
+			}
 			
-			Eintrag eintrag = new Eintrag(HauptController.activeUser.getArbeitsgruppe(),view.getKalenderjahr(),view.getKalenderwoche(),view.getAnzahl(), view.getArt());
-			//kein Objekt Art �bergeben, sondern String, weil aus dem String kann kein Objekt erzeugt w-erden, da ansonsten �ber den Konstruktor der Modell-Schicht eine Art angelegt wird
+			Eintrag eintrag = new Eintrag(HauptController.activeUser.getArbeitsgruppe(),view.getKalenderjahr(),view.getKalenderwoche(),view.getAnzahl(), tempArt);
 			Calendar cal = Calendar.getInstance();
 		    DateFormat df;
 		    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
