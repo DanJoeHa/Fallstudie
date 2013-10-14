@@ -169,7 +169,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 					this.activeController = artccreate;
 					hauptfenster.setUeberschrift("Art anlegen");
 					break;
-				case "loeschen":
+				case "löschen":
 					ArtController artcdelete = new ArtController();
 					artcdelete.setOperation("loeschen");
 					this.activeController = artcdelete;
