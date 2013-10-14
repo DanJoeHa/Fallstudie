@@ -29,7 +29,7 @@ public class Art {
 		
 	}
 	/**
-	 * Liefert alle Arten zurück, die es gibt
+	 * Liefert alle Arten zurï¿½ck, die es gibt
 	 * @return
 	 */
 	public static Collection<Art> getAlleArten()
@@ -56,6 +56,14 @@ public class Art {
 	{
 		return aktiv;
 		
+	}
+	/**
+	 * Liefert Name der Art
+	 * @return
+	 */
+	public String getName()
+	{
+		return this.name;
 	}
 	
 }
