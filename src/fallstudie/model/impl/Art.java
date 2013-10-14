@@ -198,8 +198,7 @@ public class Art {
 			}
 			if(aktuellerStatus==false)
 			{
-				
-			throw new Exception("Diese Arbeitsgruppe ist bereits gelöscht.");
+			erfolgreich=false;	
 			}
 			
 		}
