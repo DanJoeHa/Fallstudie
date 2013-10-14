@@ -131,6 +131,8 @@ public class HauptView extends JFrame implements View{
 	 */
 	public void createNavTree(boolean r2datenerfassen, boolean r2datenanzeigen, boolean r2arbeitsgruppe, boolean r2art, boolean r2bereich, boolean r2mitarbeiter, boolean r2jobconfig){
 		
+		this.B_Logout.setVisible(true);
+		
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Aktionen");
 		
 		if( r2datenerfassen ){
