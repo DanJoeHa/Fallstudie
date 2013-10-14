@@ -478,12 +478,11 @@ public class Bereich {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean loeschen() throws Exception {
+	public boolean loeschen() {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
 		RemoteConnection Connection = new RemoteConnection();
-		Collection<Arbeitsgruppe> arbeitsgruppeMitBereich = new LinkedList<>();
-		
+		boolean darfdeleteArbeitsgruppe = false;
 		try 
 		{	
 				ResultSet arbeitsgruppeCheck = Connection.executeQueryStatement(
@@ -491,34 +490,18 @@ public class Bereich {
 				
 				arbeitsgruppeCheck.last();
 				int rows = arbeitsgruppeCheck.getRow();
-				//Abfrage ob der Bereich noch einer Arbeitsgruppe zugeordnet ist.
-				arbeitsgruppeCheck.beforeFirst();
+				//Falls Bereich noch einer Arbeitsgruppe zugeteilt ist
 				if(rows>0)
 				{
-					while (arbeitsgruppeCheck.next()) 
-					{	
-						//Nur aktive werden ausgegeben
-						boolean aktiv = arbeitsgruppeCheck.getBoolean("Aktiv");
-						if (aktiv==true)
-						{
-							arbeitsgruppeMitBereich.add(new Arbeitsgruppe(arbeitsgruppeCheck));
-						}
-						
-						for (Iterator j=arbeitsgruppeMitBereich.iterator();j.hasNext();)
-						{
-							Arbeitsgruppe ag = (Arbeitsgruppe) j.next();
-							throw new Exception("Bereich ist noch zur Arbeitsgruppe "+ag.getKurzbezeichnung()+" zugeordnet. " +
-									"Bitte zuvor diese Zuordnung l�schen dann erneut versuchen");
-							
-						}
+					darfdeleteArbeitsgruppe=false;
 						
 					}
-					arbeitsgruppeCheck.close();
-					
-					
-					
+				else if(rows==0)
+				{
+					darfdeleteArbeitsgruppe=true;
 				}
-				else if (rows==0)
+				
+				if (darfdeleteArbeitsgruppe==true)
 				{
 					
 				
@@ -536,7 +519,7 @@ public class Bereich {
 					}
 					else if (aktuellerStatus==false)
 					{
-						throw new Exception("Dieser Bereich ist bereits gel�scht.");
+						erfolgreich=false;
 					}
 				}
 
