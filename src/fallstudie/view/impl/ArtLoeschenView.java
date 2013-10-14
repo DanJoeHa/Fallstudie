@@ -28,11 +28,11 @@ public class ArtLoeschenView extends JPanel {
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
-		//B_Löschen
-		JButton B_Löschen = new JButton("L\u00F6schen");
-		B_Löschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Löschen.setBounds(440, 600, 150, 30);
-		add(B_Löschen);
+		//B_Lï¿½schen
+		JButton B_Loeschen = new JButton("L\u00F6schen");
+		B_Loeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_Loeschen.setBounds(440, 600, 150, 30);
+		add(B_Loeschen);
 		
 		//L_Bezeichnung
 		JLabel L_Bezeichnung = new JLabel("Bezeichnung:");
@@ -40,7 +40,7 @@ public class ArtLoeschenView extends JPanel {
 		L_Bezeichnung.setBounds(30, 300, 150, 30);
 		add(L_Bezeichnung);
 		
-		//J_Combobox -> Zur Auswahl der Art, die man löschen möchte
+		//J_Combobox -> Zur Auswahl der Art, die man lï¿½schen mï¿½chte
 		JComboBox C_Art = new JComboBox();
 		C_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Art.setBounds(200, 300, 300, 30);

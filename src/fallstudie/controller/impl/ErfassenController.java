@@ -7,6 +7,7 @@ import java.util.Calendar;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Eintrag;
+import fallstudie.view.impl.ErfassenView;
 import fallstudie.view.interfaces.View;
 
 public class ErfassenController implements Controller {
@@ -17,7 +18,7 @@ public class ErfassenController implements Controller {
 	
 	public ErfassenController(){
 		this.view = new ErfassenView();
-		this.view.setArten(Art.getAlleArten().toString()); //Collection umwandeln in String? Vereinheitlichung? immer String Array?
+		//this.view.setArten(Art.getAlleArten().toString()); //Collection umwandeln in String? Vereinheitlichung? immer String Array?
 	}
 	
 	public void actionPerformed(ActionEvent e) {
