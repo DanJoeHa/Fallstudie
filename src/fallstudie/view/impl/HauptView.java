@@ -81,6 +81,7 @@ public class HauptView extends JFrame implements View{
 		InfoBox.setText("");
 		InfoBox.setBackground(SystemColor.menu);
 		InfoBox.setBounds(840, 92, 150, 620);
+		InfoBox.setEditable(false);
 		Panel.add(InfoBox);
 		
 		//Titelzeile
