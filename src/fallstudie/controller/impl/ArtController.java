@@ -17,6 +17,7 @@ public class ArtController implements Controller {
 	private ArtLoeschenView viewLoeschen;
 	private String operation;
 	private Object auswahl;
+	private Collection<Art> art;
 	
 	
 	public ArtController(){
@@ -40,9 +41,11 @@ public class ArtController implements Controller {
 				
 				
 
-				Collection<Art> art = Art.getAlleArten();
+				this.art = Art.getAlleArten();
 				Iterator<Art> i = art.iterator();
-
+				
+				System.out.println(art.size());
+				
 				String[] sArt = new String[ art.size() ];
 				int x = 0;
 				while( i.hasNext() ){
@@ -78,7 +81,7 @@ public class ArtController implements Controller {
 			}
 		}
 
-		if(button.equals("Loeschen") )
+		if(button.equals("Löschen") )
 		{
 			//Art.loeschen(this.viewLoeschen.getArt());
 			
@@ -86,13 +89,18 @@ public class ArtController implements Controller {
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			
 				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
-				Collection<Art> art = Art.getAlleArten();
-				Iterator<Art> i = art.iterator();		
+				
+				Iterator<Art> i = this.art.iterator();		
 				while( i.hasNext() ){
 					Art A = (Art) i.next();
 					String Name = A.getName();
 					if( Name.equals( this.viewLoeschen.getArt() ) ){
-						this.auswahl = A;
+						if(A.loeschen()){
+							HauptController.hauptfenster.setInfoBox("Art erfolgreich gelöscht.");
+						}
+						else{
+							HauptController.hauptfenster.setInfoBox("Art konnte nicht gelöscht.");
+						}
 						break;
 					}
 				}

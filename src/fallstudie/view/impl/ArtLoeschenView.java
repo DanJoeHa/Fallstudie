@@ -41,7 +41,7 @@ public class ArtLoeschenView extends JPanel implements View{
 		setLayout(null);
 		
 		//B_L�schen
-		JButton B_Loeschen = new JButton("L\u00F6schen");
+		B_Loeschen = new JButton("L\u00F6schen");
 		B_Loeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Loeschen.setBounds(440, 600, 150, 30);
 		add(B_Loeschen);
