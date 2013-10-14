@@ -44,8 +44,6 @@ public class ArtController implements Controller {
 				this.art = Art.getAlleArten();
 				Iterator<Art> i = art.iterator();
 				
-				System.out.println(art.size());
-				
 				String[] sArt = new String[ art.size() ];
 				int x = 0;
 				while( i.hasNext() ){
