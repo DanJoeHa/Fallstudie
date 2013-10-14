@@ -16,6 +16,19 @@ public class TesterKlasse {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		Rolle r = new Rolle("admin");
+		Collection<Rechte> alleRechteVonRolle = new LinkedList<>();
+		Rolle r = new Rolle("Sachbearbeiter");
+		alleRechteVonRolle = r.getBerechtigungenzuRolle();
+		for (Iterator i = alleRechteVonRolle.iterator(); i.hasNext();)
+
+		{
+
+		Rechte rechte = (Rechte) i.next();
+
+		String rechtName = rechte.getName();
+		System.out.println(rechtName);
+
+
+		}
 }
 }

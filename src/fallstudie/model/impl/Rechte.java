@@ -50,7 +50,7 @@ public class Rechte {
 			System.out.println("SELECT * FROM Berechtigung WHERE Name='"+name+"'");
 			
 			ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Berechtigung WHERE Name='"+name+"'");
-			
+			resultSet.next();
 			this.name = resultSet.getString("Name");
 			this.beschreibung = resultSet.getString("Beschreibung");
 		}

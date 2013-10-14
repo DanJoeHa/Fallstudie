@@ -52,8 +52,9 @@ public class Rolle  {
 		System.out.println("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
 		
 		ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
-		
+		resultSet.next();
 		this.rollenbezeichnung = resultSet.getString("Rollenbezeichnung");
+
 	}
 	catch (SQLException e)
 	{   System.err.println("Dieser Fehler ist aufgetreten in Rolle (String):");
@@ -66,7 +67,7 @@ public class Rolle  {
 	
 	//--------------------KONSTRUKTOR--------------------
 	/**
-	 * Erhält alle Rollen als Collection
+	 * Erhï¿½lt alle Rollen als Collection
 	 * @return
 	 */
 	public static Collection<Rolle> getAlleRollen() {
@@ -106,7 +107,7 @@ public class Rolle  {
 		return result;
 	}
 	/**
-	 * Erhält alle Rechte der Rolle
+	 * Erhï¿½lt alle Rechte der Rolle
 	 * @return
 	 */
 	public Collection<Rechte> getBerechtigungenzuRolle() {
@@ -131,7 +132,6 @@ public class Rolle  {
 			System.out.println("SELECT Berechtigungsname FROM Rollenberechtigungen WHERE Rollenbezeichnung ='"+this.rollenbezeichnung+"'");
 			
 			resultSet = Connection.executeQueryStatement("SELECT Berechtigungsname FROM Rollenberechtigungen WHERE Rollenbezeichnung ='"+this.rollenbezeichnung+"'");
-				
 				while (resultSet.next()) 
 				{	
 					String rechteName = resultSet.getString("Berechtigungsname");

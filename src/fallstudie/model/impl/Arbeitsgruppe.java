@@ -12,7 +12,7 @@ import com.sun.jmx.snmp.daemon.CommunicationException;
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
- * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
+ * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht mï¿½glich ist im Interface
  * @author Phil 11.10.2013
  * @author Phil, 12.10.2013
  * @version 1.1
@@ -26,7 +26,7 @@ public class Arbeitsgruppe {
 	private  Bereich bereich;
 	private  boolean aktiv;
 	private  Mitarbeiter leiter;
-	public static ResultSet resultSet;
+	public  ResultSet resultSet;
 	
 	
 	//-----------------------------------------------------------
@@ -34,7 +34,7 @@ public class Arbeitsgruppe {
 	//-----------------------------------------------------------
 	
 	/**
-	 * Neue Arbeitsgruppe anlegen Konstruktor, alle Parameter werden von GUI übergeben	
+	 * Neue Arbeitsgruppe anlegen Konstruktor, alle Parameter werden von GUI ï¿½bergeben	
 	 * @param kurzbezeichnung
 	 * @param beschreibung
 	 * @param bereich
@@ -99,7 +99,7 @@ public class Arbeitsgruppe {
 
 
 	/**
-	 * Durch überreichen des Resultsets werden die Objekte vom Typ ArbeitsgruppeImpl erzeugt
+	 * Durch ï¿½berreichen des Resultsets werden die Objekte vom Typ ArbeitsgruppeImpl erzeugt
 	 * @param resultSet
 	 * @throws SQLException 
 	 */
@@ -166,7 +166,7 @@ public class Arbeitsgruppe {
 	
 	}
 	/**
-	 * ArbeitsgruppeObjekt per ID (Primärschlüssel) erzeugen
+	 * ArbeitsgruppeObjekt per ID (Primï¿½rschlï¿½ssel) erzeugen
 	 * @param arbeitsgruppeid
 	 */
 	
@@ -208,7 +208,7 @@ public class Arbeitsgruppe {
 
 
 	/**
-	 * Methode wenn nur die Kurzbezeichnung übergeben wird, 
+	 * Methode wenn nur die Kurzbezeichnung ï¿½bergeben wird, 
 	 * alles andere wird in der Datenbank geholt mit SELECT
 	 * @param kurzbezeichnung
 	 * @return 
@@ -241,7 +241,7 @@ public class Arbeitsgruppe {
 					"SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
 			System.out.println
 				("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
-			//Variablen für den späteren Konstruktoraufruf
+			//Variablen fï¿½r den spï¿½teren Konstruktoraufruf
 			resultSet.next();
 			ag = new Arbeitsgruppe(resultSet);
 			
@@ -272,7 +272,7 @@ public class Arbeitsgruppe {
 	
 	
 	/**
-	 * Mehode ändert die Beschreibung einer Arbeitsgruppe
+	 * Mehode ï¿½ndert die Beschreibung einer Arbeitsgruppe
 	 * Abfrage ob die alte Beschreibung identisch mit der Neuen ist, 
 	 * wenn ja dann wird das Setzen nicht vollzogen.
 	 * @param beschreibung
@@ -290,14 +290,14 @@ public class Arbeitsgruppe {
 					
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 					"UPDATE Arbeitsgruppe SET Beschreibung='"+beschreibung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz geändert.");
+				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz geï¿½ndert.");
 				
 				erfolgreich=true;
 		
 			}
 			else
 			{
-				System.err.println("Alte und Neue Beschreibung sind Identisch! Bitte andere Beschreibung wählen.");
+				System.err.println("Alte und Neue Beschreibung sind Identisch! Bitte andere Beschreibung wï¿½hlen.");
 				erfolgreich= false;
 			}
 		}
@@ -316,7 +316,7 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert Beschreibung zur Arbeitsgruppe zurück
+	 * Methode liefert Beschreibung zur Arbeitsgruppe zurï¿½ck
 	 * @return
 	 */
 	public String getBeschreibung() {
@@ -325,7 +325,7 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode ändert Kurzbezeichnung der Arbeitsgruppe
+	 * Methode ï¿½ndert Kurzbezeichnung der Arbeitsgruppe
 	 * @param kurzbezeichnung
 	 * @return
 	 * @throws Exception 
@@ -355,13 +355,13 @@ public class Arbeitsgruppe {
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 					"UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 	
-				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz geändert.");
+				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz geï¿½ndert.");
 				erfolgreich=true;
 		
 			}
 			else
 			{
-				System.err.println("Alte und Neue Kurzbezeichnung sind Identisch! Bitte andere Beschreibung wählen.");
+				System.err.println("Alte und Neue Kurzbezeichnung sind Identisch! Bitte andere Beschreibung wï¿½hlen.");
 				erfolgreich= false;
 			}
 		}
@@ -390,7 +390,7 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode ändert Bereich der arbeitsgruppe
+	 * Methode ï¿½ndert Bereich der arbeitsgruppe
 	 * @param bereich
 	 * @return
 	 */
@@ -410,12 +410,12 @@ public class Arbeitsgruppe {
 				
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geändert.");
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geï¿½ndert.");
 				erfolgreich=true;
 			}
 			else
 			{
-				System.err.println("Alter und Neuer Bereich sind Identisch! Bitte anderen Bereich wählen.");
+				System.err.println("Alter und Neuer Bereich sind Identisch! Bitte anderen Bereich wï¿½hlen.");
 				erfolgreich= false;
 			}
 		}
@@ -435,7 +435,7 @@ public class Arbeitsgruppe {
 	}
 	
 	/**
-	 * Methode liefert Bereichsobjekt des dazugehörigen Bereichs der
+	 * Methode liefert Bereichsobjekt des dazugehï¿½rigen Bereichs der
 	 * Arbeitsgruppe
 	 * @return
 	 */
@@ -446,8 +446,8 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode ändert Leiter der ARbeitsgruppe, 
-	 * übergeben wird ein Mitarbeiterobjekt
+	 * Methode ï¿½ndert Leiter der ARbeitsgruppe, 
+	 * ï¿½bergeben wird ein Mitarbeiterobjekt
 	 * @param mitarbeiter
 	 * @return boolean ob erfolgreich
 	 */
@@ -468,12 +468,12 @@ public class Arbeitsgruppe {
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geändert.");
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geï¿½ndert.");
 				erfolgreich=true;
 			}
 			else
 			{
-				System.err.println("Alter und Neuer Leiter sind Identisch! Bitte anderen Leiter wählen.");
+				System.err.println("Alter und Neuer Leiter sind Identisch! Bitte anderen Leiter wï¿½hlen.");
 				erfolgreich= false;
 			}
 		}
@@ -503,7 +503,7 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode löscht die Arbeitsgruppe
+	 * Methode lï¿½scht die Arbeitsgruppe
 	 * -> wird auf Inaktiv gesetzt in der DB
 	 * @return
 	 * @throws Exception 
@@ -523,7 +523,7 @@ public class Arbeitsgruppe {
 			if (leiter==null) darfdeletedWerden=true;
 			if (leiter!=null) 
 				{
-					throw new Exception("Dieser Arbeitsgruppe ist noch ein Leiter zugeordnet. Bitte zuordnung löschen.");
+					throw new Exception("Dieser Arbeitsgruppe ist noch ein Leiter zugeordnet. Bitte zuordnung lï¿½schen.");
 				
 				}
 			checkMitarbeiter.close();
@@ -538,13 +538,13 @@ public class Arbeitsgruppe {
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Aktiv ='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelöscht.");
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelï¿½scht.");
 				erfolgreich=true;
 			}
 			if(aktuellerStatus==false)
 			{
 				
-			throw new Exception("Diese Arbeitsgruppe ist bereits gelöscht.");
+			throw new Exception("Diese Arbeitsgruppe ist bereits gelï¿½scht.");
 			}
 			
 			}
@@ -562,7 +562,7 @@ public class Arbeitsgruppe {
 
 	/**
 	 * Methode liefert den Status der Arbeitsgruppe
-	 * 1: aktiv, 0: gelöscht
+	 * 1: aktiv, 0: gelï¿½scht
 	 * @return
 	 */
 	public boolean getAktiv() {
@@ -571,7 +571,7 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert zur Kurzbezeichnung die dazugehörige ID
+	 * Methode liefert zur Kurzbezeichnung die dazugehï¿½rige ID
 	 * der Arbeitsgruppe
 	 * @param kurzbezeichnung
 	 * @return
@@ -619,8 +619,8 @@ public class Arbeitsgruppe {
 		return this.arbeitsgruppeID;
 	}
 	/**
-	 * Wird gebraucht um die Comboboxen zu befüllen wo ein Mitarbeiter
-	 * einer Arbeitsgruppe hinzugefügt wird oder geändert wird
+	 * Wird gebraucht um die Comboboxen zu befï¿½llen wo ein Mitarbeiter
+	 * einer Arbeitsgruppe hinzugefï¿½gt wird oder geï¿½ndert wird
 	 * @return
 	 */
 	public static Collection<Arbeitsgruppe> getAlleArbeitsgruppen() {
@@ -657,7 +657,7 @@ public class Arbeitsgruppe {
 	}
 	/**
 	 * Methode liefert anhand des Suchbegriffs eine Collection
-	 * von übereinstimmungen zurück (In Tabellenform in der Gui auszugeben)
+	 * von ï¿½bereinstimmungen zurï¿½ck (In Tabellenform in der Gui auszugeben)
 	 * @param suchbegriff
 	 * @return
 	 * @throws Exception 
@@ -680,14 +680,14 @@ public class Arbeitsgruppe {
 						"SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"%' OR Leiter LIKE '%"+suchbegriff+"%' OR" +
 								" Bereich LIKE '%"+suchbegriff+"%' OR Beschreibung LIKE '%"+suchbegriff+"%' OR" +
 										" Kurzbezeichnung LIKE '%"+suchbegriff+"%'");
-				//Abfrage ob überhaupt Datensätze gefunden worden sind
+				//Abfrage ob ï¿½berhaupt Datensï¿½tze gefunden worden sind
 				resultSet.last();
 				int resultLength = resultSet.getRow();
 				resultSet.beforeFirst();
-				if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
+				if (resultLength==0) throw new NullPointerException("Keine Datensï¿½tze gefunden");
 				else
 				{
-					System.out.println("Es wurden "+resultLength+" Datensätze gefunden. Die Gelöschten Einträge werden nicht angezeigt.");
+					System.out.println("Es wurden "+resultLength+" Datensï¿½tze gefunden. Die Gelï¿½schten Eintrï¿½ge werden nicht angezeigt.");
 				}
 				while (resultSet.next()) 
 				{
@@ -702,7 +702,7 @@ public class Arbeitsgruppe {
 		}
 		catch (SQLException e) 
 		{	System.err.println("Dieser Fehler ist aufgetreten in suche Arbeitsgruppe (suchbegriff):");
-			System.err.println("Select Statement ist fehlerhaft. Bitte überprüfen.");
+			System.err.println("Select Statement ist fehlerhaft. Bitte ï¿½berprï¿½fen.");
 		}
 		return result;
 	}	
