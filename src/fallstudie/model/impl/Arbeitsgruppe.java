@@ -502,7 +502,7 @@ public class Arbeitsgruppe {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean loeschen() throws Exception {
+	public boolean loeschen() {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
 		boolean darfdeletedWerden=false;
@@ -517,8 +517,7 @@ public class Arbeitsgruppe {
 			if (leiter==null) darfdeletedWerden=true;
 			if (leiter!=null) 
 				{
-					throw new Exception("Dieser Arbeitsgruppe ist noch ein Leiter zugeordnet. Bitte zuordnung l�schen.");
-				
+					darfdeletedWerden=false;
 				}
 			checkMitarbeiter.close();
 		
