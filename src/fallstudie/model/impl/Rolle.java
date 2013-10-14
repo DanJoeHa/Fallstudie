@@ -49,7 +49,7 @@ public class Rolle  {
 			
 	try
 	{
-		System.out.println("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
+		//System.out.println("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
 		
 		ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
 		resultSet.next();
@@ -88,7 +88,7 @@ public class Rolle  {
 		ResultSet resultSet = null;
 		try 
 		{	
-			System.out.println("SELECT * FROM Rolle");
+			//System.out.println("SELECT * FROM Rolle");
 				resultSet = Connection.executeQueryStatement(
 					"Select * From Rolle");
 				
@@ -129,7 +129,7 @@ public class Rolle  {
 		ResultSet resultSet = null;
 		try 
 		{	
-			System.out.println("SELECT Berechtigungsname FROM Rollenberechtigungen WHERE Rollenbezeichnung ='"+this.rollenbezeichnung+"'");
+			//System.out.println("SELECT Berechtigungsname FROM Rollenberechtigungen WHERE Rollenbezeichnung ='"+this.rollenbezeichnung+"'");
 			
 			resultSet = Connection.executeQueryStatement("SELECT Berechtigungsname FROM Rollenberechtigungen WHERE Rollenbezeichnung ='"+this.rollenbezeichnung+"'");
 				while (resultSet.next()) 

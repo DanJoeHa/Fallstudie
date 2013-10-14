@@ -32,7 +32,7 @@ public class Konfig {
 		}
 		boolean erfolgreich = false;
 		
-		System.out.println("UPDATE Config SET Jobintervall='"+intervall+"'");
+		//System.out.println("UPDATE Config SET Jobintervall='"+intervall+"'");
 		
 		int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Config SET Jobintervall='"+intervall+"'");
 		
@@ -57,7 +57,7 @@ public class Konfig {
 			};
 		
 		
-		System.out.println("SELECT * FROM Config");
+			//System.out.println("SELECT * FROM Config");
 		
 		ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Config");
 		resultSet.next();

@@ -67,7 +67,7 @@ public class Mitarbeiter {
 		
 		try
 		{
-			System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+benutzername+"'");
+			//System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+benutzername+"'");
 			
 			ResultSet mitarbeiterResult = Connection.executeQueryStatement(
 					"SELECT * FROM Mitarbeiter WHERE Benutzername ='"+benutzername+"'");
@@ -160,7 +160,7 @@ public class Mitarbeiter {
 		String rollenName = rolle.getRollenbezeichnung();
 		int bereichID = bereich.getID();
 		
-		System.out.println("SELECT Benutzername From Mitarbeiter");
+		//System.out.println("SELECT Benutzername From Mitarbeiter");
 		//Checken obs den Mitarbeiter schon gibt.
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 				"SELECT Benutzername From Mitarbeiter");
@@ -178,8 +178,8 @@ public class Mitarbeiter {
 		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 		
 		
-		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
-				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+bereichID+"'");
+		//System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
+				//"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+bereichID+"'");
 		
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+bereichID+"'");
@@ -224,7 +224,7 @@ public class Mitarbeiter {
 		String rollenName = rolle.getRollenbezeichnung();
 		int arbeitsgruppeID = arbeitsgruppe.getID();
 		
-		System.out.println("SELECT Benutzername From Mitarbeiter");
+		//System.out.println("SELECT Benutzername From Mitarbeiter");
 		//Checken obs den Mitarbeiter schon gibt.
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 				"SELECT Benutzername From Mitarbeiter");
@@ -242,9 +242,9 @@ public class Mitarbeiter {
 		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 		
 		
-		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
+		/*System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+arbeitsgruppeID+"'");
-		
+		*/
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+arbeitsgruppeID+"'");
 		
@@ -371,7 +371,7 @@ public class Mitarbeiter {
 		try {
 			String verschluesseltesPW = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 			
-			System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
+			//System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
 			//anhand des Benutzernamens ResultSet kriegen
 			ResultSet mitarbeiterResult = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
 			mitarbeiterResult.last();
@@ -430,7 +430,7 @@ public class Mitarbeiter {
 		String heutigesDatum =simpleFormat.format(date);
 		this.letzterLogin=heutigesDatum;
 		boolean erfolgreich = false;
-		System.out.println("UPDATE Mitarbeiter SET LetzterLogin='"+heutigesDatum+"' WHERE Benutzername ='"+this.benutzername+"'");
+		//System.out.println("UPDATE Mitarbeiter SET LetzterLogin='"+heutigesDatum+"' WHERE Benutzername ='"+this.benutzername+"'");
 		try
 		{
 		int rowsAffected = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET LetzterLogin='"+heutigesDatum+"' WHERE Benutzername ='"+this.benutzername+"'");
@@ -463,7 +463,7 @@ try
 		
 		int bereichID = bereich.getID();
 		
-		System.out.println("UPDATE Mitarbeiter SET Bereich ='"+bereichID+"' WHERE Benutzername='"+this.benutzername+"'");
+		//System.out.println("UPDATE Mitarbeiter SET Bereich ='"+bereichID+"' WHERE Benutzername='"+this.benutzername+"'");
 		
 		int affectedRows = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Bereich ='"+bereichID+"' WHERE Benutzername='"+this.benutzername+"'");
 		
@@ -501,7 +501,7 @@ catch (SQLException e)
 				
 				String rollenName = rolle.getRollenbezeichnung();
 				
-				System.out.println("UPDATE Mitarbeiter SET Rolle ='"+rollenName+"' WHERE Benutzername='"+this.benutzername+"'");
+				//System.out.println("UPDATE Mitarbeiter SET Rolle ='"+rollenName+"' WHERE Benutzername='"+this.benutzername+"'");
 				
 				int affectedRows = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Bereich ='"+rollenName+"' WHERE Benutzername='"+this.benutzername+"'");
 				
@@ -554,7 +554,7 @@ catch (SQLException e)
 			{
 			
 			
-				System.out.println("UPDATE Mitarbeiter SET Benutzername ='"+benutzername+"' WHERE Benutzername='"+this.benutzername+"'");
+				//System.out.println("UPDATE Mitarbeiter SET Benutzername ='"+benutzername+"' WHERE Benutzername='"+this.benutzername+"'");
 				
 				int affectedRows = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Benutzername ='"+benutzername+"' WHERE Benutzername='"+this.benutzername+"'");
 				
@@ -597,7 +597,7 @@ try
 {
 		String altesVerschluesselt = VerschluesselungSHA1.getEncodedSha1Sum(altesPasswort);
 		
-		System.out.println("SELECT Passwort FROM Mitarbeiter WHERE Benutzername='"+this.benutzername+"'");
+		//System.out.println("SELECT Passwort FROM Mitarbeiter WHERE Benutzername='"+this.benutzername+"'");
 		
 		ResultSet resultSet = RemoteConnection.sql.executeQuery("SELECT Passwort FROM Mitarbeiter WHERE Benutzername='"+this.benutzername+"'");
 		resultSet.next();
@@ -642,7 +642,7 @@ catch (SQLException e)
 		try
 		{	
 			String newPasswortVerschluesselt = VerschluesselungSHA1.getEncodedSha1Sum(newPasswort);
-			System.out.println("UPDATE Mitarbeiter SET Passwort ='"+newPasswortVerschluesselt+"' WHERE Benutzername='"+this.benutzername+"'");
+			//System.out.println("UPDATE Mitarbeiter SET Passwort ='"+newPasswortVerschluesselt+"' WHERE Benutzername='"+this.benutzername+"'");
 				
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Passwort ='"+newPasswortVerschluesselt+"' WHERE Benutzername='"+this.benutzername+"'");
 			if (rowsAffect==0) erfolgreich =false;
@@ -676,7 +676,7 @@ catch (SQLException e)
 		try
 		{	
 			int arbeitsgrupepID = arbeitsgruppe.getID();
-			System.out.println("UPDATE Mitarbeiter SET Arbeitsgruppe ='"+arbeitsgrupepID+"' WHERE Benutzername='"+this.benutzername+"'");
+			//System.out.println("UPDATE Mitarbeiter SET Arbeitsgruppe ='"+arbeitsgrupepID+"' WHERE Benutzername='"+this.benutzername+"'");
 				
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Arbeitsgruppe ='"+arbeitsgrupepID+"' WHERE Benutzername='"+this.benutzername+"'");
 			
@@ -720,7 +720,7 @@ catch (SQLException e)
 		
 		try 
 		{	//IN Bereich pr�fen
-			System.out.println("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
+			//System.out.println("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
 			
 			ResultSet checkMitarbeiterInBereich = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
 			while(checkMitarbeiterInBereich.next())
@@ -738,7 +738,7 @@ catch (SQLException e)
 		
 			//IN Arbeitsgruppe pr�fen!
 			
-			System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
+			//System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
 			
 			ResultSet checkMitarbeiterInArbeitsgruppe = Connection.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
 			while(checkMitarbeiterInArbeitsgruppe.next())
@@ -761,7 +761,7 @@ catch (SQLException e)
 			{	
 			
 			
-			System.out.println("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"+this.benutzername+"'");
+			//System.out.println("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"+this.benutzername+"'");
 				
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"+this.benutzername+"'");
 			
@@ -817,7 +817,7 @@ catch (SQLException e)
 		try
 		{	
 			
-			System.out.println("UPDATE Mitarbeiter SET Nachname ='"+nachname+"' WHERE Benutzername='"+this.benutzername+"'");
+			//System.out.println("UPDATE Mitarbeiter SET Nachname ='"+nachname+"' WHERE Benutzername='"+this.benutzername+"'");
 				
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Nachname ='"+nachname+"' WHERE Benutzername='"+this.benutzername+"'");
 			
@@ -855,7 +855,7 @@ catch (SQLException e)
 		try
 		{	
 			
-			System.out.println("UPDATE Mitarbeiter SET Vorname ='"+vorname+"' WHERE Benutzername='"+this.benutzername+"'");
+			//System.out.println("UPDATE Mitarbeiter SET Vorname ='"+vorname+"' WHERE Benutzername='"+this.benutzername+"'");
 				
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Vorname ='"+vorname+"' WHERE Benutzername='"+this.benutzername+"'");
 			
@@ -921,8 +921,9 @@ catch (SQLException e)
 			ResultSet resultSet = null;
 			try 
 			{	
-				System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
+				/*System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
 						" Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
+					*/
 					resultSet = Connection.executeQueryStatement(
 							"SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
 									" Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
@@ -933,7 +934,7 @@ catch (SQLException e)
 					if (resultLength==0) throw new NullPointerException("Keine Datens�tze gefunden");
 					else
 					{
-						System.out.println("Es wurden "+resultLength+" Datens�tze gefunden. Die Gel�schten Eintr�ge werden nicht angezeigt.");
+						System.out.println("Es wurden "+resultLength+" Datensätze gefunden. Die Gel�schten Eintr�ge werden nicht angezeigt.");
 					}
 					while (resultSet.next()) 
 					{
@@ -968,7 +969,7 @@ catch (SQLException e)
 	ResultSet resultSet = null;
 	try 
 	{	
-		System.out.println("SELECT * FROM Mitarbeiter");
+		//System.out.println("SELECT * FROM Mitarbeiter");
 			resultSet = Connection.executeQueryStatement(
 				"Select * From Mitarbeiter");
 			
