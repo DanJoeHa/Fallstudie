@@ -42,19 +42,14 @@ public class ArbeitsgruppenController implements Controller {
 		//Operation speichern
 		this.operation = operation;
 		
+		//alle Bereiche holen
+		Collection<Bereich> bereiche = Bereich.getAlleBereiche();	
+		String[] sBereiche = Funktionen.BereicheCollection2Array(bereiche);
+		
 		//wenn Neuanlage einer Arbeitsgruppe
 		if( this.operation.equals( "anlegen" ) ){
 			
-			//alle Bereiche holen und an View geben
-			Collection<Bereich> bereiche = Bereich.getAlleBereiche();
-			Iterator<Bereich> i = bereiche.iterator();
-			
-			String[] sBereiche = new String[ bereiche.size() ];
-			int x = 0;
-			while( i.hasNext() ){
-				sBereiche[x] = i.next().getKurzbezeichnung();
-				x++;
-			}			
+			//alle Bereiche holen und an View geben	
 			this.view.setBereich( sBereiche );
 		}
 		
@@ -76,9 +71,9 @@ public class ArbeitsgruppenController implements Controller {
 			Arbeitsgruppe gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();
 			
 			//an Maske übergeben & Maske anzeigen
-			this.view.setBereich(bereiche, aktuellerBereich);
-			
-			
+			this.view.setBereich( sBereiche, gewaehlteAG.getKurzbezeichnung() );
+			this.view.setKurzbezeichnung( gewaehlteAG.getKurzbezeichnung() );
+			this.view.setBezeichnung( gewaehlteAG.getBeschreibung() );
 			this.view.setAGLeiter( gewaehlteAG.getLeiter().getBenutzername() );
 			HauptController.hauptfenster.setContent( this.getView() );
 		}

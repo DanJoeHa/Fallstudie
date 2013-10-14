@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Art;
+import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 
 public abstract class Funktionen {
@@ -43,6 +44,20 @@ public abstract class Funktionen {
 			x++;
 		} 
 		return sArbeitsgruppe;
+	}
+	
+	public static String[] BereicheCollection2Array(Collection<Bereich> bereiche){
+		
+		Iterator<Bereich> i = bereiche.iterator();
+		
+		String[] sBereiche = new String[ bereiche.size() ];
+		int x = 0;
+		while( i.hasNext() ){
+			sBereiche[x] = i.next().getKurzbezeichnung();
+			x++;
+		}
+		
+		return sBereiche;
 	}
 
 }

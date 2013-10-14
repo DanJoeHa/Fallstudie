@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-public class OrgeinheitBearbeitenAnlegen extends JPanel {
+public abstract class OrgeinheitBearbeitenAnlegen extends JPanel{
 	private JTextField T_Kurzbezeichnung;
 	private JTextField T_Bezeichnung;
 	/**
@@ -67,5 +67,21 @@ public class OrgeinheitBearbeitenAnlegen extends JPanel {
 		B_Speichern.setBounds(440, 600, 150, 30);
 		add(B_Speichern);	
 
+	}
+	
+	public String getKurzbezeichnung(){
+		return this.T_Kurzbezeichnung.getText();
+	}
+	
+	public void setKurzbezeichnung(String kurzbezeichnung){
+		this.T_Kurzbezeichnung.setText(kurzbezeichnung);
+	}
+	
+	public String getBezeichnung(){
+		return this.T_Bezeichnung.getText();
+	}
+	
+	public void setBezeichnung(String bezeichnung){
+		this.T_Bezeichnung.setText(bezeichnung);
 	}
 }
