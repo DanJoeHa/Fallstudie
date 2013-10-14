@@ -99,31 +99,6 @@ public class HauptView extends JFrame implements View{
 		this.setVisible(true);
 	}
 	
-	public void setSachbearbeiter(){
-		this.B_Logout.setVisible(true);
-		this.createNavTree(true, false, false, false, false, false, false);
-	}
-	
-	public void setGruppenleiter(){
-		this.B_Logout.setVisible(true);
-		this.createNavTree(true, true, false, false, false, false, false);
-	}
-	
-	public void setBereichsleiter(){
-		this.B_Logout.setVisible(true);
-		this.createNavTree(false, true, false, false, false, false, false);
-	}
-	
-	public void setZentralbereichsleiter(){
-		this.B_Logout.setVisible(true);
-		this.createNavTree(false, true, false, false, false, false, false);
-	}
-	
-	public void setStabstelle(){
-		this.B_Logout.setVisible(true);
-		this.createNavTree(false, true, true, true, true, true, true);
-	}
-	
 	/**
 	 * Erstellt Navigationsbaum anhand der Rechte des Users - evtl. anhand Rechte in Controller machen?
 	 * 
