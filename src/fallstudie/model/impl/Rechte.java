@@ -10,8 +10,8 @@ import fallstudie.model.mysql.connector.RemoteConnection;
 
 /** CHANGELOG
  * @author Phil, 09.10.2013
- * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
- * @version 1.0 Attribute ergänzt
+ * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht mÃ¶glich ist im Interface
+ * @version 1.0 Attribute ergï¿½nzt
  * 
  * @author Phil
  * @date 14.10.2013
@@ -28,7 +28,7 @@ public class Rechte {
 	//-----------------------------------------------------------
 	
 	/**
-	 * Konstruktor durch Übergabe vom Recht
+	 * Konstruktor durch ï¿½bergabe vom Recht
 	 * @param Name
 	 * @return
 	 */
