@@ -158,11 +158,13 @@ public class ErfassenView extends JPanel implements View {
 	 * @return (Int) gewählte Kalenderwoche
 	 */
 	public int getKalenderwoche(){
+		Object[] selected;
 		if( this.R_KalenderwocheDavor.isSelected() ){
-			return Integer.parseInt( this.R_KalenderwocheDavor.getSelectedObjects().toString() );
+			selected = this.R_KalenderwocheDavor.getSelectedObjects();
 		}else{
-			return Integer.parseInt( this.R_KalenderwocheAktuell.getSelectedObjects().toString() );
+			selected = this.R_KalenderwocheAktuell.getSelectedObjects();
 		}
+		return Integer.parseInt( selected[0].toString() );
 	}
 	
 	/**
