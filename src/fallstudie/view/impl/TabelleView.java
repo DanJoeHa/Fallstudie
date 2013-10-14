@@ -110,7 +110,7 @@ public class TabelleView extends JPanel implements View {
 	}
 	
 	//Tabelle befüllen
-	public void setTabelle(String[] tabellendefinition, Object[] tabellenwerte){
+	public void setTabelle(String[] tabellendefinition){
 		DefaultTableModel TableModel = new DefaultTableModel();
 		
 		//Columnamen vergeben String Array mit Namen
@@ -120,10 +120,10 @@ public class TabelleView extends JPanel implements View {
 		}
 		
 		//Row wird gefüllt aus Object Array ??? keine Ahnung ob des geht
-		for(int i = 0; i < tabellenwerte.length; i++){
-		Object[] tabelle = (Object[]) tabellenwerte[i];
-		TableModel.addRow(tabelle);
-		}
+		//for(int i = 0; i < tabellenwerte.length; i++){
+		//Object[] tabelle = (Object[]) tabellenwerte[i];
+		//TableModel.addRow(tabelle);
+		//}
 	}
 	
 	@Override
