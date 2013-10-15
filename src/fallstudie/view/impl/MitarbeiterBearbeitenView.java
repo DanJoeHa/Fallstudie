@@ -104,6 +104,16 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		}
 	}
 	
+	public String getRolle()
+	{
+		return C_Rolle.getSelectedItem().toString();
+	}
+	
+	public String getBereich()
+	{
+		return C_Bereich.getSelectedItem().toString();
+	}
+	
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
 	}

@@ -23,6 +23,7 @@ public class SuchController implements Controller {
 	private String suchbegriff;
 	
 	
+	
 	public SuchController(){
 		
 	}
@@ -70,9 +71,16 @@ public class SuchController implements Controller {
 				//hole passende Suchergebnisse
 				this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff(), this.suchdomain );
 				
+				
+				
+				//festgelegter String Array
+				String[] MAColumn = new String[]{ "Benutzername", "Arbeitsgruppe", "Rolle", "Vorname", "Nachname", "Bereich"
+						
+				};
+				
 				//Content auf Tabellen-Sicht wechseln
-			
-				this.viewErg.setTabelle( Funktionen.MitarbeiterCollection2Array(this.suchergebnisseMa ));
+				
+				this.viewErg.setTabelle( MAColumn, Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ));
 				HauptController.hauptfenster.setContent( this.viewErg );
 			}
 			
@@ -129,8 +137,12 @@ public class SuchController implements Controller {
 					HauptController.hauptfenster.setInfoBox(e1.getMessage());
 				}
 				
+				//festgelegter String Array
+				String[] AGColumn = new String[]{ "Leiter", "Bereich", "Kurzbeschreibung", "Beschreibung"
+						
+				};
 				//Content auf Tabellen-Sicht wechseln
-				this.viewErg.setTabelle( Funktionen.ArbeitsgruppeCollection2Array(this.suchergebnisseAg) );
+				this.viewErg.setTabelle( AGColumn, Funktionen.ArbeitsgruppeCollection2Array(this.suchergebnisseAg) );
 				HauptController.hauptfenster.setContent( this.viewErg );
 				
 			}
