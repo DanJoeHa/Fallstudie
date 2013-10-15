@@ -128,6 +128,28 @@ public class Jahresuebersicht {
 		}
 		
 	}
+	/**
+	 * Gibt eine Collection von Jahresübersichten zu Bereichen
+	 * Für den Zentralbereichsleiter+ Fachbereichsorganisation komplette Übersicht zu allen
+	 * @param jahr
+	 * @return
+	 */
+	public static Collection<Jahresuebersicht> getAlleJahresuebersichtenZuAllenBereichen(String jahr)
+	{
+		return null;
+		
+	}
+	/**
+	 * Liefert für den Bereichsleiter eine Übersicht des Bereichs mit allen Arbeitsgruppen
+	 * @param jahr
+	 * @param bereich
+	 * @return
+	 */
+	public static Collection<Jahresuebersicht> getAlleJahresuebersichtenZumBereich(String jahr, Bereich bereich)
+	{
+		return null;
+		
+	}
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------

@@ -326,9 +326,8 @@ public class Mitarbeiter {
 	}//END TRY
 	catch (SQLException e)
 	{
-		System.err.println(e.getErrorCode());
+		System.err.println("Fehler in Mitarbeiter(ResultSet)");
 		System.err.println(e.getMessage());
-		System.err.println(e.getCause());
 	}
 	catch (NullPointerException e)
 	{
