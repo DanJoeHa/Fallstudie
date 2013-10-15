@@ -56,7 +56,8 @@ public class DatenAnzeigenController implements Controller {
 			
 			//Ueberschift
 			String headline = "Daten anzeigen ";
-			String[] tabellenspalten;
+			String[] tabellenspalten = null;
+			String[][] tabellenwerte = null;
 			
 			//Jahresübersicht
 			if( kw == 0 ){
@@ -65,7 +66,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				//Jahresübersicht Zentralbereichsleiter/Fachbereichsorganisation
 				if( HauptController.activeUser.checkRecht("Lesen alle Bereiche Jahr") ){
-					Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, true );
+					//Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, true );
 					//TODO
 				}
 				
@@ -80,15 +81,25 @@ public class DatenAnzeigenController implements Controller {
 					Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, HauptController.activeUser.getArbeitsgruppe() );
 					
 					tabellenspalten[0] = oJahresuebersicht.getArbeitsgruppe().getKurzbezeichnung();
-					Collection<Zeile> values = oJahresuebersicht.getZeileArbeitsgruppe();
-					
-					String[][] tabellenwerte = String[values.size()][5];
-					int x = 0;
-					Iterator<Zeile> i = values.iterator();
-					while( i.hasNext() ){
-						Zeile z = (Zeile) i.next();
-						tabellenwerte[x][0] = z.getSumme() +"";
+					Collection<Zeile> values;
+					try {
+						values = oJahresuebersicht.getZeileArbeitsgruppe();
+						
+						tabellenwerte = new String[ values.size() ][1];
+						int x = 0;
+						Iterator<Zeile> i = values.iterator();
+						while( i.hasNext() ){
+							Zeile z = (Zeile) i.next();
+							tabellenwerte[x][0] = z.getArt().getName();
+							tabellenwerte[x][1] = Integer.toString( z.getSumme() );
+						}
+						
+					} catch (Exception e1) {
+						HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
+						tabellenwerte[0][0] = "#";
 					}
+					
+					
 					
 					
 				}
@@ -99,7 +110,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				//Kalenderwochenübersicht Zentralbereichsleiter/Fachbereichsorganisation
 				if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ){
-					Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, true );
+					//Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, true );
 				}
 				
 				//Kalenderwochenübersicht Bereichsleiter
@@ -110,13 +121,33 @@ public class DatenAnzeigenController implements Controller {
 				//Kalenderwochenübersicht Gruppenleiter
 				if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe KW") ){
 					Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, HauptController.activeUser.getArbeitsgruppe() );
+					
+					tabellenspalten[0] = oWochenuebersicht.getArbeitsgruppe().getKurzbezeichnung();
+					Collection<Zeile> values;
+					try {
+						values = oWochenuebersicht.getZeileArbeitsgruppe();
+						
+						tabellenwerte = new String[ values.size() ][1];
+						int x = 0;
+						Iterator<Zeile> i = values.iterator();
+						while( i.hasNext() ){
+							Zeile z = (Zeile) i.next();
+							tabellenwerte[x][0] = z.getArt().getName();
+							tabellenwerte[x][1] = Integer.toString( z.getSumme() );
+						}
+						
+					} catch (Exception e1) {
+						HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
+						tabellenwerte[0][0] = "#";
+					}
+					
 				}
 			}
 			
 			//an TabelleView übergeben
 			this.viewErg = new TabelleView();
 			this.viewErg.setController( this );
-			this.viewErg.setTabelle(tabellendefinition, tabellenwerte);
+			this.viewErg.setTabelle(tabellenspalten, tabellenwerte);
 			this.viewErg.setButtonName("Drucken");
 			HauptController.hauptfenster.setUeberschrift(headline);
 			HauptController.hauptfenster.setContent( this.viewErg );
