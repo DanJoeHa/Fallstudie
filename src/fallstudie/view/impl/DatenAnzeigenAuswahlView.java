@@ -1,19 +1,22 @@
 package fallstudie.view.impl;
 
-import javax.swing.JPanel;
-import java.awt.SystemColor;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
 import java.awt.Dimension;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.SystemColor;
 
-public class DatenAnzeigenAuswahlView extends JPanel {
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
+
+public class DatenAnzeigenAuswahlView extends JPanel implements View{
 	private JTextField T_Jahr;
 	private JTextField T_Woche;
 
@@ -63,5 +66,17 @@ public class DatenAnzeigenAuswahlView extends JPanel {
 		txtrWennSieDie.setBounds(30, 200, 520, 60);
 		add(txtrWennSieDie);
 
+	}
+
+	@Override
+	public void setController(Controller c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 }
