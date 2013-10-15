@@ -53,7 +53,7 @@ public class Rolle  {
 		//System.out.println("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
 		
 		ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
-		resultSet.next();
+		resultSet.first();
 		this.rollenbezeichnung = resultSet.getString("Rollenbezeichnung");
 
 	}
@@ -143,7 +143,7 @@ public class Rolle  {
 					
 				}
 				resultSet.close();
-			if (lesen) result.add(new Rechte("Lesen"));
+			if (lesen) result.add(new Rechte("Lesen", "Dumy-Recht f. Menubaum"));
 			
 		}
 		catch (SQLException e) 
