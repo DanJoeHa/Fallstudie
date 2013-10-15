@@ -24,7 +24,7 @@ import fallstudie.view.interfaces.View;
 public class BereichLoeschenView extends JPanel implements View{
 
 	
-	JButton B_BearbeitenLoeschen;
+	private JButton B_BearbeitenLoeschen;
 	/**
 	 * Create the panel.
 	 */
