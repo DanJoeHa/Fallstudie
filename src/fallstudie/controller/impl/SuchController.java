@@ -131,7 +131,7 @@ public class SuchController implements Controller {
 					}
 				}	
 			}
-		
+		}
 		
 		if( this.suchdomain.equals( "Arbeitsgruppe" )){ System.out.println("fast da");
 			if( button.equals( "Suchen") ){
@@ -199,7 +199,7 @@ public class SuchController implements Controller {
 				}
 			}
 		}
-	}
+	
 }	
 
 	

@@ -107,7 +107,7 @@ public abstract class Funktionen {
 		while( i.hasNext() ){
 			
 			Arbeitsgruppe AG = (Arbeitsgruppe ) i.next();
-			Object[] aArbeitsgruppe = new Object[3];
+			Object[] aArbeitsgruppe = new Object[4];
 			
 			sAG[x][0] = AG.getKurzbezeichnung();
 			sAG[x][1] = AG.getBeschreibung();
