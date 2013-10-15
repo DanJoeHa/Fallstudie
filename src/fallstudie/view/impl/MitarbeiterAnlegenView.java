@@ -15,6 +15,7 @@ import javax.swing.JTextPane;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -61,9 +62,21 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		B_PasswortGenerieren.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_PasswortGenerieren.setBounds(440, 400, 150, 30);
 		add(B_PasswortGenerieren);
-		B_PasswortGenerieren.addActionListener(new ActionListener()
-		{
+		
+		B_PasswortGenerieren.addActionListener(new ActionListener(){
+
+			@Override
 			public void actionPerformed(ActionEvent e) {
+				StringBuilder zufallsPasswort = new StringBuilder("xxxxxxxx");
+		        java.util.Random rGen=new java.util.Random();
+		        char[] passArray=new char[8];
+		        
+		        for(int i=0;i<8;i++) {
+		            passArray[i]=(char)(rGen.nextInt(26)+97);
+		            zufallsPasswort.setCharAt(i, passArray[i]);
+		        }
+		        
+				T_Passwort1.setText(zufallsPasswort.toString());
 			}
 	    	
 	    });
