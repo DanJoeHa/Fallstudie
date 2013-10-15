@@ -67,7 +67,7 @@ public class ArbeitsgruppenController implements Controller {
 			
 			//warte auf Auswahl
 			while( suche.getAuswahl() == null ){
-				suche.getAuswahl();
+				//do nothing
 			}
 			
 			//ausgewählte Arbeitsgruppe holen
