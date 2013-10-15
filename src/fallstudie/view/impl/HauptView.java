@@ -3,26 +3,16 @@ package fallstudie.view.impl;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import java.awt.Rectangle;
-
 import javax.swing.border.LineBorder;
 import javax.swing.event.TreeSelectionListener;
-
 import java.awt.Color;
 import java.awt.SystemColor;
-
 import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import java.awt.Font;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
@@ -30,6 +20,7 @@ public class HauptView extends JFrame implements View{
 
 	private static final long serialVersionUID = 999907361524491947L;
 	private JPanel Content, NavigationBackground;
+	private View activeView, lastView;
 	private JButton B_Logout, B_Hilfe;
 	private JTextPane InfoBox;
 	private JTree Navigation;
@@ -209,9 +200,15 @@ public class HauptView extends JFrame implements View{
 			System.out.println("error while removing acitve view");
 		}
 		this.Content.add(v);
+		this.lastView = this.activeView;
+		this.activeView = vi;
 		this.Content.doLayout();
 		this.revalidate();
 		
+	}
+	
+	public void zurueck(){
+		this.setContent( this.lastView );
 	}
 	
 	@Override
