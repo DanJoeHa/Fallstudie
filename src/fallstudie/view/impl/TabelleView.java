@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
 import java.awt.Dimension;
+import java.util.Arrays;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -29,6 +30,7 @@ import fallstudie.view.interfaces.View;
 public class TabelleView extends JPanel implements View {
 	private JTable TA_Tabelle;
 	private JButton B_AuswaehlenLoeschen;
+	private JButton B_Abbrechen;
 	
 	/**
 	 * Create the panel.
@@ -56,14 +58,15 @@ public class TabelleView extends JPanel implements View {
 		TA_Tabelle.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
 		scrollPane.setViewportView(TA_Tabelle);
 		TA_Tabelle.setBorder(new LineBorder(new Color(0, 0, 0)));
-		
+		//TA_Tabelle.setEnabled(false);
 		TA_Tabelle.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		JButton B_Abbrechen = new JButton("Abbrechen");
+		B_Abbrechen = new JButton("Abbrechen");
 		B_Abbrechen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Abbrechen.setBounds(30, 600, 150, 30);
 		add(B_Abbrechen);
-
+		
+		
 	}
 	
 	public void setButtonName(String buttonbezeichnung){
@@ -71,44 +74,47 @@ public class TabelleView extends JPanel implements View {
 	}
 	
 	public String getAuswahl(){
-		return null;
+		int row = TA_Tabelle.getSelectedRow();
+		String auswahl = TA_Tabelle.getValueAt(row, 1).toString();
+		System.out.println(auswahl);
+		return auswahl;
 	}
 	
 	//Tabelle befüllen
-	public void setTabelle(String[] tabellendefinition, String[][] tabellenwerte){
-		
-		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellendefinition));
+	public void setTabelle(String[] tabellenheadline,Object[][] tabellenwerte){
 		
 		
-		//DefaultTableModel TableModel = new DefaultTableModel();
 		
-		//Columnamen vergeben String Array mit Namen
-		//for(int i = 0; i < tabellendefinition.length; i++){
-		//	String Column = tabellendefinition[i];
-		//	TableModel.addColumn(Column);
+		
+		
+		
+		//for(int i = 0; i < tabellenwerte.length; i ++){
+		//		System.out.println("bla");
+		//		tabellenwerte[i][6] = new JRadioButton("A");
+		//		System.out.println("blub");
 		//}
 		
 		
 		
-		//Row wird gefüllt aus Object Array 
-		//for(int i = 0; i < tabellenwerte.length; i++){
-		//	
-		//	Object[] zeile = (Object[]) tabellenwerte[i];
-		//	TableModel.addRow(zeile);
-			
-		//}
+		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellenheadline));
+		
+		
+		
+		
 		
 	}
 	
 	@Override
 	public void setController(Controller c) {
 		// TODO Auto-generated method stub
-		
+		this.B_Abbrechen.addActionListener(c);
+		this.B_AuswaehlenLoeschen.addActionListener(c);
 	}
 
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
 	}
+	
+	
 }

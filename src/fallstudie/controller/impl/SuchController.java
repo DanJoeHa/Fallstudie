@@ -87,12 +87,17 @@ public class SuchController implements Controller {
 					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
 				}
 			}
-			if(button.equals( "Abbrechen")){
-					HauptController.hauptfenster.zurueck();
+		}
+			if(button == "Abbrechen"){
+				System.out.println("bla");	
+				HauptController.hauptfenster.zurueck();
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button == "auswählen" ){
+				
+				
+				
 				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
 				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 				
@@ -126,7 +131,7 @@ public class SuchController implements Controller {
 					}
 				}	
 			}
-		}
+		
 		
 		if( this.suchdomain == "Arbeitsgruppe" ){
 			if( button == "suchen" ){

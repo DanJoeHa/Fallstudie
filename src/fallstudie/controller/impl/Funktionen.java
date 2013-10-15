@@ -76,16 +76,16 @@ public abstract class Funktionen {
 	}
 
 	
-	public static String[][] MitarbeiterCollection2ArraySuche(Collection<Mitarbeiter> m){
+	public static Object[][] MitarbeiterCollection2ArraySuche(Collection<Mitarbeiter> m){
 		
 		Iterator<Mitarbeiter> i = m.iterator();
 		
-		String[][] sMitarbeiter = new String[ m.size() ][6];
+		Object[][] sMitarbeiter = new Object[ m.size() ][6];
 		int x = 0;
 		while( i.hasNext() ){
 			
 			Mitarbeiter ma = (Mitarbeiter ) i.next();
-			String[] aMitarbeiter = new String[6];
+			Object[] aMitarbeiter = new Object[6];
 			
 			sMitarbeiter[x][0] = ma.getBenutzername();
 			sMitarbeiter[x][1] = ma.getVorname();
