@@ -145,7 +145,18 @@ public class SuchController implements Controller {
 						
 						//hole passende Suchergebnisse
 						
-						this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff());
+						String suche;
+						System.out.println(e.getID());
+						if(e.getID() == 1 ){
+							suche = this.suchbegriff;
+							System.out.println("asd");
+						}
+						else
+						{
+							suche = this.view.getSuchbegriff();	
+						}
+						
+						this.suchergebnisseAg = Arbeitsgruppe.suche( suche );
 							// TODO Auto-generated catch block
 							//HauptController.hauptfenster.setContent(this.viewErg);
 						

@@ -106,10 +106,9 @@ public class MitarbeiterController implements Controller {
 		
 		//Arbeitsgruppe suchen
 		if( button.equals("Suchen") ){
-			System.out.println("3");
 			SuchController sucheAG = new SuchController();
 			sucheAG.setSuchdomain("Arbeitsgruppe");
-			sucheAG.setOperation("auswahl");
+
 			switch( this.operation )
 			{
 				case "anlegen": sucheAG.setSuchbegriff(this.viewAnlegen.getArbeitsgruppe());
@@ -117,6 +116,7 @@ public class MitarbeiterController implements Controller {
 				case "bearbeiten": sucheAG.setSuchbegriff(this.view.getArbeitsgruppe());
 					break;
 			}
+			sucheAG.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(sucheAG.getView() );
 			
 			/*
