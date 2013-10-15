@@ -330,7 +330,7 @@ public class Mitarbeiter {
 		}
 		catch (SQLException e) {
 			System.err.println(e.getMessage());
-			System.err.println("SQL Statement ist fehlerhaft!");
+			System.err.println("SQL Statement ist fehlerhaft! In Mitarbeiter(ohne AG+Bereich)");
 		}
 	}
 	
