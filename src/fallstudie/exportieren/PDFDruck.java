@@ -67,7 +67,7 @@ public static void drawTablePDF(PDPage page, PDPageContentStream contentStream,
         textx = margin+cellMargin;
     }
 }
-public static void generateTablePDF(String[][] TabellenContent, String PDFUeberschrift) 
+public static void generateTablePDF(String[][] TabellenContent, String PDFUeberschrift, String[] ueberschriften) 
 									throws IOException, COSVisitorException, IllegalArgumentException, PrinterException {
 	 
 	int zeilen = TabellenContent.length;
@@ -75,6 +75,23 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 	//Neues Doc
 	PDDocument doc = new PDDocument();
 	//Uebrschriften Setzen
+	
+		
+	String[][] ueber2D = new String[1][ueberschriften.length];
+	//1D in 2D Array schreiben
+	for (int a=0; a<ueberschriften.length;a++)
+	{
+		for (int b=0;b<ueber2D.length;b++)
+		{
+			for (int c=0;c<ueber2D.length;c++)
+			{
+				ueber2D[b][c] = ueberschriften[a];
+				System.out.println(ueber2D[b][c]);
+			}
+		}
+	}
+	
+	
 	
 	int a=33;
 	int i= 0;
@@ -94,17 +111,16 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		PDPageContentStream contentStream = new PDPageContentStream(doc, page);
 		String[][] part = new String[35][spalten]; 
 		
-		
 		System.out.println("i: "+i+"a: "+a);
 		part = Arrays.copyOfRange(TabellenContent, i, a);
 		String [][] komplettArray = new String[36][spalten];
-		String [][] tabellenUeberschrift = new String[1][spalten];
-		tabellenUeberschrift[0] = TabellenContent[0];
+
+		
+		
 		if(zahler!=0)
 		{
-		komplettArray = ArrayUtils.addAll(tabellenUeberschrift, part);
-		
-		
+		komplettArray = ArrayUtils.addAll(ueber2D, part);
+			
 		PDFDruck.drawTablePDF(page, contentStream, 720,10, komplettArray);
 		 //Überschrift
 					 contentStream.beginText();
@@ -118,10 +134,10 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		}
 		else
 		{
-			komplettArray = ArrayUtils.addAll(tabellenUeberschrift, part);
+			komplettArray = ArrayUtils.addAll(ueber2D, part);
 			
 			
-			PDFDruck.drawTablePDF(page, contentStream, 720,10, part);
+			PDFDruck.drawTablePDF(page, contentStream, 720,10, komplettArray);
 			 //Überschrift
 						 contentStream.beginText();
 						 contentStream.setNonStrokingColor(0, 0, 255);

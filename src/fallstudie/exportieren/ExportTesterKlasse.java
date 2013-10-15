@@ -3,7 +3,9 @@ package fallstudie.exportieren;
  
 import java.awt.print.PrinterException;
 import java.io.IOException;
+import java.io.Serializable;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.pdfbox.exceptions.COSVisitorException;
  
 public class ExportTesterKlasse {
@@ -41,13 +43,29 @@ public class ExportTesterKlasse {
 		 };
 	
 
+		String[] ueberschriften = new String[] {"1","2","3","4","5","6","7"};
+		String[][] ueber2D = new String[1][ueberschriften.length];
 		
-				CSVExport.exportCSV(content);
+		for (int a=0; a<ueberschriften.length;a++)
+		{
+			for (int b=0;b<ueber2D.length;b++)
+			{
+				for (int c=0;c<ueber2D.length;c++)
+				{
+					ueber2D[b][c] = ueberschriften[a];
+					//System.out.println(ueber2D[b][c]);
+				}
+			}
+		}
+		
+		
+	
+				//CSVExport.exportCSV(content);
 		
 
 
 			
-		 	PDFDruck.generateTablePDF(content,"Jahresuebersicht");
+		 PDFDruck.generateTablePDF(content,"Jahresuebersicht",ueberschriften);
 	       
 	 
 	 }
