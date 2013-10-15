@@ -47,7 +47,7 @@ public class SuchController implements Controller {
 		
 		if( this.operation.equals("auswahl") ){
 			//Ergebnistabelle anzeigen
-			ActionEvent e = new ActionEvent(this, 1, "suchen");
+			ActionEvent e = new ActionEvent(this, 1, "Suchen");
 			this.actionPerformed(e);
 		}
 	}
@@ -164,7 +164,7 @@ public class SuchController implements Controller {
 				}
 			}
 		
-			
+s			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button == "auswählen" ){
 				//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
