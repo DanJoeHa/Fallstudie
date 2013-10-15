@@ -123,7 +123,15 @@ public class ErfassenView extends JPanel implements View {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int derzeitigerWert =  Integer.parseInt( T_Anzahl_Erfassen.getText() );
+				int derzeitigerWert;
+				try
+				{
+					derzeitigerWert =  Integer.parseInt( T_Anzahl_Erfassen.getText() );
+				}
+				catch (Exception ex)
+				{
+					derzeitigerWert = 0;
+				}
 				int neuerWert = derzeitigerWert + 1;
 				T_Anzahl_Erfassen.setText(""+neuerWert);
 			}
@@ -213,6 +221,13 @@ public class ErfassenView extends JPanel implements View {
 	 * @return (int) Anzahl
 	 */
 	public int getAnzahl(){
-		return Integer.parseInt(T_Anzahl_Erfassen.getText());
+		try
+		{
+			return Integer.parseInt(T_Anzahl_Erfassen.getText());
+		}
+		catch(Exception ex)
+		{
+			return 0;
+		}
 	}
 }
