@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
 import java.awt.Dimension;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -110,7 +111,7 @@ public class TabelleView extends JPanel implements View {
 	}
 	
 	//Tabelle befüllen
-	public void setTabelle(String[] tabellendefinition){
+	public void setTabelle(String[] tabellendefinition, String[][] tabellenwerte){
 		DefaultTableModel TableModel = new DefaultTableModel();
 		
 		//Columnamen vergeben String Array mit Namen
@@ -119,11 +120,15 @@ public class TabelleView extends JPanel implements View {
 			TableModel.addColumn(Column);
 		}
 		
+		
+		
 		//Row wird gefüllt aus Object Array ??? keine Ahnung ob des geht
-		//for(int i = 0; i < tabellenwerte.length; i++){
-		//Object[] tabelle = (Object[]) tabellenwerte[i];
-		//TableModel.addRow(tabelle);
-		//}
+		for(int i = 0; i < tabellenwerte.length; i++){
+			
+			Object[] zeile = (Object[]) tabellenwerte[i];
+			TableModel.addRow(zeile);
+			
+		}
 	}
 	
 	@Override
