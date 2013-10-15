@@ -17,9 +17,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-public class drawTable
+public class PDFDruck
 {
-	public drawTable()
+	public PDFDruck()
 	{
 		
 	}
@@ -103,7 +103,7 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		komplettArray = ArrayUtils.addAll(tabellenUeberschrift, part);
 		
 		
-		drawTable.drawTablePDF(page, contentStream, 720,10, komplettArray);
+		PDFDruck.drawTablePDF(page, contentStream, 720,10, komplettArray);
 		 //Überschrift
 					 contentStream.beginText();
 					 contentStream.setNonStrokingColor(0, 0, 255);
@@ -119,7 +119,7 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 			komplettArray = ArrayUtils.addAll(tabellenUeberschrift, part);
 			
 			
-			drawTable.drawTablePDF(page, contentStream, 720,10, part);
+			PDFDruck.drawTablePDF(page, contentStream, 720,10, part);
 			 //Überschrift
 						 contentStream.beginText();
 						 contentStream.setNonStrokingColor(0, 0, 255);
@@ -137,7 +137,7 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		}
 		while(zeilenubrig!=0);
 
-	doc.save("C:\\Users\\Phil\\Documents\\Uni Zeug\\Java Sachen\\eclipse\\Java\\PDFTest\\pdf\\test.pdf");
+	doc.save("//ExportFiles//PDFExport.pdf");
 	doc.close();
 
 }
