@@ -85,7 +85,7 @@ public abstract class Funktionen {
 		while( i.hasNext() ){
 			
 			Mitarbeiter ma = (Mitarbeiter ) i.next();
-			Object[] aMitarbeiter = new Object[6];
+			//Object[] aMitarbeiter = new Object[6];
 			
 			sMitarbeiter[x][0] = ma.getBenutzername();
 			sMitarbeiter[x][1] = ma.getVorname();
@@ -102,16 +102,30 @@ public abstract class Funktionen {
 		
 		Iterator<Arbeitsgruppe> i = a.iterator();
 		
+		
 		Object[][] sAG = new Object[ a.size() ][4];
 		int x = 0;
 		while( i.hasNext() ){
 			
 			Arbeitsgruppe AG = (Arbeitsgruppe ) i.next();
-			Object[] aArbeitsgruppe = new Object[4];
+			//Object[] aArbeitsgruppe = new Object[4];
+			
 			
 			sAG[x][0] = AG.getKurzbezeichnung();
+			
 			sAG[x][1] = AG.getBeschreibung();
-			sAG[x][2] = AG.getLeiter().getFullName();
+			
+			
+			if( AG.getLeiter() == null ){
+				String l = "nicht vergeben";
+				sAG[x][2] = l;
+			}else{
+				sAG[x][2] = AG.getLeiter().getNachname();
+			}
+			
+			
+			
+			
 			sAG[x][3] = AG.getBereich().getKurzbezeichnung();
 			
 			x++;
