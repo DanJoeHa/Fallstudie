@@ -7,7 +7,9 @@ package fallstudie.exportieren;
  * @param content a 2d array containing the table data
  * @throws IOException
  */
+import java.awt.Desktop;
 import java.awt.print.PrinterException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -137,8 +139,10 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		}
 		while(zeilenubrig!=0);
 
-	doc.save("//ExportFiles//PDFExport.pdf");
+	doc.save("ExportFiles\\PDFExport.pdf");
 	doc.close();
+	File PDF = new File("ExportFiles\\Test.pdf");
+    Desktop.getDesktop().open(PDF);
 
 }
 }
