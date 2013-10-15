@@ -52,9 +52,18 @@ public class PasswortController implements Controller {
 				
 				//Prüfe, ob neues Passwort und dessen Wiederholung gleich sind
 				if(wdhPasswort.equals(neuesPasswort)){
-					HauptController.activeUser.setPasswort(neuesPasswort);
-					HauptController.hauptfenster.setInfoBox("Passwort erfolgreich geändert");
-					this.view.reset();
+					
+					//Prüfe, ob neues Passowrt mit dem alten Passowort übereinstimmt
+					if(altesPasswort.equals(neuesPasswort)){
+						HauptController.activeUser.setPasswort(neuesPasswort);
+						HauptController.hauptfenster.setInfoBox("Passwort erfolgreich geändert");
+						this.view.reset();
+					}
+					else{
+						HauptController.hauptfenster.setInfoBox("Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen");
+						this.view.reset();
+					}
+					
 				}
 				else
 				{

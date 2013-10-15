@@ -113,6 +113,7 @@ public class MitarbeiterController implements Controller {
 			}
 			HauptController.hauptfenster.setContent( sucheAG.getView() );
 			
+			//**********WICHTIG****************** neue Operation, wenn Suche Ergebnis gefunden hat
 			//warte auf Auswahl
 			while( sucheAG.getAuswahl() == null ){
 				sucheAG.getAuswahl();
