@@ -55,14 +55,19 @@ public class Rechte {
 			this.beschreibung = resultSet.getString("Beschreibung");
 		}
 		catch (SQLException e)
-		{   System.err.println("Dieser Fehler ist aufgetreten in Rolle (String):");
+		{   System.err.println("Dieser Fehler ist aufgetreten in Rechte (String):");
 			System.err.println(e.getMessage());
 			
 		}
 
 			
 		}
-
+	
+	public Rechte(String name, String beschreibung){
+		this.name = name;
+		this.beschreibung = beschreibung;
+	}
+	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOR-------------------------
 	//-----------------------------------------------------------
