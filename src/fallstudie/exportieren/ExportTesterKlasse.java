@@ -43,20 +43,12 @@ public class ExportTesterKlasse {
 		 };
 	
 
-		String[] ueberschriften = new String[] {"1","2","3","4","5","6","7"};
+		String[] ueberschriften = {"1","2","3","4","5","6","7","7","7","7","7"};
 		String[][] ueber2D = new String[1][ueberschriften.length];
 		
-		for (int a=0; a<ueberschriften.length;a++)
-		{
-			for (int b=0;b<ueber2D.length;b++)
-			{
-				for (int c=0;c<ueber2D.length;c++)
-				{
-					ueber2D[b][c] = ueberschriften[a];
-					//System.out.println(ueber2D[b][c]);
-				}
+		for (int count = 0; count < ueberschriften.length; count++) {
+			ueber2D[0][0] = ueberschriften[count];
 			}
-		}
 		
 		
 	

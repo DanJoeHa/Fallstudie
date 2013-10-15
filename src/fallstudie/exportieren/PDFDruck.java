@@ -78,18 +78,7 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 	
 		
 	String[][] ueber2D = new String[1][ueberschriften.length];
-	//1D in 2D Array schreiben
-	for (int a=0; a<ueberschriften.length;a++)
-	{
-		for (int b=0;b<ueber2D.length;b++)
-		{
-			for (int c=0;c<ueber2D.length;c++)
-			{
-				ueber2D[b][c] = ueberschriften[a];
-				System.out.println(ueber2D[b][c]);
-			}
-		}
-	}
+	ueber2D[0] = ueberschriften;
 	
 	
 	
@@ -111,10 +100,9 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		PDPageContentStream contentStream = new PDPageContentStream(doc, page);
 		String[][] part = new String[35][spalten]; 
 		
-		System.out.println("i: "+i+"a: "+a);
+		System.out.println("i: "+i+" a: "+a);
 		part = Arrays.copyOfRange(TabellenContent, i, a);
 		String [][] komplettArray = new String[36][spalten];
-
 		
 		
 		if(zahler!=0)
@@ -135,7 +123,6 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		else
 		{
 			komplettArray = ArrayUtils.addAll(ueber2D, part);
-			
 			
 			PDFDruck.drawTablePDF(page, contentStream, 720,10, komplettArray);
 			 //Überschrift
