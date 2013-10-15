@@ -53,7 +53,7 @@ public class Rolle  {
 		//System.out.println("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
 		
 		ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
-		resultSet.first();
+		resultSet.next();
 		this.rollenbezeichnung = resultSet.getString("Rollenbezeichnung");
 
 	}

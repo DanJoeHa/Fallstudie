@@ -2,6 +2,7 @@ package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
 import java.util.Collection;
+import java.util.Iterator;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Jahresuebersicht;
@@ -80,6 +81,14 @@ public class DatenAnzeigenController implements Controller {
 					
 					tabellenspalten[0] = oJahresuebersicht.getArbeitsgruppe().getKurzbezeichnung();
 					Collection<Zeile> values = oJahresuebersicht.getZeileArbeitsgruppe();
+					
+					String[][] tabellenwerte = String[values.size()][5];
+					int x = 0;
+					Iterator<Zeile> i = values.iterator();
+					while( i.hasNext() ){
+						Zeile z = (Zeile) i.next();
+						tabellenwerte[x][0] = z.getSumme() +"";
+					}
 					
 					
 				}
