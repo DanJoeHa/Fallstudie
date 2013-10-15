@@ -133,7 +133,7 @@ public class ErfassenView extends JPanel implements View {
 	    //Combo_Art_waehlen
 	    C_Art = new JComboBox<String>();
 	    C_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    C_Art.setBounds(200, 200, 300, 30);
+	    C_Art.setBounds(200, 200, 350, 30);
 	    add(C_Art);
 	    
 		//B_Zurücksetzen
