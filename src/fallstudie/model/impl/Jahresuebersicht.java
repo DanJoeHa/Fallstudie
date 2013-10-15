@@ -198,7 +198,7 @@ public class Jahresuebersicht {
 		//System.out.println("SELECT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
 		
 		try {
-			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"' AND Bereich='"+bereichID+"'");
+			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Arbeitsgruppe FROM Wochenuebersicht WHERE Kalenderjahr='"+jahr+"' AND Bereich='"+bereichID+"'");
 			
 			while(jahresUebersicht.next())
 			{	
