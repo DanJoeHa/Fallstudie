@@ -100,11 +100,11 @@ public class SuchController implements Controller {
 				
 				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
 				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
-				
+				String name = this.viewErg.getAuswahl();
 				while( i.hasNext() ){
 					Mitarbeiter MA = (Mitarbeiter) i.next();
 					String benutzername = MA.getBenutzername();
-					if( benutzername.equals( this.viewErg.getAuswahl() ) ){
+					if( benutzername.equals( name ) ){
 						this.auswahl = MA;
 						break;
 					}

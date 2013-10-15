@@ -75,7 +75,7 @@ public class TabelleView extends JPanel implements View {
 	
 	public String getAuswahl(){
 		int row = TA_Tabelle.getSelectedRow();
-		String auswahl = TA_Tabelle.getValueAt(row, 1).toString();
+		String auswahl = TA_Tabelle.getValueAt(row, 0).toString();
 		System.out.println(auswahl);
 		return auswahl;
 	}
@@ -96,7 +96,13 @@ public class TabelleView extends JPanel implements View {
 		
 		
 		
-		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellenheadline));
+		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellenheadline)
+		{
+			public boolean isCellEditable(int x, int y) {
+                return false;
+            }
+		}
+				);
 		
 		
 		
