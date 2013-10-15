@@ -164,7 +164,6 @@ public class SuchController implements Controller {
 				}
 			}
 		
-s			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button == "auswählen" ){
 				//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
