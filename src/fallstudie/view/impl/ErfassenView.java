@@ -38,11 +38,11 @@ public class ErfassenView extends JPanel implements View {
 	public ErfassenView() {
 					
 		//Styling
-		setPreferredSize(new Dimension(600, 700));
-		setMinimumSize(new Dimension(600, 700));
-		setMaximumSize(new Dimension(600, 700));
+		setPreferredSize(new Dimension(620, 660));
+		setMinimumSize(new Dimension(620, 660));
+		setMaximumSize(new Dimension(620, 660));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 600, 700));
+		setBounds(new Rectangle(0, 0, 620, 660));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -50,24 +50,24 @@ public class ErfassenView extends JPanel implements View {
 		//L_Kalenderjahr
 		JLabel L_Kalenderjahr = new JLabel("Kalenderjahr:");
 		L_Kalenderjahr.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Kalenderjahr.setBounds(12, 13, 210, 17);
+		L_Kalenderjahr.setBounds(30, 100, 150, 30);
 		add(L_Kalenderjahr);
 		
 		//L_Kalenderwoche
 		JLabel L_Kalenderwoche = new JLabel("Kalenderwoche:");
 		L_Kalenderwoche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Kalenderwoche.setBounds(12, 50, 210, 17);
+		L_Kalenderwoche.setBounds(30, 150, 150, 30);
 		add(L_Kalenderwoche);
 		
 		//L_Erfassen statt L_Erstattungen und L_Schriftwechsel
 		JLabel L_Art = new JLabel("Art:");
 		L_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Art.setBounds(12, 101, 210, 17);
+		L_Art.setBounds(30, 200, 150, 30);
 		add(L_Art);
 		
 		JLabel L_Anzahl = new JLabel("Anzahl:");
 		L_Anzahl.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Anzahl.setBounds(12, 134, 210, 17);
+		L_Anzahl.setBounds(30, 250, 150, 30);
 		add(L_Anzahl);
 		
 		//Datumswerte bestimmen
@@ -82,19 +82,19 @@ public class ErfassenView extends JPanel implements View {
 		T_Kalenderjahr.setText(""+jahr);
 		T_Kalenderjahr.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Kalenderjahr.setColumns(10);
-		T_Kalenderjahr.setBounds(157, 13, 181, 20);
+		T_Kalenderjahr.setBounds(200, 100, 150, 30);
 		add(T_Kalenderjahr);
 		
 		//R_KalenderwocheDavor
 		R_KalenderwocheDavor = new JRadioButton(""+vorKW);
 		R_KalenderwocheDavor.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		R_KalenderwocheDavor.setBounds(157, 50, 89, 23);
+		R_KalenderwocheDavor.setBounds(200, 150, 70, 30);
 		add(R_KalenderwocheDavor);
 		
 		//R_KalenderwocheAktuell
 		R_KalenderwocheAktuell = new JRadioButton(""+aktKW);
 		R_KalenderwocheAktuell.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		R_KalenderwocheAktuell.setBounds(250, 50, 89, 23);
+		R_KalenderwocheAktuell.setBounds(290, 150, 70, 30);
 		add(R_KalenderwocheAktuell);
 		R_KalenderwocheAktuell.setSelected(true);
 		
@@ -107,7 +107,7 @@ public class ErfassenView extends JPanel implements View {
 	    T_Anzahl_Erfassen = new JTextField();
 	    T_Anzahl_Erfassen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	    T_Anzahl_Erfassen.setColumns(10);
-	    T_Anzahl_Erfassen.setBounds(157, 132, 134, 20);
+	    T_Anzahl_Erfassen.setBounds(200, 250, 150, 30);
 	    add(T_Anzahl_Erfassen);
 		//Intialwert Erfassen 0
 		T_Anzahl_Erfassen.setText("0");
@@ -115,7 +115,7 @@ public class ErfassenView extends JPanel implements View {
 	    //B_Plus
 	    JButton B_Plus = new JButton("+");
 	    B_Plus.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    B_Plus.setBounds(295, 131, 43, 23);
+	    B_Plus.setBounds(370, 250, 70, 30);
 	    add(B_Plus);
 	    
 	    //Increment-Logik
@@ -133,19 +133,19 @@ public class ErfassenView extends JPanel implements View {
 	    //Combo_Art_waehlen
 	    C_Art = new JComboBox<String>();
 	    C_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    C_Art.setBounds(157, 99, 181, 20);
+	    C_Art.setBounds(200, 200, 300, 30);
 	    add(C_Art);
 	    
 		//B_Zurücksetzen
 		B_Zuruecksetzen = new JButton("Zurücksetzen");
 		B_Zuruecksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Zuruecksetzen.setBounds(12, 164, 150, 23);
+		B_Zuruecksetzen.setBounds(30, 600, 150, 30);
 		add(B_Zuruecksetzen);
 		
 		//B_Anlegen entspricht Speichern
 		B_Anlegen = new JButton("Speichern");
 		B_Anlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Anlegen.setBounds(188, 164, 150, 23);
+		B_Anlegen.setBounds(440, 600, 150, 30);
 		add(B_Anlegen);
 		
 	}
