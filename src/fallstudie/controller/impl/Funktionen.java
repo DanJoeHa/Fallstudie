@@ -97,4 +97,26 @@ public abstract class Funktionen {
 		} 
 		return sMitarbeiter;
 	}
+	
+	public static Object[][] ArbeitsgruppeCollection2ArraySuche(Collection<Arbeitsgruppe> a){
+		
+		Iterator<Arbeitsgruppe> i = a.iterator();
+		
+		Object[][] sAG = new Object[ a.size() ][4];
+		int x = 0;
+		while( i.hasNext() ){
+			
+			Arbeitsgruppe AG = (Arbeitsgruppe ) i.next();
+			Object[] aArbeitsgruppe = new Object[3];
+			
+			sAG[x][0] = AG.getKurzbezeichnung();
+			sAG[x][1] = AG.getBeschreibung();
+			sAG[x][2] = AG.getLeiter().getFullName();
+			sAG[x][3] = AG.getBereich().getKurzbezeichnung();
+			
+			x++;
+		
+		} 
+		return sAG;
+	}
 }

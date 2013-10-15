@@ -87,7 +87,7 @@ public class SuchController implements Controller {
 					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
 				}
 			}
-		}
+		
 			if(button == "Abbrechen"){
 				System.out.println("bla");	
 				HauptController.hauptfenster.zurueck();
@@ -133,41 +133,45 @@ public class SuchController implements Controller {
 			}
 		
 		
-		if( this.suchdomain == "Arbeitsgruppe" ){
-			if( button == "suchen" ){
-				
-				//initiere Ergebnistabelle
-				this.viewErg = new TabelleView();
-				this.viewErg.setController( this );
-				this.viewErg.setButtonName("auswählen");
-				
-				//hole passende Suchergebnisse
-				try {
-					this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff() );
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					HauptController.hauptfenster.setInfoBox(e1.getMessage());
-				}
-				
-				//festgelegter String Array
-				String[] AGColumn = new String[]{ "Leiter", "Bereich", "Kurzbeschreibung", "Beschreibung"
+		if( this.suchdomain.equals( "Arbeitsgruppe" )){ System.out.println("fast da");
+			if( button.equals( "Suchen") ){
+				try{
+							System.out.println("bin drin");
+						//initiere Ergebnistabelle
+						this.viewErg = new TabelleView();
+						this.viewErg.setController( this );
+						this.viewErg.setButtonName("auswählen");
 						
-				};
-				//Content auf Tabellen-Sicht wechseln
-				this.viewErg.setTabelle( AGColumn,  Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ) );
-				HauptController.hauptfenster.setContent( this.viewErg );
-				
+						//hole passende Suchergebnisse
+						
+						System.out.println(this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff() ));
+						
+							// TODO Auto-generated catch block
+							//HauptController.hauptfenster.setContent(this.viewErg);
+						
+						
+						//festgelegter String Array
+						String[] AGColumn = new String[]{ "Kurzbeschreibung", "Beschreibung", "Leiter", "Bereich"
+								
+						};
+						//Content auf Tabellen-Sicht wechseln
+						this.viewErg.setTabelle( AGColumn,  Funktionen.ArbeitsgruppeCollection2ArraySuche(this.suchergebnisseAg ) );
+						HauptController.hauptfenster.setContent( this.viewErg );
+				}catch(Exception ex){
+					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
+				}
 			}
+		
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button == "auswählen" ){
 				//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
 				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
-				
+				String AGname = this.viewErg.getAuswahl();
 				while( i.hasNext() ){
 					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
 					String kurzbez = AG.getKurzbezeichnung();
-					if( kurzbez.equals( this.viewErg.getAuswahl() ) ){
+					if( kurzbez.equals( AGname ) ){
 						this.auswahl = AG;
 						break;
 					}
@@ -195,9 +199,10 @@ public class SuchController implements Controller {
 				}
 			}
 		}
-		
-
 	}
+}	
+
+	
 
 	@Override
 	public View getView() {
