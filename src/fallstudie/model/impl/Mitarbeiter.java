@@ -271,6 +271,73 @@ public class Mitarbeiter {
 	 * �berladener Konstruktor #4, wird verwendet wenn ein Mitarbeiter neu angelegt wird
 	 * @param resultSet
 	 */
+	/**
+	 * �berladener Konstruktor #3, wird verwendet wenn ein Mitarbeiter neu angelegt wird
+	 * @param benutzername
+	 * @param passwort
+	 * @param vorname
+	 * @param nachname
+	 * @param rolle
+	 * @param arbeitsgruppe
+	 * @throws Exception 
+	 */
+	public Mitarbeiter(String benutzername, String passwort,
+			String vorname, String nachname, Rolle rolle) throws Exception {
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+			
+		
+		//IDs und Namen herauskriegen
+		String rollenName = rolle.getRollenbezeichnung();
+		
+		//System.out.println("SELECT Benutzername From Mitarbeiter");
+		//Checken obs den Mitarbeiter schon gibt.
+		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+				"SELECT Benutzername From Mitarbeiter");
+		
+		
+		while (checkObVorhanden.next()) 
+		{
+
+				String value = checkObVorhanden.getString("Benutzername");
+				
+				if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
+				checkObVorhanden.close();
+		}
+		
+		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
+		
+		
+		/*System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)" +
+				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"'");
+		*/
+		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)" +
+				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"'");
+		
+		if (affectedRows==1)System.out.println("Es wurde "+affectedRows+" Datensatz eingef�gt.");
+		
+		this.benutzername = benutzername;
+		this.passwort = verschluesseltPasswort;
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.rolle = rolle;
+		this.arbeitsgruppe=null;
+		this.bereich = null;
+		
+		}
+		catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.err.println("SQL Statement ist fehlerhaft! In Mitarbeiter(ohne AG+Bereich)");
+		}
+	}
+	
+	/**
+	 * �berladener Konstruktor #4, wird verwendet wenn ein Mitarbeiter neu angelegt wird
+	 * @param resultSet
+	 */
 	public Mitarbeiter(ResultSet resultSet){
 		try
 		{

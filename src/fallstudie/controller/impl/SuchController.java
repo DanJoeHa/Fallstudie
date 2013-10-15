@@ -89,8 +89,9 @@ public class SuchController implements Controller {
 			}
 		
 			if(button == "Abbrechen"){
-				System.out.println("bla");	
+			
 				HauptController.hauptfenster.zurueck();
+				
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
@@ -133,10 +134,10 @@ public class SuchController implements Controller {
 			}
 		}
 		
-		if( this.suchdomain.equals( "Arbeitsgruppe" )){ System.out.println("fast da");
+		if( this.suchdomain.equals( "Arbeitsgruppe" )){ 
 			if( button.equals( "Suchen") ){
 				try{
-							System.out.println("bin drin");
+						
 						//initiere Ergebnistabelle
 						this.viewErg = new TabelleView();
 						this.viewErg.setController( this );
@@ -144,19 +145,20 @@ public class SuchController implements Controller {
 						
 						//hole passende Suchergebnisse
 						
-						System.out.println(this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff() ));
-						
+						this.suchergebnisseAg = Arbeitsgruppe.suche( this.view.getSuchbegriff());
 							// TODO Auto-generated catch block
 							//HauptController.hauptfenster.setContent(this.viewErg);
 						
 						
 						//festgelegter String Array
-						String[] AGColumn = new String[]{ "Kurzbeschreibung", "Beschreibung", "Leiter", "Bereich"
-								
-						};
+						String[] AGColumn = new String[]{ "Kurzbeschreibung", "Beschreibung", "Leiter", "Bereich"};
+						
+						
 						//Content auf Tabellen-Sicht wechseln
-						this.viewErg.setTabelle( AGColumn,  Funktionen.ArbeitsgruppeCollection2ArraySuche(this.suchergebnisseAg ) );
+						this.viewErg.setTabelle( AGColumn, Funktionen.ArbeitsgruppeCollection2ArraySuche(this.suchergebnisseAg ) );
+						
 						HauptController.hauptfenster.setContent( this.viewErg );
+						
 				}catch(Exception ex){
 					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
 				}
