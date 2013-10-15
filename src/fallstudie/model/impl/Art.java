@@ -91,7 +91,7 @@ public class Art {
 		
 		try
 		{
-			System.out.println("SELECT * FROM Art WHERE Name='"+name+"'");
+			//System.out.println("SELECT * FROM Art WHERE Name='"+name+"'");
 			resultSet = Connection.executeQueryStatement("SELECT * FROM Art WHERE Name='"+name+"'");
 			resultSet.next();
 			art = new Art(resultSet);

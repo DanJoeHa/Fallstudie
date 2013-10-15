@@ -87,7 +87,6 @@ public class Jahresuebersicht {
 	 * @return
 	 */
 	public Jahresuebersicht(int kalenderjahr, Bereich bereich) {
-		// TODO Auto-generated method stub
 		
 		RemoteConnection Connection = new RemoteConnection();
 		
@@ -130,13 +129,47 @@ public class Jahresuebersicht {
 	}
 	/**
 	 * Gibt eine Collection von Jahresübersichten zu Bereichen
-	 * Für den Zentralbereichsleiter+ Fachbereichsorganisation komplette Übersicht zu allen
+	 * Für den Zentralbereichsleiter+ Fachbereichsorganisation komplette Übersicht zu allen Bereichen
 	 * @param jahr
 	 * @return
 	 */
-	public static Collection<Jahresuebersicht> getAlleJahresuebersichtenZuAllenBereichen(String jahr)
+	public static Collection<Jahresuebersicht> getAlleJahresuebersichtenZuAllenBereichen(int jahr)
 	{
-		return null;
+		RemoteConnection Connection = new RemoteConnection();
+		Collection<Jahresuebersicht> alleJahresuebersichten = new LinkedList<>();
+		
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
+		//System.out.println("SELECT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
+		
+		try {
+			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
+			
+			while(jahresUebersicht.next())
+			{	
+				int bereichID = jahresUebersicht.getInt("Bereich");
+				Bereich bereich = new Bereich(bereichID);
+				
+				alleJahresuebersichten.add(new Jahresuebersicht(jahr, bereich));
+			}
+			
+		jahresUebersicht.close();
+		} 
+		catch (SQLException e) {
+			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZuAllenbereichen(String) aufgetreten:");
+			System.err.println(e.getMessage());
+		}
+		return alleJahresuebersichten;
+		
 		
 	}
 	/**
@@ -147,7 +180,41 @@ public class Jahresuebersicht {
 	 */
 	public static Collection<Jahresuebersicht> getAlleJahresuebersichtenZumBereich(String jahr, Bereich bereich)
 	{
-		return null;
+		RemoteConnection Connection = new RemoteConnection();
+		Collection<Jahresuebersicht> alleJahresuebersichten = new LinkedList<>();
+		int bereichID = bereich.getID();
+		
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
+		//System.out.println("SELECT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
+		
+		try {
+			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"' AND Bereich='"+bereichID+"'");
+			
+			while(jahresUebersicht.next())
+			{	
+				int bereichID = jahresUebersicht.getInt("Bereich");
+				Bereich bereich = new Bereich(bereichID);
+				
+				alleJahresuebersichten.add(new Jahresuebersicht(jahr, bereich));
+			}
+			
+		jahresUebersicht.close();
+		} 
+		catch (SQLException e) {
+			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZuAllenbereichen(String) aufgetreten:");
+			System.err.println(e.getMessage());
+		}
+		return alleJahresuebersichten;
 		
 	}
 	//-----------------------------------------------------------
@@ -252,8 +319,8 @@ public class Jahresuebersicht {
 		ResultSet resultSet = null;
 		try 
 		{			
-			System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
-					"' AND Bereich ='"+this.bereich.getID()+"'");
+			//System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+				//	"' AND Bereich ='"+this.bereich.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
 					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 					"' AND Bereich ='"+this.bereich.getID()+"'");
