@@ -175,7 +175,13 @@ public class ErfassenView extends JPanel implements View {
 	 * @return (int) Kalenderjahr
 	 */
 	public int getKalenderjahr(){
-		return Integer.parseInt( this.T_Kalenderjahr.getText() );
+		try{
+				int kalenderjahr = Integer.parseInt( this.T_Kalenderjahr.getText() );
+				return kalenderjahr;
+		}
+		catch (Exception ex){
+				return 0;
+		}
 	}
 	
 	public String getArt(){

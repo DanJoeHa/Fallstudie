@@ -50,13 +50,32 @@ public class ErfassenController implements Controller {
 					break;
 				}
 			}
+			int anzahl = view.getAnzahl();
+			int kalenderjahr = view.getKalenderjahr();
 			
-			Eintrag eintrag = new Eintrag(view.getKalenderjahr(),view.getKalenderwoche(),view.getAnzahl(),HauptController.activeUser.getArbeitsgruppe(), tempArt);
-			Calendar cal = Calendar.getInstance();
-		    DateFormat df;
-		    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
-			HauptController.hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am "+ df.format(cal.getTime()) +" erfasst");
-			view.reset();
+			//Prüfung, ob Kalenderjahr eine Zahl ist (GUI gibt 0 zurück, wenn parseInt Exception wirft bzw. ein String eingegeben wurde)
+			if(kalenderjahr == 0 )
+			{
+				HauptController.hauptfenster.setInfoBox("Kalenderjahr bitte in Ziffern angeben");
+			}
+			else{
+				//Prüfung, ob Anzahl korrekten Wert hat
+				if(anzahl <= 0)
+				{
+					HauptController.hauptfenster.setInfoBox("Anzahl darf nur Werte größer 0 beinhalten");
+				}
+				else
+				{
+					Eintrag eintrag = new Eintrag(kalenderjahr,view.getKalenderwoche(), anzahl,HauptController.activeUser.getArbeitsgruppe(), tempArt);
+					Calendar cal = Calendar.getInstance();
+				    DateFormat df;
+				    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
+					HauptController.hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am "+ df.format(cal.getTime()) +" erfasst");
+					view.reset();
+				}
+			}
+			
+
 		}
 	}
 
