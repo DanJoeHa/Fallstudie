@@ -23,6 +23,7 @@ public class SuchController implements Controller {
 	private String suchbegriff;
 	
 	
+	
 	public SuchController(){
 		
 	}
@@ -60,20 +61,34 @@ public class SuchController implements Controller {
 		String button = e.getActionCommand();
 
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
-			if( button == "suchen" ){
-				
-				//initiere Ergebnistabelle
-				this.viewErg = new TabelleView();
-				this.viewErg.setController( this );
-				this.viewErg.setButtonName("auswählen");
-				
-				//hole passende Suchergebnisse
-				this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff(), this.suchdomain );
-				
-				//Content auf Tabellen-Sicht wechseln
-			
-				this.viewErg.setTabelle( Funktionen.MitarbeiterCollection2Array(this.suchergebnisseMa ));
-				HauptController.hauptfenster.setContent( this.viewErg );
+			if( button == "Suchen" ){
+				try{
+						
+						//initiere Ergebnistabelle
+						this.viewErg = new TabelleView();
+						this.viewErg.setController( this );
+						this.viewErg.setButtonName("auswählen");
+						
+						//hole passende Suchergebnisse
+						this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff(), this.suchdomain );
+						
+						
+						
+						//festgelegter String Array
+						String[] MAColumn = new String[]{ "Benutzername", "Arbeitsgruppe", "Rolle", "Vorname", "Nachname", "Bereich"
+								
+						};
+						
+						//Content auf Tabellen-Sicht wechseln
+						
+						this.viewErg.setTabelle( MAColumn, Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ));
+						HauptController.hauptfenster.setContent( this.viewErg );
+				}catch(Exception ex){
+					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
+				}
+			}
+			if(button.equals( "Abbrechen")){
+					HauptController.hauptfenster.zurueck();
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
@@ -129,8 +144,12 @@ public class SuchController implements Controller {
 					HauptController.hauptfenster.setInfoBox(e1.getMessage());
 				}
 				
+				//festgelegter String Array
+				String[] AGColumn = new String[]{ "Leiter", "Bereich", "Kurzbeschreibung", "Beschreibung"
+						
+				};
 				//Content auf Tabellen-Sicht wechseln
-				this.viewErg.setTabelle( Funktionen.ArbeitsgruppeCollection2Array(this.suchergebnisseAg) );
+				this.viewErg.setTabelle( AGColumn,  Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ) );
 				HauptController.hauptfenster.setContent( this.viewErg );
 				
 			}

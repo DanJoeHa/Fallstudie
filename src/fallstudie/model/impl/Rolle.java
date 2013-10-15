@@ -24,7 +24,7 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  */
 public class Rolle  {
 
-	String rollenbezeichnung;
+	private String rollenbezeichnung;
 	
 	//--------------------KONSTRUKTOR--------------------
 	

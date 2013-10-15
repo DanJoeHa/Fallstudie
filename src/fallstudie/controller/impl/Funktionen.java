@@ -75,4 +75,26 @@ public abstract class Funktionen {
 		return sRollen;
 	}
 
+	
+	public static String[][] MitarbeiterCollection2ArraySuche(Collection<Mitarbeiter> m){
+		
+		Iterator<Mitarbeiter> i = m.iterator();
+		
+		String[][] sMitarbeiter = new String[ m.size() ][6];
+		int x = 0;
+		while( i.hasNext() ){
+			
+			Mitarbeiter ma = (Mitarbeiter ) i.next();
+			String[] aMitarbeiter = new String[6];
+			
+			sMitarbeiter[x][0] = ma.getBenutzername();
+			sMitarbeiter[x][1] = ma.getVorname();
+			sMitarbeiter[x][2] = ma.getNachname();
+			sMitarbeiter[x][3] = ma.getArbeitsgruppe().getKurzbezeichnung();
+			sMitarbeiter[x][4] = ma.getBereich().getKurzbezeichnung();
+			sMitarbeiter[x][5] = ma.getRolle().getRollenbezeichnung();
+			x++;
+		} 
+		return sMitarbeiter;
+	}
 }

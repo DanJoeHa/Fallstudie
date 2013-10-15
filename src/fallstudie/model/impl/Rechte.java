@@ -20,8 +20,8 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  */
 public class Rechte {
 
-	String name;
-	String beschreibung;
+	private String name;
+	private String beschreibung;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOR-------------------------
