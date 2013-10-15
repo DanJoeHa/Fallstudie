@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -60,6 +61,12 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		B_PasswortGenerieren.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_PasswortGenerieren.setBounds(440, 400, 150, 30);
 		add(B_PasswortGenerieren);
+		B_PasswortGenerieren.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e) {
+			}
+	    	
+	    });
 		
 		//C_Rolle
 		C_Rolle = new JComboBox<String>();

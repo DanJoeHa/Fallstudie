@@ -54,13 +54,13 @@ public class PasswortController implements Controller {
 				if(wdhPasswort.equals(neuesPasswort)){
 					
 					//Prüfe, ob neues Passowrt mit dem alten Passowort übereinstimmt
-					if(altesPasswort.equals(neuesPasswort)){
+					if(!altesPasswort.equals(neuesPasswort)){
 						HauptController.activeUser.setPasswort(neuesPasswort);
 						HauptController.hauptfenster.setInfoBox("Passwort erfolgreich geändert");
 						this.view.reset();
 					}
 					else{
-						HauptController.hauptfenster.setInfoBox("Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen");
+						HauptController.hauptfenster.setInfoBox("Ihr Passwort wurde nicht geändert! Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen");
 						this.view.reset();
 					}
 					
