@@ -25,7 +25,6 @@ public class MitarbeiterController implements Controller {
 	private MitarbeiterBearbeitenView view;
 	private MitarbeiterAnlegenView viewAnlegen;
 	private String operation;
-	private Bereich tempBereich;
 	
 	private Collection<Rolle> rollen;
 	private Collection<Bereich> bereiche;
@@ -70,9 +69,10 @@ public class MitarbeiterController implements Controller {
 			suche.setOperation("suchen");
 			HauptController.hauptfenster.setContent( suche.getView() );
 			
+			
+			//**********WICHTIG****************** neue Operation, wenn Suche Ergebnis gefunden hat
 			//warte auf Auswahl
 			while( suche.getAuswahl() == null ){
-				suche.getAuswahl();
 			}
 			
 			//ausgewählten Mitarbeiter holen
@@ -84,9 +84,9 @@ public class MitarbeiterController implements Controller {
 			this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
 			this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
 			this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
-			this.view.setRolle( this.rollen.toArray(), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
-			this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe() );
-			this.view.setBereich( this.bereiche.toArray(), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
+			this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
+			this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
+			this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
 		}
 	}
 	
@@ -106,7 +106,7 @@ public class MitarbeiterController implements Controller {
 			SuchController sucheAG = new SuchController();
 			sucheAG.setSuchdomain("Arbeitsgruppe");
 			sucheAG.setOperation("auswahl");
-			sucheAG.setSuchbegriff( this.getView().getArbeitsgruppe() );
+			sucheAG.setSuchbegriff( this.getView().getArbeitsgruppe());
 			HauptController.hauptfenster.setContent( sucheAG.getView() );
 			
 			//warte auf Auswahl
@@ -230,5 +230,6 @@ public class MitarbeiterController implements Controller {
 			case "anlegen": return (View) this.viewAnlegen;
 			case "bearbeiten": return (View) this.view;
 		}
+		return null;
 	}
 }

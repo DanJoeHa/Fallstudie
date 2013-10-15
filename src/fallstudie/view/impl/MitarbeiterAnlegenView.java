@@ -23,7 +23,7 @@ import javax.swing.JPasswordField;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
-public class MitarbeiterAnlegenView extends JPanel implements View{
+public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 	private JTextField T_Arbeitsgruppe;
 	private JTextField T_Passwort1;
 	private JButton B_Speichern;

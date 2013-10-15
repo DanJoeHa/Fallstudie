@@ -1,20 +1,32 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+
 import java.awt.Dimension;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-public class MitarbeiterBearbeitenView extends JPanel {
+import fallstudie.controller.interfaces.Controller;
+
+public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
+	
 	private JTextField T_Arbeitsgruppe;
+	private JButton B_Speichern;
+	private JComboBox<String> C_Bereich;
+	private JComboBox<String> C_Rolle;
 
 	/**
 	 * Create the panel.
@@ -30,13 +42,13 @@ public class MitarbeiterBearbeitenView extends JPanel {
 		setLayout(null);
 		
 		//C_Bereich
-		JComboBox C_Bereich = new JComboBox();
+		C_Bereich = new JComboBox();
 		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Bereich.setBounds(200, 300, 300, 30);
 		add(C_Bereich);
 				
 		//C_Rolle
-		JComboBox C_Rolle = new JComboBox();
+		C_Rolle = new JComboBox();
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Rolle.setBounds(200, 250, 300, 30);
 		add(C_Rolle);
@@ -62,10 +74,41 @@ public class MitarbeiterBearbeitenView extends JPanel {
 		add(B_Abbrechen);
 		
 		//B_Speichern
-		JButton B_Speichern = new JButton("Speichern");
+		B_Speichern = new JButton("Speichern");
 		B_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Speichern.setBounds(440, 600, 150, 30);
 		add(B_Speichern);
 
+	}
+	
+	public void setRolle(String[] rollen, String aktuelleRolle)
+	{
+		for( int i = 0; i < rollen.length; i++){
+			this.C_Rolle.addItem( rollen[i] );
+			if( rollen[i].equals(aktuelleRolle) ) {
+				this.C_Rolle.setSelectedIndex(i);
+			}
+		}
+	}
+	public void setArbeitsgruppe(String arbeitsgruppe)
+	{
+		T_Arbeitsgruppe.setText(arbeitsgruppe);
+	}
+	public void setBereich(String[] bereiche, String aktuellerBereich)
+	{
+		for( int i = 0; i < bereiche.length; i++){
+			this.C_Bereich.addItem( bereiche[i] );
+			if( bereiche[i].equals(aktuellerBereich) ) {
+				this.C_Bereich.setSelectedIndex(i);
+			}
+		}
+	}
+	
+	public void setController(Controller c) {
+		this.B_Speichern.addActionListener(c);
+	}
+	
+	public String getArbeitsgruppe(){
+		return T_Arbeitsgruppe.getText();
 	}
 }
