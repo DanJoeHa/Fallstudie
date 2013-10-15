@@ -69,24 +69,27 @@ public class MitarbeiterController implements Controller {
 			suche.setOperation("suchen");
 			HauptController.hauptfenster.setContent( suche.getView() );
 			
-			
+			/* NICHT LÖSCHEN!!!!!!!
 			//**********WICHTIG****************** neue Operation, wenn Suche Ergebnis gefunden hat
 			//warte auf Auswahl
-			while( suche.getAuswahl() == null ){
-			}
+			suche.getAuswahl();
 			
 			//ausgewählten Mitarbeiter holen
 			this.gewaehlterMitarbeiter = (Mitarbeiter) suche.getAuswahl();
+			*/
 			
 			//Mitarbeiter bearbeiten
 			this.view = new MitarbeiterBearbeitenView();
 			this.view.setController( this );
+			
+			/* NICHT LÖSCHEN!!!
 			this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
 			this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
 			this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
 			this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
 			this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
 			this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
+			*/
 		}
 	}
 	

@@ -1,10 +1,12 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
+import java.util.Collection;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Jahresuebersicht;
 import fallstudie.model.impl.Wochenuebersicht;
+import fallstudie.model.impl.Zeile;
 import fallstudie.view.impl.DatenAnzeigenAuswahlView;
 import fallstudie.view.impl.TabelleView;
 import fallstudie.view.interfaces.View;
@@ -51,35 +53,69 @@ public class DatenAnzeigenController implements Controller {
 			int kw = this.view.getWoche();
 			int jahr = this.view.getJahr();			
 			
+			//Ueberschift
+			String headline = "Daten anzeigen ";
+			String[] tabellenspalten;
+			
 			//Jahresübersicht
 			if( kw == 0 ){
 				
-				if( HauptController.activeUser.checkRecht(recht) )
-				
-				//Jahresübersicht Bereichsleiter
-				Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, HauptController.activeUser.getBereich() );
+				headline += "Jahr " + jahr;
 				
 				//Jahresübersicht Zentralbereichsleiter/Fachbereichsorganisation
-				Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr );
+				if( HauptController.activeUser.checkRecht("Lesen alle Bereiche Jahr") ){
+					Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, true );
+					//TODO
+				}
+				
+				//Jahresübersicht Bereichsleiter
+				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs Jahr") ){
+					Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, HauptController.activeUser.getBereich() );
+					//TODO
+				}
 				
 				//Jahresübersicht Gruppenleiter
-				Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, HauptController.activeUser.getArbeitsgruppe() );
-				
+				if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe Jahr") ){
+					Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, HauptController.activeUser.getArbeitsgruppe() );
+					
+					tabellenspalten[0] = oJahresuebersicht.getArbeitsgruppe().getKurzbezeichnung();
+					Collection<Zeile> values = oJahresuebersicht.getZeileArbeitsgruppe();
+					
+					
+				}
 			}else{
 			//Kalenderwochenübersicht
 				
-				//Kalenderwochenübersicht Bereichsleiter
-				Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, HauptController.activeUser.getBereich() );
+				headline += "KW " + kw + "/" + jahr;
 				
 				//Kalenderwochenübersicht Zentralbereichsleiter/Fachbereichsorganisation
-				Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw );
+				if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ){
+					Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, true );
+				}
+				
+				//Kalenderwochenübersicht Bereichsleiter
+				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs KW") ){
+					Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, HauptController.activeUser.getBereich() );
+				}
 				
 				//Kalenderwochenübersicht Gruppenleiter
-				Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, HauptController.activeUser.getArbeitsgruppe() );
-				
+				if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe KW") ){
+					Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, HauptController.activeUser.getArbeitsgruppe() );
+				}
 			}
 			
 			//an TabelleView übergeben
+			this.viewErg = new TabelleView();
+			this.viewErg.setController( this );
+			this.viewErg.setTabelle(tabellendefinition, tabellenwerte);
+			this.viewErg.setButtonName("Drucken");
+			HauptController.hauptfenster.setUeberschrift(headline);
+			HauptController.hauptfenster.setContent( this.viewErg );
+		}
+		
+		//Daten ausdrucken
+		if( button.equals("weiter") ){
+			
 		}
 	}
 

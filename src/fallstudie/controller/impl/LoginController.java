@@ -22,6 +22,9 @@ public class LoginController implements Controller
 		String button = e.getActionCommand();
 		if(button == "Login")
 		{
+			//InfoBox leeren, wenn andere Navigation ausgewählt wird
+			HauptController.hauptfenster.setInfoBox(" ");
+			
 			try{
 				HauptController.activeUser = Mitarbeiter.einloggen(this.view.getBenutzername(), this.view.getPasswort());
 				
