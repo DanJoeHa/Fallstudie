@@ -124,4 +124,24 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 			this.C_Bereich.addItem( bereiche[i] );
 		}
 	}
+	
+	public String getRolle(){
+		return C_Rolle.getSelectedItem().toString();
+	}
+	
+	public String getPasswort(){
+		return T_Passwort1.getText();
+	}
+	
+	public String getBereich(){
+		return C_Bereich.getSelectedItem().toString();
+	}
+	
+	public String getArbeitsgruppe(){
+		return T_Arbeitsgruppe.getText();
+	}
+	public void setArbeitsgruppe(String arbeitsgruppe)
+	{
+		T_Arbeitsgruppe.setText(arbeitsgruppe);
+	}
 }

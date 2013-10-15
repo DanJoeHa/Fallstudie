@@ -106,7 +106,11 @@ public class MitarbeiterController implements Controller {
 			SuchController sucheAG = new SuchController();
 			sucheAG.setSuchdomain("Arbeitsgruppe");
 			sucheAG.setOperation("auswahl");
-			sucheAG.setSuchbegriff( this.getView().getArbeitsgruppe());
+			switch( this.operation )
+			{
+				case "anlegen": sucheAG.setSuchbegriff(this.viewAnlegen.getArbeitsgruppe());
+				case "bearbeiten": sucheAG.setSuchbegriff(this.view.getArbeitsgruppe());
+			}
 			HauptController.hauptfenster.setContent( sucheAG.getView() );
 			
 			//warte auf Auswahl
@@ -118,7 +122,11 @@ public class MitarbeiterController implements Controller {
 			this.arbeitsgruppe = (Arbeitsgruppe) sucheAG.getAuswahl();
 			
 			//AG-Kurzbezeichnung an Maske liefern
-			this.getView().setArbeitsgruppe( this.arbeitsgruppe.getKurzbezeichnung() );
+			switch( this.operation )
+			{
+				case "anlegen": this.viewAnlegen.setArbeitsgruppe( this.arbeitsgruppe.getKurzbezeichnung() );
+				case "bearbeiten": this.view.setArbeitsgruppe( this.arbeitsgruppe.getKurzbezeichnung() );
+			}
 			
 		}//Arbeitsgruppe suchen
 		

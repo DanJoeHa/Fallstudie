@@ -112,6 +112,16 @@ public class LayoutMitarbeiter extends JPanel implements View{
 	{
 		T_Benutzername.setText(benutzername);
 	}
+	
+	public String getVorname(){
+		return T_Vorname.getText();
+	}
+	public String getNachname(){
+		return T_Nachname.getText();
+	}
+	public String getBenutzername(){
+		return T_Benutzername.getText();
+	}
 
 	@Override
 	public void reset() {
