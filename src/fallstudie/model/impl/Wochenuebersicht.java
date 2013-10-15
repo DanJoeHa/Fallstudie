@@ -11,7 +11,7 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  * CHANGELOG
  * 
  * @author Phil, 09.10.2013 generiert + implements (Interface) wurde entfernt,
- *         da Konstruktor nicht möglich ist im Interface
+ *         da Konstruktor nicht mï¿½glich ist im Interface
  * @author Jenny
  * @date 14.10.13
  * @change Methoden implementiert
@@ -180,10 +180,10 @@ public class Wochenuebersicht {
 		ResultSet resultSet = null;
 		try 
 		{			
-			System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+			System.out.println("SELECT Art, Summe FROM Wochenuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
-					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"SELECT Art, Summe FROM Wochenuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	

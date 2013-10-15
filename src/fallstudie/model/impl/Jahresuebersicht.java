@@ -273,7 +273,7 @@ public class Jahresuebersicht {
 			//System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 				//	"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
-					"SELECT Art, Summe FROM Wochenuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 					"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	
