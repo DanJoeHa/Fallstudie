@@ -13,6 +13,7 @@ import fallstudie.controller.impl.HauptController;
 public class Fallstudie {
 
 	/**
+	 *
 	 * Ruft den Hauptcontroller auf
 	 * 
 	 * @author Johannes Haag

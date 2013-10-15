@@ -52,12 +52,12 @@ public class ExportTesterKlasse {
 		
 		
 	
-				//CSVExport.exportCSV(content);
+				CSVExport.exportCSV(content);
 		
 
 
 			
-		 PDFDruck.generateTablePDF(content,"Jahresuebersicht",ueberschriften);
+	//	 PDFDruck.generateTablePDF(content,"Jahresuebersicht",ueberschriften);
 	       
 	 
 	 }
