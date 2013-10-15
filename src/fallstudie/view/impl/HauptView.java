@@ -117,7 +117,7 @@ public class HauptView extends JFrame implements View{
 		}
 		
 		if( r2datenanzeigen ){
-			DefaultMutableTreeNode anzeigen = new DefaultMutableTreeNode("Daten anzeigen");
+			DefaultMutableTreeNode anzeigen = new DefaultMutableTreeNode("Lesen");
 			root.add(anzeigen);
 		}
 		
