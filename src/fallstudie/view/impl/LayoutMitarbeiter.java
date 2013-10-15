@@ -1,19 +1,28 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+
 import java.awt.Dimension;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-public class LayoutMitarbeiter extends JPanel {
+import fallstudie.controller.interfaces.Controller;
+import fallstudie.view.interfaces.View;
+
+public class LayoutMitarbeiter extends JPanel implements View{
 	protected JTextField T_Vorname;
 	protected JTextField T_Nachname;
 	protected JTextField T_Benutzername;
@@ -88,6 +97,30 @@ public class LayoutMitarbeiter extends JPanel {
 		T_Benutzername.setBounds(200, 200, 300, 30);
 		add(T_Benutzername);
 		
+	}
+	
+	public void setVorname(String vorname)
+	{
+		T_Vorname.setText(vorname);
+	}
+	
+	public void setNachname(String nachname)
+	{
+		T_Nachname.setText(nachname);
+	}
+	public void setBenutzername(String benutzername)
+	{
+		T_Benutzername.setText(benutzername);
+	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setController(Controller c) {
+		
 	}
 }
