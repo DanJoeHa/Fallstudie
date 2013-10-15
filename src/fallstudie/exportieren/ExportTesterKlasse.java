@@ -1,13 +1,10 @@
 package fallstudie.exportieren;
 
  
-import java.awt.Desktop;
 import java.awt.print.PrinterException;
-import java.io.File;
 import java.io.IOException;
 
 import org.apache.pdfbox.exceptions.COSVisitorException;
-import org.apache.pdfbox.pdmodel.PDDocument;
  
 public class ExportTesterKlasse {
  
