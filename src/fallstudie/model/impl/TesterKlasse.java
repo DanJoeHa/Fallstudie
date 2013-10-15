@@ -18,18 +18,19 @@ public class TesterKlasse {
 
 		Collection<Jahresuebersicht> a = new LinkedList<>();
 		Collection<Zeile> blabla = new LinkedList<>();
-		a = Jahresuebersicht.getAlleJahresuebersichtenZuAllenBereichen(2013);
+		Bereich bereich = Bereich.getBereichByName("c");
+		a = Jahresuebersicht.getAlleJahresuebersichtenZumBereich(2013, bereich);
 		
 		for (Iterator i = a.iterator();i.hasNext();)
 		{
 			Jahresuebersicht jahr = (Jahresuebersicht) i.next();
 			
-			Collection<Zeile> zeile = jahr.getZeileBereich();
+			Collection<Zeile> zeile = jahr.getZeileArbeitsgruppe();
 			
 			for (Iterator x = zeile.iterator(); x.hasNext();)
 			{
 				Zeile d = (Zeile) x.next();
-				System.out.println("Bereich: "+jahr.getBereich().getKurzbezeichnung()+"Art: "+d.getArt().getName()+" + "+d.getSumme());
+				System.out.println("Arbeitsgruppe: "+jahr.getArbeitsgruppe().getKurzbezeichnung()+"Art: "+d.getArt().getName()+" + "+d.getSumme());
 			}
 		}
 		}

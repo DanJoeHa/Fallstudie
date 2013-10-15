@@ -178,7 +178,7 @@ public class Jahresuebersicht {
 	 * @param bereich
 	 * @return
 	 */
-	public static Collection<Jahresuebersicht> getAlleJahresuebersichtenZumBereich(String jahr, Bereich bereich)
+	public static Collection<Jahresuebersicht> getAlleJahresuebersichtenZumBereich(int jahr, Bereich bereich)
 	{
 		RemoteConnection Connection = new RemoteConnection();
 		Collection<Jahresuebersicht> alleJahresuebersichten = new LinkedList<>();
@@ -202,16 +202,16 @@ public class Jahresuebersicht {
 			
 			while(jahresUebersicht.next())
 			{	
-				int bereichID = jahresUebersicht.getInt("Bereich");
-				Bereich bereich = new Bereich(bereichID);
+				int arbeitsgruppeID = jahresUebersicht.getInt("Arbeitsgruppe");
+				Arbeitsgruppe gruppe = new Arbeitsgruppe(arbeitsgruppeID);
 				
-				alleJahresuebersichten.add(new Jahresuebersicht(jahr, bereich));
+				alleJahresuebersichten.add(new Jahresuebersicht(jahr, gruppe));
 			}
 			
 		jahresUebersicht.close();
 		} 
 		catch (SQLException e) {
-			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZuAllenbereichen(String) aufgetreten:");
+			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZumBereich(String) aufgetreten:");
 			System.err.println(e.getMessage());
 		}
 		return alleJahresuebersichten;
