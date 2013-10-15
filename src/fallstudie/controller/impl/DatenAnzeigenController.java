@@ -66,14 +66,47 @@ public class DatenAnzeigenController implements Controller {
 				
 				//Jahresübersicht Zentralbereichsleiter/Fachbereichsorganisation
 				if( HauptController.activeUser.checkRecht("Lesen alle Bereiche Jahr") ){
-					//Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, true );
-					//TODO
+					Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZuAllenBereichen( jahr );
+					
+					try{
+						
+						int j = 0;
+						tabellenspalten = new String[ coJahresuebersichten.size() ];
+						Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
+						while( itJahre.hasNext() ){
+							
+							Jahresuebersicht oJahresuebersicht = itJahre.next();
+							tabellenspalten[j] = oJahresuebersicht.getBereich().getKurzbezeichnung();
+							
+							Collection<Zeile> z = oJahresuebersicht.getZeileBereich();
+							Iterator<Zeile> itZeile = z.iterator();
+							int i = 0;
+							while( itZeile.hasNext() ){
+								
+								Zeile oZeile = itZeile.next();
+								tabellenwerte[i][j] = oZeile.getSumme();
+								i++;
+							}
+							
+							j++;
+						}
+						
+					}catch(Exception ex){
+						
+					}
+					
 				}
 				
 				//Jahresübersicht Bereichsleiter
 				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs Jahr") ){
-					Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, HauptController.activeUser.getBereich() );
-					//TODO
+					//Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
+					
+					try{
+						
+					}catch (Exception ex){
+						
+					}
+					
 				}
 				
 				//Jahresübersicht Gruppenleiter
@@ -82,18 +115,22 @@ public class DatenAnzeigenController implements Controller {
 					
 					
 					try {
-						tabellenspalten[0] = oJahresuebersicht.getArbeitsgruppe().getKurzbezeichnung();
+						
+						tabellenspalten = new String[2];
+						tabellenspalten[0] = "Art";
+						tabellenspalten[1] = "Summe";
 						Collection<Zeile> values;
 						
 						values = oJahresuebersicht.getZeileArbeitsgruppe();
 						
-						tabellenwerte = new String[ values.size() ][1];
+						tabellenwerte = new String[ values.size() ][2];
 						int x = 0;
 						Iterator<Zeile> i = values.iterator();
 						while( i.hasNext() ){
 							Zeile z = (Zeile) i.next();
 							tabellenwerte[x][0] = z.getArt().getName();
 							tabellenwerte[x][1] = Integer.toString( z.getSumme() );
+							x++;
 						}
 						
 					} catch (Exception e1) {
@@ -112,12 +149,12 @@ public class DatenAnzeigenController implements Controller {
 				
 				//Kalenderwochenübersicht Zentralbereichsleiter/Fachbereichsorganisation
 				if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ){
-					//Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, true );
+					//Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZuAllenBereichen( jahr );
 				}
 				
 				//Kalenderwochenübersicht Bereichsleiter
 				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs KW") ){
-					Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, HauptController.activeUser.getBereich() );
+					//Collection<Wochenuebersicht> coJahresuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
 				}
 				
 				//Kalenderwochenübersicht Gruppenleiter
@@ -126,18 +163,21 @@ public class DatenAnzeigenController implements Controller {
 					
 					
 					try {
-						tabellenspalten[0] = oWochenuebersicht.getArbeitsgruppe().getKurzbezeichnung();
+						tabellenspalten = new String[2];
+						tabellenspalten[0] = "Art";
+						tabellenspalten[1] = "Summe";
 						Collection<Zeile> values;
 						
 						values = oWochenuebersicht.getZeileArbeitsgruppe();
 						
-						tabellenwerte = new String[ values.size() ][1];
+						tabellenwerte = new String[ values.size() ][2];
 						int x = 0;
 						Iterator<Zeile> i = values.iterator();
 						while( i.hasNext() ){
 							Zeile z = (Zeile) i.next();
 							tabellenwerte[x][0] = z.getArt().getName();
 							tabellenwerte[x][1] = Integer.toString( z.getSumme() );
+							x++;
 						}
 						
 					} catch (Exception e1) {
