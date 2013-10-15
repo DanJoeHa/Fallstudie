@@ -198,7 +198,7 @@ public class Jahresuebersicht {
 		//System.out.println("SELECT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
 		
 		try {
-			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Arbeitsgruppe FROM Wochenuebersicht WHERE Kalenderjahr='"+jahr+"' AND Bereich='"+bereichID+"'");
+			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"' AND Bereich='"+bereichID+"'");
 			
 			while(jahresUebersicht.next())
 			{	
@@ -273,7 +273,7 @@ public class Jahresuebersicht {
 			//System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 				//	"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
-					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"SELECT Art, Summe FROM Wochenuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 					"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	
