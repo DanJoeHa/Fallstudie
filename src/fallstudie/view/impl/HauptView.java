@@ -30,6 +30,7 @@ public class HauptView extends JFrame implements View{
 
 	private static final long serialVersionUID = 999907361524491947L;
 	private JPanel Content, NavigationBackground;
+	private View activeView, lastView;
 	private JButton B_Logout, B_Hilfe;
 	private JTextPane InfoBox;
 	private JTree Navigation;
@@ -209,9 +210,15 @@ public class HauptView extends JFrame implements View{
 			System.out.println("error while removing acitve view");
 		}
 		this.Content.add(v);
+		this.lastView = this.activeView;
+		this.activeView = vi;
 		this.Content.doLayout();
 		this.revalidate();
 		
+	}
+	
+	public void zurueck(){
+		this.setContent( this.lastView );
 	}
 	
 	@Override
