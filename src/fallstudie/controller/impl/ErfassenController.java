@@ -62,7 +62,7 @@ public class ErfassenController implements Controller {
 				//Prüfung, ob Anzahl korrekten Wert hat
 				if(anzahl <= 0)
 				{
-					HauptController.hauptfenster.setInfoBox("Anzahl darf nur Werte größer 0 beinhalten");
+					HauptController.hauptfenster.setInfoBox("Anzahl darf nur Werte größer 0 und keine Buchstaben beinhalten");
 				}
 				else
 				{
