@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.regex.Pattern;
 
 import fallstudie.model.mysql.connector.RemoteConnection;
 
@@ -132,13 +133,18 @@ public class Rolle  {
 			//System.out.println("SELECT Berechtigungsname FROM Rollenberechtigungen WHERE Rollenbezeichnung ='"+this.rollenbezeichnung+"'");
 			
 			resultSet = Connection.executeQueryStatement("SELECT Berechtigungsname FROM Rollenberechtigungen WHERE Rollenbezeichnung ='"+this.rollenbezeichnung+"'");
-				while (resultSet.next()) 
+			boolean lesen =	false;
+			while (resultSet.next()) 
 				{	
 					String rechteName = resultSet.getString("Berechtigungsname");
+					
+					if (Pattern.matches("Lesen.*", rechteName)) lesen = true;
 					result.add(new Rechte(rechteName));
 					
 				}
 				resultSet.close();
+			if (lesen) result.add(new Rechte("Lesen"));
+			
 		}
 		catch (SQLException e) 
 		{	System.err.println("Dieser Fehler ist aufgetreten in getAlleRollen():");
