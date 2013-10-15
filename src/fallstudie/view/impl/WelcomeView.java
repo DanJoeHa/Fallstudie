@@ -42,6 +42,7 @@ public class WelcomeView extends JPanel implements View{
 		Hinweis = new JTextPane();
 		Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Hinweis.setBounds(30, 50, 560, 100);
+		Hinweis.setEditable(false);
 		this.add(Hinweis);
 		
 	}

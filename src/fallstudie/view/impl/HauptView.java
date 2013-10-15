@@ -208,6 +208,7 @@ public class HauptView extends JFrame implements View{
 	}
 	
 	public void zurueck(){
+		
 		this.setContent( this.lastView );
 	}
 	

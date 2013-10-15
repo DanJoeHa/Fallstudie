@@ -31,14 +31,15 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 	private JButton B_Speichern;
 	private JComboBox<String> C_Rolle;
 	private JComboBox<String> C_Bereich;
+	private JButton B_SucheArbeitsgruppe ;
 
 	/**
 	 * Create the panel.
 	 */
 	public MitarbeiterAnlegenView() {
-		setPreferredSize(new Dimension(620, 660));
-		setMinimumSize(new Dimension(620, 660));
-		setMaximumSize(new Dimension(620, 660));
+		setPreferredSize(new Dimension(620, 655));
+		setMinimumSize(new Dimension(620, 655));
+		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setBounds(new Rectangle(0, 0, 620, 660));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -101,7 +102,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		add(T_Arbeitsgruppe);
 
 		//B_SucheArbeitsgruppe
-		JButton B_SucheArbeitsgruppe = new JButton("Suchen");
+		B_SucheArbeitsgruppe = new JButton("Suchen");
 		B_SucheArbeitsgruppe.setIcon(null);
 		B_SucheArbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_SucheArbeitsgruppe.setBounds(440, 350, 150, 30);
@@ -124,6 +125,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 	@Override
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
+		this.B_SucheArbeitsgruppe.addActionListener(c);
 		
 	}
 

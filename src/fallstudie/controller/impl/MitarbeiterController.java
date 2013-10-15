@@ -105,17 +105,21 @@ public class MitarbeiterController implements Controller {
 		String button = e.getActionCommand();
 		
 		//Arbeitsgruppe suchen
-		if( button.equals("suchen") ){
+		if( button.equals("Suchen") ){
 			SuchController sucheAG = new SuchController();
 			sucheAG.setSuchdomain("Arbeitsgruppe");
-			sucheAG.setOperation("auswahl");
+
 			switch( this.operation )
 			{
 				case "anlegen": sucheAG.setSuchbegriff(this.viewAnlegen.getArbeitsgruppe());
+					break;
 				case "bearbeiten": sucheAG.setSuchbegriff(this.view.getArbeitsgruppe());
+					break;
 			}
-			HauptController.hauptfenster.setContent( sucheAG.getView() );
+			sucheAG.setOperation("auswahl");
+			HauptController.hauptfenster.setContent(sucheAG.getView() );
 			
+			/*
 			//**********WICHTIG****************** neue Operation, wenn Suche Ergebnis gefunden hat
 			//warte auf Auswahl
 			while( sucheAG.getAuswahl() == null ){
@@ -131,62 +135,67 @@ public class MitarbeiterController implements Controller {
 				case "anlegen": this.viewAnlegen.setArbeitsgruppe( this.arbeitsgruppe.getKurzbezeichnung() );
 				case "bearbeiten": this.view.setArbeitsgruppe( this.arbeitsgruppe.getKurzbezeichnung() );
 			}
-			
+			*/
 		}//Arbeitsgruppe suchen
 		
 		//Mitarbeiter anlegen
-		if( button.equals("anlegen") ){
-			
-			//hole Nutzerdaten
-			String benutzername = this.viewAnlegen.getBenutzername();
-			String nachname = this.viewAnlegen.getNachname();
-			String vorname = this.viewAnlegen.getVorname();
-			String passwort = this.viewAnlegen.getPasswort();
-			String rollenbez = this.viewAnlegen.getRolle();
-			
-			//finde passendes Rollen-Objekt
-			Rolle rolle = this.findeRolleZuBezeichnung(rollenbez);
-			try{
-				if(rollenbez.equals("Zentralbereichsleiter") || rollenbez.equals("Bereichsleiter") ){
-					//finde passendes Bereichs-Objekt
-					Bereich bereich = this.findeBereichZuBezeichnung(this.viewAnlegen.getBereich());
-					
-					//Mitarbeiter mit Bereich anlegen
-					Mitarbeiter neuerMitarbeiter = new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, bereich);
-				}else{
-					
-					//Mitarbeiter mit Arbeitsgruppe anlegen
-					Mitarbeiter neuerMitarbeiter = new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.arbeitsgruppe);
+		if(this.operation.equals("anlegen"))
+		{
+			if( button.equals("Speichern") ){
+				
+				//hole Nutzerdaten
+				String benutzername = this.viewAnlegen.getBenutzername();
+				String nachname = this.viewAnlegen.getNachname();
+				String vorname = this.viewAnlegen.getVorname();
+				String passwort = this.viewAnlegen.getPasswort();
+				String rollenbez = this.viewAnlegen.getRolle();
+				//finde passendes Rollen-Objekt
+				Rolle rolle = this.findeRolleZuBezeichnung(rollenbez);
+				try{
+					if(rollenbez.equals("Zentralbereichsleiter") || rollenbez.equals("Bereichsleiter") ){
+						//finde passendes Bereichs-Objekt
+						Bereich bereich = this.findeBereichZuBezeichnung(this.viewAnlegen.getBereich());
+						
+						//Mitarbeiter mit Bereich anlegen
+						Mitarbeiter neuerMitarbeiter = new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, bereich);
+					}else{
+						
+						//Mitarbeiter mit Arbeitsgruppe anlegen
+						Mitarbeiter neuerMitarbeiter = new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.arbeitsgruppe);
+					}
+				}catch(Exception ex){
+					HauptController.hauptfenster.setInfoBox("Mitarbeiter konnte nicht gespeichert werden.");
 				}
-			}catch(Exception ex){
-				HauptController.hauptfenster.setInfoBox("Mitarbeiter konnte nicht gespeichert werden.");
-			}
-			
+			}	
 		}//anlegen
 		
+		
 		//Mitarbeiter bearbeiten
-		if( button.equals("speichern") ){
-			
-			String msg = "Benutzerdaten wurden erfolgreich geändert.";
-			String errmsg = "";
-			
-			if( !this.gewaehlterMitarbeiter.setVorname( this.view.getVorname() ) ) errmsg+= "Vorname konnte nicht geändert werden. \n";
-			if( !this.gewaehlterMitarbeiter.setNachname( this.view.getNachname() ) ) errmsg+= "Nachname konnte nicht geändert werden. \n";
-			String rollenbezeichnung = this.view.getRolle();
-			if( !this.gewaehlterMitarbeiter.setRolle( this.findeRolleZuBezeichnung( rollenbezeichnung ) ) ) errmsg+= "Rolle konnte nicht geändert werden. \n";
-			//TODO: klären: passwort für einen Mitarbeiter ändern?
-			
-			if( rollenbezeichnung.equals("Zentralbereichsleiter") || rollenbezeichnung.equals("Bereichsleiter") ){
-				if( !this.gewaehlterMitarbeiter.setBereich( this.findeBereichZuBezeichnung( this.view.getBereich() ) ) ) errmsg+= "Bereich konnte nicht geändert werden. \n";
-			}else{
-				if( !this.gewaehlterMitarbeiter.setArbeitsgruppe( this.arbeitsgruppe ) ) errmsg+= "Arbeitsgruppe konnte nicht geändert werden. \n";
+		if(this.operation.equals("bearbeiten"))
+		{
+			if( button.equals("Speichern") ){
+				
+				String msg = "Benutzerdaten wurden erfolgreich geändert.";
+				String errmsg = "";
+				
+				if( !this.gewaehlterMitarbeiter.setVorname( this.view.getVorname() ) ) errmsg+= "Vorname konnte nicht geändert werden. \n";
+				if( !this.gewaehlterMitarbeiter.setNachname( this.view.getNachname() ) ) errmsg+= "Nachname konnte nicht geändert werden. \n";
+				String rollenbezeichnung = this.view.getRolle();
+				if( !this.gewaehlterMitarbeiter.setRolle( this.findeRolleZuBezeichnung( rollenbezeichnung ) ) ) errmsg+= "Rolle konnte nicht geändert werden. \n";
+				//TODO: klären: passwort für einen Mitarbeiter ändern?
+				
+				if( rollenbezeichnung.equals("Zentralbereichsleiter") || rollenbezeichnung.equals("Bereichsleiter") ){
+					if( !this.gewaehlterMitarbeiter.setBereich( this.findeBereichZuBezeichnung( this.view.getBereich() ) ) ) errmsg+= "Bereich konnte nicht geändert werden. \n";
+				}else{
+					if( !this.gewaehlterMitarbeiter.setArbeitsgruppe( this.arbeitsgruppe ) ) errmsg+= "Arbeitsgruppe konnte nicht geändert werden. \n";
+				}
+				
+				//Rückmeldung an User ausgeben
+				if( !errmsg.isEmpty() ){
+					msg = errmsg;
+				}
+				HauptController.hauptfenster.setInfoBox(msg);
 			}
-			
-			//Rückmeldung an User ausgeben
-			if( !errmsg.isEmpty() ){
-				msg = errmsg;
-			}
-			HauptController.hauptfenster.setInfoBox(msg);
 		}
 	}
 	
