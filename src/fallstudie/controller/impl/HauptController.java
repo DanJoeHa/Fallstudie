@@ -95,6 +95,9 @@ public class HauptController implements Controller, TreeSelectionListener {
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		
+		//InfoBox leeren, wenn andere Navigation ausgewählt wird
+		this.hauptfenster.setInfoBox(" ");
+		
 		//verhindern, dass User sein erstes Passwort beibehält
 		if( activeUser.passwortIsChanged() ){
 		

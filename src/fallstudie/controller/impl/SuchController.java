@@ -61,27 +61,34 @@ public class SuchController implements Controller {
 		String button = e.getActionCommand();
 
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
-			if( button == "suchen" ){
-				
-				//initiere Ergebnistabelle
-				this.viewErg = new TabelleView();
-				this.viewErg.setController( this );
-				this.viewErg.setButtonName("auswählen");
-				
-				//hole passende Suchergebnisse
-				this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff(), this.suchdomain );
-				
-				
-				
-				//festgelegter String Array
-				String[] MAColumn = new String[]{ "Benutzername", "Arbeitsgruppe", "Rolle", "Vorname", "Nachname", "Bereich"
+			if( button == "Suchen" ){
+				try{
 						
-				};
-				
-				//Content auf Tabellen-Sicht wechseln
-				
-				this.viewErg.setTabelle( MAColumn, Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ));
-				HauptController.hauptfenster.setContent( this.viewErg );
+						//initiere Ergebnistabelle
+						this.viewErg = new TabelleView();
+						this.viewErg.setController( this );
+						this.viewErg.setButtonName("auswählen");
+						
+						//hole passende Suchergebnisse
+						this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff(), this.suchdomain );
+						
+						
+						
+						//festgelegter String Array
+						String[] MAColumn = new String[]{ "Benutzername", "Arbeitsgruppe", "Rolle", "Vorname", "Nachname", "Bereich"
+								
+						};
+						
+						//Content auf Tabellen-Sicht wechseln
+						
+						this.viewErg.setTabelle( MAColumn, Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ));
+						HauptController.hauptfenster.setContent( this.viewErg );
+				}catch(Exception ex){
+					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
+				}
+			}
+			if(button.equals( "Abbrechen")){
+					HauptController.hauptfenster.zurueck();
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
@@ -142,7 +149,7 @@ public class SuchController implements Controller {
 						
 				};
 				//Content auf Tabellen-Sicht wechseln
-				this.viewErg.setTabelle( AGColumn, Funktionen.ArbeitsgruppeCollection2Array(this.suchergebnisseAg) );
+				this.viewErg.setTabelle( AGColumn,  Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ) );
 				HauptController.hauptfenster.setContent( this.viewErg );
 				
 			}
