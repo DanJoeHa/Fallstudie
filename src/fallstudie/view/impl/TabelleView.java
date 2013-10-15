@@ -56,43 +56,7 @@ public class TabelleView extends JPanel implements View {
 		TA_Tabelle.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
 		scrollPane.setViewportView(TA_Tabelle);
 		TA_Tabelle.setBorder(new LineBorder(new Color(0, 0, 0)));
-		TA_Tabelle.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
-			}
-		));
+		
 		TA_Tabelle.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		JButton B_Abbrechen = new JButton("Abbrechen");
@@ -112,23 +76,28 @@ public class TabelleView extends JPanel implements View {
 	
 	//Tabelle befüllen
 	public void setTabelle(String[] tabellendefinition, String[][] tabellenwerte){
-		DefaultTableModel TableModel = new DefaultTableModel();
+		
+		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellendefinition));
+		
+		
+		//DefaultTableModel TableModel = new DefaultTableModel();
 		
 		//Columnamen vergeben String Array mit Namen
-		for(int i = 0; i < tabellendefinition.length; i++){
-			String Column = tabellendefinition[i];
-			TableModel.addColumn(Column);
-		}
+		//for(int i = 0; i < tabellendefinition.length; i++){
+		//	String Column = tabellendefinition[i];
+		//	TableModel.addColumn(Column);
+		//}
 		
 		
 		
-		//Row wird gefüllt aus Object Array ??? keine Ahnung ob des geht
-		for(int i = 0; i < tabellenwerte.length; i++){
+		//Row wird gefüllt aus Object Array 
+		//for(int i = 0; i < tabellenwerte.length; i++){
+		//	
+		//	Object[] zeile = (Object[]) tabellenwerte[i];
+		//	TableModel.addRow(zeile);
 			
-			Object[] zeile = (Object[]) tabellenwerte[i];
-			TableModel.addRow(zeile);
-			
-		}
+		//}
+		
 	}
 	
 	@Override
