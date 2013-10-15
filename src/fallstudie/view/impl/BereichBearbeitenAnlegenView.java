@@ -22,7 +22,7 @@ import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
 public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen implements View {
-	private JTextField T_BreichsleiterSuchbegriff;
+	private JTextField T_BereichsleiterSuchbegriff;
 	private JButton B_BereichsleiterSuche;
 	/**
 	 * Create the panel.
@@ -44,11 +44,11 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		add(L_Bereichsleiter);
 		
 		//T_Bereichsleiter_Suchbegriff
-		T_BreichsleiterSuchbegriff = new JTextField();
-		T_BreichsleiterSuchbegriff.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_BreichsleiterSuchbegriff.setBounds(200, 118, 220, 30);
-		add(T_BreichsleiterSuchbegriff);
-		T_BreichsleiterSuchbegriff.setColumns(10);
+		T_BereichsleiterSuchbegriff = new JTextField();
+		T_BereichsleiterSuchbegriff.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		T_BereichsleiterSuchbegriff.setBounds(200, 118, 220, 30);
+		add(T_BereichsleiterSuchbegriff);
+		T_BereichsleiterSuchbegriff.setColumns(10);
 		
 		//B_Bereichsleiter_Suche
 		B_BereichsleiterSuche = new JButton("Suchen");
@@ -59,7 +59,7 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 	}
 	
 	public void setLeiter(String benutzerid){
-		this.T_BreichsleiterSuchbegriff.setText(benutzerid);
+		this.T_BereichsleiterSuchbegriff.setText(benutzerid);
 	}
 	
 	@Override
@@ -69,6 +69,6 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 
 	@Override
 	public void reset() {
-		this.T_BreichsleiterSuchbegriff.setText("");
+		this.T_BereichsleiterSuchbegriff.setText("");
 	}
 }
