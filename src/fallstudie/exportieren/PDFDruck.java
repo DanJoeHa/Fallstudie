@@ -141,7 +141,7 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 
 	doc.save("ExportFiles\\PDFExport.pdf");
 	doc.close();
-	File PDF = new File("ExportFiles\\Test.pdf");
+	File PDF = new File("ExportFiles\\PDFExport.pdf");
     Desktop.getDesktop().open(PDF);
 
 }

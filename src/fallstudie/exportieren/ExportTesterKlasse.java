@@ -23,7 +23,7 @@ public class ExportTesterKlasse {
 	 public static void main(String[] args) throws IOException, COSVisitorException, IllegalArgumentException, PrinterException
 	 {
 		 String[][] content = {
-				 {"SC1","SC1","SC1","SC1","SC1","SC1"},
+				 
 	 				{"1","b", "1","D"}, 
 	 				{"2","b", "1","D"}, 
 	 				{"3","b", "1","D"}, 
@@ -43,8 +43,10 @@ public class ExportTesterKlasse {
 
 		
 				CSVExport.exportCSV(content);
-		 		
 		
+
+
+			
 		 	PDFDruck.generateTablePDF(content,"Jahresuebersicht");
 	       
 	 
