@@ -45,13 +45,11 @@ public class ExportTesterKlasse {
 	
 
 		
-		// 		CSVExport.exportCSV(content);
+				CSVExport.exportCSV(content);
 		 		
 		
 		 	PDFDruck.generateTablePDF(content,"Jahresuebersicht");
-	        // uses the corect path separator for the OS
-	        File videos = new File("//ExportFiles//PDFExport.pdf");
-	        Desktop.getDesktop().open(videos);
+	       
 	 
 	 }
 	 
