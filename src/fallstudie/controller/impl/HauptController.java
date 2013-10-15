@@ -125,6 +125,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 						hauptfenster.setUeberschrift("Eintrag erfassen");
 						break;
 					case "Daten anzeigen":
+						activeController = new DatenAnzeigenController();
 						hauptfenster.setUeberschrift("Daten anzeigen");
 						break;
 					case "Job-Einstellungen":

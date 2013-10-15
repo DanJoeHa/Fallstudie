@@ -48,7 +48,7 @@ public class DatenAnzeigenController implements Controller {
 		String button = e.getActionCommand();
 		
 		//Rahmendaten eingegeben
-		if( button.equals("weiter") ){
+		if( button.equals("Weiter") ){
 			
 			//Angaben holen
 			int kw = this.view.getWoche();
@@ -56,8 +56,8 @@ public class DatenAnzeigenController implements Controller {
 			
 			//Ueberschift
 			String headline = "Daten anzeigen ";
-			String[] tabellenspalten = null;
-			String[][] tabellenwerte = null;
+			String[] tabellenspalten = new String[1];
+			Object[][] tabellenwerte = new Object[1][1];
 			
 			//Jahresübersicht
 			if( kw == 0 ){
@@ -80,9 +80,11 @@ public class DatenAnzeigenController implements Controller {
 				if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe Jahr") ){
 					Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, HauptController.activeUser.getArbeitsgruppe() );
 					
-					tabellenspalten[0] = oJahresuebersicht.getArbeitsgruppe().getKurzbezeichnung();
-					Collection<Zeile> values;
+					
 					try {
+						tabellenspalten[0] = oJahresuebersicht.getArbeitsgruppe().getKurzbezeichnung();
+						Collection<Zeile> values;
+						
 						values = oJahresuebersicht.getZeileArbeitsgruppe();
 						
 						tabellenwerte = new String[ values.size() ][1];
@@ -122,9 +124,11 @@ public class DatenAnzeigenController implements Controller {
 				if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe KW") ){
 					Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, HauptController.activeUser.getArbeitsgruppe() );
 					
-					tabellenspalten[0] = oWochenuebersicht.getArbeitsgruppe().getKurzbezeichnung();
-					Collection<Zeile> values;
+					
 					try {
+						tabellenspalten[0] = oWochenuebersicht.getArbeitsgruppe().getKurzbezeichnung();
+						Collection<Zeile> values;
+						
 						values = oWochenuebersicht.getZeileArbeitsgruppe();
 						
 						tabellenwerte = new String[ values.size() ][1];
@@ -161,7 +165,6 @@ public class DatenAnzeigenController implements Controller {
 
 	@Override
 	public View getView() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.view;
 	}
 }

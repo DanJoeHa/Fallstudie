@@ -80,7 +80,11 @@ public class DatenAnzeigenAuswahlView extends JPanel implements View{
 	 * @return (int) Kalenderwoche
 	 */
 	public int getWoche(){
+		String wo = this.T_Woche.getText();
+		
+		if( wo.isEmpty() ) return 0;
 		return Integer.parseInt( this.T_Woche.getText() );
+		
 	}
 	
 	/**
