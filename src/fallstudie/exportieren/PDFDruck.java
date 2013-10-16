@@ -114,7 +114,7 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 					 contentStream.beginText();
 					 contentStream.setNonStrokingColor(0, 0, 255);
 					 contentStream.setFont( PDType1Font.HELVETICA_BOLD_OBLIQUE, 15 ); 
-					 contentStream.moveTextPositionByAmount(250, 732);
+					 contentStream.moveTextPositionByAmount(10, 732);
 					 contentStream.drawString(PDFUeberschrift);
 					 contentStream.endText();
 		 //Überschrift
@@ -129,7 +129,7 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 						 contentStream.beginText();
 						 contentStream.setNonStrokingColor(0, 0, 255);
 						 contentStream.setFont( PDType1Font.HELVETICA_BOLD_OBLIQUE, 15 ); 
-						 contentStream.moveTextPositionByAmount(250, 732);
+						 contentStream.moveTextPositionByAmount(10, 732);
 						 contentStream.drawString(PDFUeberschrift);
 						 contentStream.endText();
 			 //Überschrift

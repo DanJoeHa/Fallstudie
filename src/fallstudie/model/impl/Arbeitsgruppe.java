@@ -529,7 +529,7 @@ public class Arbeitsgruppe {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean loeschen() throws Exception {
+	public boolean loeschen() throws Exception{
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
 		boolean darfdeletedWerden=false;
