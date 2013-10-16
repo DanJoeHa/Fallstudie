@@ -168,7 +168,10 @@ public class SuchController implements Controller {
 						
 						//Content auf Tabellen-Sicht wechseln
 						this.viewErg.setTabelle( AGColumn, Funktionen.ArbeitsgruppeCollection2ArraySuche(this.suchergebnisseAg ) );
-						this.viewErg.setButtonName("Löschen");
+						if(operation.equals("loeschen"))
+						{
+							this.viewErg.setButtonName("Löschen");
+						}
 						HauptController.hauptfenster.setContent( this.viewErg );
 						
 				}catch(Exception ex){
