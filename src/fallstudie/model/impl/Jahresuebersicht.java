@@ -38,7 +38,6 @@ public class Jahresuebersicht {
 	 */
 	public Jahresuebersicht(int kalenderjahr,
 			Arbeitsgruppe arbeitsgruppe) {
-		// TODO Auto-generated method stub
 		RemoteConnection Connection = new RemoteConnection();
 		
 		try
@@ -57,8 +56,9 @@ public class Jahresuebersicht {
 		
 		try
 		{
+			System.out.println("SELECT * FROM Jahresuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND  Arbeitsgruppe='"+arbeitsgruppeID +"'");
 			ResultSet jahresuebersichtResult = Connection.executeQueryStatement(
-					"SELECT * FROM Jahresuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND  Arbeitsgruppe='"+ arbeitsgruppeID +"'");
+					"SELECT * FROM Jahresuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND  Arbeitsgruppe='"+arbeitsgruppeID +"'");
 			
 			jahresuebersichtResult.next();
 			
