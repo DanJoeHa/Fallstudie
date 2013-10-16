@@ -66,11 +66,10 @@ public class BereichController implements Controller {
 				Bereich B = (Bereich) i.next();
 				String Bezeichnung = B.getKurzbezeichnung();
 				if( Bezeichnung.equals( this.viewLoesch.getBereich() ) ){
-					if(B.loeschen()){
-						HauptController.hauptfenster.setInfoBox("Bereich erfolgreich gelöscht.");
-					}
-					else{
-						HauptController.hauptfenster.setInfoBox("Bereich konnte nicht gelöscht.");
+					try{
+						B.loeschen();
+					}catch(Exception ex){
+						HauptController.hauptfenster.setInfoBox(ex.getMessage());
 					}
 					break;
 				}
