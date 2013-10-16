@@ -268,7 +268,7 @@ public class Bereich {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		try
-		{	//System.out.println("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
+		{	System.out.println("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
 		
 		ResultSet BereichResult = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
 			
@@ -311,18 +311,21 @@ public class Bereich {
 		}
 		try
 		{	
-	
+			
 			//Mitarbeiterobjekt aus der ID
 				String leiterBenutzername = resultSet.getString("Leiter");
-			
+			if(this.leiter!=null)
+			{
 				//Mitarbeiter Resultset holen
 			if (leiterBenutzername!=null)
 			{	
-				//System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
+				System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
 				ResultSet mitarbeiterResult = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
+				mitarbeiterResult.next();
 				//LEITER SETZEn
 				this.leiter = new Mitarbeiter(mitarbeiterResult);
 				mitarbeiterResult.close();
+			}
 			}
 			//checken
 			else

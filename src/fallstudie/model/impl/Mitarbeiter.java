@@ -336,7 +336,7 @@ public class Mitarbeiter {
 	}
 	
 	/**
-	 * �berladener Konstruktor #4, wird verwendet wenn ein Mitarbeiter neu angelegt wird
+	 * 
 	 * @param resultSet
 	 */
 	public Mitarbeiter(ResultSet resultSet){
