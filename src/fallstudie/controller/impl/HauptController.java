@@ -11,7 +11,7 @@ import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.HauptView;
 import fallstudie.view.impl.HilfeTexte;
-import fallstudie.view.impl.SchließenPopup;
+import fallstudie.view.impl.SchliessenPopup;
 import fallstudie.view.interfaces.View;
 
 
@@ -28,7 +28,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 	protected View view;
 	public static HauptView hauptfenster;
 	public static Mitarbeiter activeUser;
-	public static SchließenPopup schliessenPopup;
+	public static SchliessenPopup schliessenPopup;
 	
 	/**
 	 * Ruft das Hauptfenster der Anwendung auf und läd die LoginView hinein
@@ -45,7 +45,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 		hauptfenster.setContent( activeController.getView() );
 		
 		//Schließen-Popup vorbereiten
-		schliessenPopup = new SchließenPopup();
+		schliessenPopup = new SchliessenPopup();
 		schliessenPopup.setController(this);
 	}
 	
