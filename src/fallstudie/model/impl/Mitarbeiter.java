@@ -345,8 +345,8 @@ public class Mitarbeiter {
 	public Mitarbeiter(ResultSet resultSet){
 		try
 		{
-		this.bereichID = resultSet.getInt("Bereich");
-		this.arbeitsgruppeID = resultSet.getInt("Arbeitsgruppe");
+	this.bereichID = resultSet.getInt("Bereich");
+	this.arbeitsgruppeID = resultSet.getInt("Arbeitsgruppe");
 		
 		
 	//Benutzername wird zugeordnet
@@ -757,9 +757,9 @@ catch (SQLException e)
 	 * bekommt die Arbeitsgruppe
 	 * @return
 	 */
-	public Arbeitsgruppe getArbeitsgruppe() {
-		System.out.println(this.arbeitsgruppeID);
-		if(this.arbeitsgruppeID!=0)
+	public Arbeitsgruppe getArbeitsgruppe() 
+	{
+		if(this.arbeitsgruppe!=null)
 		{
 			return this.arbeitsgruppe;
 		}

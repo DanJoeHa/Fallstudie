@@ -180,13 +180,12 @@ public class Arbeitsgruppe {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		try
-		{	//System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
+		{	System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
 		
 			ResultSet resultSet = Connection.executeQueryStatement
 						("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
 			resultSet.next();
 			Arbeitsgruppe ag = new Arbeitsgruppe(resultSet);
-			
 			this.arbeitsgruppeID = arbeitsgruppeid;
 			this.aktiv = ag.getAktiv();
 			this.bereich = ag.getBereich();
