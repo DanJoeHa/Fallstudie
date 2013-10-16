@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
+import java.awt.SystemColor;
 
 public class SchliessenPopup extends JDialog implements View{
 
@@ -35,6 +36,7 @@ public class SchliessenPopup extends JDialog implements View{
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
 		T_Hinweis = new JTextPane();
+		T_Hinweis.setBackground(SystemColor.menu);
 		T_Hinweis.setText("");
 		contentPanel.add(T_Hinweis);
 		T_Hinweis.setEditable(false);
