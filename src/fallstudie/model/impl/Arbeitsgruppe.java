@@ -541,6 +541,7 @@ public class Arbeitsgruppe {
 			ResultSet checkMitarbeiter = Connection.executeQueryStatement("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			checkMitarbeiter.next();
 			String leiter = checkMitarbeiter.getString("Leiter");
+			//System.out.println(leiter);
 			if (leiter==null) darfdeletedWerden=true;
 			if (leiter!=null) 
 				{
