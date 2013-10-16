@@ -71,10 +71,10 @@ public class Bereich {
 			}
 			
 			System.out.println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)" +
-					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"', '"+leiterBenutzername+"'");
+					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"', '"+leiterBenutzername+"')");
 		
 			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)" +
-					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"', '"+leiterBenutzername+"'");
+					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"', '"+leiterBenutzername+"')");
 			
 			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datens�tze eingef�gt.");
 			
