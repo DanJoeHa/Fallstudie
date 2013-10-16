@@ -992,14 +992,14 @@ catch (SQLException e)
 			ResultSet resultSet = null;
 			try 
 			{	
-				System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
-						" Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
+//				System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
+//						" Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
 					
 					String query = "SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'";
-					
+					System.out.println("Suchdomain: "+suchdomain);
 					if( suchdomain.equals("Bereichsleiter") || suchdomain.equals("Gruppenleiter") ) query+= " AND Rolle LIKE '%" + suchdomain + "%'";
 										
-					
+					System.out.println(query);
 					resultSet = Connection.executeQueryStatement(query);
 					//Abfrage ob �berhaupt Datens�tze gefunden worden sind
 					resultSet.last();
