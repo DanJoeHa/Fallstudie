@@ -17,6 +17,8 @@ public class BereichController implements Controller {
 	private String operation;
 	private BereichBearbeitenAnlegenView view;
 	private BereichLoeschenView viewLoesch;
+	private SuchController suche;
+	private Mitarbeiter gewaehlterMA;
 	
 	private Collection<Bereich> bereich;
 	
@@ -94,6 +96,34 @@ public class BereichController implements Controller {
 			
 		}
 		
+		//Bereichsleiter suchen
+		if(button.equals("Suchen"))
+		{
+			this.suche = new SuchController();
+			this.suche.setAufrufenderController(this);
+			this.suche.setSuchdomain("Bereichsleiter");
+			this.suche.setSuchbegriff(this.view.getLeiter());
+			this.suche.setOperation("auswahl");
+			
+			HauptController.hauptfenster.setUeberschrift("Bereichsleiter auswählen");
+			HauptController.hauptfenster.setContent(this.suche.getView());
+		}
+		
+		if(button.equals("Speichern"))
+		{
+			if(this.operation.equals("anlegen"))
+			{
+				try
+				{
+					new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), gewaehlterMA);
+				}
+				catch (Exception ex)
+				{
+					HauptController.hauptfenster.setInfoBox(ex.getMessage());
+				}
+			}
+		}
+		
 	}
 
 	@Override
@@ -108,7 +138,12 @@ public class BereichController implements Controller {
 
 	@Override
 	public void fortsetzen() {
-		// TODO Auto-generated method stub
+		gewaehlterMA = (Mitarbeiter) this.suche.getAuswahl();
+		this.view.setLeiter(gewaehlterMA.getBenutzername());
+		HauptController.hauptfenster.setUeberschrift("Bereich anlegen");
+		HauptController.hauptfenster.setContent(this.view);
+		this.view.repaint();
+		
 		
 	}
 }

@@ -62,9 +62,14 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		this.T_BereichsleiterSuchbegriff.setText(benutzerid);
 	}
 	
+	public String getLeiter(){
+		return this.T_BereichsleiterSuchbegriff.getText();
+	}
+	
 	@Override
 	public void setController(Controller c) {
-		this.B_BereichsleiterSuche.addActionListener(c);		
+		this.B_BereichsleiterSuche.addActionListener(c);
+		this.B_Speichern.addActionListener(c);
 	}
 
 	@Override
