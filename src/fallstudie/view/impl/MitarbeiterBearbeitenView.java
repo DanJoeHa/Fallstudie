@@ -90,10 +90,19 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 			}
 		}
 	}
+	
+	public void setRolle( String[] rollen )
+	{
+		for( int i = 0; i < rollen.length; i++){
+			this.C_Rolle.addItem( rollen[i] );
+		}
+	}
+	
 	public void setArbeitsgruppe(String arbeitsgruppe)
 	{
 		T_Arbeitsgruppe.setText(arbeitsgruppe);
 	}
+	
 	public void setBereich(String[] bereiche, String aktuellerBereich)
 	{
 		for( int i = 0; i < bereiche.length; i++){
@@ -101,6 +110,13 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 			if( bereiche[i].equals(aktuellerBereich) ) {
 				this.C_Bereich.setSelectedIndex(i);
 			}
+		}
+	}
+	
+	public void setBereich(String[] bereiche)
+	{
+		for( int i = 0; i < bereiche.length; i++){
+			this.C_Bereich.addItem( bereiche[i] );
 		}
 	}
 	

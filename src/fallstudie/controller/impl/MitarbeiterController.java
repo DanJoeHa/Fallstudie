@@ -34,7 +34,8 @@ public class MitarbeiterController implements Controller {
 	private Collection<Bereich> bereiche;
 	private Arbeitsgruppe arbeitsgruppe;
 	private Mitarbeiter gewaehlterMitarbeiter;
-	private SuchController suchcontroller;
+	private Arbeitsgruppe gewaehlteAG;
+	private SuchController suche;
 	
 	/**
 	 * Konstruktor, ruft und speichert alle Rollen und Bereiche
@@ -69,12 +70,12 @@ public class MitarbeiterController implements Controller {
 		if( this.operation.equals("bearbeiten") ){
 			
 			//Mitarbeiter suchen
-			suchcontroller = new SuchController();
-			suchcontroller.setAufrufenderController(this);
-			suchcontroller.setSuchdomain("Mitarbeiter");
-			suchcontroller.setOperation("suchen");
+			suche = new SuchController();
+			suche.setAufrufenderController(this);
+			suche.setSuchdomain("Mitarbeiter");
+			suche.setOperation("suchen");
 			HauptController.hauptfenster.setUeberschrift("Mitarbeiter zur Bearbeitung auswählen");
-			this.viewSuche = (SuchenView) suchcontroller.getView() ;
+			this.viewSuche = (SuchenView) suche.getView() ;
 			HauptController.hauptfenster.setContent(viewSuche);
 			
 
@@ -94,18 +95,19 @@ public class MitarbeiterController implements Controller {
 		
 		//Arbeitsgruppe suchen
 		if( button.equals("Suchen") ){
-			SuchController sucheAG = new SuchController();
-			sucheAG.setSuchdomain("Arbeitsgruppe");
+			SuchController suche = new SuchController();
+			suche.setAufrufenderController( this );
+			suche.setSuchdomain("Arbeitsgruppe");
 
 			switch( this.operation )
 			{
-				case "anlegen": sucheAG.setSuchbegriff(this.viewAnlegen.getArbeitsgruppe());
+				case "anlegen": suche.setSuchbegriff(this.viewAnlegen.getArbeitsgruppe());
 					break;
-				case "bearbeiten": sucheAG.setSuchbegriff(this.view.getArbeitsgruppe());
+				case "bearbeiten": suche.setSuchbegriff(this.view.getArbeitsgruppe());
 					break;
 			}
-			sucheAG.setOperation("auswahl");
-			HauptController.hauptfenster.setContent(sucheAG.getView() );
+			suche.setOperation("auswahl");
+			HauptController.hauptfenster.setContent(suche.getView() );
 		}
 		if (operation.equals("bearbeiten"))
 		{
@@ -114,7 +116,7 @@ public class MitarbeiterController implements Controller {
 				this.viewSuche.getSuchbegriff();
 				this.viewDatenAnz = new DatenAnzeigenAuswahlView();
 				HauptController.hauptfenster.setContent(viewDatenAnz);
-				this.view.setController(suchcontroller);
+				this.view.setController(suche);
 			}
 		}
 			
@@ -258,26 +260,52 @@ public class MitarbeiterController implements Controller {
 
 	@Override
 	public void fortsetzen() {
-		//ausgewählten Mitarbeiter holen
-		this.gewaehlterMitarbeiter = (Mitarbeiter) suchcontroller.getAuswahl();
 		
-		//Mitarbeiter bearbeiten
-		this.view = new MitarbeiterBearbeitenView();
-		this.view.setController( this );
 		
-		this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
-		this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
-		this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
-		this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
-		try{
-			this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
+		
+		try{ //if(this.operation.equals("bearbeiten"))
+			
+			//Mitarbeiter bearbeiten View
+			this.view = new MitarbeiterBearbeitenView();
+			this.view.setController( this );
+			
+			//ausgewählten Mitarbeiter holen
+			this.gewaehlterMitarbeiter = (Mitarbeiter) suche.getAuswahl();
+			
+			this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
+			this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
+			this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
+			this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
+			try{
+				this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
+			}
+			catch (Exception ex)
+			{
+				this.view.setArbeitsgruppe("");
+			}
+			this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
+			HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
+			HauptController.hauptfenster.setContent( this.view );
+			this.view.repaint();
+			
+		}catch(Exception ex){ //if(this.operation.equals("anlegen"))
+			
+			//Mitarbeiter bearbeiten View
+			this.viewAnlegen = new MitarbeiterAnlegenView();
+			this.viewAnlegen.setController( this );
+			
+			System.out.println("lalala");
+			//ausgewählte Arbeitsgruppe holen
+			this.gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();
+			System.out.println("asdfasd");
+			this.viewAnlegen.setRolle( Funktionen.RollenCollection2Array(this.rollen) );
+			this.viewAnlegen.setBereich(Funktionen.BereicheCollection2Array(this.bereiche));
+			
+			HauptController.hauptfenster.setUeberschrift("Mitarbeiter anlegen");
+			HauptController.hauptfenster.setContent( this.viewAnlegen );
+			this.view.repaint();
 		}
-		catch (Exception ex)
-		{
-			this.view.setArbeitsgruppe("");
-		}
-		this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
-		HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
-		HauptController.hauptfenster.setContent( this.view );
+		
+		
 	}
 }

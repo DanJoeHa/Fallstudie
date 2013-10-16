@@ -125,7 +125,7 @@ public class SuchController implements Controller {
 			
 			
 			//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
-			if( button == "löschen" ){
+			if( button == "Löschen" ){
 				//TODO: popup wirklich löschen
 				
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
