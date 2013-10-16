@@ -25,7 +25,7 @@ public class BereichController implements Controller {
 	
 	public void setOperation(String operation){
 		this.operation = operation;
-		if( this.operation.equals("anlegen") || this.operation.equals("bearbeiten") )
+		if( this.operation.equals("anlegen"))
 		{
 			this.view = new BereichBearbeitenAnlegenView();
 			this.view.setController( this );
@@ -37,6 +37,17 @@ public class BereichController implements Controller {
 				this.viewLoesch = new BereichLoeschenView();
 				this.viewLoesch.setController( this );
 				this.viewLoesch.setBereiche(Funktionen.BereicheCollection2Array(Bereich.getAlleBereiche()));
+			}
+			else
+			{
+				if(this.operation.equals("bearbeiten"))
+				{
+					this.viewLoesch = new BereichLoeschenView();
+					this.viewLoesch.setController( this );
+					this.viewLoesch.setBereiche(Funktionen.BereicheCollection2Array(Bereich.getAlleBereiche()));
+					this.viewLoesch.setButtonName("Bearbeiten");
+					this.viewLoesch.setHinweis("Bitte zu bearbeitenden Bereich auswählen");
+				}
 			}
 		}
 	}
@@ -62,13 +73,32 @@ public class BereichController implements Controller {
 			}
 		}
 		
+		if(button.equals("Bearbeiten") )
+		{
+			String tempBereich = this.viewLoesch.getBereich();
+			this.view = new BereichBearbeitenAnlegenView();
+			this.view.setController( this );
+			this.view.setKurzbezeichnung(tempBereich);
+			Bereich bereich = Bereich.getBereichByName(tempBereich);
+			this.view.setBezeichnung(bereich.getBeschreibung());
+			try
+			{
+				this.view.setLeiter(bereich.getLeiter().getFullName());
+			}
+			catch(Exception ex)
+			{
+				this.view.setLeiter(ex.getMessage());
+			}
+			
+		}
+		
 	}
 
 	@Override
 	public View getView() {
 		switch( this.operation ){
 			case "anlegen": return this.view;
-			case "bearbeiten": return this.view;
+			case "bearbeiten": return this.viewLoesch;
 			case "loeschen": return this.viewLoesch;
 		}
 		return null;

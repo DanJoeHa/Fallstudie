@@ -26,6 +26,7 @@ public class BereichLoeschenView extends JPanel implements View{
 	
 	private JButton B_BearbeitenLoeschen;
 	private JComboBox C_Bereich;
+	private JLabel L_Hinweis;
 	/**
 	 * Create the panel.
 	 */
@@ -48,7 +49,7 @@ public class BereichLoeschenView extends JPanel implements View{
 		C_Bereich.setBounds(293, 21, 297, 30);
 		add(C_Bereich);
 		
-		JLabel L_Hinweis = new JLabel("Bitte den zu löschenden Bereich auswählen");
+		L_Hinweis = new JLabel("Bitte den zu löschenden Bereich auswählen");
 		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		L_Hinweis.setBounds(12, 27, 269, 16);
 		add(L_Hinweis);
@@ -74,5 +75,14 @@ public class BereichLoeschenView extends JPanel implements View{
 	
 	public String getBereich(){
 		return this.C_Bereich.getSelectedItem().toString();
+	}
+	
+	public void setButtonName(String ButtonName)
+	{
+		B_BearbeitenLoeschen.setText(ButtonName);
+	}
+	public void setHinweis(String Hinweis)
+	{
+		L_Hinweis.setText(Hinweis);
 	}
 }
