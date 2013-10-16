@@ -18,7 +18,7 @@ public class Konfig {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean setJobIntervall(String intervall) throws Exception
+	public static boolean setJobIntervall(int intervall) throws Exception
 	{	
 		try
 		{

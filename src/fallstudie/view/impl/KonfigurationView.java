@@ -62,8 +62,16 @@ public class KonfigurationView extends JPanel implements View {
 		this.T_AnzahlMonate.setText(monate);
 	}
 	
-	public String getAnzahlMonate(){
-		return this.T_AnzahlMonate.getText();
+	public int getAnzahlMonate(){
+		try
+		{
+			return Integer.parseInt(this.T_AnzahlMonate.getText());
+		}
+		catch(Exception ex)
+		{
+			return 0;
+		}
+		
 	}
 	
 	@Override
