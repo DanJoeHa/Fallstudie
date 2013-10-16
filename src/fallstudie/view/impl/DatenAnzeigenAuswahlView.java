@@ -68,6 +68,7 @@ public class DatenAnzeigenAuswahlView extends JPanel implements View{
 		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		L_Hinweis.setText("Wenn Sie die Daten eines ganzen Kalenderjahres sehen wollen, lassen Sie das Feld\r\n\"Kalenderwoche\" leer.");
 		L_Hinweis.setBounds(30, 200, 520, 60);
+		L_Hinweis.setEditable(false);
 		add(L_Hinweis);
 
 	}
