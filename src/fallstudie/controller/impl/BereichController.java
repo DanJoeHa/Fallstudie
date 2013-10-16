@@ -7,6 +7,7 @@ import java.util.Iterator;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Bereich;
+import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.BereichBearbeitenAnlegenView;
 import fallstudie.view.impl.BereichLoeschenView;
 import fallstudie.view.interfaces.View;
@@ -77,6 +78,7 @@ public class BereichController implements Controller {
 		{
 			String tempBereich = this.viewLoesch.getBereich();
 			this.view = new BereichBearbeitenAnlegenView();
+			HauptController.hauptfenster.setContent(view);
 			this.view.setController( this );
 			this.view.setKurzbezeichnung(tempBereich);
 			Bereich bereich = Bereich.getBereichByName(tempBereich);
