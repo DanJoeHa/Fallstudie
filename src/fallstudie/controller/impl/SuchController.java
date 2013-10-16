@@ -168,7 +168,7 @@ public class SuchController implements Controller {
 						
 						//Content auf Tabellen-Sicht wechseln
 						this.viewErg.setTabelle( AGColumn, Funktionen.ArbeitsgruppeCollection2ArraySuche(this.suchergebnisseAg ) );
-						
+						this.viewErg.setButtonName("Löschen");
 						HauptController.hauptfenster.setContent( this.viewErg );
 						
 				}catch(Exception ex){
@@ -193,7 +193,7 @@ public class SuchController implements Controller {
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
-			if( button == "löschen" ){
+			if( button == "Löschen" ){
 				//TODO: popup wirklich löschen
 				
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
