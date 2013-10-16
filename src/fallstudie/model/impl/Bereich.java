@@ -347,36 +347,19 @@ public class Bereich {
 	
 	public boolean setBeschreibung(String beschreibung) {
 		boolean erfolgreich = false;
+		int RowsAffected;
 		try 
 		{
-			String alteBeschreibung = this.getBeschreibung();
-			if (!alteBeschreibung.equals(beschreibung))
-			{
-				//System.out.println("UPDATE Bereich SET Beschreibung='"+beschreibung+"' WHERE BereichID='"+this.bereichID+"'");
-				int RowsAffected = RemoteConnection.sql.executeUpdate(
-					"UPDATE Bereich SET Beschreibung='"+beschreibung+"' WHERE BereichID='"+this.bereichID+"'");
-			
-				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datens�tze ge�ndert.");
-				
+				System.out.println("UPDATE Bereich SET Beschreibung='"+beschreibung+"' WHERE BereichID='"+this.bereichID+"'");
+				RowsAffected = RemoteConnection.sql.executeUpdate(
+					"UPDATE Bereich SET Beschreibung='"+beschreibung+"' WHERE BereichID='"+this.bereichID+"'");	
 				erfolgreich=true;
 		
-			}
-			else
-			{
-				System.err.println("Alte und Neue Beschreibung sind Identisch! Bitte andere Beschreibung w�hlen.");
-				erfolgreich= false;
-			}
+			if(RowsAffected==0)	erfolgreich= false;
 		}
 			catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
+			System.err.println("Fehler in setBeschreibung in Bereich:");
 			System.err.println(e.getMessage());
-		}
-		catch(NullPointerException e)
-		{
-			System.err.println("Fehler beim Suchen der alten Beschreibung.");
 		}
 		this.beschreibung = beschreibung;
 		return erfolgreich;
