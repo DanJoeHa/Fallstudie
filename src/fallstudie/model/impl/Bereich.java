@@ -466,32 +466,32 @@ public class Bereich {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean loeschen() {
+	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
 		RemoteConnection Connection = new RemoteConnection();
 		boolean darfdeleteArbeitsgruppe = false;
+		boolean darfdeleteMitarbeiter=false;
+		boolean darfdelteLeiter=false;
 		try 
-		{	
+		{		//Check ob mitarbeiter noch bereich zugeordnet sind
+				ResultSet mitarbeiterdrancheck = Connection.executeQueryStatement("SELECT Benutzername FROM Mitarbeiter WHERE Bereich='"+this.bereichID+"'");
+				if(mitarbeiterdrancheck.next()) darfdeleteMitarbeiter=false;
+				else if(!mitarbeiterdrancheck.next()) darfdeleteMitarbeiter=true;
+				//check ob Leiter noch dran ist
+				ResultSet leiterdranCheck = Connection.executeQueryStatement("SELECT Leiter FROM Bereich WHERE BereichID='"+this.bereichID+"'");
+				if(leiterdranCheck.next())darfdelteLeiter=false;
+				else if(!leiterdranCheck.next()) darfdelteLeiter=true;
+				//Check ob Arbeitsgruppe dran ist
 				ResultSet arbeitsgruppeCheck = Connection.executeQueryStatement(
 						"SELECT * FROM Arbeitsgruppe WHERE Bereich='"+this.bereichID+"'");
 				
-				arbeitsgruppeCheck.last();
-				int rows = arbeitsgruppeCheck.getRow();
-				//Falls Bereich noch einer Arbeitsgruppe zugeteilt ist
-				if(rows>0)
-				{
-					darfdeleteArbeitsgruppe=false;
-						
-					}
-				else if(rows==0)
-				{
-					darfdeleteArbeitsgruppe=true;
-				}
+				if(arbeitsgruppeCheck.next()) darfdeleteArbeitsgruppe=false;
+				else if(!arbeitsgruppeCheck.next()) darfdeleteArbeitsgruppe=true;
 				
-				if (darfdeleteArbeitsgruppe==true)
+				
+				if (darfdeleteArbeitsgruppe==true || darfdelteLeiter==true || darfdeleteMitarbeiter==true)
 				{
-					
 				
 					if(aktuellerStatus==true)
 					{
@@ -500,24 +500,25 @@ public class Bereich {
 						int RowsAffect = RemoteConnection.sql.executeUpdate(
 						"UPDATE Bereich SET Aktiv ='0' WHERE BereichID='"+this.bereichID+"'");
 						
-						if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gel�scht.");
 						
 						erfolgreich=true;
 					
+						if (RowsAffect==1) throw new Exception("Es wurde 1 Datensatz gelöscht.");
 					}
 					else if (aktuellerStatus==false)
 					{
 						erfolgreich=false;
 					}
 				}
+				else
+				{
+					throw new Exception("Bereich darf nicht gelöscht werden. Es sind noch Arbeitsgruppen oder Mitarbeiter dran. Bitte prüfen.");
+				}
 
 		}
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
+System.err.println("Fehler in Bereich löschen:");
 			System.err.println(e.getMessage());
 		}
 		this.aktiv=false;
