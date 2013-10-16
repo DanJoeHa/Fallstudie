@@ -26,8 +26,7 @@ public class DatenAnzeigenController implements Controller {
 	private String headline = "Daten anzeigen ";
 	private String[] tabellenspalten = new String[1];
 	private Object[][] tabellenwerte = new Object[1][1];
-	
-	private String suchdomain;
+
 	
 	/**
 	 * Maske zur Eingabe der Rahmendaten KW und Jahr anzeigen
@@ -41,13 +40,6 @@ public class DatenAnzeigenController implements Controller {
 		this.view = new DatenAnzeigenAuswahlView();
 		this.view.setController( this );
 		
-	}
-	
-	/**
-	 * 
-	 * @param suchdomain
-	 */
-	public void setSuchdomain(String suchdomain){
 	}
 	
 	/**
@@ -541,4 +533,7 @@ public class DatenAnzeigenController implements Controller {
 	public View getView() {
 		return this.view;
 	}
+
+	@Override
+	public void fortsetzen() {}
 }
