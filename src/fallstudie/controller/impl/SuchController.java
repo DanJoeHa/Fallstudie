@@ -206,10 +206,10 @@ public class SuchController implements Controller {
 					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
 					String kurzbez = AG.getKurzbezeichnung();
 					if( kurzbez.equals( this.viewErg.getAuswahl() ) ){
-						if( AG.loeschen() ){
-							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe gelöscht.");
-						}else{
-							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe konnte nicht gelöscht werden. Bitte ordnen Sie zunächst alle Mitarbeiter einer anderen Organisationseinheit zu.");
+						try{
+							AG.loeschen();
+						}catch(Exception ex){
+							HauptController.hauptfenster.setInfoBox(ex.getMessage());
 						}
 						break;
 					}
