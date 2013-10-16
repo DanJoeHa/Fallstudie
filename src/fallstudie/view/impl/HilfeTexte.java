@@ -2,10 +2,10 @@ package fallstudie.view.impl;
 
 public abstract class HilfeTexte {
 	
-	public static String WelcomeView = "Um eine Aktion durchführen zu können wählen Sie durch einen Mausklick einen Punkt aus dem Baum aus.";
+	public static String WelcomeView = "Um eine Aktion durchzuführen wählen Sie mit einem Mausklick einen Punkt aus dem Baum aus.";
 	public static String LoginView="In das Feld 'Benutzername' geben Sie den Ihnen zugewiesenen Benutzername ein. In das Feld 'Passwort' geben Sie Ihr Passwort ein.";
-	public static String BereichLoeschenView="Wählen Sie mithilfe des Pfeiles einen Bereich aus der DropDownBox aus und drücken Sie den 'Löschen' Knopf"; 
-	public static String KonfigurationView="In das Feld 'Anzahl der Monate vor dem Löschen der Einträge' geben sie als Zahl die Anzahl der Monate an die Sie löschen wollen. Danach bestätigen Sie mit dem 'Speichern' Knopf";
+	public static String BereichLoeschenView="Wählen Sie mithilfe der DropDownBox einen Bereich aus und bestätigen sie mit 'Löschen'."; 
+	public static String KonfigurationView="Geben Sie die Anzahl der Monate an, nach denen die Einträge gelöscht werden sollen. Bestätigen Sie mit 'Speichern'.";
 	public static String DruckenView="Um die Übersicht zu drucken drücken Sie auf den 'Drucken' Knopf.";
 	public static String ArtLoeschenView="Drücken Sie auf den Pfeil der DropDownBox und wählen die gewünschte Art aus. Dann bestätigen Sie mit 'Löschen' Knopf.";
 	public static String ArtAnlegenView="Tragen Sie in das Feld 'Bezeichnung' den Namen der Art an die Sie anlegen wollen. Bestätigen Sie mit 'Speichern'.";

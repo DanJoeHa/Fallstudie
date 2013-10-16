@@ -997,7 +997,7 @@ catch (SQLException e)
 					
 					String query = "SELECT * FROM Mitarbeiter WHERE (Benutzername LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%')";
 					System.out.println("Suchdomain: "+suchdomain);
-					if( suchdomain.equals("Bereichsleiter") || suchdomain.equals("Gruppenleiter") ) query+= " AND (Rolle LIKE '%" + suchdomain + "%')";
+					if( suchdomain.equals("Bereichsleiter") || suchdomain.equals("Gruppenleiter") ) query+= " AND (Rolle LIKE '" + suchdomain + "')";
 										
 					System.out.println(query);
 					resultSet = Connection.executeQueryStatement(query);
