@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
@@ -39,8 +41,7 @@ public class Mitarbeiter {
 	private Bereich bereich;
 	private String letzterLogin;
 	private boolean aktiv;
-	private boolean pwChanged;
-	
+	private boolean pwChanged;	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
@@ -418,6 +419,9 @@ public class Mitarbeiter {
 	public static Mitarbeiter einloggen(String benutzername, String passwort) throws Exception {
 		RemoteConnection Connection = new RemoteConnection();
 		Mitarbeiter mitarbeiter = null;
+		
+		
+		
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
