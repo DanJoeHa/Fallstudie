@@ -28,4 +28,10 @@ public class WelcomeController implements Controller {
 		return this.view;
 	}
 
+	@Override
+	public void fortsetzen() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

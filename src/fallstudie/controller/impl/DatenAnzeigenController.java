@@ -10,6 +10,7 @@ import java.util.Iterator;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 
 import fallstudie.controller.interfaces.Controller;
+import fallstudie.exportieren.CSVExport;
 import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Jahresuebersicht;
 import fallstudie.model.impl.Wochenuebersicht;
@@ -25,8 +26,7 @@ public class DatenAnzeigenController implements Controller {
 	private String headline = "Daten anzeigen ";
 	private String[] tabellenspalten = new String[1];
 	private Object[][] tabellenwerte = new Object[1][1];
-	
-	private String suchdomain;
+
 	
 	/**
 	 * Maske zur Eingabe der Rahmendaten KW und Jahr anzeigen
@@ -40,13 +40,6 @@ public class DatenAnzeigenController implements Controller {
 		this.view = new DatenAnzeigenAuswahlView();
 		this.view.setController( this );
 		
-	}
-	
-	/**
-	 * 
-	 * @param suchdomain
-	 */
-	public void setSuchdomain(String suchdomain){
 	}
 	
 	/**
@@ -92,7 +85,11 @@ public class DatenAnzeigenController implements Controller {
 						
 						//Schleifenvars
 						int spalte = 1;
-						String[][] aArtPos = {{"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}};
+						String[][] aArtPos = new String[maxZeilen][2]; 
+						for(int s = 0; s < maxZeilen; s++){
+							aArtPos[s][0] = "";
+							aArtPos[s][1] = "";
+						}
 						int artName = 0;
 						int artZeile = 1;
 						int i = 0;
@@ -181,7 +178,11 @@ public class DatenAnzeigenController implements Controller {
 						
 						//Schleifenvars
 						int spalte = 1;
-						String[][] aArtPos = {{"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}};
+						String[][] aArtPos = new String[maxZeilen][2]; 
+						for(int s = 0; s < maxZeilen; s++){
+							aArtPos[s][0] = "";
+							aArtPos[s][1] = "";
+						}
 						int artName = 0;
 						int artZeile = 1;
 						int i = 0;
@@ -305,7 +306,11 @@ public class DatenAnzeigenController implements Controller {
 						
 						//Schleifenvars
 						int spalte = 1;
-						String[][] aArtPos = {{"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}};
+						String[][] aArtPos = new String[maxZeilen][2]; 
+						for(int s = 0; s < maxZeilen; s++){
+							aArtPos[s][0] = "";
+							aArtPos[s][1] = "";
+						}
 						int artName = 0;
 						int artZeile = 1;
 						int i = 0;
@@ -395,7 +400,11 @@ public class DatenAnzeigenController implements Controller {
 						
 						//Schleifenvars
 						int spalte = 1;
-						String[][] aArtPos = {{"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}};
+						String[][] aArtPos = new String[maxZeilen][2]; 
+						for(int s = 0; s < maxZeilen; s++){
+							aArtPos[s][0] = "";
+							aArtPos[s][1] = "";
+						}
 						int artName = 0;
 						int artZeile = 1;
 						int i = 0;
@@ -502,8 +511,6 @@ public class DatenAnzeigenController implements Controller {
 		if( button.equals("Drucken") ){
 			
 			String[][] tabwerte = new String[this.tabellenwerte.length][this.tabellenwerte[0].length];
-
-			//String[][] tabwerte = (String[][])this.tabellenwerte;
 			
 			for( int i = 0; i < this.tabellenwerte.length; i++){
 				for( int j = 0; j < this.tabellenwerte[i].length; j++){
@@ -514,6 +521,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 
 			try {
+				//CSVExport.exportCSV(tabwerte, this.tabellenspalten);
 				PDFDruck.generateTablePDF(tabwerte, this.headline, this.tabellenspalten);
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -525,4 +533,7 @@ public class DatenAnzeigenController implements Controller {
 	public View getView() {
 		return this.view;
 	}
+
+	@Override
+	public void fortsetzen() {}
 }

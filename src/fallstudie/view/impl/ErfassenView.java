@@ -72,24 +72,45 @@ public class ErfassenView extends JPanel implements View {
 		
 		//Datumswerte bestimmen
 		GregorianCalendar heute = new GregorianCalendar();
+		Calendar letztesJahr = new GregorianCalendar(Calendar.YEAR-1,Calendar.DECEMBER,10);
+		
 		heute.setTime( new Date() );
-		int jahr = heute.get(Calendar.YEAR);
+		
+		final int jahr = heute.get(Calendar.YEAR);
+		final int max_week = letztesJahr.getMaximum(Calendar.WEEK_OF_YEAR);
 		int aktKW = heute.get(GregorianCalendar.WEEK_OF_YEAR);
 		int vorKW = aktKW - 1;
-		
+		int vorKW_checked=0;
+		if(vorKW==0)
+		{
+			vorKW_checked= max_week;
+		}
+		else
+		{
+			vorKW_checked=vorKW;
+		}
 		//T_Kalenderjahr
 		T_Kalenderjahr = new JTextField();
 		T_Kalenderjahr.setText(""+jahr);
 		T_Kalenderjahr.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Kalenderjahr.setColumns(10);
 		T_Kalenderjahr.setBounds(200, 100, 150, 30);
+		T_Kalenderjahr.setEditable(false);
 		add(T_Kalenderjahr);
 		
 		//R_KalenderwocheDavor
-		R_KalenderwocheDavor = new JRadioButton(""+vorKW);
+		R_KalenderwocheDavor = new JRadioButton(""+vorKW_checked);
 		R_KalenderwocheDavor.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		R_KalenderwocheDavor.setBounds(200, 150, 70, 30);
 		add(R_KalenderwocheDavor);
+		R_KalenderwocheDavor.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int jahr_alt = jahr-1;
+				if(getKalenderwoche()==max_week) T_Kalenderjahr.setText(""+jahr_alt);
+			}
+		});
+		
 		
 		//R_KalenderwocheAktuell
 		R_KalenderwocheAktuell = new JRadioButton(""+aktKW);
@@ -97,6 +118,12 @@ public class ErfassenView extends JPanel implements View {
 		R_KalenderwocheAktuell.setBounds(290, 150, 70, 30);
 		add(R_KalenderwocheAktuell);
 		R_KalenderwocheAktuell.setSelected(true);
+		R_KalenderwocheAktuell.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(getKalenderwoche()>=1) T_Kalenderjahr.setText(""+jahr);
+			}
+		});
 		
 		//Group the radio buttons.
 	    ButtonGroup group = new ButtonGroup();

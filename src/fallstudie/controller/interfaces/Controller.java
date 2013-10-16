@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import fallstudie.view.interfaces.View;
 
 /**
- * Verbindliche Schnittstellendefinition für alle Klassen des Package fallstudie.controller.impl
+ * Verbindliche Schnittstellendefinition fï¿½r alle Klassen des Package fallstudie.controller.impl
  * 
  * @author Johannes Haag
  * @version 1.0
@@ -13,10 +13,12 @@ import fallstudie.view.interfaces.View;
 public interface Controller extends ActionListener {
 	
 	/**
-	 * Schnittstelle zur Rückgabe der View des Controllers
+	 * Schnittstelle zur Rï¿½ckgabe der View des Controllers
 	 * 
 	 * @return View
 	 */
 	public View getView();
+	
+	public void fortsetzen();
 	
 }

@@ -83,5 +83,11 @@ public class ErfassenController implements Controller {
 	public View getView() {
 		return this.view;
 	}
+
+	@Override
+	public void fortsetzen() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

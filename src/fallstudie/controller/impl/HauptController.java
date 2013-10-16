@@ -302,4 +302,10 @@ public class HauptController implements Controller, TreeSelectionListener {
 		return this.view;
 	}
 
+	@Override
+	public void fortsetzen() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

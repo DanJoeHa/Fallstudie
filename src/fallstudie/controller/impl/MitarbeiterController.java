@@ -10,8 +10,10 @@ import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;
+import fallstudie.view.impl.DatenAnzeigenAuswahlView;
 import fallstudie.view.impl.MitarbeiterAnlegenView;
 import fallstudie.view.impl.MitarbeiterBearbeitenView;
+import fallstudie.view.impl.SuchenView;
 import fallstudie.view.interfaces.View;
 
 /**
@@ -24,12 +26,15 @@ public class MitarbeiterController implements Controller {
 
 	private MitarbeiterBearbeitenView view;
 	private MitarbeiterAnlegenView viewAnlegen;
+	private SuchenView viewSuche;
 	private String operation;
+	private DatenAnzeigenAuswahlView viewDatenAnz;
 	
 	private Collection<Rolle> rollen;
 	private Collection<Bereich> bereiche;
 	private Arbeitsgruppe arbeitsgruppe;
 	private Mitarbeiter gewaehlterMitarbeiter;
+	private SuchController suchcontroller;
 	
 	/**
 	 * Konstruktor, ruft und speichert alle Rollen und Bereiche
@@ -64,32 +69,15 @@ public class MitarbeiterController implements Controller {
 		if( this.operation.equals("bearbeiten") ){
 			
 			//Mitarbeiter suchen
-			SuchController suche = new SuchController();
-			suche.setSuchdomain("Mitarbeiter");
-			suche.setOperation("suchen");
-			HauptController.hauptfenster.setContent( suche.getView() );
+			suchcontroller = new SuchController();
+			suchcontroller.setAufrufenderController(this);
+			suchcontroller.setSuchdomain("Mitarbeiter");
+			suchcontroller.setOperation("suchen");
+			HauptController.hauptfenster.setUeberschrift("Mitarbeiter zur Bearbeitung auswählen");
+			this.viewSuche = (SuchenView) suchcontroller.getView() ;
+			HauptController.hauptfenster.setContent(viewSuche);
 			
-			/* NICHT LÖSCHEN!!!!!!!
-			//**********WICHTIG****************** neue Operation, wenn Suche Ergebnis gefunden hat
-			//warte auf Auswahl
-			suche.getAuswahl();
-			
-			//ausgewählten Mitarbeiter holen
-			this.gewaehlterMitarbeiter = (Mitarbeiter) suche.getAuswahl();
-			*/
-			
-			//Mitarbeiter bearbeiten
-			this.view = new MitarbeiterBearbeitenView();
-			this.view.setController( this );
-			
-			/* NICHT LÖSCHEN!!!
-			this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
-			this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
-			this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
-			this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
-			this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
-			this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
-			*/
+
 		}
 	}
 	
@@ -118,6 +106,18 @@ public class MitarbeiterController implements Controller {
 			}
 			sucheAG.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(sucheAG.getView() );
+		}
+		if (operation.equals("bearbeiten"))
+		{
+			if( button.equals("Suchen") )
+			{
+				this.viewSuche.getSuchbegriff();
+				this.viewDatenAnz = new DatenAnzeigenAuswahlView();
+				HauptController.hauptfenster.setContent(viewDatenAnz);
+				this.view.setController(suchcontroller);
+			}
+		}
+			
 			
 			/*
 			//**********WICHTIG****************** neue Operation, wenn Suche Ergebnis gefunden hat
@@ -136,7 +136,7 @@ public class MitarbeiterController implements Controller {
 				case "bearbeiten": this.view.setArbeitsgruppe( this.arbeitsgruppe.getKurzbezeichnung() );
 			}
 			*/
-		}//Arbeitsgruppe suchen
+		//Arbeitsgruppe suchen
 		
 		//Mitarbeiter anlegen
 		if(this.operation.equals("anlegen"))
@@ -207,7 +207,7 @@ public class MitarbeiterController implements Controller {
 	 * @param rollenbezeichnung
 	 * @return
 	 */
-	private Rolle findeRolleZuBezeichnung(String rollenbezeichnung){
+	private Rolle findeRolleZuBezeichnung (String rollenbezeichnung){
 		//finde rollenobjekt
 		Iterator<Rolle> i = this.rollen.iterator();
 		while( i.hasNext() ){
@@ -239,6 +239,8 @@ public class MitarbeiterController implements Controller {
 		return null;
 	}
 	
+	
+	
 	/**
 	 * Liefert aktive View des Controllers
 	 * 
@@ -249,8 +251,31 @@ public class MitarbeiterController implements Controller {
 	public View getView() {
 		switch( this.operation ){
 			case "anlegen": return (View) this.viewAnlegen;
-			case "bearbeiten": return (View) this.view;
+			case "bearbeiten": return (View) this.viewSuche;
 		}
 		return null;
+	}
+
+	@Override
+	public void fortsetzen() {
+		//ausgewählten Mitarbeiter holen
+		this.gewaehlterMitarbeiter = (Mitarbeiter) suchcontroller.getAuswahl();
+		
+		//Mitarbeiter bearbeiten
+		this.view = new MitarbeiterBearbeitenView();
+		this.view.setController( this );
+		
+		this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
+		this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
+		this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
+		this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
+		try{
+			this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
+		}
+		catch (Exception ex)
+		{
+			this.view.setArbeitsgruppe("");
+		}
+		this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
 	}
 }

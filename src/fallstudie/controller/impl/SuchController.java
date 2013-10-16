@@ -74,15 +74,10 @@ public class SuchController implements Controller {
 						//hole passende Suchergebnisse
 						this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff(), this.suchdomain );
 						
-						
-						
 						//festgelegter String Array
-						String[] MAColumn = new String[]{ "Benutzername", "Arbeitsgruppe", "Rolle", "Vorname", "Nachname", "Bereich"
-								
-						};
+						String[] MAColumn = new String[]{ "Benutzername", "Vorname", "Nachname", "Arbeitsgruppe", "Bereich", "Rolle"};
 						
 						//Content auf Tabellen-Sicht wechseln
-						
 						this.viewErg.setTabelle( MAColumn, Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ));
 						HauptController.hauptfenster.setContent( this.viewErg );
 				}catch(Exception ex){
@@ -99,8 +94,6 @@ public class SuchController implements Controller {
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button == "auswählen" ){
 				
-				
-				
 				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
 				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 				String name = this.viewErg.getAuswahl();
@@ -109,10 +102,12 @@ public class SuchController implements Controller {
 					String benutzername = MA.getBenutzername();
 					if( benutzername.equals( name ) ){
 						this.auswahl = MA;
+						this.aufrufenderController.fortsetzen();
 						break;
 					}
 				}
 			}
+			
 			
 			//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
 			if( button == "löschen" ){
@@ -137,11 +132,8 @@ public class SuchController implements Controller {
 		}
 		
 		if( this.suchdomain.equals( "Arbeitsgruppe" )){ 
-			System.out.println("1");
 			if( button.equals( "Suchen") ){
-				System.out.println("2");
 				try{
-						System.out.println("3");
 						//initiere Ergebnistabelle
 						this.viewErg = new TabelleView();
 						this.viewErg.setController( this );
@@ -183,8 +175,7 @@ public class SuchController implements Controller {
 					String kurzbez = AG.getKurzbezeichnung();
 					if( kurzbez.equals( AGname ) ){
 						this.auswahl = AG;
-						ArbeitsgruppenController c = (ArbeitsgruppenController) this.aufrufenderController;
-						c.BearbeitenFortsetzen();
+						this.aufrufenderController.fortsetzen();
 						break;
 					}
 				}
@@ -228,5 +219,11 @@ public class SuchController implements Controller {
 			//Ergebnistabelle liefern
 			return this.viewErg;
 		}
+	}
+
+	@Override
+	public void fortsetzen() {
+		// TODO Auto-generated method stub
+		
 	}
 }
