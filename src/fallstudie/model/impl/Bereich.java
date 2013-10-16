@@ -23,6 +23,7 @@ public class Bereich {
 	private boolean aktiv;
 	private Mitarbeiter leiter;
 	private int bereichID;
+	private String leiterBenutzername;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -297,7 +298,7 @@ public class Bereich {
 	 */
 	public Bereich(ResultSet resultSet) throws SQLException
 	{	
-		RemoteConnection Connection = new RemoteConnection();
+
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -313,26 +314,10 @@ public class Bereich {
 		{	
 			
 			//Mitarbeiterobjekt aus der ID
-				String leiterBenutzername = resultSet.getString("Leiter");
-			if(this.leiter!=null)
-			{
-				//Mitarbeiter Resultset holen
-			if (leiterBenutzername!=null)
-			{	
-				System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
-				ResultSet mitarbeiterResult = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
-				mitarbeiterResult.next();
-				//LEITER SETZEn
-				this.leiter = new Mitarbeiter(mitarbeiterResult);
-				mitarbeiterResult.close();
-			}
+			this.leiterBenutzername = resultSet.getString("Leiter");
 			
-			//checken
-			else
-			{	System.out.println("lol");
-				this.leiter=null;
-			}
-			}
+				
+				//Mitarbeiter Resultset holen
 			
 			//Bereichobjekt aus der BereichsID
 			this.bereichID= resultSet.getInt("BereichID");
@@ -354,7 +339,6 @@ public class Bereich {
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
-	
 	/**
 	 * Beschreibung eines bereichs �ndern
 	 * @param beschreibung
@@ -683,15 +667,39 @@ public class Bereich {
 		return erfolgreich;
 	}
 
-
-
 	/**
 	 * Leiter eines Bereichs bekommen
 	 * @return
+	 * @throws SQLException 
 	 */
-	public Mitarbeiter getLeiter() {
-	
+	public Mitarbeiter getLeiter()  {
+		try
+		{
+			if(this.leiter!=null)
+			{
+				return this.leiter;
+			}
+			if(this.leiterBenutzername!=null)
+			{
+			//System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+this.leiterBenutzername+"'");
+			ResultSet mitarbeiterResult = RemoteConnection.sql.executeQuery("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+this.leiterBenutzername+"'");
+			
+			mitarbeiterResult.next();
+			
+			this.leiter= new Mitarbeiter(mitarbeiterResult);;
+			}
+			else
+			{
+				this.leiter=null;
+			}
+		}
+		catch (SQLException e)
+		{
+			System.err.println("fehler in getLeiter():");
+			System.err.println(e.getMessage());
+		}
 		return this.leiter;
+		
 	}
-
+	
 }

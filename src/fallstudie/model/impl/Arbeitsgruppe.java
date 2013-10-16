@@ -25,6 +25,8 @@ public class Arbeitsgruppe {
 	private  boolean aktiv;
 	private  Mitarbeiter leiter;
 	public  ResultSet resultSet;
+	private String leiterBenutzername;
+	private int bereichID;
 	
 	
 	//-----------------------------------------------------------
@@ -117,7 +119,6 @@ public class Arbeitsgruppe {
 	 */
 	public Arbeitsgruppe (ResultSet resultSet) throws SQLException
 	{	
-		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -135,25 +136,11 @@ public class Arbeitsgruppe {
 			this.arbeitsgruppeID = resultSet.getInt("ArbeitsgruppeID");
 			
 			//Mitarbeiterobjekt aus der ID
-				String leiterBenutzername = resultSet.getString("Leiter");
+				this.leiterBenutzername = resultSet.getString("Leiter");
 			
 				//Mitarbeiter Resultset holen
-			if (leiterBenutzername!=null)
-			{	
-				System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
-				ResultSet mitarbeiterResult =Connection.executeQueryStatement(
-					"SELECT * FROM Mitarbeiter WHERE Benutzername ='"+leiterBenutzername+"'");
-				mitarbeiterResult.next();
-				this.leiter = new Mitarbeiter(mitarbeiterResult);
-			}
-			//checken
-			else
-			{
-				this.leiter=null;
-			}
-			
 			//Bereichobjekt aus der BereichsID
-			int bereichID = resultSet.getInt("Bereich");
+			this.bereichID = resultSet.getInt("Bereich");
 			//Beschreibung der Arbeitsgruppe
 			this.beschreibung = resultSet.getString("Beschreibung");
 			//Kurzbezeichnung der Arbeitsgruppe
@@ -161,7 +148,6 @@ public class Arbeitsgruppe {
 			//Status der Arbeitsgruppe
 			this.aktiv = resultSet.getBoolean("Aktiv");
 			//Bereich aus der ID generieren
-			this.bereich= new Bereich(bereichID);
 			
 			
 			
@@ -451,7 +437,28 @@ public class Arbeitsgruppe {
 	
 	public Bereich getBereich() {
 		
+		if (this.bereich != null)
+			return this.bereich;
+		
+
+		
+		if (bereichID!=0)
+		{
+			try {
+				this.bereich = new Bereich(bereichID);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.err.println("Fehler in Arbeitsgruppe.getBereich:");
+				System.err.println(e.getMessage());
+			}
+		}
+		else
+		{
+			this.bereich = null;
+		}
+		
 		return this.bereich;
+		
 	}
 
 	/**
@@ -508,7 +515,34 @@ public class Arbeitsgruppe {
 	 */
 	public Mitarbeiter getLeiter() {
 	
-		return this.leiter;
+		
+	try
+	{
+		if(this.leiter!=null)
+		{
+			return this.leiter;
+		}
+		if(this.leiterBenutzername!=null)
+		{
+		//System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+this.leiterBenutzername+"'");
+		ResultSet mitarbeiterResult = RemoteConnection.sql.executeQuery("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+this.leiterBenutzername+"'");
+		
+		mitarbeiterResult.next();
+		
+		this.leiter= new Mitarbeiter(mitarbeiterResult);;
+		}
+		else
+		{
+			this.leiter=null;
+		}
+	}
+	catch (SQLException e)
+	{
+		System.err.println("fehler in Arbeitsgruppe.getLeiter():");
+		System.err.println(e.getMessage());
+	}
+	return this.leiter;
+	
 	}
 
 	/**

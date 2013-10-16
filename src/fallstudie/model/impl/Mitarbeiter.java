@@ -41,10 +41,13 @@ public class Mitarbeiter {
 	private Bereich bereich;
 	private String letzterLogin;
 	private boolean aktiv;
-	private boolean pwChanged;	
+	private boolean pwChanged;
+	private int bereichID;	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
+	private int arbeitsgruppeID;
+	private String rollenName;
 	
 	/**
 	 * Konstruktor wenn sich Mitarbeiter einloggt
@@ -342,32 +345,15 @@ public class Mitarbeiter {
 	public Mitarbeiter(ResultSet resultSet){
 		try
 		{
-		int bereichID = resultSet.getInt("Bereich");
-		if (bereichID!=0)
-		{
-			this.bereich = new Bereich(bereichID);
-		}
-		else
-		{
-			this.bereich = null;
-		}
+		this.bereichID = resultSet.getInt("Bereich");
+		this.arbeitsgruppeID = resultSet.getInt("Arbeitsgruppe");
 		
-		//Wenn Arbeitsgruppe zugeordnet wird ein Objekt erzeugt
-		int arbeitsgruppeID = resultSet.getInt("Arbeitsgruppe");
 		
-		if (arbeitsgruppeID!=0)
-		{
-			this.arbeitsgruppe = new Arbeitsgruppe(arbeitsgruppeID);
-		}
-		else
-		{
-			this.arbeitsgruppe = null;
-		}
 	//Benutzername wird zugeordnet
 	this.benutzername = resultSet.getString("Benutzername");
 	//ROLLE
-	String rolle = resultSet.getString("Rolle");
-	this.rolle = new Rolle(rolle);
+	this.rollenName = resultSet.getString("Rolle");
+
 	//PASSWORT
 	this.passwort =  resultSet.getString("Passwort");;
 	//AKTIV
@@ -419,8 +405,6 @@ public class Mitarbeiter {
 	public static Mitarbeiter einloggen(String benutzername, String passwort) throws Exception {
 		RemoteConnection Connection = new RemoteConnection();
 		Mitarbeiter mitarbeiter = null;
-		
-		
 		
 		try
 		{
@@ -551,15 +535,6 @@ catch (SQLException e)
 	}
 
 	/**
-	 * bekommt den Bereich des Mitarbeiters
-	 * @return
-	 */
-	public Bereich getBereich() {
-		
-		return this.bereich;
-	}
-
-	/**
 	 * wei�t Mitarbeiter Rolle zu
 	 * @param rolle
 	 * @return
@@ -593,8 +568,21 @@ catch (SQLException e)
 	 * @return
 	 */
 	public Rolle getRolle() {
-	
+		if(this.rolle!=null)
+	{
 		return this.rolle;
+	}
+	if(this.rollenName!=null)
+	{
+		this.rolle = new Rolle(this.rollenName);
+		
+	}
+	else
+	{
+		this.rolle=null;
+	}
+	return this.rolle;
+	
 	}
 
 	/**
@@ -770,7 +758,22 @@ catch (SQLException e)
 	 * @return
 	 */
 	public Arbeitsgruppe getArbeitsgruppe() {
+		
+		if(this.arbeitsgruppeID!=0)
+		{
+			return this.arbeitsgruppe;
+		}
+		if (arbeitsgruppeID!=0)
+		{
+			this.arbeitsgruppe = new Arbeitsgruppe(arbeitsgruppeID);
+		}
+		else
+		{
+			this.arbeitsgruppe = null;
+		}
 		return this.arbeitsgruppe;
+		
+
 	}
 
 	/**
@@ -959,7 +962,7 @@ catch (SQLException e)
 	public boolean checkRecht(String recht) {
 		boolean erfolgreich= false;
 
-		Rolle rolle = this.rolle;
+		Rolle rolle = getRolle();
 		
 		Collection<Rechte> alleRechteVonRolle = new LinkedList<>();
 		//alle Berechtigungen von Rolle geben, Collection festlegen
@@ -1083,5 +1086,25 @@ catch (SQLException e)
 			System.err.println(e.getMessage());
 		}
 		return erfolgreich;
+	}
+
+	public Bereich getBereich() throws SQLException
+	{
+		if (this.bereich != null)
+			return this.bereich;
+		
+
+		
+		if (bereichID!=0)
+		{
+			this.bereich = new Bereich(bereichID);
+		}
+		else
+		{
+			this.bereich = null;
+		}
+		
+		return this.bereich;
+		
 	}
 }
