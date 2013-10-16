@@ -277,5 +277,7 @@ public class MitarbeiterController implements Controller {
 			this.view.setArbeitsgruppe("");
 		}
 		this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
+		HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
+		HauptController.hauptfenster.setContent( this.view );
 	}
 }

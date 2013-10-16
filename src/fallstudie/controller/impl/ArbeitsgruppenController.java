@@ -24,6 +24,7 @@ public class ArbeitsgruppenController implements Controller {
 	private SuchController suche;
 	private String[] sBereiche;
 	private Arbeitsgruppe gewaehlteAG;
+	private Mitarbeiter gewaehlteMA;
 	/**
 	 * Zeigt  die View zur Arbeitsgruppenbearbeiten/-anlage abhängig von der Operation an
 	 * 
@@ -80,6 +81,7 @@ public class ArbeitsgruppenController implements Controller {
 		//Button bestimmen
 		String button = e.getActionCommand();
 			
+		
 		//Änderungen speichern
 		if( button.equals("Speichern") ){
 			
@@ -92,14 +94,29 @@ public class ArbeitsgruppenController implements Controller {
 			}
 			
 			Mitarbeiter oLeiter = new Mitarbeiter( this.view.getAGLeiter() );
-			try {
-				this.gewaehlteAG.setBereich(oBereich);
-				this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
-				this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
-				this.gewaehlteAG.setLeiter(oLeiter);
-				
-			} catch (Exception e1) {
-				HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+			
+			
+			if(operation.equals("bearbeiten"))
+			{
+				try {
+					this.gewaehlteAG.setBereich(oBereich);
+					this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
+					this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
+					this.gewaehlteAG.setLeiter(oLeiter);
+					
+				} catch (Exception e1) {
+					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+				}
+			}
+			if(operation.equals("anlegen"))
+			{
+				try{
+					new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
+				}
+				catch (Exception e1)
+				{
+					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+				}
 			}
 		}
 		
@@ -109,32 +126,52 @@ public class ArbeitsgruppenController implements Controller {
 		}
 		
 		if( button.equals("Suchen") ){
-			this.viewDatenAnz = new DatenAnzeigenAuswahlView();
-			HauptController.hauptfenster.setContent(viewDatenAnz);
-			SuchController suchcontroller = new SuchController();
-			suchcontroller.setSuchdomain("Gruppenleiter");
-			this.view.setController(suchcontroller);
+			
+			this.suche= new SuchController();
+			this.suche.setSuchdomain("Gruppenleiter");
+			this.suche.setAufrufenderController(this);
+			this.suche.setSuchbegriff(this.view.getAGLeiter());
+			this.suche.setOperation("auswahl");
+			HauptController.hauptfenster.setContent(this.suche.getView());
 		}
 	}
 	
 	public void fortsetzen (){
 
-		//ausgewählte Arbeitsgruppe holen
-		this.gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();
+		
 
-		//an Maske übergeben & Maske anzeigen
-		this.view = new ArbeitsgruppeBearbeitenAnlegenView();
-		this.view.setController(this);
-		this.view.setBereich( sBereiche, gewaehlteAG.getBereich().getKurzbezeichnung());
-		this.view.setKurzbezeichnung( gewaehlteAG.getKurzbezeichnung() );
-		this.view.setBezeichnung( gewaehlteAG.getBeschreibung() );
-		String LeiterBenutzerName = "";
-		if( gewaehlteAG.getLeiter() != null ){
-			LeiterBenutzerName = gewaehlteAG.getLeiter().getBenutzername();
+		if(operation.equals("bearbeiten"))
+		{
+			//ausgewählte Arbeitsgruppe holen
+			this.gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();
+			//an Maske übergeben & Maske anzeigen
+			this.view = new ArbeitsgruppeBearbeitenAnlegenView();
+			this.view.setController(this);
+			this.view.setBereich( sBereiche, gewaehlteAG.getBereich().getKurzbezeichnung());
+			this.view.setKurzbezeichnung( gewaehlteAG.getKurzbezeichnung() );
+			this.view.setBezeichnung( gewaehlteAG.getBeschreibung() );
+			
+			String LeiterBenutzerName = "";
+			if( gewaehlteAG.getLeiter() != null )
+			{
+				LeiterBenutzerName = gewaehlteAG.getLeiter().getBenutzername();
+			}
+			this.view.setAGLeiter( LeiterBenutzerName );
+			
+			HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
 		}
-		this.view.setAGLeiter( LeiterBenutzerName );
-		HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
+		
+		if(operation.equals("anlegen"))
+		{
+			this.gewaehlteMA = (Mitarbeiter) suche.getAuswahl();
+			HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe anlegen");
+			
+			this.view.setAGLeiter(this.gewaehlteMA.getBenutzername());
+			
+		}
 		HauptController.hauptfenster.setContent( this.view );
+		this.view.repaint();
+
 	}
 	
 	/**

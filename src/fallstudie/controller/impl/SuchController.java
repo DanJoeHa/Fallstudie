@@ -71,8 +71,19 @@ public class SuchController implements Controller {
 						this.viewErg.setController( this );
 						this.viewErg.setButtonName("auswählen");
 						
+						
+						
+						String suche;
+						if(e.getID() == 1 ){
+							suche = this.suchbegriff;
+						}
+						else
+						{
+							suche = this.view.getSuchbegriff();	
+						}
+						
 						//hole passende Suchergebnisse
-						this.suchergebnisseMa = Mitarbeiter.suche( this.view.getSuchbegriff(), this.suchdomain );
+						this.suchergebnisseMa = Mitarbeiter.suche( suche, this.suchdomain );
 						
 						//festgelegter String Array
 						String[] MAColumn = new String[]{ "Benutzername", "Vorname", "Nachname", "Arbeitsgruppe", "Bereich", "Rolle"};
