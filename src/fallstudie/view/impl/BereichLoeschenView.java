@@ -25,6 +25,7 @@ public class BereichLoeschenView extends JPanel implements View{
 
 	
 	private JButton B_BearbeitenLoeschen;
+	private JComboBox C_Bereich;
 	/**
 	 * Create the panel.
 	 */
@@ -38,12 +39,12 @@ public class BereichLoeschenView extends JPanel implements View{
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
-		B_BearbeitenLoeschen = new JButton("L\u00F6schen");
+		B_BearbeitenLoeschen = new JButton("Löschen");
 		B_BearbeitenLoeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_BearbeitenLoeschen.setBounds(440, 600, 150, 30);
 		add(B_BearbeitenLoeschen);
 		
-		JComboBox C_Bereich = new JComboBox();
+		C_Bereich = new JComboBox();
 		C_Bereich.setBounds(293, 21, 297, 30);
 		add(C_Bereich);
 		
@@ -63,5 +64,15 @@ public class BereichLoeschenView extends JPanel implements View{
 	public void reset() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setBereiche(String[] Bereiche){
+		for( int i = 0; i < Bereiche.length; i++){
+			this.C_Bereich.addItem( Bereiche[i] );
+		}
+	}
+	
+	public String getBereich(){
+		return this.C_Bereich.getSelectedItem().toString();
 	}
 }

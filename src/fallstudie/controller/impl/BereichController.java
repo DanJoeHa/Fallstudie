@@ -1,8 +1,11 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
+import java.util.Collection;
+import java.util.Iterator;
 
 import fallstudie.controller.interfaces.Controller;
+import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Bereich;
 import fallstudie.view.impl.BereichBearbeitenAnlegenView;
 import fallstudie.view.impl.BereichLoeschenView;
@@ -13,6 +16,8 @@ public class BereichController implements Controller {
 	private String operation;
 	private BereichBearbeitenAnlegenView view;
 	private BereichLoeschenView viewLoesch;
+	
+	private Collection<Bereich> bereich;
 	
 	public BereichController(){
 		
@@ -31,11 +36,31 @@ public class BereichController implements Controller {
 			{
 				this.viewLoesch = new BereichLoeschenView();
 				this.viewLoesch.setController( this );
+				this.viewLoesch.setBereiche(Funktionen.BereicheCollection2Array(Bereich.getAlleBereiche()));
 			}
 		}
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		String button = e.getActionCommand();
+		
+		if(button.equals("Löschen") )
+		{
+			Iterator<Bereich> i = this.bereich.iterator();		
+			while( i.hasNext() ){
+				Bereich B = (Bereich) i.next();
+				String Bezeichnung = B.getKurzbezeichnung();
+				if( Bezeichnung.equals( this.viewLoesch.getBereich() ) ){
+					if(B.loeschen()){
+						HauptController.hauptfenster.setInfoBox("Bereich erfolgreich gelöscht.");
+					}
+					else{
+						HauptController.hauptfenster.setInfoBox("Bereich konnte nicht gelöscht.");
+					}
+					break;
+				}
+			}
+		}
 		
 	}
 
