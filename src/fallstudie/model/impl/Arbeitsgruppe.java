@@ -330,20 +330,7 @@ public class Arbeitsgruppe {
 		boolean erfolgreich = false;
 		try 
 		{
-			String alteKurzbezeichnung = this.getKurzbezeichnung();
-			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-					"SELECT Kurzbezeichnung From Arbeitsgruppe");
 			
-			while (checkObVorhanden.next()) 
-			{
-
-					String value = checkObVorhanden.getString("Kurzbezeichnung");
-					
-					if (kurzbezeichnung.equals(value)) throw new Exception ("Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon!");
-
-			}
-			checkObVorhanden.close();
-			if (!alteKurzbezeichnung.equals(kurzbezeichnung))
 			{
 				//System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 						
@@ -354,23 +341,12 @@ public class Arbeitsgruppe {
 				erfolgreich=true;
 		
 			}
-			else
-			{
-				System.err.println("Alte und Neue Kurzbezeichnung sind Identisch! Bitte andere Beschreibung w�hlen.");
-				erfolgreich= false;
-			}
 		}
 			catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.err.println("------SQL ERROR------- in setKurzbezeichnung bei Arbeitsgruppe");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
 			System.err.println(e.getMessage());
 		}
-			catch(NullPointerException e)
-			{	System.err.println("Dieser Fehler ist aufgetreten in setKurzbezeichnung Arbeitsgruppe:");
-				System.err.println("Fehler beim Suchen der alten Kurzbezeichnung.");
-			}
 		return erfolgreich;
 	}
 
