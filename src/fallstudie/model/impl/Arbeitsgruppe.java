@@ -444,13 +444,7 @@ public class Arbeitsgruppe {
 		
 		if (bereichID!=0)
 		{
-			try {
-				this.bereich = new Bereich(bereichID);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				System.err.println("Fehler in Arbeitsgruppe.getBereich:");
-				System.err.println(e.getMessage());
-			}
+			this.bereich = new Bereich(bereichID);
 		}
 		else
 		{

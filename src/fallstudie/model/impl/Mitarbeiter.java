@@ -1088,7 +1088,7 @@ catch (SQLException e)
 		return erfolgreich;
 	}
 
-	public Bereich getBereich() throws SQLException
+	public Bereich getBereich()
 	{
 		if (this.bereich != null)
 			return this.bereich;

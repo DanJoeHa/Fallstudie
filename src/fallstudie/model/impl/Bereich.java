@@ -254,7 +254,7 @@ public class Bereich {
 	 * @throws SQLException 
 	 */
 
-	public Bereich(int bereichID) throws SQLException {
+	public Bereich(int bereichID) {
 		
 		RemoteConnection Connection = new RemoteConnection();
 		try
