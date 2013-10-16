@@ -758,7 +758,7 @@ catch (SQLException e)
 	 * @return
 	 */
 	public Arbeitsgruppe getArbeitsgruppe() {
-		
+		System.out.println(this.arbeitsgruppeID);
 		if(this.arbeitsgruppeID!=0)
 		{
 			return this.arbeitsgruppe;
