@@ -63,7 +63,8 @@ public class Wochenuebersicht {
 			ResultSet jahresuebersichtResult = Connection.executeQueryStatement(
 					"SELECT * FROM Wochenuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND Kalenderwoche='"
 							+kalenderwoche+"' AND Arbeitsgruppe='"+ arbeitsgruppeID +"'");
-			
+			if(jahresuebersichtResult.next())
+			{
 			jahresuebersichtResult.next();
 			
 			this.kalenderjahr = kalenderjahr;
@@ -71,7 +72,7 @@ public class Wochenuebersicht {
 			this.arbeitsgruppe = arbeitsgruppe;
 			int bereich = jahresuebersichtResult.getInt("Bereich");
 			this.bereich = new Bereich(bereich);
-		
+			}
 
 		}
 		catch (SQLException e)
