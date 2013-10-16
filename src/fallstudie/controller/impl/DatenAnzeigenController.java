@@ -10,6 +10,7 @@ import java.util.Iterator;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 
 import fallstudie.controller.interfaces.Controller;
+import fallstudie.exportieren.CSVExport;
 import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Jahresuebersicht;
 import fallstudie.model.impl.Wochenuebersicht;
@@ -512,6 +513,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 
 			try {
+				//CSVExport.exportCSV(tabwerte, this.tabellenspalten);
 				PDFDruck.generateTablePDF(tabwerte, this.headline, this.tabellenspalten);
 			} catch (Exception e1) {
 				e1.printStackTrace();
