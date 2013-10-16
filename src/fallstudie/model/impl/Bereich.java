@@ -269,7 +269,7 @@ public class Bereich {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		try
-		{	System.out.println("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
+		{	//System.out.println("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
 		
 		ResultSet BereichResult = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE BereichID='"+bereichID+"'");
 			

@@ -529,10 +529,11 @@ public class Arbeitsgruppe {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean loeschen() {
+	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
 		boolean darfdeletedWerden=false;
+		boolean mitarbeiterdran=false;
 		RemoteConnection Connection = new RemoteConnection();
 		try 
 		{	
@@ -541,11 +542,15 @@ public class Arbeitsgruppe {
 			ResultSet checkMitarbeiter = Connection.executeQueryStatement("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			checkMitarbeiter.next();
 			String leiter = checkMitarbeiter.getString("Leiter");
+			ResultSet mitarbeiterdrancheck = Connection.executeQueryStatement("SELECT Benutzername FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
+			if(mitarbeiterdrancheck.next()) mitarbeiterdran=true;
+			else if(!mitarbeiterdrancheck.next()) mitarbeiterdran=false;
 			//System.out.println(leiter);
 			if (leiter==null) darfdeletedWerden=true;
-			if (leiter!=null) 
+			if (leiter!=null || mitarbeiterdran!=true) 
 				{
 					darfdeletedWerden=false;
+					throw new Exception("Es hängen noch Mitarbeiter an dieser Arbeitsgruppe. Kann nicht gelöscht werden.");
 				}
 			checkMitarbeiter.close();
 		
