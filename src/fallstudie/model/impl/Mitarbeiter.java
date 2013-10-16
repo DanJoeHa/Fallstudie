@@ -421,7 +421,7 @@ public class Mitarbeiter {
 		try {
 			String verschluesseltesPW = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 			
-			System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
+			//System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
 			//anhand des Benutzernamens ResultSet kriegen
 			ResultSet mitarbeiterResult = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
 			mitarbeiterResult.last();
@@ -992,9 +992,9 @@ catch (SQLException e)
 			ResultSet resultSet = null;
 			try 
 			{	
-				/*System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
+				System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR" +
 						" Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
-					*/
+					
 					String query = "SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'";
 					
 					if( suchdomain.equals("Bereichsleiter") || suchdomain.equals("Gruppenleiter") ) query+= " OR Rolle LIKE '%" + suchdomain + "%'";
@@ -1005,7 +1005,7 @@ catch (SQLException e)
 					resultSet.last();
 					int resultLength = resultSet.getRow();
 					resultSet.beforeFirst();
-					if (resultLength==0) throw new NullPointerException("Keine Datens�tze gefunden");
+					if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
 					else
 					{
 						System.out.println("Es wurden "+resultLength+" Datensätze gefunden. Die Gel�schten Eintr�ge werden nicht angezeigt.");
