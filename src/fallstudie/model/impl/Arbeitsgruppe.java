@@ -83,16 +83,28 @@ public class Arbeitsgruppe {
 			
 			int RowsAffected = RemoteConnection.sql.executeUpdate(
 				"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"')");
-							if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz gespeichert.");
+			if (RowsAffected==1)throw new Exception("Datensatz erfolgreich gespeichert.");
+				
+			this.beschreibung = beschreibung;
+			this.kurzbezeichnung = kurzbezeichnung;
+			this.bereich = bereich;
+			this.leiter = leiter;				
 		}
 		else
 		{			
 			System.out.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"')");
 			
 			int RowsAffected = RemoteConnection.sql.executeUpdate(
-				"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"')");
-							if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz gespeichert.");
-		
+			"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"')");
+			
+			
+			this.beschreibung = beschreibung;
+			this.kurzbezeichnung = kurzbezeichnung;
+			this.bereich = bereich;
+			this.leiter = null;
+			
+			if (RowsAffected==1)throw new Exception("Datensatz erfolgreich gespeichert.");
+			
 		}
 		
 				}
@@ -103,10 +115,7 @@ public class Arbeitsgruppe {
 			System.err.println("SQL Statement ist fehlerhaft!");
 		}
 		
-		this.beschreibung = beschreibung;
-		this.kurzbezeichnung = kurzbezeichnung;
-		this.bereich = bereich;
-		this.leiter = leiter;
+		
 
 	}
 
