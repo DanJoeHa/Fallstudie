@@ -9,6 +9,7 @@ import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.ArtAnlegenView;
 import fallstudie.view.impl.ArtLoeschenView;
+import fallstudie.view.impl.BestaetigenPopup;
 import fallstudie.view.interfaces.View;
 
 public class ArtController implements Controller {
@@ -18,6 +19,7 @@ public class ArtController implements Controller {
 	private String operation;
 	private Object auswahl;
 	private Collection<Art> art;
+	public static BestaetigenPopup popup;
 	
 	
 	public ArtController(){
@@ -63,21 +65,35 @@ public class ArtController implements Controller {
 		//Popup-Bestaetigung abfragen + Ausgaben in Infobox hinzuf�gen
 		if(button.equals("Speichern") )
 		{
-			try{
-				
+			popup = new BestaetigenPopup();
 			
-				new Art(this.view.getArt());
+			popup.setController(this);
+		}	
+			if(button.equals("JA")){
 			
+				System.out.println("daaaaaa");
+				try{				
 				
-			}
-			catch(Exception ex){
-				HauptController.hauptfenster.setInfoBox(ex.getMessage());
-			}
+					new Art(this.view.getArt());
+				System.out.println(this.view.getArt());
 				
-			finally{
+					
+				}
+				catch(Exception ex){
+					HauptController.hauptfenster.setInfoBox(ex.getMessage());
+				}
+					
+				finally{
+					this.view.reset();
+					popup.setVisible(false);
+				}
+			}
+			if(button.equals("Nein")){
 				this.view.reset();
+				popup.setVisible(false);
 			}
-		}
+			
+		
 
 		if(button.equals("Löschen") )
 		{
