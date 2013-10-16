@@ -28,15 +28,21 @@ public class HauptController implements Controller, TreeSelectionListener {
 	protected View view;
 	public static HauptView hauptfenster;
 	public static Mitarbeiter activeUser;
-	public static SchliessenPopup schliessenPopup;
+	public static SchliessenPopup hilfefenster;
 	
 	/**
 	 * Ruft das Hauptfenster der Anwendung auf und läd die LoginView hinein
 	 */
 	public HauptController(){
 		
+		//Schließen-Popup vorbereiten
+		hilfefenster = new SchliessenPopup();
+		hilfefenster.setController(this);
+		
 		//aktiven Controller auf LoginController setzen
 		activeController = new LoginController();
+		hilfefenster.setHinweis( HilfeTexte.LoginView);
+		hilfefenster.setTitle("Hilfe - Login");
 		
 		//Hauptfenster
 		hauptfenster = new HauptView();
@@ -44,9 +50,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 		hauptfenster.setUeberschrift("Login");
 		hauptfenster.setContent( activeController.getView() );
 		
-		//Schließen-Popup vorbereiten
-		schliessenPopup = new SchliessenPopup();
-		schliessenPopup.setController(this);
+		
 	}
 	
 	/**
@@ -84,11 +88,11 @@ public class HauptController implements Controller, TreeSelectionListener {
 		//Wenn Button "Hilfe gedrückt wurde"
 		if(button == "Hilfe?")
 		{
-			System.out.println("Hilfe");
-			schliessenPopup.setVisible(true);
+			
+			hilfefenster.setVisible(true);
 		}
 		if(button == "Hilfe schliessen"){
-			schliessenPopup.setVisible(false);
+			hilfefenster.setVisible(false);
 		}
 	}
 	
@@ -120,6 +124,8 @@ public class HauptController implements Controller, TreeSelectionListener {
 			//Aktionen-Root Knoten
 			if( action.equals("Aktionen") ){
 				activeController = new WelcomeController();
+				hilfefenster.setHinweis( HilfeTexte.WelcomeView);
+				hilfefenster.setTitle("Hilfe - Startseite");
 			}else{
 				folder = pfad[pfadlaenge - 2].toString();
 			}
@@ -131,26 +137,26 @@ public class HauptController implements Controller, TreeSelectionListener {
 					case "Daten erfassen":
 						activeController = new ErfassenController();
 						hauptfenster.setUeberschrift("Eintrag erfassen");
-						schliessenPopup.setHinweis( HilfeTexte.ErfassenView);
-						schliessenPopup.setTitle("Hilfe - Daten erfassen");
+						hilfefenster.setHinweis( HilfeTexte.ErfassenView);
+						hilfefenster.setTitle("Hilfe - Daten erfassen");
 						break;
 					case "Daten anzeigen":
 						activeController = new DatenAnzeigenController();
 						hauptfenster.setUeberschrift("Daten anzeigen");
-						schliessenPopup.setHinweis( HilfeTexte.DatenAnzeigenAuswahlView);
-						schliessenPopup.setTitle("Hilfe - Daten anzeigen");
+						hilfefenster.setHinweis( HilfeTexte.DatenAnzeigenAuswahlView);
+						hilfefenster.setTitle("Hilfe - Daten anzeigen");
 						break;
 					case "Job-Einstellungen":
 						activeController = new KonfigController();
 						hauptfenster.setUeberschrift("Job Einstellungen ändern");
-						schliessenPopup.setHinweis( HilfeTexte.KonfigurationView);
-						schliessenPopup.setTitle("Hilfe - Job Konfiguration");
+						hilfefenster.setHinweis( HilfeTexte.KonfigurationView);
+						hilfefenster.setTitle("Hilfe - Job Konfiguration");
 						break;
 					case "Passwort ändern":	
 						activeController = new PasswortController();
 						hauptfenster.setUeberschrift("Passwort ändern");
-						schliessenPopup.setHinweis( HilfeTexte.PasswortaendernView);
-						schliessenPopup.setTitle("Hilfe - Passwort ändern");
+						hilfefenster.setHinweis( HilfeTexte.PasswortaendernView);
+						hilfefenster.setTitle("Hilfe - Passwort ändern");
 						break;
 				}
 				
@@ -165,16 +171,16 @@ public class HauptController implements Controller, TreeSelectionListener {
 						accreate.setOperation("anlegen");
 						this.activeController = accreate;
 						hauptfenster.setUeberschrift("Arbeitsgruppe anlegen");
-						schliessenPopup.setHinweis( HilfeTexte.ArbeitsgruppeBearbeitenAnlegenView);
-						schliessenPopup.setTitle("Hilfe - AG anlegen");
+						hilfefenster.setHinweis( HilfeTexte.ArbeitsgruppeBearbeitenAnlegenView);
+						hilfefenster.setTitle("Hilfe - AG anlegen");
 						break;
 					case "bearbeiten":
 						ArbeitsgruppenController acedit = new ArbeitsgruppenController();
 						acedit.setOperation("bearbeiten");
 						this.activeController = acedit;
 						hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
-						schliessenPopup.setHinweis( HilfeTexte.ArbeitsgruppeBearbeitenAnlegenView);
-						schliessenPopup.setTitle("Hilfe - AG bearbeiten");
+						hilfefenster.setHinweis( HilfeTexte.ArbeitsgruppeBearbeitenAnlegenView);
+						hilfefenster.setTitle("Hilfe - AG bearbeiten");
 						break;
 					case "löschen":
 						SuchController ascdelete = new SuchController();
@@ -182,8 +188,8 @@ public class HauptController implements Controller, TreeSelectionListener {
 						ascdelete.setOperation("loeschen");
 						this.activeController = ascdelete;
 						hauptfenster.setUeberschrift("Arbeitsgruppe löschen");
-						schliessenPopup.setHinweis( HilfeTexte.SuchenView);
-						schliessenPopup.setTitle("Hilfe - AG löschen");
+						hilfefenster.setHinweis( HilfeTexte.SuchenView);
+						hilfefenster.setTitle("Hilfe - AG löschen");
 						break;
 				}
 				
@@ -198,16 +204,16 @@ public class HauptController implements Controller, TreeSelectionListener {
 						artccreate.setOperation("anlegen");
 						this.activeController = artccreate;
 						hauptfenster.setUeberschrift("Art anlegen");
-						schliessenPopup.setHinweis( HilfeTexte.ArtAnlegenView);
-						schliessenPopup.setTitle("Hilfe - Art anlegen");
+						hilfefenster.setHinweis( HilfeTexte.ArtAnlegenView);
+						hilfefenster.setTitle("Hilfe - Art anlegen");
 						break;
 					case "löschen":
 						ArtController artcdelete = new ArtController();
 						artcdelete.setOperation("loeschen");
 						this.activeController = artcdelete;
 						hauptfenster.setUeberschrift("Art löschen");
-						schliessenPopup.setHinweis( HilfeTexte.ArtLoeschenView);
-						schliessenPopup.setTitle("Hilfe - Art löschen");
+						hilfefenster.setHinweis( HilfeTexte.ArtLoeschenView);
+						hilfefenster.setTitle("Hilfe - Art löschen");
 						break;
 				}
 				
@@ -222,24 +228,24 @@ public class HauptController implements Controller, TreeSelectionListener {
 						bccreate.setOperation("anlegen");
 						this.activeController = bccreate;
 						hauptfenster.setUeberschrift("Bereich anlegen");
-						schliessenPopup.setHinweis( HilfeTexte.BereichBearbeitenAnlegenView);
-						schliessenPopup.setTitle("Hilfe - Bereich anlegen");
+						hilfefenster.setHinweis( HilfeTexte.BereichBearbeitenAnlegenView);
+						hilfefenster.setTitle("Hilfe - Bereich anlegen");
 						break;
 					case "bearbeiten":
 						BereichController bcedit = new BereichController();
 						bcedit.setOperation("bearbeiten");
 						this.activeController = bcedit;
 						hauptfenster.setUeberschrift("Bereich bearbeiten");
-						schliessenPopup.setHinweis( HilfeTexte.BereichBearbeitenAnlegenView);
-						schliessenPopup.setTitle("Hilfe - Bereich bearbeiten");
+						hilfefenster.setHinweis( HilfeTexte.BereichBearbeitenAnlegenView);
+						hilfefenster.setTitle("Hilfe - Bereich bearbeiten");
 						break;
 					case "löschen":
 						BereichController bcdelete = new BereichController();
 						bcdelete.setOperation("loeschen");
 						this.activeController = bcdelete;
 						hauptfenster.setUeberschrift("Bereich löschen");
-						schliessenPopup.setHinweis( HilfeTexte.BereichLoeschenView);
-						schliessenPopup.setTitle("Hilfe - Bereich löschen");
+						hilfefenster.setHinweis( HilfeTexte.BereichLoeschenView);
+						hilfefenster.setTitle("Hilfe - Bereich löschen");
 						break;
 				}
 				
@@ -254,16 +260,16 @@ public class HauptController implements Controller, TreeSelectionListener {
 						mccreate.setOperation("anlegen");
 						this.activeController = mccreate;
 						hauptfenster.setUeberschrift("Mitarbeiter anlegen");
-						schliessenPopup.setHinweis( HilfeTexte.MitarbeiterAnlegenView);
-						schliessenPopup.setTitle("Hilfe - Mitarbeiter anlegen");
+						hilfefenster.setHinweis( HilfeTexte.MitarbeiterAnlegenView);
+						hilfefenster.setTitle("Hilfe - Mitarbeiter anlegen");
 						break;
 					case "bearbeiten":
 						MitarbeiterController mcedit = new MitarbeiterController();
 						mcedit.setOperation("bearbeiten");
 						this.activeController = mcedit;
 						hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
-						schliessenPopup.setHinweis( HilfeTexte.MitarbeiterBearbeitenView);
-						schliessenPopup.setTitle("Hilfe - Mitarbeiter bearbeiten");
+						hilfefenster.setHinweis( HilfeTexte.MitarbeiterBearbeitenView);
+						hilfefenster.setTitle("Hilfe - Mitarbeiter bearbeiten");
 						break;
 					case "löschen":
 						SuchController mscdelete = new SuchController();
@@ -271,8 +277,8 @@ public class HauptController implements Controller, TreeSelectionListener {
 						mscdelete.setOperation("loeschen");
 						this.activeController = mscdelete;
 						hauptfenster.setUeberschrift("Mitarbeiter löschen");
-						schliessenPopup.setHinweis( HilfeTexte.SuchenView);
-						schliessenPopup.setTitle("Hilfe - Mitarbeiter löschen");
+						hilfefenster.setHinweis( HilfeTexte.SuchenView);
+						hilfefenster.setTitle("Hilfe - Mitarbeiter löschen");
 						break;
 				}
 				

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Mitarbeiter;
+import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.LoginView;
 import fallstudie.view.interfaces.View;
 
@@ -34,9 +35,13 @@ public class LoginController implements Controller
 				if( !HauptController.activeUser.passwortIsChanged() ){
 					PasswortController pc = new PasswortController();
 					HauptController.hauptfenster.setContent( pc.getView() );
+					HauptController.hilfefenster.setHinweis(HilfeTexte.LoginView);
+					HauptController.hilfefenster.setTitle("Hilfe - Login");
 				}else{
 					WelcomeController wc = new WelcomeController();
 					HauptController.hauptfenster.setContent( wc.getView() );
+					HauptController.hilfefenster.setHinweis(HilfeTexte.WelcomeView);
+					HauptController.hilfefenster.setTitle("Hilfe - Startseite");
 				}
 			}catch(Exception ex){
 				HauptController.hauptfenster.setInfoBox( ex.getMessage() );
