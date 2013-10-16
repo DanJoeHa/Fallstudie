@@ -140,7 +140,7 @@ public class ArbeitsgruppenController implements Controller {
 
 		
 
-		if(operation.equals("bearbeiten"))
+		try//if(operation.equals("bearbeiten"))
 		{
 			//ausgewählte Arbeitsgruppe holen
 			this.gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();
@@ -159,16 +159,16 @@ public class ArbeitsgruppenController implements Controller {
 			this.view.setAGLeiter( LeiterBenutzerName );
 			
 			HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
-		}
+		}catch(Exception ex)
 		
-		if(operation.equals("anlegen"))
-		{
-			this.gewaehlteMA = (Mitarbeiter) suche.getAuswahl();
-			HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe anlegen");
-			
-			this.view.setAGLeiter(this.gewaehlteMA.getBenutzername());
-			
-		}
+			//if(operation.equals("anlegen"))
+			{
+				this.gewaehlteMA = (Mitarbeiter) suche.getAuswahl();
+				HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe anlegen");
+				
+				this.view.setAGLeiter(this.gewaehlteMA.getBenutzername());
+				
+			}
 		HauptController.hauptfenster.setContent( this.view );
 		this.view.repaint();
 
