@@ -1,10 +1,17 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
+import java.awt.print.PrinterException;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.apache.pdfbox.exceptions.COSVisitorException;
+
 import fallstudie.controller.interfaces.Controller;
+import fallstudie.exportieren.CSVExport;
+import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Jahresuebersicht;
 import fallstudie.model.impl.Wochenuebersicht;
 import fallstudie.model.impl.Zeile;
@@ -16,6 +23,9 @@ public class DatenAnzeigenController implements Controller {
 	
 	private DatenAnzeigenAuswahlView view;
 	private TabelleView viewErg;
+	private String headline = "Daten anzeigen ";
+	private String[] tabellenspalten = new String[1];
+	private Object[][] tabellenwerte = new Object[1][1];
 	
 	private String suchdomain;
 	
@@ -52,17 +62,12 @@ public class DatenAnzeigenController implements Controller {
 			
 			//Angaben holen
 			int kw = this.view.getWoche();
-			int jahr = this.view.getJahr();			
-			
-			//Ueberschift
-			String headline = "Daten anzeigen ";
-			String[] tabellenspalten = new String[1];
-			Object[][] tabellenwerte = new Object[1][1];
+			int jahr = this.view.getJahr();						
 			
 			//Jahresübersicht
 			if( kw == 0 ){
 				
-				headline += "Jahr " + jahr;
+				this.headline += "Jahr " + jahr;
 				
 				//Jahresübersicht Zentralbereichsleiter/Fachbereichsorganisation
 				if( HauptController.activeUser.checkRecht("Lesen alle Bereiche Jahr") ){
@@ -275,7 +280,7 @@ public class DatenAnzeigenController implements Controller {
 			}else{
 			//Kalenderwochenübersicht
 				
-				headline += "KW " + kw + "/" + jahr;
+				this.headline += "KW " + kw + "/" + jahr;
 				
 				//Kalenderwochenübersicht Zentralbereichsleiter/Fachbereichsorganisation
 				if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ){
@@ -495,8 +500,24 @@ public class DatenAnzeigenController implements Controller {
 		}
 		
 		//Daten ausdrucken
-		if( button.equals("weiter") ){
+		if( button.equals("Drucken") ){
 			
+			String[][] tabwerte = new String[this.tabellenwerte.length][this.tabellenwerte[0].length];
+			
+			for( int i = 0; i < this.tabellenwerte.length; i++){
+				for( int j = 0; j < this.tabellenwerte[i].length; j++){
+					String w = "";
+					if( this.tabellenwerte[i][j] != null ) w = (String) this.tabellenwerte[i][j];
+					tabwerte[i][j] = w;
+				}
+			}
+
+			try {
+				//CSVExport.exportCSV(tabwerte, this.tabellenspalten);
+				PDFDruck.generateTablePDF(tabwerte, this.headline, this.tabellenspalten);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
