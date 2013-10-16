@@ -765,7 +765,7 @@ catch (SQLException e)
 		}
 		if (arbeitsgruppeID!=0)
 		{
-			this.arbeitsgruppe = new Arbeitsgruppe(arbeitsgruppeID);
+			this.arbeitsgruppe = new Arbeitsgruppe(this.arbeitsgruppeID);
 		}
 		else
 		{
