@@ -12,6 +12,7 @@ import org.apache.pdfbox.exceptions.COSVisitorException;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.exportieren.CSVExport;
 import fallstudie.exportieren.PDFDruck;
+import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Jahresuebersicht;
 import fallstudie.model.impl.Wochenuebersicht;
 import fallstudie.model.impl.Zeile;
@@ -23,10 +24,13 @@ public class DatenAnzeigenController implements Controller {
 	
 	private DatenAnzeigenAuswahlView view;
 	private TabelleView viewErg;
+	
 	private String headline = "Daten anzeigen ";
 	private String[] tabellenspalten = new String[1];
 	private Object[][] tabellenwerte = new Object[1][1];
-
+	private int kw;
+	private int jahr;
+	private Collection<Bereich> bereiche;
 	
 	/**
 	 * Maske zur Eingabe der Rahmendaten KW und Jahr anzeigen
@@ -52,9 +56,13 @@ public class DatenAnzeigenController implements Controller {
 		//Rahmendaten eingegeben
 		if( button.equals("Weiter") ){
 			
+			//View laden
+			this.viewErg = new TabelleView();
+			this.viewErg.setController( this );
+			
 			//Angaben holen
-			int kw = this.view.getWoche();
-			int jahr = this.view.getJahr();						
+			kw = this.view.getWoche();
+			jahr = this.view.getJahr();						
 			
 			//Jahresübersicht
 			if( kw == 0 ){
@@ -75,9 +83,12 @@ public class DatenAnzeigenController implements Controller {
 							
 							int anzZeilen = oJahr.getZeileBereich().size();
 							if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
+							this.bereiche.add(oJahr.getBereich());
 						}
 						
-						
+						//DrillDown-Button und ComboBox anzeigen
+						this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
+						this.viewErg.setDrillDown(true);
 						
 						tabellenspalten = new String[ coJahresuebersichten.size() + 1 ];
 						tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 1 ];
@@ -158,92 +169,7 @@ public class DatenAnzeigenController implements Controller {
 				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs Jahr") ){
 					Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
 					
-					try{
-						
-						//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
-						Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
-						int maxZeilen = 0;
-						while( itJahre.hasNext() ){
-							Jahresuebersicht oJahr = itJahre.next();
-							
-							int anzZeilen = oJahr.getZeileBereich().size();
-							if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-						}
-						
-						
-						
-						tabellenspalten = new String[ coJahresuebersichten.size() + 1 ];
-						tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 1 ];
-						tabellenspalten[0] = "Art\\Bereich";
-						
-						//Schleifenvars
-						int spalte = 1;
-						String[][] aArtPos = new String[maxZeilen][2]; 
-						for(int s = 0; s < maxZeilen; s++){
-							aArtPos[s][0] = "";
-							aArtPos[s][1] = "";
-						}
-						int artName = 0;
-						int artZeile = 1;
-						int i = 0;
-						
-						//alle Jahresuebersichten aus Collection durchlaufen
-						itJahre = coJahresuebersichten.iterator();
-						while( itJahre.hasNext() ){
-							
-							//Schreibe Bereich in Tabellenkopf
-							Jahresuebersicht oJahresuebersicht = itJahre.next();
-							tabellenspalten[spalte] = oJahresuebersicht.getArbeitsgruppe().getKurzbezeichnung();
-							
-							//alle Zeilen des aktiven Jahresbericht holen un mit durchzählen
-							Collection<Zeile> z = oJahresuebersicht.getZeileArbeitsgruppe();
-							Iterator<Zeile> itZeile = z.iterator();
-							//int i = 0;
-							
-							//alle Zeilen durchlaufen
-							while( itZeile.hasNext() ){
-								
-								//naechste Zeile holen
-								Zeile oZeile = (Zeile) itZeile.next();
-								
-								//prüfen ob Art bereits in Tabellenarray vorhanden und wenn ja wo
-								int artInZeile;
-								boolean found = false;
-								for(artInZeile = 0; artInZeile < aArtPos.length; artInZeile++){
-									//wenn Schleife an erster Stelle ohne Inhalt angekommen ist, abbrechen
-									if( aArtPos[artInZeile][artName].isEmpty() ) break;
-									
-									//wenn Uebereinstimmung zwischen Zeilenart und Arrayspeicher gefunden
-									if( aArtPos[artInZeile][artName].equals( oZeile.getArt().getName() ) ){
-										found = true;
-										break;	
-									}
-								}
-								
-								//Tabellenzeile bestimmen
-								int zeile = 0;
-								if(found){
-									zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
-								}else{
-									zeile = i;
-									tabellenwerte[zeile][0] = oZeile.getArt().getName();
-									aArtPos[artInZeile][artName] = oZeile.getArt().getName();
-									aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
-								}
-								
-								//Tabellenwert in Spalte & Zeile eintragen
-								tabellenwerte[zeile][spalte] = Integer.toString( oZeile.getSumme() );
-								i++;
-							}
-							
-							//nächste Spalte im Gesamtbericht
-							spalte++;
-						}
-						
-					}catch(Exception ex){
-						HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden");
-						ex.printStackTrace();
-					}
+					this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
 					
 				}
 				
@@ -292,13 +218,16 @@ public class DatenAnzeigenController implements Controller {
 						Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
 						int maxZeilen = 0;
 						while( itWoche.hasNext() ){
-							Wochenuebersicht oJahr = itWoche.next();
+							Wochenuebersicht oWoche = itWoche.next();
 							
-							int anzZeilen = oJahr.getZeileBereich().size();
+							int anzZeilen = oWoche.getZeileBereich().size();
 							if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
+							this.bereiche.add(oWoche.getBereich());
 						}
 						
-						
+						//DrillDown-Button und ComboBox anzeigen
+						this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
+						this.viewErg.setDrillDown(true);
 						
 						tabellenspalten = new String[ coWochenuebersichten.size() + 1 ];
 						tabellenwerte = new Object[ maxZeilen ][ coWochenuebersichten.size() + 1 ];
@@ -380,91 +309,7 @@ public class DatenAnzeigenController implements Controller {
 				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs KW") ){
 					Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, HauptController.activeUser.getBereich() );
 					
-					try{
-						
-						//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
-						Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
-						int maxZeilen = 0;
-						while( itWoche.hasNext() ){
-							Wochenuebersicht oJahr = itWoche.next();
-							
-							int anzZeilen = oJahr.getZeileBereich().size();
-							if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-						}
-						
-						
-						
-						tabellenspalten = new String[ coWochenuebersichten.size() + 1 ];
-						tabellenwerte = new Object[ maxZeilen ][ coWochenuebersichten.size() + 1 ];
-						tabellenspalten[0] = "Art\\Arbeitsgruppe";
-						
-						//Schleifenvars
-						int spalte = 1;
-						String[][] aArtPos = new String[maxZeilen][2]; 
-						for(int s = 0; s < maxZeilen; s++){
-							aArtPos[s][0] = "";
-							aArtPos[s][1] = "";
-						}
-						int artName = 0;
-						int artZeile = 1;
-						int i = 0;
-						
-						//alle Wochenuebersichten aus Collection durchlaufen
-						itWoche = coWochenuebersichten.iterator();
-						while( itWoche.hasNext() ){
-							
-							//Schreibe Bereich in Tabellenkopf
-							Wochenuebersicht oWochenuebersicht = itWoche.next();
-							tabellenspalten[spalte] = oWochenuebersicht.getArbeitsgruppe().getKurzbezeichnung();
-							
-							//alle Zeilen des aktiven Jahresbericht holen un mit durchzählen
-							Collection<Zeile> z = oWochenuebersicht.getZeileArbeitsgruppe();
-							Iterator<Zeile> itZeile = z.iterator();
-							
-							//alle Zeilen durchlaufen
-							while( itZeile.hasNext() ){
-								
-								//naechste Zeile holen
-								Zeile oZeile = (Zeile) itZeile.next();
-								
-								//prüfen ob Art bereits in Tabellenarray vorhanden und wenn ja wo
-								int artInZeile;
-								boolean found = false;
-								for(artInZeile = 0; artInZeile < aArtPos.length; artInZeile++){
-									//wenn Schleife an erster Stelle ohne Inhalt angekommen ist, abbrechen
-									if( aArtPos[artInZeile][artName].isEmpty() ) break;
-									
-									//wenn Uebereinstimmung zwischen Zeilenart und Arrayspeicher gefunden
-									if( aArtPos[artInZeile][artName].equals( oZeile.getArt().getName() ) ){
-										found = true;
-										break;	
-									}
-								}
-								
-								//Tabellenzeile bestimmen
-								int zeile = 0;
-								if(found){
-									zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
-								}else{
-									zeile = i;
-									tabellenwerte[zeile][0] = oZeile.getArt().getName();
-									aArtPos[artInZeile][artName] = oZeile.getArt().getName();
-									aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
-								}
-								
-								//Tabellenwert in Spalte & Zeile eintragen
-								tabellenwerte[zeile][spalte] = Integer.toString( oZeile.getSumme() );
-								i++;
-							}
-							
-							//nächste Spalte im Gesamtbericht
-							spalte++;
-						}
-						
-					}catch(Exception ex){
-						HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden");
-						ex.printStackTrace();
-					}
+					this.generiereWochenuebersichtenZuBereich(coWochenuebersichten);
 				}
 				
 				//Kalenderwochenübersicht Gruppenleiter
@@ -499,8 +344,6 @@ public class DatenAnzeigenController implements Controller {
 			}
 			
 			//an TabelleView übergeben
-			this.viewErg = new TabelleView();
-			this.viewErg.setController( this );
 			this.viewErg.setTabelle(tabellenspalten, tabellenwerte);
 			this.viewErg.setButtonName("Drucken");
 			HauptController.hauptfenster.setUeberschrift(headline);
@@ -527,8 +370,237 @@ public class DatenAnzeigenController implements Controller {
 				e1.printStackTrace();
 			}
 		}
+		
+		//Drill-Down in einen Bereich
+		if( button.equals("DrillDown") ){
+			
+			//Headline anpassen
+			this.headline += " > Arbeitsgruppen ";
+			
+			//Bereichsobjekt zur Auswahl finden
+			Iterator<Bereich> i = this.bereiche.iterator();
+			Bereich oBereich = null;
+			while( i.hasNext() ){
+				oBereich = i.next();
+				if(oBereich.getKurzbezeichnung().equals( this.viewErg.getDrillDownBereich() ) ) break;
+			}
+			
+			if( kw == 0){
+				
+				//Jahr
+				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs Jahr") ){
+					
+					//Daten holen
+					Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, oBereich );
+					
+					//Tabelle neu generieren
+					this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
+					
+				}
+				
+			}else{
+				
+				//Kalenderwochen
+				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs KW") ){
+					
+					//Daten holen
+					Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, oBereich );
+					
+					//Tabelle neu generieren
+					this.generiereWochenuebersichtenZuBereich(coWochenuebersichten);
+				}
+				
+			}
+			
+			//an TabelleView übergeben
+			HauptController.hauptfenster.setUeberschrift(this.headline);
+			this.viewErg.setTabelle(tabellenspalten, tabellenwerte);
+			this.viewErg.repaint();
+			
+		}
 	}
 
+	private void generiereJahresuebersichtenZuBereich(Collection<Jahresuebersicht> coJahresuebersichten){
+		
+		try{
+			
+			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
+			Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
+			int maxZeilen = 0;
+			while( itJahre.hasNext() ){
+				Jahresuebersicht oJahr = itJahre.next();
+				
+				int anzZeilen = oJahr.getZeileBereich().size();
+				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
+			}
+			
+			
+			
+			tabellenspalten = new String[ coJahresuebersichten.size() + 1 ];
+			tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 1 ];
+			tabellenspalten[0] = "Art\\Bereich";
+			
+			//Schleifenvars
+			int spalte = 1;
+			String[][] aArtPos = new String[maxZeilen][2]; 
+			for(int s = 0; s < maxZeilen; s++){
+				aArtPos[s][0] = "";
+				aArtPos[s][1] = "";
+			}
+			int artName = 0;
+			int artZeile = 1;
+			int i = 0;
+			
+			//alle Jahresuebersichten aus Collection durchlaufen
+			itJahre = coJahresuebersichten.iterator();
+			while( itJahre.hasNext() ){
+				
+				//Schreibe Bereich in Tabellenkopf
+				Jahresuebersicht oJahresuebersicht = itJahre.next();
+				tabellenspalten[spalte] = oJahresuebersicht.getArbeitsgruppe().getKurzbezeichnung();
+				
+				//alle Zeilen des aktiven Jahresbericht holen un mit durchzählen
+				Collection<Zeile> z = oJahresuebersicht.getZeileArbeitsgruppe();
+				Iterator<Zeile> itZeile = z.iterator();
+				//int i = 0;
+				
+				//alle Zeilen durchlaufen
+				while( itZeile.hasNext() ){
+					
+					//naechste Zeile holen
+					Zeile oZeile = (Zeile) itZeile.next();
+					
+					//prüfen ob Art bereits in Tabellenarray vorhanden und wenn ja wo
+					int artInZeile;
+					boolean found = false;
+					for(artInZeile = 0; artInZeile < aArtPos.length; artInZeile++){
+						//wenn Schleife an erster Stelle ohne Inhalt angekommen ist, abbrechen
+						if( aArtPos[artInZeile][artName].isEmpty() ) break;
+						
+						//wenn Uebereinstimmung zwischen Zeilenart und Arrayspeicher gefunden
+						if( aArtPos[artInZeile][artName].equals( oZeile.getArt().getName() ) ){
+							found = true;
+							break;	
+						}
+					}
+					
+					//Tabellenzeile bestimmen
+					int zeile = 0;
+					if(found){
+						zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
+					}else{
+						zeile = i;
+						tabellenwerte[zeile][0] = oZeile.getArt().getName();
+						aArtPos[artInZeile][artName] = oZeile.getArt().getName();
+						aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
+					}
+					
+					//Tabellenwert in Spalte & Zeile eintragen
+					tabellenwerte[zeile][spalte] = Integer.toString( oZeile.getSumme() );
+					i++;
+				}
+				
+				//nächste Spalte im Gesamtbericht
+				spalte++;
+			}
+			
+		}catch(Exception ex){
+			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden");
+			ex.printStackTrace();
+		}
+		
+	}
+	
+	private void generiereWochenuebersichtenZuBereich(Collection<Wochenuebersicht> coWochenuebersichten){
+		
+		try{
+			
+			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
+			Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
+			int maxZeilen = 0;
+			while( itWoche.hasNext() ){
+				Wochenuebersicht oJahr = itWoche.next();
+				
+				int anzZeilen = oJahr.getZeileBereich().size();
+				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
+			}
+			
+			
+			
+			tabellenspalten = new String[ coWochenuebersichten.size() + 1 ];
+			tabellenwerte = new Object[ maxZeilen ][ coWochenuebersichten.size() + 1 ];
+			tabellenspalten[0] = "Art\\Arbeitsgruppe";
+			
+			//Schleifenvars
+			int spalte = 1;
+			String[][] aArtPos = new String[maxZeilen][2]; 
+			for(int s = 0; s < maxZeilen; s++){
+				aArtPos[s][0] = "";
+				aArtPos[s][1] = "";
+			}
+			int artName = 0;
+			int artZeile = 1;
+			int i = 0;
+			
+			//alle Wochenuebersichten aus Collection durchlaufen
+			itWoche = coWochenuebersichten.iterator();
+			while( itWoche.hasNext() ){
+				
+				//Schreibe Bereich in Tabellenkopf
+				Wochenuebersicht oWochenuebersicht = itWoche.next();
+				tabellenspalten[spalte] = oWochenuebersicht.getArbeitsgruppe().getKurzbezeichnung();
+				
+				//alle Zeilen des aktiven Jahresbericht holen un mit durchzählen
+				Collection<Zeile> z = oWochenuebersicht.getZeileArbeitsgruppe();
+				Iterator<Zeile> itZeile = z.iterator();
+				
+				//alle Zeilen durchlaufen
+				while( itZeile.hasNext() ){
+					
+					//naechste Zeile holen
+					Zeile oZeile = (Zeile) itZeile.next();
+					
+					//prüfen ob Art bereits in Tabellenarray vorhanden und wenn ja wo
+					int artInZeile;
+					boolean found = false;
+					for(artInZeile = 0; artInZeile < aArtPos.length; artInZeile++){
+						//wenn Schleife an erster Stelle ohne Inhalt angekommen ist, abbrechen
+						if( aArtPos[artInZeile][artName].isEmpty() ) break;
+						
+						//wenn Uebereinstimmung zwischen Zeilenart und Arrayspeicher gefunden
+						if( aArtPos[artInZeile][artName].equals( oZeile.getArt().getName() ) ){
+							found = true;
+							break;	
+						}
+					}
+					
+					//Tabellenzeile bestimmen
+					int zeile = 0;
+					if(found){
+						zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
+					}else{
+						zeile = i;
+						tabellenwerte[zeile][0] = oZeile.getArt().getName();
+						aArtPos[artInZeile][artName] = oZeile.getArt().getName();
+						aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
+					}
+					
+					//Tabellenwert in Spalte & Zeile eintragen
+					tabellenwerte[zeile][spalte] = Integer.toString( oZeile.getSumme() );
+					i++;
+				}
+				
+				//nächste Spalte im Gesamtbericht
+				spalte++;
+			}
+			
+		}catch(Exception ex){
+			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden");
+			ex.printStackTrace();
+		}
+		
+	}
+	
 	@Override
 	public View getView() {
 		return this.view;

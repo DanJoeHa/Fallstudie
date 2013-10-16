@@ -27,10 +27,15 @@ import javax.swing.JRadioButton;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
+import javax.swing.JComboBox;
+
 public class TabelleView extends JPanel implements View {
 	private JTable TA_Tabelle;
 	private JButton B_AuswaehlenLoeschen;
 	private JButton B_Abbrechen;
+	private JComboBox C_DrillDown;
+	private JButton B_DrillDown;
+	
 	
 	/**
 	 * Create the panel.
@@ -66,6 +71,17 @@ public class TabelleView extends JPanel implements View {
 		B_Abbrechen.setBounds(30, 600, 150, 30);
 		add(B_Abbrechen);
 		
+		C_DrillDown = new JComboBox();
+		C_DrillDown.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		C_DrillDown.setBounds(424, 66, 28, 23);
+		C_DrillDown.setVisible(false);
+		add(C_DrillDown);
+		
+		B_DrillDown = new JButton("DrillDown");
+		B_DrillDown.setBounds(461, 66, 89, 23);
+		B_DrillDown.setVisible(false);
+		add(B_DrillDown);
+		
 		
 	}
 	
@@ -83,44 +99,39 @@ public class TabelleView extends JPanel implements View {
 	//Tabelle befüllen
 	public void setTabelle(String[] tabellenheadline,Object[][] tabellenwerte){
 		
-		
-		
-		
-		
-		
-		//for(int i = 0; i < tabellenwerte.length; i ++){
-		//		System.out.println("bla");
-		//		tabellenwerte[i][6] = new JRadioButton("A");
-		//		System.out.println("blub");
-		//}
-		
-		
-		
-		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellenheadline)
-		{
+		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellenheadline){
 			public boolean isCellEditable(int x, int y) {
                 return false;
             }
+		});	
+		
+	}
+	
+	public void setDrillDown(boolean visible){
+		this.C_DrillDown.setVisible(visible);
+		this.B_DrillDown.setVisible(visible);
+	}
+	
+	public void setBereiche(String[] bereiche){
+		for( int i = 0; i < bereiche.length; i++){
+			this.C_DrillDown.addItem( bereiche[i] );
 		}
-				);
 		
-		
-		
-		
-		
+	}
+	
+	public String getDrillDownBereich(){
+		return this.C_DrillDown.getSelectedItem().toString();
 	}
 	
 	@Override
 	public void setController(Controller c) {
-		// TODO Auto-generated method stub
 		this.B_Abbrechen.addActionListener(c);
 		this.B_AuswaehlenLoeschen.addActionListener(c);
+		this.B_DrillDown.addActionListener(c);
 	}
 
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
 	}
-	
-	
 }
