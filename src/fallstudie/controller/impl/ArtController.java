@@ -137,4 +137,10 @@ public class ArtController implements Controller {
 		return null;
 	}
 
+	@Override
+	public void fortsetzen() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

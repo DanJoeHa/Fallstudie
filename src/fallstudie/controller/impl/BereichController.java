@@ -105,4 +105,10 @@ public class BereichController implements Controller {
 		}
 		return null;
 	}
+
+	@Override
+	public void fortsetzen() {
+		// TODO Auto-generated method stub
+		
+	}
 }
