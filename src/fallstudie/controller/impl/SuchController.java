@@ -22,6 +22,8 @@ public class SuchController implements Controller {
 	private Object auswahl = null;
 	private String suchbegriff;
 	
+	private Controller aufrufenderController;
+	
 	
 	
 	public SuchController(){
@@ -135,9 +137,11 @@ public class SuchController implements Controller {
 		}
 		
 		if( this.suchdomain.equals( "Arbeitsgruppe" )){ 
+			System.out.println("1");
 			if( button.equals( "Suchen") ){
+				System.out.println("2");
 				try{
-						
+						System.out.println("3");
 						//initiere Ergebnistabelle
 						this.viewErg = new TabelleView();
 						this.viewErg.setController( this );
@@ -146,10 +150,8 @@ public class SuchController implements Controller {
 						//hole passende Suchergebnisse
 						
 						String suche;
-						System.out.println(e.getID());
 						if(e.getID() == 1 ){
 							suche = this.suchbegriff;
-							System.out.println("asd");
 						}
 						else
 						{
@@ -157,13 +159,9 @@ public class SuchController implements Controller {
 						}
 						
 						this.suchergebnisseAg = Arbeitsgruppe.suche( suche );
-							// TODO Auto-generated catch block
-							//HauptController.hauptfenster.setContent(this.viewErg);
-						
-						
+										
 						//festgelegter String Array
 						String[] AGColumn = new String[]{ "Kurzbeschreibung", "Beschreibung", "Leiter", "Bereich"};
-						
 						
 						//Content auf Tabellen-Sicht wechseln
 						this.viewErg.setTabelle( AGColumn, Funktionen.ArbeitsgruppeCollection2ArraySuche(this.suchergebnisseAg ) );
@@ -185,6 +183,8 @@ public class SuchController implements Controller {
 					String kurzbez = AG.getKurzbezeichnung();
 					if( kurzbez.equals( AGname ) ){
 						this.auswahl = AG;
+						ArbeitsgruppenController c = (ArbeitsgruppenController) this.aufrufenderController;
+						c.BearbeitenFortsetzen();
 						break;
 					}
 				}
@@ -214,7 +214,10 @@ public class SuchController implements Controller {
 	
 }	
 
-	
+	public void setAufrufenderController(Controller c)
+	{
+		this.aufrufenderController = c;
+	}
 
 	@Override
 	public View getView() {
