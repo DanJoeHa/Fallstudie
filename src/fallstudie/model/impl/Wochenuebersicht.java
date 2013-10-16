@@ -91,7 +91,7 @@ public class Wochenuebersicht {
 	 * @param Bereich
 	 * @return
 	 */
-	public Wochenuebersicht(int kalenderjahr, int kalenderwoche, Bereich Bereich) {
+	public Wochenuebersicht(int kalenderjahr, int kalenderwoche, Bereich bereich) {
 		// TODO Auto-generated method stub
 		RemoteConnection Connection = new RemoteConnection();
 		
@@ -140,22 +140,18 @@ public class Wochenuebersicht {
 
 	
 	public int getKalenderjahr() {
-		// TODO Auto-generated method stub
 		return this.kalenderjahr;
 	}
 
 	public int getKalenderwoche() {
-		// TODO Auto-generated method stub
 		return this.kalenderwoche;
 	}
 
 	public Bereich getBereich() {
-		// TODO Auto-generated method stub
 		return this.bereich;
 	}
 
 	public Arbeitsgruppe getArbeitsgruppe() {
-		// TODO Auto-generated method stub
 		return this.arbeitsgruppe;
 	}
 	
@@ -230,10 +226,10 @@ public class Wochenuebersicht {
 		ResultSet resultSet = null;
 		try 
 		{			
-			System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+			System.out.println("SELECT Art, Summe FROM Wochenuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Bereich ='"+this.bereich.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
-					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"SELECT Art, Summe FROM Wochenuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Bereich ='"+this.bereich.getID()+"'");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	
@@ -251,7 +247,99 @@ public class Wochenuebersicht {
 			System.err.println(e.getMessage());
 		}
 		return result;
+	
+	}
+	/**
+	 * Liefert alle Wochenuebersichten zu allen Bereichen,
+	 * @param jahr
+	 * @param woche
+	 * @return Collection von Wochenuebersichten welche einem Bereich zugeordnet sind
+	 */
+	public static Collection<Wochenuebersicht> getAlleWochenuebersichtenZuAllenBereichen(int jahr, int woche)
+	{
+		RemoteConnection Connection = new RemoteConnection();
+		Collection<Wochenuebersicht> alleWochenuebersichten = new LinkedList<>();
+		
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
+		//System.out.println("SELECT Bereich FROM Wochenuebersicht WHERE Kalenderjahr='"+jahr+"'" AND Kalenderwoche='"+woche+"'");
+		
+		try {
+			ResultSet wochenUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Bereich FROM Wochenuebersicht WHERE Kalenderjahr='"+jahr+"' AND Kalenderwoche='"+woche+"'");
+			
+			while(wochenUebersicht.next())
+			{	
+				int bereichID = wochenUebersicht.getInt("Bereich");
+				Bereich bereich = new Bereich(bereichID);
+				
+				alleWochenuebersichten.add(new Wochenuebersicht(jahr,woche, bereich));
+			}
+			
+		wochenUebersicht.close();
+		} 
+		catch (SQLException e) {
+			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZuAllenbereichen(String) aufgetreten:");
+			System.err.println(e.getMessage());
+		}
+		return alleWochenuebersichten;
+		
 		
 	}
-
+	/**
+	 * Liefert für den Bereichsleiter eine Übersicht aller Wochenübersichten eines Bereichs(ale Arbitsgruppen)
+	 * @param jahr
+	 * @param woche
+	 * @param bereich
+	 * @return
+	 */
+	public static Collection<Wochenuebersicht> getAlleWochenuebersichtenZumBereich(int jahr, int woche, Bereich bereich)
+	{
+		RemoteConnection Connection = new RemoteConnection();
+		Collection<Wochenuebersicht> alleWochenuebersichten = new LinkedList<>();
+		int bereichID = bereich.getID();
+		
+		try
+		{
+			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
+				RemoteConnection.connect();
+			};
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("Konnte keine Datenbankverbindung herstellen!");
+		}
+		
+		//System.out.println("SELECT DISTINCT Arbeitsgruppe FROM Wochenuebersicht WHERE Kalenderjahr='"+jahr+"' AND Kalenderwoche='"+woche+"' AND Bereich='"+bereichID+"'");
+		
+		try {
+			ResultSet wochenUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Arbeitsgruppe FROM Wochenuebersicht WHERE Kalenderjahr='"+jahr+"' AND Kalenderwoche='"+woche+"' AND Bereich='"+bereichID+"'");
+			
+			while(wochenUebersicht.next())
+			{	
+				int arbeitsgruppeID = wochenUebersicht.getInt("Arbeitsgruppe");
+				Arbeitsgruppe gruppe = new Arbeitsgruppe(arbeitsgruppeID);
+				
+				alleWochenuebersichten.add(new Wochenuebersicht(jahr, woche,gruppe));
+			}
+			
+		wochenUebersicht.close();
+		} 
+		catch (SQLException e) {
+			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZumBereich(String) aufgetreten:");
+			System.err.println(e.getMessage());
+		}
+		return alleWochenuebersichten;
+		
+	}
+	
 }
+
