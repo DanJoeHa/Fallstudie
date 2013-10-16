@@ -69,13 +69,13 @@ public class ArtController implements Controller {
 			
 			popup.setController(this);
 		}	
-			if(button.equals("JA")){
+			if(button.equals("Ja")){
 			
-				System.out.println("daaaaaa");
+				
 				try{				
 				
 					new Art(this.view.getArt());
-				System.out.println(this.view.getArt());
+				
 				
 					
 				}
