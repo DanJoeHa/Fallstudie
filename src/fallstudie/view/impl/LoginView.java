@@ -22,7 +22,6 @@ public class LoginView extends JPanel implements View {
 	private JPasswordField P_Passwort;
 	private JTextField T_Benutzername;
 	private JButton B_Login;
-	private JButton B_PasswortVergessen;
 
 	/**
 	 * Sicht erstellen.
@@ -75,16 +74,6 @@ public class LoginView extends JPanel implements View {
 		B_Login.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Login.setBounds(350, 200, 150, 30);
 		add(B_Login);
-		
-		//B_Passwort_vergessen
-		B_PasswortVergessen = new JButton("Passwort vergessen?");
-		B_PasswortVergessen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		B_PasswortVergessen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_PasswortVergessen.setBounds(200, 250, 300, 30);
-		add(B_PasswortVergessen);
 
 	}
 	
@@ -120,7 +109,7 @@ public class LoginView extends JPanel implements View {
 	@Override
 	public void setController(Controller c) {
 		this.B_Login.addActionListener(c);
-		this.B_PasswortVergessen.addActionListener(c);
+		
 		
 	}
 	

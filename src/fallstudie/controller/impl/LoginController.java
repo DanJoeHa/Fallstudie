@@ -49,12 +49,7 @@ public class LoginController implements Controller
 			}
 		}
 		
-		if(button == "Passwort vergessen"){
-			/*PopupSchliessenView popup = new PopupSchliessenView();
-			popup.setHinweis("Bitte kontaktieren Sie Ihren IT-Support");
-			popup.setButtonName("Schließen");
-			popup.setUeberschrift("Passwort vergessen");*/
-		}
+		
 	}
 
 	@Override
