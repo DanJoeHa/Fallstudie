@@ -90,6 +90,10 @@ public class SuchController implements Controller {
 						
 						//Content auf Tabellen-Sicht wechseln
 						this.viewErg.setTabelle( MAColumn, Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ));
+						if(operation.equals("loeschen"))
+						{
+							this.viewErg.setButtonName("Löschen");
+						}
 						HauptController.hauptfenster.setContent( this.viewErg );
 				}catch(Exception ex){
 					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
