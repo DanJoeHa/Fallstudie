@@ -93,7 +93,11 @@ public class DatenAnzeigenController implements Controller {
 						
 						//Schleifenvars
 						int spalte = 1;
-						String[][] aArtPos = {{"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}};
+						String[][] aArtPos = new String[maxZeilen][2]; 
+						for(int s = 0; s < maxZeilen; s++){
+							aArtPos[s][0] = "";
+							aArtPos[s][1] = "";
+						}
 						int artName = 0;
 						int artZeile = 1;
 						int i = 0;
@@ -182,7 +186,11 @@ public class DatenAnzeigenController implements Controller {
 						
 						//Schleifenvars
 						int spalte = 1;
-						String[][] aArtPos = {{"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}};
+						String[][] aArtPos = new String[maxZeilen][2]; 
+						for(int s = 0; s < maxZeilen; s++){
+							aArtPos[s][0] = "";
+							aArtPos[s][1] = "";
+						}
 						int artName = 0;
 						int artZeile = 1;
 						int i = 0;
@@ -306,7 +314,11 @@ public class DatenAnzeigenController implements Controller {
 						
 						//Schleifenvars
 						int spalte = 1;
-						String[][] aArtPos = {{"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}};
+						String[][] aArtPos = new String[maxZeilen][2]; 
+						for(int s = 0; s < maxZeilen; s++){
+							aArtPos[s][0] = "";
+							aArtPos[s][1] = "";
+						}
 						int artName = 0;
 						int artZeile = 1;
 						int i = 0;
@@ -396,7 +408,11 @@ public class DatenAnzeigenController implements Controller {
 						
 						//Schleifenvars
 						int spalte = 1;
-						String[][] aArtPos = {{"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}, {"",""}};
+						String[][] aArtPos = new String[maxZeilen][2]; 
+						for(int s = 0; s < maxZeilen; s++){
+							aArtPos[s][0] = "";
+							aArtPos[s][1] = "";
+						}
 						int artName = 0;
 						int artZeile = 1;
 						int i = 0;
