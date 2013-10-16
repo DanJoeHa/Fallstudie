@@ -19,11 +19,12 @@ public class BereichController implements Controller {
 	private BereichLoeschenView viewLoesch;
 	private SuchController suche;
 	private Mitarbeiter gewaehlterMA;
+	private Bereich gewaehlterBereich;
 	
 	private Collection<Bereich> bereich;
 	
 	public BereichController(){
-		
+		this.bereich = Bereich.getAlleBereiche();
 	}
 	
 	public void setOperation(String operation){
@@ -39,7 +40,7 @@ public class BereichController implements Controller {
 			{
 				this.viewLoesch = new BereichLoeschenView();
 				this.viewLoesch.setController( this );
-				this.viewLoesch.setBereiche(Funktionen.BereicheCollection2Array(Bereich.getAlleBereiche()));
+				this.viewLoesch.setBereiche(Funktionen.BereicheCollection2Array( this.bereich ));
 			}
 			else
 			{
@@ -83,11 +84,11 @@ public class BereichController implements Controller {
 			HauptController.hauptfenster.setContent(view);
 			this.view.setController( this );
 			this.view.setKurzbezeichnung(tempBereich);
-			Bereich bereich = Bereich.getBereichByName(tempBereich);
-			this.view.setBezeichnung(bereich.getBeschreibung());
+			gewaehlterBereich = Bereich.getBereichByName(tempBereich);
+			this.view.setBezeichnung(gewaehlterBereich.getBeschreibung());
 			try
 			{
-				this.view.setLeiter(bereich.getLeiter().getBenutzername());
+				this.view.setLeiter(gewaehlterBereich.getLeiter().getBenutzername());
 			}
 			catch(Exception ex)
 			{
@@ -116,6 +117,19 @@ public class BereichController implements Controller {
 				try
 				{
 					new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), gewaehlterMA);
+				}
+				catch (Exception ex)
+				{
+					HauptController.hauptfenster.setInfoBox(ex.getMessage());
+				}
+			}
+			if(this.operation.equals("bearbeiten"))
+			{
+				try
+				{
+					this.gewaehlterBereich.setBeschreibung(this.view.getBezeichnung());
+					this.gewaehlterBereich.setKurzbezeichnung(this.view.getKurzbezeichnung());
+					this.gewaehlterBereich.setLeiter(this.gewaehlterMA);
 				}
 				catch (Exception ex)
 				{
