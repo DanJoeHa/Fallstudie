@@ -33,7 +33,7 @@ public class BestaetigenPopup extends JDialog implements View{
 		setModal(true);
 		setTitle("Bestätigung");
 		setResizable(false);
-		setBounds(100, 100, 452, 167);
+		setBounds(600, 300, 452, 167);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -49,20 +49,20 @@ public class BestaetigenPopup extends JDialog implements View{
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		
+		
+			B_speichern = new JButton("Ja");
+			//B_speichern.addActionListener(new ActionListener() {
+			//	public void actionPerformed(ActionEvent arg0) {
+			//	}
+			//});
+			B_speichern.setActionCommand("Ja");
+			buttonPane.add(B_speichern);
+			getRootPane().setDefaultButton(B_speichern);
 			
 		B_abbrechen = new JButton("Nein");
 		B_abbrechen.setActionCommand("Nein");
 		buttonPane.add(B_abbrechen);
-	
-	
-		B_speichern = new JButton("JA");
-		//B_speichern.addActionListener(new ActionListener() {
-		//	public void actionPerformed(ActionEvent arg0) {
-		//	}
-		//});
-		B_speichern.setActionCommand("JA");
-		buttonPane.add(B_speichern);
-		getRootPane().setDefaultButton(B_speichern);
 			
 		
 	}
