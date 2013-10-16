@@ -548,7 +548,7 @@ catch (SQLException e)
 				
 				//System.out.println("UPDATE Mitarbeiter SET Rolle ='"+rollenName+"' WHERE Benutzername='"+this.benutzername+"'");
 				
-				int affectedRows = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Bereich ='"+rollenName+"' WHERE Benutzername='"+this.benutzername+"'");
+				int affectedRows = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Rolle ='"+rollenName+"' WHERE Benutzername='"+this.benutzername+"'");
 				
 
 				if (affectedRows==0) erfolgreich =false; 
