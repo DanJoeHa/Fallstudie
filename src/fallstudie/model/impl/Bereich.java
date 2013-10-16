@@ -329,7 +329,7 @@ public class Bereich {
 			}
 			//checken
 			else
-			{
+			{	System.out.println("lol");
 				this.leiter=null;
 			}
 			
