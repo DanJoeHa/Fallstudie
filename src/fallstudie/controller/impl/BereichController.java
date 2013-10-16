@@ -85,7 +85,7 @@ public class BereichController implements Controller {
 			this.view.setBezeichnung(bereich.getBeschreibung());
 			try
 			{
-				this.view.setLeiter(bereich.getLeiter().getFullName());
+				this.view.setLeiter(bereich.getLeiter().getBenutzername());
 			}
 			catch(Exception ex)
 			{
