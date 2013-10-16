@@ -28,9 +28,9 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 	 * Create the panel.
 	 */
 	public BereichBearbeitenAnlegenView() {
-		setPreferredSize(new Dimension(620, 660));
-		setMinimumSize(new Dimension(620, 660));
-		setMaximumSize(new Dimension(620, 660));
+		setPreferredSize(new Dimension(620, 655));
+		setMinimumSize(new Dimension(620, 655));
+		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setBounds(new Rectangle(0, 0, 620, 660));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -71,4 +71,5 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 	public void reset() {
 		this.T_BereichsleiterSuchbegriff.setText("");
 	}
+	
 }
