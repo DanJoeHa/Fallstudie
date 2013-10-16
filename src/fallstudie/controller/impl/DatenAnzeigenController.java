@@ -502,8 +502,6 @@ public class DatenAnzeigenController implements Controller {
 		if( button.equals("Drucken") ){
 			
 			String[][] tabwerte = new String[this.tabellenwerte.length][this.tabellenwerte[0].length];
-
-			//String[][] tabwerte = (String[][])this.tabellenwerte;
 			
 			for( int i = 0; i < this.tabellenwerte.length; i++){
 				for( int j = 0; j < this.tabellenwerte[i].length; j++){
