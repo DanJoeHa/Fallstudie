@@ -109,7 +109,6 @@ public class ArbeitsgruppenController implements Controller {
 		}
 		
 		if( button.equals("Suchen") ){
-			this.view.getAGLeiter();
 			this.viewDatenAnz = new DatenAnzeigenAuswahlView();
 			HauptController.hauptfenster.setContent(viewDatenAnz);
 			SuchController suchcontroller = new SuchController();
@@ -118,7 +117,7 @@ public class ArbeitsgruppenController implements Controller {
 		}
 	}
 	
-	public void BearbeitenFortsetzen (){
+	public void fortsetzen (){
 
 		//ausgewählte Arbeitsgruppe holen
 		this.gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();

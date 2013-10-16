@@ -85,14 +85,26 @@ public abstract class Funktionen {
 		while( i.hasNext() ){
 			
 			Mitarbeiter ma = (Mitarbeiter ) i.next();
-			//Object[] aMitarbeiter = new Object[6];
 			
 			sMitarbeiter[x][0] = ma.getBenutzername();
 			sMitarbeiter[x][1] = ma.getVorname();
 			sMitarbeiter[x][2] = ma.getNachname();
-			sMitarbeiter[x][3] = ma.getArbeitsgruppe().getKurzbezeichnung();
-			sMitarbeiter[x][4] = ma.getBereich().getKurzbezeichnung();
-			sMitarbeiter[x][5] = ma.getRolle().getRollenbezeichnung();
+			
+			if(ma.getArbeitsgruppe() != null){
+				sMitarbeiter[x][3] = ma.getArbeitsgruppe().getKurzbezeichnung();
+			}else{
+				sMitarbeiter[x][3] = "";
+			}
+			if(ma.getBereich() != null){
+				sMitarbeiter[x][4] = ma.getBereich().getKurzbezeichnung();
+			}else{
+				sMitarbeiter[x][4] = "";
+			}
+			if(ma.getRolle() != null){
+				sMitarbeiter[x][5] = ma.getRolle().getRollenbezeichnung();
+			}else{
+				sMitarbeiter[x][5] = "";
+			}
 			x++;
 		} 
 		return sMitarbeiter;
