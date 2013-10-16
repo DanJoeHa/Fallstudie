@@ -77,21 +77,7 @@ public class MitarbeiterController implements Controller {
 			this.viewSuche = (SuchenView) suchcontroller.getView() ;
 			HauptController.hauptfenster.setContent(viewSuche);
 			
-			//ausgewählten Mitarbeiter holen
-			//this.gewaehlterMitarbeiter = (Mitarbeiter) suche.getAuswahl();
-			
-			//Mitarbeiter bearbeiten
-			//this.view = new MitarbeiterBearbeitenView();
-			//this.view.setController( this );
-			
-			/* NICHT LÖSCHEN!!!
-			this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
-			this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
-			this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
-			this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
-			this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
-			this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
-			*/
+
 		}
 	}
 	
@@ -253,6 +239,8 @@ public class MitarbeiterController implements Controller {
 		return null;
 	}
 	
+	
+	
 	/**
 	 * Liefert aktive View des Controllers
 	 * 
@@ -266,5 +254,28 @@ public class MitarbeiterController implements Controller {
 			case "bearbeiten": return (View) this.viewSuche;
 		}
 		return null;
+	}
+
+	@Override
+	public void fortsetzen() {
+		//ausgewählten Mitarbeiter holen
+		this.gewaehlterMitarbeiter = (Mitarbeiter) suchcontroller.getAuswahl();
+		
+		//Mitarbeiter bearbeiten
+		this.view = new MitarbeiterBearbeitenView();
+		this.view.setController( this );
+		
+		this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
+		this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
+		this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
+		this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
+		try{
+			this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
+		}
+		catch (Exception ex)
+		{
+			this.view.setArbeitsgruppe("");
+		}
+		this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
 	}
 }
