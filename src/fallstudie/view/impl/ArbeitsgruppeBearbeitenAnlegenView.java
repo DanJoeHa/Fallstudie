@@ -106,6 +106,7 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
 		this.B_Zuruecksetzen.addActionListener(c);
+		this.B_AGLeiterSuche.addActionListener(c);
 	}
 
 	@Override

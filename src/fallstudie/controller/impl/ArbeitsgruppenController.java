@@ -9,14 +9,21 @@ import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.ArbeitsgruppeBearbeitenAnlegenView;
+import fallstudie.view.impl.BereichBearbeitenAnlegenView;
+import fallstudie.view.impl.DatenAnzeigenAuswahlView;
+import fallstudie.view.impl.SuchenView;
 import fallstudie.view.interfaces.View;
 
 public class ArbeitsgruppenController implements Controller {
 	
 	private ArbeitsgruppeBearbeitenAnlegenView view;
+	private DatenAnzeigenAuswahlView viewDatenAnz;
+	private SuchenView viewSuche;
 	private String operation;
 	private Collection<Bereich> bereiche;
-	
+	private SuchController suche;
+	private String[] sBereiche;
+	private Arbeitsgruppe gewaehlteAG;
 	/**
 	 * Zeigt  die View zur Arbeitsgruppenbearbeiten/-anlage abhängig von der Operation an
 	 * 
@@ -24,11 +31,9 @@ public class ArbeitsgruppenController implements Controller {
 	 * @version 0.1
 	 */
 	public ArbeitsgruppenController(){
-		
-		//View laden
-		this.view = new ArbeitsgruppeBearbeitenAnlegenView();	
-		this.view.setController( this );
-		
+		//alle Bereiche holen
+		this.bereiche = Bereich.getAlleBereiche();	
+		sBereiche = Funktionen.BereicheCollection2Array(bereiche);
 	}
 	
 	/**
@@ -43,13 +48,13 @@ public class ArbeitsgruppenController implements Controller {
 		//Operation speichern
 		this.operation = operation;
 		
-		//alle Bereiche holen
-		this.bereiche = Bereich.getAlleBereiche();	
-		String[] sBereiche = Funktionen.BereicheCollection2Array(bereiche);
+
 		
 		//wenn Neuanlage einer Arbeitsgruppe
 		if( this.operation.equals( "anlegen" ) ){
 			
+			this.view = new ArbeitsgruppeBearbeitenAnlegenView();	
+			this.view.setController( this );
 			//alle Bereiche holen und an View geben	
 			this.view.setBereich( sBereiche );
 		}
@@ -58,28 +63,14 @@ public class ArbeitsgruppenController implements Controller {
 		if( this.operation.equals( "bearbeiten" ) ){
 			
 			// nach Arbeitsgruppe suchen
-			SuchController suche = new SuchController();
+			suche = new SuchController();
+			suche.setAufrufenderController(this);
 			suche.setSuchdomain("Arbeitsgruppe");
-			suche.setOperation("auswahl");
+			suche.setOperation("suchen");
 			HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe zur Bearbeitung auswählen");
-			HauptController.hauptfenster.setContent( suche.getView() );
+			this.viewSuche = (SuchenView) suche.getView() ;
+			HauptController.hauptfenster.setContent( viewSuche);
 			
-			
-			//warte auf Auswahl
-			while( suche.getAuswahl() == null ){
-				//do nothing
-			}
-			
-			//ausgewählte Arbeitsgruppe holen
-			Arbeitsgruppe gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();
-			
-			//an Maske übergeben & Maske anzeigen
-			this.view.setBereich( sBereiche, gewaehlteAG.getKurzbezeichnung() );
-			this.view.setKurzbezeichnung( gewaehlteAG.getKurzbezeichnung() );
-			this.view.setBezeichnung( gewaehlteAG.getBeschreibung() );
-			this.view.setAGLeiter( gewaehlteAG.getLeiter().getBenutzername() );
-			HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
-			HauptController.hauptfenster.setContent( this.getView() );
 			
 		}
 	}
@@ -102,7 +93,11 @@ public class ArbeitsgruppenController implements Controller {
 			
 			Mitarbeiter oLeiter = new Mitarbeiter( this.view.getAGLeiter() );
 			try {
-				new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter );
+				this.gewaehlteAG.setBereich(oBereich);
+				this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
+				this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
+				this.gewaehlteAG.setLeiter(oLeiter);
+				
 			} catch (Exception e1) {
 				HauptController.hauptfenster.setInfoBox( e1.getMessage() );
 			}
@@ -112,6 +107,35 @@ public class ArbeitsgruppenController implements Controller {
 		if( button.equals("Zurücksetzen") ){
 			//TODO: was soll hier passieren?!
 		}
+		
+		if( button.equals("Suchen") ){
+			this.view.getAGLeiter();
+			this.viewDatenAnz = new DatenAnzeigenAuswahlView();
+			HauptController.hauptfenster.setContent(viewDatenAnz);
+			SuchController suchcontroller = new SuchController();
+			suchcontroller.setSuchdomain("Gruppenleiter");
+			this.view.setController(suchcontroller);
+		}
+	}
+	
+	public void BearbeitenFortsetzen (){
+
+		//ausgewählte Arbeitsgruppe holen
+		this.gewaehlteAG = (Arbeitsgruppe) suche.getAuswahl();
+
+		//an Maske übergeben & Maske anzeigen
+		this.view = new ArbeitsgruppeBearbeitenAnlegenView();
+		this.view.setController(this);
+		this.view.setBereich( sBereiche, gewaehlteAG.getBereich().getKurzbezeichnung());
+		this.view.setKurzbezeichnung( gewaehlteAG.getKurzbezeichnung() );
+		this.view.setBezeichnung( gewaehlteAG.getBeschreibung() );
+		String LeiterBenutzerName = "";
+		if( gewaehlteAG.getLeiter() != null ){
+			LeiterBenutzerName = gewaehlteAG.getLeiter().getBenutzername();
+		}
+		this.view.setAGLeiter( LeiterBenutzerName );
+		HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
+		HauptController.hauptfenster.setContent( this.view );
 	}
 	
 	/**
@@ -123,7 +147,13 @@ public class ArbeitsgruppenController implements Controller {
 	 */
 	@Override
 	public View getView() {
-		return this.view;
+		if(this.operation.equals( "bearbeiten" ))
+		{
+			return this.viewSuche;
+		}
+		else
+		{
+			return this.view;
+		}
 	}
-	
 }
