@@ -326,11 +326,12 @@ public class Bereich {
 				this.leiter = new Mitarbeiter(mitarbeiterResult);
 				mitarbeiterResult.close();
 			}
-			}
+			
 			//checken
 			else
 			{	System.out.println("lol");
 				this.leiter=null;
+			}
 			}
 			
 			//Bereichobjekt aus der BereichsID
