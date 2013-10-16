@@ -421,7 +421,7 @@ public class Mitarbeiter {
 		try {
 			String verschluesseltesPW = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 			
-			System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
+			//System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
 			//anhand des Benutzernamens ResultSet kriegen
 			ResultSet mitarbeiterResult = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Benutzername='"+benutzername+"'");
 			mitarbeiterResult.last();
