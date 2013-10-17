@@ -139,10 +139,6 @@ public class Bereich {
 			this.leiter = null;
 			
 			if (RowsAffected==1)throw new Exception("Bereich wurde erfolgreich angelegt.");
-			else
-			{
-				throw new Exception("Bereich wurde nicht angelegt.");
-			}
 		} 
 		
 		
