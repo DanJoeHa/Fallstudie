@@ -33,7 +33,7 @@ public class TabelleView extends JPanel implements View {
 	private JTable TA_Tabelle;
 	private JButton B_AuswaehlenLoeschen;
 	private JButton B_Abbrechen;
-	private JComboBox C_DrillDown;
+	private JComboBox<String> C_DrillDown;
 	private JButton B_DrillDown;
 	
 	
@@ -71,9 +71,9 @@ public class TabelleView extends JPanel implements View {
 		B_Abbrechen.setBounds(30, 600, 150, 30);
 		add(B_Abbrechen);
 		
-		C_DrillDown = new JComboBox();
+		C_DrillDown = new JComboBox<String>();
 		C_DrillDown.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_DrillDown.setBounds(424, 66, 28, 23);
+		C_DrillDown.setBounds(351, 66, 101, 23);
 		C_DrillDown.setVisible(false);
 		add(C_DrillDown);
 		
@@ -132,6 +132,6 @@ public class TabelleView extends JPanel implements View {
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
+		this.TA_Tabelle.removeAll();
 	}
 }
