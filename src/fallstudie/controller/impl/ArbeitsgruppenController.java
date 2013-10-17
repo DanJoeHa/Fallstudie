@@ -82,10 +82,12 @@ public class ArbeitsgruppenController implements Controller {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		//Button bestimmen
 		String button = e.getActionCommand();
 		Bereich oBereich = null;
 		Mitarbeiter oLeiter = null;
+		
 		//Änderungen speichern
 		if( button.equals("Speichern") ){
 			
@@ -96,7 +98,9 @@ public class ArbeitsgruppenController implements Controller {
 			popup.setAusgabe(HilfeTexte.SpeichernPopup);
 			
 			
-		}if(button.equals("Ja")){
+		}
+		
+		if(button.equals("Ja")){
 			//Bereichsobjekt zur Auswahl finden
 			Iterator<Bereich> i = this.bereiche.iterator();
 			
@@ -107,36 +111,40 @@ public class ArbeitsgruppenController implements Controller {
 			
 			 oLeiter = new Mitarbeiter( this.view.getAGLeiter() );
 			popup.setVisible(false);
-		}if(button.equals("Nein")){
+		}
+		
+		if(button.equals("Nein")){
 			popup.setVisible(false);
 		}
-			if(operation.equals("bearbeiten"))
-			{
-				try {
-					this.gewaehlteAG.setBereich(oBereich);
-					this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
-					this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
-					this.gewaehlteAG.setLeiter(oLeiter);
-					
-				} catch (Exception e1) {
-					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
-				}
+		
+		if(operation.equals("bearbeiten"))
+		{
+			try {
+				this.gewaehlteAG.setBereich(oBereich);
+				this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
+				this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
+				this.gewaehlteAG.setLeiter(oLeiter);
+				
+			} catch (Exception e1) {
+				HauptController.hauptfenster.setInfoBox( e1.getMessage() );
 			}
-			if(operation.equals("anlegen"))
-			{
-				try{
-					new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
-				}
-				catch (Exception e1)
-				{
-					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
-				}
+		}
+		
+		if(operation.equals("anlegen"))
+		{
+			try{
+				new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
 			}
+			catch (Exception e1)
+			{
+				HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+			}
+		}
 		
 		
 		//Zurücksetzen button
 		if( button.equals("Zurücksetzen") ){
-			//TODO: was soll hier passieren?!
+			this.view.reset();
 		}
 		
 		if( button.equals("Suchen") ){
