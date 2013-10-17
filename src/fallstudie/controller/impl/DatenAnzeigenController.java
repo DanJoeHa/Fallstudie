@@ -1,16 +1,9 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
-import java.awt.print.PrinterException;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-
-import org.apache.pdfbox.exceptions.COSVisitorException;
-
 import fallstudie.controller.interfaces.Controller;
-import fallstudie.exportieren.CSVExport;
 import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Jahresuebersicht;
@@ -44,6 +37,8 @@ public class DatenAnzeigenController implements Controller {
 		this.view = new DatenAnzeigenAuswahlView();
 		this.view.setController( this );
 		
+		//Bereiche befüllen
+		this.bereiche = Bereich.getAlleBereiche();
 	}
 	
 	/**
@@ -83,7 +78,8 @@ public class DatenAnzeigenController implements Controller {
 							
 							int anzZeilen = oJahr.getZeileBereich().size();
 							if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-							this.bereiche.add(oJahr.getBereich());
+							//if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich()); //hier schebberts
+							
 						}
 						
 						//DrillDown-Button und ComboBox anzeigen
@@ -170,7 +166,6 @@ public class DatenAnzeigenController implements Controller {
 					Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
 					
 					this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
-					
 				}
 				
 				//Jahresübersicht Gruppenleiter
@@ -222,7 +217,7 @@ public class DatenAnzeigenController implements Controller {
 							
 							int anzZeilen = oWoche.getZeileBereich().size();
 							if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-							this.bereiche.add(oWoche.getBereich());
+							//if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich()); //hier schebberts
 						}
 						
 						//DrillDown-Button und ComboBox anzeigen
@@ -374,8 +369,8 @@ public class DatenAnzeigenController implements Controller {
 		//Drill-Down in einen Bereich
 		if( button.equals("DrillDown") ){
 			
-			//Headline anpassen
-			this.headline += " > Arbeitsgruppen ";
+			//DrillDown ausblenden
+			this.viewErg.setDrillDown(false);
 			
 			//Bereichsobjekt zur Auswahl finden
 			Iterator<Bereich> i = this.bereiche.iterator();
@@ -385,38 +380,37 @@ public class DatenAnzeigenController implements Controller {
 				if(oBereich.getKurzbezeichnung().equals( this.viewErg.getDrillDownBereich() ) ) break;
 			}
 			
+			//Headline anpassen
+			this.headline += " > Arbeitsgruppen des Bereich " + oBereich.getKurzbezeichnung();
+			
+			//Jahr
 			if( kw == 0){
 				
-				//Jahr
-				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs Jahr") ){
-					
-					//Daten holen
-					Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, oBereich );
-					
-					//Tabelle neu generieren
-					this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
-					
-				}
+				//Daten holen
+				Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, oBereich );
 				
+				//Tabelle neu generieren
+				this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
+
+			//Woche
 			}else{
 				
-				//Kalenderwochen
-				if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs KW") ){
-					
-					//Daten holen
-					Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, oBereich );
-					
-					//Tabelle neu generieren
-					this.generiereWochenuebersichtenZuBereich(coWochenuebersichten);
-				}
+				//Daten holen
+				Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, oBereich );
 				
+				//Tabelle neu generieren
+				this.generiereWochenuebersichtenZuBereich(coWochenuebersichten);
+
 			}
 			
 			//an TabelleView übergeben
-			HauptController.hauptfenster.setUeberschrift(this.headline);
-			this.viewErg.setTabelle(tabellenspalten, tabellenwerte);
-			this.viewErg.repaint();
+			HauptController.hauptfenster.setUeberschrift( this.headline );
+			this.viewErg.setTabelle(tabellenspalten, tabellenwerte);			
 			
+		}
+		
+		if( button.equals("Abbrechen") ){
+			HauptController.hauptfenster.zurueck();
 		}
 	}
 
@@ -432,13 +426,15 @@ public class DatenAnzeigenController implements Controller {
 				
 				int anzZeilen = oJahr.getZeileBereich().size();
 				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
+				//if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich()); //hier schebberts
+				
 			}
 			
 			
 			
 			tabellenspalten = new String[ coJahresuebersichten.size() + 1 ];
 			tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 1 ];
-			tabellenspalten[0] = "Art\\Bereich";
+			tabellenspalten[0] = "Art\\Arbeitsgruppe";
 			
 			//Schleifenvars
 			int spalte = 1;
@@ -523,6 +519,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				int anzZeilen = oJahr.getZeileBereich().size();
 				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
+				//if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich()); //hier schebberts
 			}
 			
 			
