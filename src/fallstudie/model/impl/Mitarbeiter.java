@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import com.mysql.jdbc.PreparedStatement;
-
 import fallstudie.model.mysql.connector.RemoteConnection;
 /** CHANGELOG
  * @author Phil, 09.10.2013
@@ -167,7 +165,7 @@ public class Mitarbeiter {
 		String rollenName = rolle.getRollenbezeichnung();
 		int bereichID = bereich.getID();
 		
-		System.out.println("SELECT Benutzername From Mitarbeiter");
+		//System.out.println("SELECT Benutzername From Mitarbeiter");
 		//Checken obs den Mitarbeiter schon gibt.
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 				"SELECT Benutzername From Mitarbeiter");
@@ -177,7 +175,7 @@ public class Mitarbeiter {
 		{
 				
 				String value = checkObVorhanden.getString("Benutzername");
-				System.out.println(value);
+				//System.out.println(value);
 				if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
 				
 		}

@@ -51,7 +51,7 @@ public class Art {
 				
 				if (name.equals(value)) 
 				{
-					System.out.println("SELECT Aktiv From Art Where Name='"+this.name+"'");	
+					//System.out.println("SELECT Aktiv From Art Where Name='"+this.name+"'");	
 					ResultSet checkObInaktiv = Connection.executeQueryStatement(
 							"SELECT Aktiv From Art Where Name='"+this.name+"'");
 					checkObInaktiv.next();
@@ -65,7 +65,6 @@ public class Art {
 									
 						if (RowsAffect==1)
 							{
-								System.out.println("Es wurde "+RowsAffect+" Datensatz gespeichert.");
 								throw new Exception("Datensatz erfolgreich gespeichert");
 							}
 					}
@@ -81,7 +80,6 @@ public class Art {
 	
 		if (rowsAffected==1)
 			{
-			System.out.println("Es wurde "+rowsAffected+" Datensatz gespeichert.");
 			throw new Exception("Datensatz erfolgreich gespeichert");
 			}
 		checkObVorhanden.close();

@@ -73,8 +73,7 @@ public class Eintrag {
 					.executeUpdate("INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum) VALUES ('"
 							+ kalenderjahr + "','" + kalenderwoche + "','" + anzahl + "','" + arbeitsgruppeID
 							+ "','" + art.getName() + "','" + datum + "')");
-			System.out.println("Rows Affected: " + RowsAffected + "");
-
+			
 		}
 
 		catch (SQLException e) {
