@@ -64,7 +64,12 @@ public class SuchController implements Controller {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
-
+		
+		//Abbrechen-Button
+		if( button.equals("Abbrechen") ){
+			HauptController.hauptfenster.zurueck();
+		}
+		
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
 			if( button == "Suchen" ){
 				try{

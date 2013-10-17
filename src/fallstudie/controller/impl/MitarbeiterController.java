@@ -99,6 +99,11 @@ public class MitarbeiterController implements Controller {
 			this.viewAnlegen.reset();
 		}
 		
+		//Abbrechen-Button
+		if( button.equals("Abbrechen") ){
+			HauptController.hauptfenster.zurueck();
+		}
+		
 		//Arbeitsgruppe suchen
 		if( button.equals("Suchen") ){
 			suche = new SuchController();

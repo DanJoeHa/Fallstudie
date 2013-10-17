@@ -1,7 +1,5 @@
 package fallstudie.view.impl;
 
-import javax.swing.JPanel;
-
 import java.awt.SystemColor;
 
 import javax.swing.border.LineBorder;
@@ -9,10 +7,6 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
-
 import java.awt.Dimension;
 
 import javax.swing.JTextField;
@@ -23,8 +17,9 @@ import fallstudie.controller.interfaces.Controller;
 
 public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 	
+	private static final long serialVersionUID = 2054079907794135044L;
 	private JTextField T_Arbeitsgruppe;
-	private JButton B_Speichern;
+	private JButton B_Speichern, B_Abbrechen, B_SucheArbeitsgruppe;
 	private JComboBox<String> C_Bereich;
 	private JComboBox<String> C_Rolle;
 
@@ -42,13 +37,13 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		setLayout(null);
 		
 		//C_Bereich
-		C_Bereich = new JComboBox();
+		C_Bereich = new JComboBox<String>();
 		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Bereich.setBounds(190, 176, 300, 30);
 		add(C_Bereich);
 				
 		//C_Rolle
-		C_Rolle = new JComboBox();
+		C_Rolle = new JComboBox<String>();
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Rolle.setBounds(190, 135, 300, 30);
 		add(C_Rolle);
@@ -61,14 +56,14 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		add(T_Arbeitsgruppe);
 
 		//B_SucheArbeitsgruppe 
-		JButton B_SucheArbeitsgruppe = new JButton("Suchen");
+		B_SucheArbeitsgruppe = new JButton("Suchen");
 		B_SucheArbeitsgruppe.setIcon(null);
 		B_SucheArbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_SucheArbeitsgruppe.setBounds(386, 217, 104, 30);
 		add(B_SucheArbeitsgruppe);
 
 		//B_Abbrechen
-		JButton B_Abbrechen = new JButton("Abbrechen");
+		B_Abbrechen = new JButton("Abbrechen");
 		B_Abbrechen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Abbrechen.setBounds(30, 600, 150, 30);
 		add(B_Abbrechen);
@@ -132,6 +127,8 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 	
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
+		this.B_Abbrechen.addActionListener(c);
+		this.B_SucheArbeitsgruppe.addActionListener(c);
 	}
 	
 	public String getArbeitsgruppe(){
