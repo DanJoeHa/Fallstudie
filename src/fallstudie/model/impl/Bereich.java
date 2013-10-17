@@ -56,10 +56,14 @@ public class Bereich {
 		}
 		try
 		{
-		 leiterBenutzername = leiter.getBenutzername();
+		if(leiter.getBenutzername()!=null)
+		{
+			
+		
+			leiterBenutzername = leiter.getBenutzername();
 		 	//System.out.println("SELECT Kurzbezeichnung From Arbeitsgruppe");
 			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-					"SELECT Kurzbezeichnung From Arbeitsgruppe");
+					"SELECT Kurzbezeichnung From Bereich");
 			
 			while (checkObVorhanden.next()) 
 			{
@@ -76,60 +80,23 @@ public class Bereich {
 			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)" +
 					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"', '"+leiterBenutzername+"')");
 			
-			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datens�tze eingef�gt.");
 			
 		
 			this.kurzbezeichnung = kurzbezeichnung;
 			this.beschreibung = beschreibung;
 			this.leiter = leiter;
-		
-		} 
-		
-		
-		catch (SQLException e) {
-			System.err.println(e.getMessage());
-			System.err.println("SQL Statement ist fehlerhaft!");
+			if (RowsAffected==1)throw new Exception("Bereich wurde erfolgreich angelegt.");
 		}
-		catch(NullPointerException e)
+		else if(leiter.getBenutzername()==null)
 		{
-			System.err.println("Der Leiter hat keinen Benutzernamen. Bitte pr�en sie.");
-			
-		}
-		}
-
-	/**
-	 * F�gt einen Bereich ohne Leiter in die Datenbank ein.
-	 * @param kurzbezeichnung
-	 * @param beschreibung
-	 * @throws Exception 
-	 */
-	public Bereich(String kurzbezeichnung, String beschreibung) throws Exception {
-		
-		String kurzUp = kurzbezeichnung.toUpperCase();
-		try
-		{
-			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-				RemoteConnection.connect();
-			};
-			
-		}
-		catch (NullPointerException e)
-		{
-			System.err.println(e.getMessage());
-			System.err.println("Konnte keine Datenbankverbindung herstellen!");
-		}
-		try
-		{
-		 
 			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-					"SELECT Kurzbezeichnung From Arbeitsgruppe");
+					"SELECT Kurzbezeichnung From Bereich");
 			
 			while (checkObVorhanden.next()) 
 			{
 
 					String value = checkObVorhanden.getString("Kurzbezeichnung");
-					String valueUp = value.toUpperCase();
-					if (kurzbezeichnung.equals(valueUp)) throw new Exception ("Bereich mit selber Kurzbezeichnung existiert schon.");
+					if (kurzbezeichnung.equals(value)) throw new Exception ("Bereich mit selber Kurzbezeichnung existiert schon.");
 
 			}
 			
@@ -137,21 +104,24 @@ public class Bereich {
 			//		"VALUES ('"+kurzUp+"', '"+beschreibung+"'");
 		
 			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)" +
-					"VALUES ('"+kurzUp+"', '"+beschreibung+"'");
+					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"'");
 			
-			if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datens�tze eingef�gt.");
+			this.kurzbezeichnung = kurzbezeichnung;
+			this.beschreibung = beschreibung;
+			this.leiter = null;
 			
+			if (RowsAffected==1)throw new Exception("Bereich wurde erfolgreich angelegt.");
+		
+		}
 		} 
 		
 		
 		catch (SQLException e) {
+			System.err.println("Fehler in Bereich anlegen Konstruktor:");
 			System.err.println(e.getMessage());
-			System.err.println("SQL Statement ist fehlerhaft!");
+			
 		}
-		this.kurzbezeichnung = kurzbezeichnung;
-		this.beschreibung = beschreibung;
-		this.leiter = null;
-	}
+		}
 	/**
 	 * Alle bereiche mit dem Suchbegriff werden zur�ckgegeben
 	 * @param suchbegriff
@@ -627,40 +597,23 @@ System.err.println("Fehler in Bereich löschen:");
 		boolean erfolgreich = false;
 		//Mitgegebener Bereich ID 
 		String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
-		//Aktueller Bereich ID
-		String alterLeiterBenutzername = this.leiter.getBenutzername();
-		
-		try 
-		{	//VERGLEICH DER BEIDEN
-			if(!alterLeiterBenutzername.equals(neuerLeiterBenutzername))
-			{
+			try 
+		{	
 				//System.out.println("UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
 			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
+				RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Bereich='"+this.bereichID+"' WHERE Benutzername='"+neuerLeiterBenutzername+"'");
 				
 				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz ge�ndert.");
 				erfolgreich=true;
-			}
-			else
-			{
-				System.err.println("Alter und Neuer Leiter sind Identisch! Bitte anderen Leiter w�hlen.");
-				erfolgreich= false;
-			}
 			this.leiter  = mitarbeiter;
 		}
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
+			System.err.println("Fehler in SetLeiter (Mitarbeiter) in Bereich:");
 			System.err.println(e.getMessage());
 		}
-			catch(NullPointerException e)
-			{
-				System.err.println("Fehler beim Suchen des alten Leiters.");
-			}
 		return erfolgreich;
 	}
 
