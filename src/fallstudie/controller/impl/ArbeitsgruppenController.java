@@ -3,6 +3,7 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Bereich;
@@ -202,6 +203,10 @@ public class ArbeitsgruppenController implements Controller {
 			this.suche.setSuchdomain("Gruppenleiter");
 			this.suche.setAufrufenderController(this);
 			this.suche.setSuchbegriff(this.view.getAGLeiter());
+			
+			//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+			HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiterbearbearbeiten_Mitarbeiterloeschen_Arbeitsgruppeanlegen_Arbeitsgruppebearbeiten_Gruppenleiter_Bereichanlegen_Bereichsleiter_Bereichbearbeiten_Bereichsleiter);
+
 			this.suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(this.suche.getView());
 		}
