@@ -116,7 +116,7 @@ public class Jahresuebersicht {
 			jahresuebersichtResult.next();
 			this.kalenderjahr = kalenderjahr;
 			this.bereich = bereich;
-			
+			/*
 			this.agZuBereich = new LinkedList<>();
 			
 			while(jahresuebersichtResult.next())
@@ -124,7 +124,9 @@ public class Jahresuebersicht {
 				int arbeitsgruppe = jahresuebersichtResult.getInt("Arbeitsgruppe");
 				this.agZuBereich.add(new Arbeitsgruppe(arbeitsgruppe));
 			}
-			 
+			 */
+			int arbeitsgruppe = jahresuebersichtResult.getInt("Arbeitsgruppe");
+			this.arbeitsgruppe = new Arbeitsgruppe(arbeitsgruppe);
 
 		}
 		catch (SQLException e)
