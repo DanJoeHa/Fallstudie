@@ -188,6 +188,10 @@ public class BereichController implements Controller {
 			this.suche.setAufrufenderController(this);
 			this.suche.setSuchdomain("Bereichsleiter");
 			this.suche.setSuchbegriff(this.view.getLeiter());
+			
+			//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+			HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiterbearbearbeiten_Mitarbeiterloeschen_Arbeitsgruppeanlegen_Arbeitsgruppebearbeiten_Gruppenleiter_Bereichanlegen_Bereichsleiter_Bereichbearbeiten_Bereichsleiter);
+
 			this.suche.setOperation("auswahl");
 			
 			HauptController.hauptfenster.setUeberschrift("Bereichsleiter auswählen");

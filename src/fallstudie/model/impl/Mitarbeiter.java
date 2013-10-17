@@ -169,37 +169,39 @@ public class Mitarbeiter {
 		//Checken obs den Mitarbeiter schon gibt.
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 				"SELECT Benutzername From Mitarbeiter");
-		
-		
-		while (checkObVorhanden.next()) 
+		if(!benutzername.equals(""))
 		{
-				
-				String value = checkObVorhanden.getString("Benutzername");
-				//System.out.println(value);
-				if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
-				
+			while (checkObVorhanden.next()) 
+			{
+					
+					String value = checkObVorhanden.getString("Benutzername");
+					//System.out.println(value);
+					if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
+					
+			}
+			checkObVorhanden.close();
+			//passwort wird verschl�sselt in die DB geschrieben
+			String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
+			
+			
+			System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
+			" VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
+			
+			int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
+					"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
+			
+			
+			
+			this.benutzername = benutzername;
+			this.passwort = verschluesseltPasswort;
+			this.vorname = vorname;
+			this.nachname = nachname;
+			this.rolle = rolle;
+			this.bereich = bereich;
+			if (affectedRows==1)throw new Exception("Mitarbeiter erfolgreich angelegt.");
+			}
 		}
-		checkObVorhanden.close();
-		//passwort wird verschl�sselt in die DB geschrieben
-		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 		
-		
-		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
-		" VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
-		
-		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
-				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
-		
-		
-		
-		this.benutzername = benutzername;
-		this.passwort = verschluesseltPasswort;
-		this.vorname = vorname;
-		this.nachname = nachname;
-		this.rolle = rolle;
-		this.bereich = bereich;
-		if (affectedRows==1)throw new Exception("Mitarbeiter erfolgreich angelegt.");
-		}
 		catch (SQLException e) {
 			System.err.println("Fehler im Konstruktor von Mitarbeiter mit Bereich");
 			System.err.println(e.getMessage());
@@ -235,7 +237,9 @@ public class Mitarbeiter {
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 				"SELECT Benutzername From Mitarbeiter");
 		
-		
+	if(!benutzername.equals(""))
+	{			
+	
 		while (checkObVorhanden.next()) 
 		{
 
@@ -254,15 +258,15 @@ public class Mitarbeiter {
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+arbeitsgruppeID+"'");
 		
-		if (affectedRows==1)System.out.println("Es wurde "+affectedRows+" Datensatz eingef�gt.");
-		
 		this.benutzername = benutzername;
 		this.passwort = verschluesseltPasswort;
 		this.vorname = vorname;
 		this.nachname = nachname;
 		this.rolle = rolle;
 		this.arbeitsgruppe = arbeitsgruppe;
+		if (affectedRows==1)throw new Exception("Mitarbeiter wurde angelegt.");
 		
+		}
 		}
 		catch (SQLException e) {
 			System.err.println("Fehler im Konstruktor mit Arbeitsgruppe:");
@@ -302,7 +306,8 @@ public class Mitarbeiter {
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 				"SELECT Benutzername From Mitarbeiter");
 		
-		
+		if(!benutzername.equals(""))
+		{
 		while (checkObVorhanden.next()) 
 		{
 
@@ -331,11 +336,14 @@ public class Mitarbeiter {
 		this.arbeitsgruppe=null;
 		this.bereich = null;
 		checkObVorhanden.close();
+		if (affectedRows==1)throw new Exception("Mitarbeiter wurde angelegt.");
+			
+	}
 		}
 		catch (SQLException e) {
-			System.err.println(e.getMessage());
 			System.err.println("SQL Statement ist fehlerhaft! In Mitarbeiter(ohne AG+Bereich)");
-		}
+			System.err.println(e.getMessage());
+			}
 	}
 	
 	/**

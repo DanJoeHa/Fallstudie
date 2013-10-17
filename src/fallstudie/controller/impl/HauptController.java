@@ -91,7 +91,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 			
 			hilfefenster.setVisible(true);
 		}
-		if(button == "Hilfe schliessen"){
+		if(button == "Schließen"){
 			hilfefenster.setVisible(false);
 		}
 	}
