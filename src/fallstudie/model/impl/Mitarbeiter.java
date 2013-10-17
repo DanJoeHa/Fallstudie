@@ -167,7 +167,7 @@ public class Mitarbeiter {
 		String rollenName = rolle.getRollenbezeichnung();
 		int bereichID = bereich.getID();
 		
-		//System.out.println("SELECT Benutzername From Mitarbeiter");
+		System.out.println("SELECT Benutzername From Mitarbeiter");
 		//Checken obs den Mitarbeiter schon gibt.
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 				"SELECT Benutzername From Mitarbeiter");
@@ -175,23 +175,24 @@ public class Mitarbeiter {
 		
 		while (checkObVorhanden.next()) 
 		{
-
-				String value = checkObVorhanden.getString("Benutzername");
 				
+				String value = checkObVorhanden.getString("Benutzername");
+				System.out.println(value);
 				if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
-				checkObVorhanden.close();
+				
 		}
+		checkObVorhanden.close();
 		//passwort wird verschl�sselt in die DB geschrieben
 		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 		
 		
-		//System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
-				//"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+bereichID+"'");
+		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
+		" VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
 		
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
-				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+bereichID+"'");
+				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
 		
-		if (affectedRows==1)System.out.println("Es wurde "+affectedRows+" Datensatz eingef�gt.");
+		
 		
 		this.benutzername = benutzername;
 		this.passwort = verschluesseltPasswort;
@@ -199,10 +200,10 @@ public class Mitarbeiter {
 		this.nachname = nachname;
 		this.rolle = rolle;
 		this.bereich = bereich;
-		
+		if (affectedRows==1)throw new Exception("Mitarbeiter erfolgreich angelegt.");
 		}
 		catch (SQLException e) {
-			System.err.println("SQL Statement ist fehlerhaft!: ");
+			System.err.println("Fehler im Konstruktor von Mitarbeiter mit Bereich");
 			System.err.println(e.getMessage());
 			
 		}
@@ -243,9 +244,9 @@ public class Mitarbeiter {
 				String value = checkObVorhanden.getString("Benutzername");
 				
 				if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
-				checkObVorhanden.close();
+				
 		}
-		
+		checkObVorhanden.close();
 		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 		
 		
@@ -266,8 +267,9 @@ public class Mitarbeiter {
 		
 		}
 		catch (SQLException e) {
+			System.err.println("Fehler im Konstruktor mit Arbeitsgruppe:");
 			System.err.println(e.getMessage());
-			System.err.println("SQL Statement ist fehlerhaft!");
+			
 		}
 	}
 	
@@ -309,15 +311,15 @@ public class Mitarbeiter {
 				String value = checkObVorhanden.getString("Benutzername");
 				
 				if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
-				checkObVorhanden.close();
+				
 		}
 		
 		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 		
 		
-		/*System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)" +
+		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"'");
-		*/
+		
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"'");
 		
@@ -330,7 +332,7 @@ public class Mitarbeiter {
 		this.rolle = rolle;
 		this.arbeitsgruppe=null;
 		this.bereich = null;
-		
+		checkObVorhanden.close();
 		}
 		catch (SQLException e) {
 			System.err.println(e.getMessage());
