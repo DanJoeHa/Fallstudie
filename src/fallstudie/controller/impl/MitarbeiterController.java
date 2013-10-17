@@ -11,8 +11,10 @@ import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;
 import fallstudie.view.impl.DatenAnzeigenAuswahlView;
+import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.MitarbeiterAnlegenView;
 import fallstudie.view.impl.MitarbeiterBearbeitenView;
+import fallstudie.view.impl.SchliessenPopup;
 import fallstudie.view.impl.SuchenView;
 import fallstudie.view.interfaces.View;
 
@@ -36,6 +38,7 @@ public class MitarbeiterController implements Controller {
 	private Mitarbeiter gewaehlterMitarbeiter;
 	private Arbeitsgruppe gewaehlteAG;
 	private SuchController suche;
+	
 	
 	/**
 	 * Konstruktor, ruft und speichert alle Rollen und Bereiche
@@ -78,7 +81,7 @@ public class MitarbeiterController implements Controller {
 			this.viewSuche = (SuchenView) suche.getView() ;
 			HauptController.hauptfenster.setContent(viewSuche);
 			
-
+			
 		}
 	}
 	

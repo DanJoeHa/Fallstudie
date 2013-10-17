@@ -21,4 +21,5 @@ public abstract class HilfeTexte {
 	public static String MitarbeiterBearbeitenView="Klicken Sie in das Feld in dem Sie eine Änderung vornehmen wollen und geben Sie die Änderung ein. Dann bestätigen Sie mit 'Speichern'.";
 	public static String SpeichernPopup="Wollen Sie wirklich speichern?";
 	public static String LoeschenPopup="Wollen Sie wirklich löschen?";
+	public static String TabelleView="blabla";
 }
