@@ -186,12 +186,12 @@ public class BereichController implements Controller {
 		if(button.equals("Ja") || button.equals("Ersetzen")){	
 			
 			//Bereich anlegen
-			if(this.operation.equals("anlegen"))
-			{
-				try
-				{
+			if(this.operation.equals("anlegen")){
+				
+				try{
+					Bereich neuerBereich = new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oLeiter);
+					this.gewaehlterBereich = neuerBereich;
 					this.moveLeiter();
-					new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oLeiter);
 				}
 				catch (Exception ex)
 				{
@@ -231,18 +231,20 @@ public class BereichController implements Controller {
 	private void moveLeiter(){
 		//Leiter in neuen Bereich schieben und alten Bereich entfernen
 		if( oLeiter != null){
-			
+			System.out.println("blub");
 			if( oLeiter.getBereich().getLeiter() != null ){
-				
+				System.out.println("blub1");
 				//nur wenn Leiter = zu verschiebendem Leiter
 				if( oLeiter.getBereich().getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ){
+					System.out.println("blub2");
 					oLeiter.getBereich().setLeiter(null);
+					System.out.println("blub3");
 				}
 			}
-			
+			System.out.println("blub4");
 			//neuen Leiter in Bereich schieben
 			oLeiter.setBereich(this.gewaehlterBereich);
-			
+			System.out.println("blub5");
 		}
 	}
 
