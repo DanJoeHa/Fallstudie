@@ -118,7 +118,7 @@ public class MitarbeiterController implements Controller {
 					break;
 			}
 			//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
-			HauptController.hilfefenster.setHinweis(HilfeTexte.TabelleView);
+			HauptController.hilfefenster.setHinweis(HilfeTexte.MitarbeiterAnlegenView);
 			
 			suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(suche.getView() );
