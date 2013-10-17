@@ -204,7 +204,7 @@ public class ArbeitsgruppenController implements Controller {
 			this.suche.setAufrufenderController(this);
 			this.suche.setSuchbegriff(this.view.getAGLeiter());
 			
-			//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+			//Hilfe für Tabelle bei Arbeitsgruppe anlegen - GL suchen
 			HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiterbearbearbeiten_Mitarbeiterloeschen_Arbeitsgruppeanlegen_Arbeitsgruppebearbeiten_Gruppenleiter_Bereichanlegen_Bereichsleiter_Bereichbearbeiten_Bereichsleiter);
 
 			this.suche.setOperation("auswahl");
