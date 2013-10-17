@@ -52,11 +52,11 @@ public class TabelleView extends JPanel implements View {
 		
 		B_AuswaehlenLoeschen = new JButton("Löschen");
 		B_AuswaehlenLoeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_AuswaehlenLoeschen.setBounds(440, 600, 150, 30);
+		B_AuswaehlenLoeschen.setBounds(415, 600, 150, 30);
 		add(B_AuswaehlenLoeschen);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(30, 100, 520, 480);
+		scrollPane.setBounds(45, 45, 520, 544);
 		add(scrollPane);
 		
 		TA_Tabelle = new JTable();
@@ -69,17 +69,17 @@ public class TabelleView extends JPanel implements View {
 		
 		B_Abbrechen = new JButton("Abbrechen");
 		B_Abbrechen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Abbrechen.setBounds(30, 600, 150, 30);
+		B_Abbrechen.setBounds(45, 600, 150, 30);
 		add(B_Abbrechen);
 		
 		C_DrillDown = new JComboBox<String>();
 		C_DrillDown.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_DrillDown.setBounds(351, 66, 101, 23);
+		C_DrillDown.setBounds(365, 13, 101, 23);
 		C_DrillDown.setVisible(false);
 		add(C_DrillDown);
 		
 		B_DrillDown = new JButton("DrillDown");
-		B_DrillDown.setBounds(461, 66, 89, 23);
+		B_DrillDown.setBounds(476, 13, 89, 23);
 		B_DrillDown.setVisible(false);
 		add(B_DrillDown);
 		

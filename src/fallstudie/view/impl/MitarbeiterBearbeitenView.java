@@ -32,9 +32,9 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 	 * Create the panel.
 	 */
 	public MitarbeiterBearbeitenView() {
-		setPreferredSize(new Dimension(620, 660));
-		setMinimumSize(new Dimension(620, 660));
-		setMaximumSize(new Dimension(620, 660));
+		setPreferredSize(new Dimension(620, 655));
+		setMinimumSize(new Dimension(620, 655));
+		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setBounds(new Rectangle(0, 0, 620, 660));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -44,27 +44,27 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		//C_Bereich
 		C_Bereich = new JComboBox();
 		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Bereich.setBounds(200, 300, 300, 30);
+		C_Bereich.setBounds(190, 176, 300, 30);
 		add(C_Bereich);
 				
 		//C_Rolle
 		C_Rolle = new JComboBox();
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Rolle.setBounds(200, 250, 300, 30);
+		C_Rolle.setBounds(190, 135, 300, 30);
 		add(C_Rolle);
 		
 		//T_Arbeitsgruppe
 		T_Arbeitsgruppe = new JTextField();
 		T_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Arbeitsgruppe.setColumns(10);
-		T_Arbeitsgruppe.setBounds(200, 350, 220, 30);
+		T_Arbeitsgruppe.setBounds(190, 217, 186, 30);
 		add(T_Arbeitsgruppe);
 
 		//B_SucheArbeitsgruppe 
 		JButton B_SucheArbeitsgruppe = new JButton("Suchen");
 		B_SucheArbeitsgruppe.setIcon(null);
 		B_SucheArbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_SucheArbeitsgruppe.setBounds(440, 350, 150, 30);
+		B_SucheArbeitsgruppe.setBounds(386, 217, 104, 30);
 		add(B_SucheArbeitsgruppe);
 
 		//B_Abbrechen
