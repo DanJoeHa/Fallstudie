@@ -451,27 +451,20 @@ public class Arbeitsgruppe {
 		//Mitgegebener Bereich ID 
 		String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
 		//Aktueller Bereich ID
-		String alterLeiterBenutzername = this.leiter.getBenutzername();
-		
+		if(!(neuerLeiterBenutzername==null)){
+			
 		try 
-		{	//VERGLEICH DER BEIDEN
-			if(!alterLeiterBenutzername.equals(neuerLeiterBenutzername))
-			{
+		{	
 				//System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz ge�ndert.");
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geändert.");
 				erfolgreich=true;
-			}
-			else
-			{
-				System.err.println("Alter und Neuer Leiter sind Identisch! Bitte anderen Leiter w�hlen.");
-				erfolgreich= false;
-			}
+	
 		}
-		
+	
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.err.println("------SQL ERROR-------");
@@ -483,6 +476,12 @@ public class Arbeitsgruppe {
 			{
 				System.err.println("Fehler beim Suchen des alten Leiters.");
 			}
+	}
+		else
+		{
+			this.leiter=null;
+		}
+
 		return erfolgreich;
 	}
 
