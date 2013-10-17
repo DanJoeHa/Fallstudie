@@ -100,11 +100,11 @@ public class Bereich {
 
 			}
 			
-			//System.out.println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)" +
-			//		"VALUES ('"+kurzUp+"', '"+beschreibung+"'");
+			System.out.println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)" +
+					" VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"')");
 		
-			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)" +
-					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"'");
+			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung) " +
+					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"')");
 			
 			this.kurzbezeichnung = kurzbezeichnung;
 			this.beschreibung = beschreibung;

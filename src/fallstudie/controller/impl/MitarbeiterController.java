@@ -11,8 +11,10 @@ import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;
 import fallstudie.view.impl.DatenAnzeigenAuswahlView;
+import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.MitarbeiterAnlegenView;
 import fallstudie.view.impl.MitarbeiterBearbeitenView;
+import fallstudie.view.impl.SchliessenPopup;
 import fallstudie.view.impl.SuchenView;
 import fallstudie.view.interfaces.View;
 
@@ -36,6 +38,8 @@ public class MitarbeiterController implements Controller {
 	private Mitarbeiter gewaehlterMitarbeiter;
 	private Arbeitsgruppe gewaehlteAG;
 	private SuchController suche;
+	public static SchliessenPopup hilfefenster; //Hilfe noch im Test
+	
 	
 	/**
 	 * Konstruktor, ruft und speichert alle Rollen und Bereiche
@@ -47,6 +51,8 @@ public class MitarbeiterController implements Controller {
 		//alle Rollen und Bereiche holen und speichern
 		this.rollen = Rolle.getAlleRollen();
 		this.bereiche = Bereich.getAlleBereiche();
+		
+		
 		
 	}
 	
@@ -78,7 +84,7 @@ public class MitarbeiterController implements Controller {
 			this.viewSuche = (SuchenView) suche.getView() ;
 			HauptController.hauptfenster.setContent(viewSuche);
 			
-
+			
 		}
 	}
 	
@@ -106,18 +112,23 @@ public class MitarbeiterController implements Controller {
 				case "bearbeiten": suche.setSuchbegriff(this.view.getArbeitsgruppe());
 					break;
 			}
+			//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+			HauptController.hilfefenster.setHinweis(HilfeTexte.TabelleView);
+			
 			suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(suche.getView() );
 		}
 		if (operation.equals("bearbeiten"))
 		{
 			if( button.equals("Suchen") )
-			{
+			{	
 				this.viewSuche.getSuchbegriff();
-				this.viewDatenAnz = new DatenAnzeigenAuswahlView();
+				this.viewDatenAnz = new DatenAnzeigenAuswahlView();				
 				HauptController.hauptfenster.setContent(viewDatenAnz);
 				this.view.setController(suche);
+				
 			}
+			
 		}
 			
 			
