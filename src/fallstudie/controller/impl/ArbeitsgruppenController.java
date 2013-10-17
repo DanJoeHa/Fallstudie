@@ -60,6 +60,7 @@ public class ArbeitsgruppenController implements Controller {
 			this.view.setController( this );
 			//alle Bereiche holen und an View geben	
 			this.view.setBereich( sBereiche );
+			this.view.setButtonAbbrechenName("Zurücksetzen");
 		}
 		
 		//wenn Bearbeiten einer Arbeitsgruppe
@@ -82,6 +83,16 @@ public class ArbeitsgruppenController implements Controller {
 		
 		//Button bestimmen
 		String button = e.getActionCommand();
+		
+		//Abbrechen
+		if( button.equals("Abbrechen") ){
+			HauptController.hauptfenster.zurueck();
+		}
+		
+		//Zurücksetzen
+		if( button.equals("Zurücksetzen") ){
+			this.view.reset();
+		}
 		
 		//Änderungen speichern
 		if( button.equals("Speichern") ){
@@ -207,6 +218,7 @@ public class ArbeitsgruppenController implements Controller {
 			//an Maske übergeben & Maske anzeigen
 			this.view = new ArbeitsgruppeBearbeitenAnlegenView();
 			this.view.setController(this);
+			this.view.setButtonAbbrechenName("Abbrechen");
 			this.view.setBereich( sBereiche, gewaehlteAG.getBereich().getKurzbezeichnung());
 			this.view.setKurzbezeichnung( gewaehlteAG.getKurzbezeichnung() );
 			this.view.setBezeichnung( gewaehlteAG.getBeschreibung() );

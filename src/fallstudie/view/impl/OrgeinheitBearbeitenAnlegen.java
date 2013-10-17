@@ -85,4 +85,9 @@ public abstract class OrgeinheitBearbeitenAnlegen extends JPanel{
 	public void setBezeichnung(String bezeichnung){
 		this.T_Bezeichnung.setText(bezeichnung);
 	}
+	
+	public void setButtonAbbrechenName(String name){
+		this.B_Zuruecksetzen.setText(name);
+		this.B_Zuruecksetzen.setActionCommand(name);
+	}
 }

@@ -68,6 +68,8 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 	@Override
 	public void reset() {
 		this.T_BereichsleiterSuchbegriff.setText("");
+		this.T_Bezeichnung.setText("");
+		this.T_Kurzbezeichnung.setText("");
 	}
 	
 }

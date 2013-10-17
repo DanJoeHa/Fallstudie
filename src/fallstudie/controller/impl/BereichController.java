@@ -3,6 +3,7 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
@@ -46,6 +47,7 @@ public class BereichController implements Controller {
 		if( this.operation.equals("anlegen")){
 			this.view = new BereichBearbeitenAnlegenView();
 			this.view.setController( this );
+			this.view.setButtonAbbrechenName("Zurücksetzen");
 		}
 		
 		//Bereich löschen
@@ -62,6 +64,7 @@ public class BereichController implements Controller {
 			this.viewLoesch.setBereiche(Funktionen.BereicheCollection2Array(Bereich.getAlleBereiche()));
 			this.viewLoesch.setButtonName("Bearbeiten");
 			this.viewLoesch.setHinweis("Bitte zu bearbeitenden Bereich auswählen");
+			this.viewLoesch.setButtonName("Abbrechen");
 		}
 	}
 	
@@ -71,6 +74,16 @@ public class BereichController implements Controller {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
+		
+		//Abbrechen
+		if( button.equals("Abbrechen") ){
+			HauptController.hauptfenster.zurueck();
+		}
+		
+		//Zurücksetzen
+		if( button.equals("Zurücksetzen") ){
+			this.view.reset();
+		}
 		
 		//Bereich löschen bestätigten
 		if(button.equals("Löschen") ){

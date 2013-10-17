@@ -111,7 +111,9 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 
 	@Override
 	public void reset() {
-		
+		this.T_AGLeiterSuchbegriff.setText("");
+		this.T_Bezeichnung.setText("");
+		this.T_Kurzbezeichnung.setText("");
 		
 	}
 }
