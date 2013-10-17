@@ -451,6 +451,7 @@ public class Arbeitsgruppe {
 		//Mitgegebener Bereich ID 
 		String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
 		//Aktueller Bereich ID
+		//System.out.println(neuerLeiterBenutzername);
 		if(!(neuerLeiterBenutzername==null)){
 			
 		try 
