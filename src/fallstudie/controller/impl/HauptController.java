@@ -81,6 +81,9 @@ public class HauptController implements Controller, TreeSelectionListener {
 				hauptfenster.setLoggedOut();
 				hauptfenster.setInfoBox("Sie haben sich erfolgreich ausgeloggt.");
 				hauptfenster.setContent(activeController.getView());
+				
+				hilfefenster.setHinweis( HilfeTexte.LoginView);
+				hilfefenster.setTitle("Hilfe - Login");
 			}
 				
 		}

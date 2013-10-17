@@ -46,7 +46,6 @@ public class BestaetigenPopup extends JDialog implements View{
 		txtrWollenSieWirklich.setEditable(false);
 		contentPanel.add(txtrWollenSieWirklich);
 	
-	
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
