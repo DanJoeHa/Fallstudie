@@ -21,5 +21,12 @@ public abstract class HilfeTexte {
 	public static String MitarbeiterBearbeitenView="Klicken Sie in das Feld in dem Sie eine Änderung vornehmen wollen und geben Sie die Änderung ein. Dann bestätigen Sie mit 'Speichern'.";
 	public static String SpeichernPopup="Wollen Sie wirklich speichern?";
 	public static String LoeschenPopup="Wollen Sie wirklich löschen?";
-	public static String TabelleView="blabla";
+	public static String Tabelle_Arbeitsgruppeeinsehen_Gruppenleiter="Um die Tabelle auszudrucken, klicken Sie auf den 'Drucken' Knopf.";
+	public static String Tabelle_Arbeitsgruppeeinsehen="Um die Tabelle auszudrucken, klicken Sie auf den 'Drucken' Knopf";
+	public static String Tabelle_SummierteErgebnisseGesamtbereich="Um die Tabelle auszudrucken, klicken Sie auf den 'Drucken' Knopf. Wollen Sie von einem Bereich die Ergebnisse der einzelnen Arbeitsgruppen einsehen, wählen Sie den gewünschten Bereich mithilfe der DropDownBox aus und klicken auf 'Drill Down'";
+	public static String Tabelle_SummierteErgebnisseGesamtbereich_AG="Um die Tabelle auszudrucken, klicken Sie auf den 'Drucken' Knopf.";
+	public static String Tabelle_Mitarbeiteranlegen_Mitarbeiterbearbeiten_Arbeitsgruppebearbeiten_AG="Um eine Arbeitsgruppe auszuwählen klicken Sie auf die gewünschte Zeile und bestätigen mit 'Auswählen'";
+	public static String Tabelle_Mitarbeiterbearbearbeiten_Mitarbeiterloeschen_Arbeitsgruppeanlegen_Arbeitsgruppebearbeiten_Gruppenleiter_Bereichanlegen_Bereichsleiter_Bereichbearbeiten_Bereichsleiter="Um einen Mitarbeiter auszuwählen klicken Sie auf die gewünschte Zeile und bestätigen mit 'Auswählen'.";
+	public static String Tabelle_Arbeitsgruppeloeschen="Um eine Arbeitsgruppe zu löschen klicken Sie auf die gewünschte Zeile und bestätigen mit 'Löschen'.";
+
 }
