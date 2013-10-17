@@ -294,10 +294,8 @@ public class MitarbeiterController implements Controller {
 			this.viewAnlegen = new MitarbeiterAnlegenView();
 			this.viewAnlegen.setController( this );
 			
-			System.out.println("lalala");
 			//ausgewählte Arbeitsgruppe holen
 			this.gewaehlteAG = (Arbeitsgruppe) this.suche.getAuswahl();
-			System.out.println("asdfasd");
 			this.viewAnlegen.setRolle( Funktionen.RollenCollection2Array(this.rollen) );
 			this.viewAnlegen.setBereich(Funktionen.BereicheCollection2Array(this.bereiche));
 			this.viewAnlegen.setArbeitsgruppe(gewaehlteAG.getKurzbezeichnung());
