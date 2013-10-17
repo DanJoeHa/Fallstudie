@@ -190,6 +190,7 @@ public class BereichController implements Controller {
 			{
 				try
 				{
+					this.moveLeiter();
 					new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oLeiter);
 				}
 				catch (Exception ex)
@@ -205,6 +206,7 @@ public class BereichController implements Controller {
 				
 				try
 				{
+					this.moveLeiter();
 					this.gewaehlterBereich.setBeschreibung(this.view.getBezeichnung());
 					this.gewaehlterBereich.setKurzbezeichnung(this.view.getKurzbezeichnung());
 					this.gewaehlterBereich.setLeiter(oLeiter);
@@ -218,6 +220,30 @@ public class BereichController implements Controller {
 			}					
 		}
 		
+	}
+	
+	/**
+	 * Prüft, ob Leiter = Leiter der alten AG -> setzt null, und schiebt Leiter in neue AG
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
+	private void moveLeiter(){
+		//Leiter in neuen Bereich schieben und alten Bereich entfernen
+		if( oLeiter != null){
+			
+			if( oLeiter.getBereich().getLeiter() != null ){
+				
+				//nur wenn Leiter = zu verschiebendem Leiter
+				if( oLeiter.getBereich().getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ){
+					oLeiter.getBereich().setLeiter(null);
+				}
+			}
+			
+			//neuen Leiter in Bereich schieben
+			oLeiter.setBereich(this.gewaehlterBereich);
+			
+		}
 	}
 
 	@Override
