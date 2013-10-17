@@ -41,7 +41,7 @@ public class Art {
 	try
 	{	
 		ResultSet checkObVorhanden = Connection.executeQueryStatement(
-				"SELECT Name From Art");
+				"SELECT Name From Art;");
 		
 		
 		while (checkObVorhanden.next()) 
@@ -49,7 +49,30 @@ public class Art {
 
 				String value = checkObVorhanden.getString("Name");
 				
-				if (name.equals(value)) throw new Exception ("Art mit dem selben Namen existiert schon.");
+				if (name.equals(value)) 
+				{
+					System.out.println("SELECT Aktiv From Art Where Name='"+this.name+"'");	
+					ResultSet checkObInaktiv = Connection.executeQueryStatement(
+							"SELECT Aktiv From Art Where Name='"+this.name+"'");
+					checkObInaktiv.next();
+					Boolean inaktiv = checkObInaktiv.getBoolean("Aktiv");
+						
+					if (inaktiv == false) 
+					{
+						System.out.println("UPDATE Art SET Aktiv ='1' WHERE Name='"+this.name+"'");
+						int RowsAffect = RemoteConnection.sql.executeUpdate(
+								"UPDATE Art SET Aktiv ='1' WHERE Name='"+this.name+"'");
+									
+						if (RowsAffect==1)
+							{
+								System.out.println("Es wurde "+RowsAffect+" Datensatz gespeichert.");
+								throw new Exception("Datensatz erfolgreich gespeichert");
+							}
+					}
+					
+					else throw new Exception ("Art mit dem selben Namen existiert schon.");
+				}
+							
 				
 		}
 		
@@ -132,7 +155,7 @@ public class Art {
 		}
 	catch (SQLException e)
 	{
-		System.err.println("Dieser Fehler ist aufgetretn in Arbeitsgruppe (ResultSet):");
+		System.err.println("Dieser Fehler ist aufgetretn in Art(ResultSet):");
 		System.err.println(e.getMessage());
 	}
 	}
