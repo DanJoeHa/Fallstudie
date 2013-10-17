@@ -38,6 +38,7 @@ public class MitarbeiterController implements Controller {
 	private Mitarbeiter gewaehlterMitarbeiter;
 	private Arbeitsgruppe gewaehlteAG;
 	private SuchController suche;
+	public static SchliessenPopup hilfefenster; //Hilfe noch im Test
 	
 	
 	/**
@@ -50,6 +51,8 @@ public class MitarbeiterController implements Controller {
 		//alle Rollen und Bereiche holen und speichern
 		this.rollen = Rolle.getAlleRollen();
 		this.bereiche = Bereich.getAlleBereiche();
+		
+		
 		
 	}
 	
@@ -109,6 +112,8 @@ public class MitarbeiterController implements Controller {
 				case "bearbeiten": suche.setSuchbegriff(this.view.getArbeitsgruppe());
 					break;
 			}
+			//Hilfe noch im test
+			HauptController.hilfefenster.setHinweis(HilfeTexte.TabelleView);
 			suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(suche.getView() );
 		}
