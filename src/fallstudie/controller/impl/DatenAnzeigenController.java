@@ -78,7 +78,7 @@ public class DatenAnzeigenController implements Controller {
 							
 							int anzZeilen = oJahr.getZeileBereich().size();
 							if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-							//if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
+							//if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich()); //hier schebberts
 							
 						}
 						
@@ -217,7 +217,7 @@ public class DatenAnzeigenController implements Controller {
 							
 							int anzZeilen = oWoche.getZeileBereich().size();
 							if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-							if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich());
+							//if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich()); //hier schebberts
 						}
 						
 						//DrillDown-Button und ComboBox anzeigen
@@ -422,6 +422,8 @@ public class DatenAnzeigenController implements Controller {
 				
 				int anzZeilen = oJahr.getZeileBereich().size();
 				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
+				//if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich()); //hier schebberts
+				
 			}
 			
 			
@@ -513,6 +515,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				int anzZeilen = oJahr.getZeileBereich().size();
 				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
+				//if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich()); //hier schebberts
 			}
 			
 			
