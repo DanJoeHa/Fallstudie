@@ -56,10 +56,14 @@ public class Bereich {
 		}
 		try
 		{
+		if(leiter.getBenutzername()!=null)
+		{
+			
+		
 			leiterBenutzername = leiter.getBenutzername();
 		 	//System.out.println("SELECT Kurzbezeichnung From Arbeitsgruppe");
 			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-					"SELECT Kurzbezeichnung From Arbeitsgruppe");
+					"SELECT Kurzbezeichnung From Bereich");
 			
 			while (checkObVorhanden.next()) 
 			{
@@ -82,49 +86,17 @@ public class Bereich {
 			this.beschreibung = beschreibung;
 			this.leiter = leiter;
 			if (RowsAffected==1)throw new Exception("Bereich wurde erfolgreich angelegt.");
-			
-		} 
-		
-		
-		catch (SQLException e) {
-			System.err.println(e.getMessage());
-			System.err.println("SQL Statement ist fehlerhaft!");
 		}
-		}
-
-	/**
-	 * F�gt einen Bereich ohne Leiter in die Datenbank ein.
-	 * @param kurzbezeichnung
-	 * @param beschreibung
-	 * @throws Exception 
-	 */
-	public Bereich(String kurzbezeichnung, String beschreibung) throws Exception {
-		
-		String kurzUp = kurzbezeichnung.toUpperCase();
-		try
+		else if(leiter.getBenutzername()==null)
 		{
-			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
-				RemoteConnection.connect();
-			};
-			
-		}
-		catch (NullPointerException e)
-		{
-			System.err.println(e.getMessage());
-			System.err.println("Konnte keine Datenbankverbindung herstellen!");
-		}
-		try
-		{
-		 
 			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-					"SELECT Kurzbezeichnung From Arbeitsgruppe");
+					"SELECT Kurzbezeichnung From Bereich");
 			
 			while (checkObVorhanden.next()) 
 			{
 
 					String value = checkObVorhanden.getString("Kurzbezeichnung");
-					String valueUp = value.toUpperCase();
-					if (kurzbezeichnung.equals(valueUp)) throw new Exception ("Bereich mit selber Kurzbezeichnung existiert schon.");
+					if (kurzbezeichnung.equals(value)) throw new Exception ("Bereich mit selber Kurzbezeichnung existiert schon.");
 
 			}
 			
@@ -132,22 +104,24 @@ public class Bereich {
 			//		"VALUES ('"+kurzUp+"', '"+beschreibung+"'");
 		
 			int RowsAffected= RemoteConnection.sql.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)" +
-					"VALUES ('"+kurzUp+"', '"+beschreibung+"'");
+					"VALUES ('"+kurzbezeichnung+"', '"+beschreibung+"'");
 			
 			this.kurzbezeichnung = kurzbezeichnung;
 			this.beschreibung = beschreibung;
 			this.leiter = null;
 			
 			if (RowsAffected==1)throw new Exception("Bereich wurde erfolgreich angelegt.");
+		
+		}
 		} 
 		
 		
 		catch (SQLException e) {
+			System.err.println("Fehler in Bereich anlegen Konstruktor:");
 			System.err.println(e.getMessage());
-			System.err.println("SQL Statement ist fehlerhaft!");
+			
 		}
-		
-	}
+		}
 	/**
 	 * Alle bereiche mit dem Suchbegriff werden zur�ckgegeben
 	 * @param suchbegriff
