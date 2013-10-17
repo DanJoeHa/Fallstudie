@@ -288,34 +288,18 @@ public class Arbeitsgruppe {
 		boolean erfolgreich = false;
 		try 
 		{
-			String alteBeschreibung = this.getBeschreibung();
-			if (!alteBeschreibung.equals(beschreibung))
-			{
-				//System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"+beschreibung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+				System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"+beschreibung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 					
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 					"UPDATE Arbeitsgruppe SET Beschreibung='"+beschreibung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz ge�ndert.");
 				
 				erfolgreich=true;
 		
-			}
-			else
-			{
-				System.err.println("Alte und Neue Beschreibung sind Identisch! Bitte andere Beschreibung w�hlen.");
-				erfolgreich= false;
-			}
+			
 		}
 			catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
+			System.err.println("Fehler in SetBeschreibung Arbeitsgrupppe");
 			System.err.println(e.getMessage());
-		}
-		catch(NullPointerException e)
-		{
-			System.err.println("Fehler beim Suchen der alten Beschreibung.");
 		}
 		return erfolgreich;
 	}
@@ -342,12 +326,11 @@ public class Arbeitsgruppe {
 		{
 			
 			{
-				//System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+				System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 						
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 					"UPDATE Arbeitsgruppe SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 	
-				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datensatz ge�ndert.");
 				erfolgreich=true;
 		
 			}
@@ -381,37 +364,21 @@ public class Arbeitsgruppe {
 		//Mitgegebener Bereich ID 
 		int bereichID = bereich.getID();
 		//Aktueller Bereich ID
-		int alterBereichID = this.bereich.getID();
 		
 		try 
-		{	//VERGLEICH DER BEIDEN
-			if(!(alterBereichID==bereichID))
-			{
+		{	
 				//System.out.println("UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz ge�ndert.");
 				erfolgreich=true;
-			}
-			else
-			{
-				System.err.println("Alter und Neuer Bereich sind Identisch! Bitte anderen Bereich w�hlen.");
-				erfolgreich= false;
-			}
+			
 		}
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
+			System.err.println("Fehler bei setBereich: Arbeitsgruppe");
 			System.err.println(e.getMessage());
 		}
-			catch(NullPointerException e)
-			{
-				System.err.println("Fehler beim Suchen des alten Bereichs.");
-			}
 		return erfolgreich;
 	}
 	
@@ -444,42 +411,43 @@ public class Arbeitsgruppe {
 	/**
 	 * Methode �ndert Leiter der ARbeitsgruppe, 
 	 * �bergeben wird ein Mitarbeiterobjekt
-	 * @param mitarbeiter
+	 * @param leiter
 	 * @return boolean ob erfolgreich
 	 */
-	public boolean setLeiter(Mitarbeiter mitarbeiter) {
+	public boolean setLeiter(Mitarbeiter leiter) {
 		
 		boolean erfolgreich = false;
-		//Mitgegebener Bereich ID 
-		String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
-		//Aktueller Bereich ID
-		//System.out.println(neuerLeiterBenutzername);
-		if(!(neuerLeiterBenutzername==null)){
-			
+		
 		try 
-		{	
+		{
+		if(!(leiter==null)){
+			
+			String neuerLeiterBenutzername = leiter.getBenutzername();
 				System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				System.out.println("UPDATE Mitarbeiter SET Arbeitsgruppe='"+this.arbeitsgruppeID+"' WHERE Benutzername='"+neuerLeiterBenutzername+"'");
 				RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Arbeitsgruppe='"+this.arbeitsgruppeID+"' WHERE Benutzername='"+neuerLeiterBenutzername+"'");
-				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geändert.");
 				erfolgreich=true;
+				this.leiter=leiter;
 	
 		}
-	
+		else if(leiter==null)
+		{
+			System.out.println("UPDATE Arbeitsgruppe SET Leiter=NULL WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			
+			int RowsAffect = RemoteConnection.sql.executeUpdate(
+					"UPDATE Arbeitsgruppe SET Leiter=NULL WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			erfolgreich=true;
+			this.leiter=null;
+		}
+		}
 		catch (SQLException e) {
 			System.err.println("fehler in setLeiter");
 			System.err.println(e.getMessage());
 		}
-	}
-		else
-		{
-			this.leiter=null;
-		}
-
+		
 		return erfolgreich;
 	}
 
@@ -559,7 +527,7 @@ public class Arbeitsgruppe {
 				}
 			else 
 				{
-				System.out.println("KEIN ARBEITER");
+				
 					darfDeleteMitarbeiter=true;
 				}
 			
@@ -718,11 +686,8 @@ public class Arbeitsgruppe {
 				resultSet.last();
 				int resultLength = resultSet.getRow();
 				resultSet.beforeFirst();
-				if (resultLength==0) throw new NullPointerException("Keine Datens�tze gefunden");
-				else
-				{
-					//System.out.println("Es wurden "+resultLength+" Datens�tze gefunden. Die Gel�schten Eintr�ge werden nicht angezeigt.");
-				}
+				if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
+
 				while (resultSet.next()) 
 				{
 					//NuR Aktive werden ausgegeben

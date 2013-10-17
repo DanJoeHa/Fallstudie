@@ -56,7 +56,7 @@ public class Bereich {
 		}
 		try
 		{
-		if(leiter.getBenutzername()!=null)
+		if(leiter!=null)
 		{
 			
 		
@@ -87,7 +87,7 @@ public class Bereich {
 			this.leiter = leiter;
 			if (RowsAffected==1)throw new Exception("Bereich wurde erfolgreich angelegt.");
 		}
-		else if(leiter.getBenutzername()==null)
+		else if(leiter==null)
 		{
 			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
 					"SELECT Kurzbezeichnung From Bereich");
@@ -117,7 +117,7 @@ public class Bereich {
 		
 		
 		catch (SQLException e) {
-			System.err.println("Fehler in Bereich anlegen Konstruktor:");
+			System.err.println("Fehler in Bereich anlegen Konstruktor");
 			System.err.println(e.getMessage());
 			
 		}
@@ -352,26 +352,10 @@ public class Bereich {
 	 */
 	public boolean setKurzbezeichnung(String kurzbezeichnung) throws Exception {
 		boolean erfolgreich = false;
-		String NeukurzbezeichnungUP = kurzbezeichnung.toUpperCase();
-		String AltkurzbezeichnungUP = this.kurzbezeichnung.toUpperCase();
 		
 		try 
 		{
-			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-					"SELECT Kurzbezeichnung From Bereich");
 			
-			while (checkObVorhanden.next()) 
-			{
-
-					String value = checkObVorhanden.getString("Kurzbezeichnung").toUpperCase();
-					
-					if (NeukurzbezeichnungUP.equals(value)) throw new Exception ("Bereich mit der selben Kurzbezeichnung existiert schon!");
-
-			}
-			checkObVorhanden.close();
-			
-			if (!AltkurzbezeichnungUP.equals(NeukurzbezeichnungUP))
-			{
 				//System.out.println("UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 						"UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
@@ -382,21 +366,12 @@ public class Bereich {
 				
 				erfolgreich=true;
 		
-			}
-			else
-			{
-				System.err.println("Alte und Neue Kurzbezeichnung sind Identisch! Bitte andere Beschreibung w�hlen.");
-				erfolgreich= false;
-			}
 		}
+			
 			catch (SQLException e) {
 			System.err.println("Fehler in setKurzbezeichnung: ");
 			System.err.println(e.getMessage());
 		}
-			catch(NullPointerException e)
-			{
-				System.err.println("Fehler beim Suchen der alten Kurzbezeichnung.");
-			}
 		this.kurzbezeichnung = kurzbezeichnung;
 		return erfolgreich;
 	}
@@ -599,7 +574,8 @@ System.err.println("Fehler in Bereich löschen:");
 		String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
 			try 
 		{	
-				//System.out.println("UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
+				if(!(leiter==null)){
+				System.out.println("UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
 			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
@@ -608,6 +584,18 @@ System.err.println("Fehler in Bereich löschen:");
 				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz ge�ndert.");
 				erfolgreich=true;
 			this.leiter  = mitarbeiter;
+				}
+				else if(leiter==null)
+				{
+					System.out.println("UPDATE Bereich SET Leiter =NULL WHERE BereichID='"+this.bereichID+"'");
+					
+					int RowsAffect = RemoteConnection.sql.executeUpdate(
+					"UPDATE Bereich SET Leiter =NULL WHERE BereichID='"+this.bereichID+"'");
+					
+					erfolgreich=true;
+					this.leiter  = null;
+				}
+				
 		}
 		
 		catch (SQLException e) {
