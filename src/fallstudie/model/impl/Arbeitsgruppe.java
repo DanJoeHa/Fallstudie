@@ -75,7 +75,7 @@ public class Arbeitsgruppe {
 				if (kurzbezeichnung.equals(value)) throw new Exception ("Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon!");
 
 		}
-		if (leiter.getBenutzername()!=null)
+		if (leiter!=null)
 		{
 			benutzername = leiter.getBenutzername();
 			
