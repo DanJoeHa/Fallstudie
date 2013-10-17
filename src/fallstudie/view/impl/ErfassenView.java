@@ -27,7 +27,7 @@ public class ErfassenView extends JPanel implements View {
 
 	private static final long serialVersionUID = -4191603780481912694L;
 	private JTextField T_Kalenderjahr;
-	private JTextField T_Anzahl_Erfassen;
+	private JTextField T_AnzahlErfassen;
 	private JButton B_Zuruecksetzen, B_Anlegen;
 	private JRadioButton R_KalenderwocheDavor, R_KalenderwocheAktuell;
 	private JComboBox<String> C_Art;
@@ -131,13 +131,13 @@ public class ErfassenView extends JPanel implements View {
 	    group.add(R_KalenderwocheAktuell);
 	   
 	    //T_Anzahl_Erfassen statt die einzelnen Erfassen
-	    T_Anzahl_Erfassen = new JTextField();
-	    T_Anzahl_Erfassen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    T_Anzahl_Erfassen.setColumns(10);
-	    T_Anzahl_Erfassen.setBounds(200, 250, 150, 30);
-	    add(T_Anzahl_Erfassen);
+	    T_AnzahlErfassen = new JTextField();
+	    T_AnzahlErfassen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+	    T_AnzahlErfassen.setColumns(10);
+	    T_AnzahlErfassen.setBounds(200, 250, 150, 30);
+	    add(T_AnzahlErfassen);
 		//Intialwert Erfassen 0
-		T_Anzahl_Erfassen.setText("0");
+		T_AnzahlErfassen.setText("0");
 	    
 	    //B_Plus
 	    JButton B_Plus = new JButton("+");
@@ -153,14 +153,14 @@ public class ErfassenView extends JPanel implements View {
 				int derzeitigerWert;
 				try
 				{
-					derzeitigerWert =  Integer.parseInt( T_Anzahl_Erfassen.getText() );
+					derzeitigerWert =  Integer.parseInt( T_AnzahlErfassen.getText() );
 				}
 				catch (Exception ex)
 				{
 					derzeitigerWert = 0;
 				}
 				int neuerWert = derzeitigerWert + 1;
-				T_Anzahl_Erfassen.setText(""+neuerWert);
+				T_AnzahlErfassen.setText(""+neuerWert);
 			}
 	    	
 	    });
@@ -237,7 +237,7 @@ public class ErfassenView extends JPanel implements View {
 
 	@Override
 	public void reset() {
-		this.T_Anzahl_Erfassen.setText("0");
+		this.T_AnzahlErfassen.setText("0");
 	}
 	
 	/**
@@ -250,7 +250,7 @@ public class ErfassenView extends JPanel implements View {
 	public int getAnzahl(){
 		try
 		{
-			return Integer.parseInt(T_Anzahl_Erfassen.getText());
+			return Integer.parseInt(T_AnzahlErfassen.getText());
 		}
 		catch(Exception ex)
 		{
