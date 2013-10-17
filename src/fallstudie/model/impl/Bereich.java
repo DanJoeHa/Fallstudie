@@ -223,7 +223,7 @@ public class Bereich {
 		{
 			
 			//System.out.println("SELECT * FROM Bereich WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
-		
+			
 			ResultSet resultSet = Connection.executeQueryStatement(
 					"SELECT * FROM Bereich WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
 			//Variablen f�r den sp�teren Konstruktoraufruf
@@ -420,10 +420,7 @@ public class Bereich {
 			}
 		}
 			catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
+			System.err.println("Fehler in setKurzbezeichnung: ");
 			System.err.println(e.getMessage());
 		}
 			catch(NullPointerException e)
@@ -607,7 +604,7 @@ System.err.println("Fehler in Bereich löschen:");
 				
 				while (resultSet.next()) 
 				{	
-					System.out.println(resultSet.getString("Kurzbezeichnung"));
+					//System.out.println(resultSet.getString("Kurzbezeichnung"));
 					result.add(new Bereich(resultSet));
 				}
 				
