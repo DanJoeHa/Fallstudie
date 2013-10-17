@@ -140,6 +140,9 @@ public class ArbeitsgruppenController implements Controller {
 			if(operation.equals("bearbeiten"))
 			{
 				try {
+					
+					this.moveLeiter();
+					
 					this.gewaehlteAG.setBereich(oBereich);
 					this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
 					this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
@@ -154,6 +157,9 @@ public class ArbeitsgruppenController implements Controller {
 			if(operation.equals("anlegen"))
 			{
 				try{
+					
+					this.moveLeiter();
+					
 					new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
 				}
 				catch (Exception e1)
@@ -226,6 +232,30 @@ public class ArbeitsgruppenController implements Controller {
 		HauptController.hauptfenster.setContent( this.view );
 		this.view.repaint();
 
+	}
+	
+	/**
+	 * Prüft, ob Leiter = Leiter der alten AG -> setzt null, und schiebt Leiter in neue AG
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
+	private void moveLeiter(){
+		//Leiter in neue AG schieben und alte AG Leiter entfernen
+		if( oLeiter != null){
+			
+			if( oLeiter.getArbeitsgruppe().getLeiter() != null ){
+				
+				//nur wenn Leiter = zu verschiebendem Leiter
+				if( oLeiter.getArbeitsgruppe().getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ){
+					oLeiter.getArbeitsgruppe().setLeiter(null);
+				}
+			}
+			
+			//neuen Leiter in AG schieben
+			oLeiter.setArbeitsgruppe(this.gewaehlteAG);
+			
+		}
 	}
 	
 	/**
