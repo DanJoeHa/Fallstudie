@@ -10,6 +10,8 @@ import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.BereichBearbeitenAnlegenView;
 import fallstudie.view.impl.BereichLoeschenView;
+import fallstudie.view.impl.BestaetigenPopup;
+import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.interfaces.View;
 
 public class BereichController implements Controller {
@@ -20,6 +22,8 @@ public class BereichController implements Controller {
 	private SuchController suche;
 	private Mitarbeiter gewaehlterMA;
 	private Bereich gewaehlterBereich;
+	public static BestaetigenPopup popup;
+	private View aktView;
 	
 	private Collection<Bereich> bereich;
 	
@@ -61,6 +65,15 @@ public class BereichController implements Controller {
 		
 		if(button.equals("Löschen") )
 		{
+			popup = new BestaetigenPopup();
+			popup.setController(this);
+			popup.setTitle("Löschen");
+			popup.setAusgabe(HilfeTexte.LoeschenPopup);
+			
+			aktView = this.viewLoesch;
+		}
+		if(aktView == this.viewLoesch){
+		if(button.equals("Ja")){
 			Iterator<Bereich> i = this.bereich.iterator();		
 			while( i.hasNext() ){
 				Bereich B = (Bereich) i.next();
@@ -74,8 +87,12 @@ public class BereichController implements Controller {
 					break;
 				}
 			}
+			popup.setVisible(false);
 		}
-		
+		if(button.equals("Nein")){
+			popup.setVisible(false);
+		}
+		}
 		if(button.equals("Bearbeiten") )
 		{
 			String tempBereich = this.viewLoesch.getBereich();
@@ -110,7 +127,18 @@ public class BereichController implements Controller {
 		}
 		
 		if(button.equals("Speichern"))
-		{
+		{	
+			popup = new BestaetigenPopup();
+			
+			popup.setController(this);
+			popup.setTitle("Bestätigung");
+			popup.setAusgabe(HilfeTexte.SpeichernPopup);
+			
+			aktView = this.view;}
+			if(aktView == this.view){
+		if(button.equals("Ja")){
+			
+		
 			if(this.operation.equals("anlegen"))
 			{
 				try
@@ -135,8 +163,12 @@ public class BereichController implements Controller {
 					HauptController.hauptfenster.setInfoBox(ex.getMessage());
 				}
 			}
+			popup.setVisible(false);
 		}
-		
+		if(button.equals("Nein")){
+			popup.setVisible(false);
+		}
+			}
 	}
 
 	@Override
