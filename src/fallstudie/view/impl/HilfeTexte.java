@@ -19,5 +19,6 @@ public abstract class HilfeTexte {
 	public static String MitarbeiterAnlegenView="Geben Sie Vorname,Nachname und Benutzername des anzulegenden Mitarbeiters an. Rolle und Bereich können Sie dem Mitarbeiter zuordnen durch einen Klick auf den Pfeil der jeweiligen DropDownBox. Eine Arbeitsgruppe können Sie dem Mitarbeiter durch einen Klick auf den Knopf 'Suchen' neben dem Feld Arbeitsgruppe zuordnen. Für den neuen Mitarbeiter muss ein Passwort festgelegt werden. Entweder lassen sie Sich durch einen Klick auf den Knopf 'Generieren' ein Passwort automatisch erstellen oder Sie geben selbst in das Feld ein von Ihnen gewähltes Passwort ein.";
 	public static String SuchenView="Geben Sie den Suchbegriff in das Feld ein und bestätigen Sie mit einem Klick auf den 'Suchen' Knopf.";
 	public static String MitarbeiterBearbeitenView="Klicken Sie in das Feld in dem Sie eine Änderung vornehmen wollen und geben Sie die Änderung ein. Dann bestätigen Sie mit 'Speichern'.";
-	
+	public static String SpeichernPopup="Wollen Sie wirklich speichern?";
+	public static String LoeschenPopup="Wollen Sie wirklich löschen?";
 }

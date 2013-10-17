@@ -10,7 +10,9 @@ import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.ArbeitsgruppeBearbeitenAnlegenView;
 import fallstudie.view.impl.BereichBearbeitenAnlegenView;
+import fallstudie.view.impl.BestaetigenPopup;
 import fallstudie.view.impl.DatenAnzeigenAuswahlView;
+import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.SuchenView;
 import fallstudie.view.interfaces.View;
 
@@ -25,6 +27,8 @@ public class ArbeitsgruppenController implements Controller {
 	private String[] sBereiche;
 	private Arbeitsgruppe gewaehlteAG;
 	private Mitarbeiter gewaehlteMA;
+	public static BestaetigenPopup popup;
+	
 	/**
 	 * Zeigt  die View zur Arbeitsgruppenbearbeiten/-anlage abhängig von der Operation an
 	 * 
@@ -80,22 +84,32 @@ public class ArbeitsgruppenController implements Controller {
 	public void actionPerformed(ActionEvent e) {
 		//Button bestimmen
 		String button = e.getActionCommand();
-			
-		
+		Bereich oBereich = null;
+		Mitarbeiter oLeiter = null;
 		//Änderungen speichern
 		if( button.equals("Speichern") ){
 			
+			popup = new BestaetigenPopup();
+			
+			popup.setController(this);
+			popup.setTitle("Bestätigung");
+			popup.setAusgabe(HilfeTexte.SpeichernPopup);
+			
+			
+		}if(button.equals("Ja")){
 			//Bereichsobjekt zur Auswahl finden
 			Iterator<Bereich> i = this.bereiche.iterator();
-			Bereich oBereich = null;
+			
 			while( i.hasNext() ){
 				oBereich = i.next();
 				if(oBereich.getKurzbezeichnung().equals( this.view.getBereich() ) ) break;
 			}
 			
-			Mitarbeiter oLeiter = new Mitarbeiter( this.view.getAGLeiter() );
-			
-			
+			 oLeiter = new Mitarbeiter( this.view.getAGLeiter() );
+			popup.setVisible(false);
+		}if(button.equals("Nein")){
+			popup.setVisible(false);
+		}
 			if(operation.equals("bearbeiten"))
 			{
 				try {
@@ -118,7 +132,7 @@ public class ArbeitsgruppenController implements Controller {
 					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
 				}
 			}
-		}
+		
 		
 		//Zurücksetzen button
 		if( button.equals("Zurücksetzen") ){

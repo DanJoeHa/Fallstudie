@@ -10,7 +10,7 @@ import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.ArtAnlegenView;
 import fallstudie.view.impl.ArtLoeschenView;
 import fallstudie.view.impl.BestaetigenPopup;
-
+import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.interfaces.View;
 
 public class ArtController implements Controller {
@@ -21,7 +21,7 @@ public class ArtController implements Controller {
 	private Object auswahl;
 	private Collection<Art> art;
 	public static BestaetigenPopup popup;
-	private View test;
+	private View aktView;
 	
 	
 	
@@ -72,11 +72,11 @@ public class ArtController implements Controller {
 			
 			popup.setController(this);
 			popup.setTitle("Bestätigung");
-			popup.setAusgabe("Wollen Sie wirklich speichern?");
+			popup.setAusgabe(HilfeTexte.SpeichernPopup);
 			
-			test = this.view;
+			aktView = this.view;
 		}	
-			if(test == this.view){
+			if(aktView == this.view){
 			if(button.equals("Ja")){
 			
 				
@@ -110,11 +110,11 @@ public class ArtController implements Controller {
 			popup = new BestaetigenPopup();
 			popup.setController(this);
 			popup.setTitle("Löschen");
-			popup.setAusgabe("Wollen Sie wirklich löschen?");
+			popup.setAusgabe(HilfeTexte.LoeschenPopup);
 			
-			test = this.viewLoeschen;
+			aktView = this.viewLoeschen;
 		}	
-			if(test == this.viewLoeschen){
+			if(aktView == this.viewLoeschen){
 				if(button.equals("Ja")){
 					
 					
