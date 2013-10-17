@@ -291,7 +291,6 @@ public class MitarbeiterController implements Controller {
 		}catch(Exception ex){ //if(this.operation.equals("anlegen"))
 			
 			//Mitarbeiter bearbeiten View
-			this.viewAnlegen = new MitarbeiterAnlegenView();
 			this.viewAnlegen.setController( this );
 			
 			//ausgewählte Arbeitsgruppe holen
