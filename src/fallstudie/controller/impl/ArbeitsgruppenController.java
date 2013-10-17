@@ -93,17 +93,32 @@ public class ArbeitsgruppenController implements Controller {
 			//Leiter holen
 			if( !this.view.getAGLeiter().isEmpty() ) oLeiter = new Mitarbeiter( this.view.getAGLeiter() );	
 			
-			//Arbeitsgruppenleiter ersetzen
-			if( this.operation != "anlegen" && 
-					this.gewaehlteAG.getLeiter() != null &&
-					!this.gewaehlteAG.getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ){
-				
+			//Prüfung ob Leiter ersetzt wird
+			boolean replace = false;
+			
+			//Arbeitsgruppenleiter bei Bearbeiten ersetzen, wenn ein Leiter gesetzt war
+			if( this.operation == "bearbeiten" && this.gewaehlteAG.getLeiter() != null ){
+					
+				//Arbeitsgruppe soll keinen Leiter mehr haben
+				if( oLeiter == null ){
+					replace = true;
+				}else{
+					//neuer Leiter != neuem Leiter
+					if( !this.gewaehlteAG.getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ) replace = true;
+				}
+
+			}
+			
+			//Ersetzen-Popup anzeigen
+			if(replace){
 				//Ersetzen-PopUp
 				popup = new BestaetigenPopup();
 				popup.setController(this);
 				popup.setTitle("Arbeitsgruppenleiter ersetzen?");
 				popup.setAusgabe("Wollen Sie den aktuellen Arbeitsgruppenleiter ersetzen und speichern?");
 				popup.setButtonName( "Ersetzen", "Nicht ersetzen" );
+				
+			//Wirklich speichern Popup anzeigen
 			}else{
 				popup = new BestaetigenPopup();
 				
@@ -129,8 +144,6 @@ public class ArbeitsgruppenController implements Controller {
 			if(operation.equals("bearbeiten"))
 			{
 				try {
-					System.out.println("bearbeiten, speichern");
-					System.out.println("Leiter-ID: " + oLeiter.getBenutzername());
 					this.gewaehlteAG.setBereich(oBereich);
 					this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
 					this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
