@@ -10,7 +10,7 @@ import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.ArtAnlegenView;
 import fallstudie.view.impl.ArtLoeschenView;
 import fallstudie.view.impl.BestaetigenPopup;
-import fallstudie.view.impl.LoeschenPopup;
+
 import fallstudie.view.interfaces.View;
 
 public class ArtController implements Controller {
