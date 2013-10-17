@@ -36,7 +36,7 @@ public class Konfig {
 		
 		int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Config SET Jobintervall='"+intervall+"'");
 		
-		if (rowsAffect==1)erfolgreich =true;System.out.println("Es wurde "+rowsAffect+" Datensatz gespeichert.");
+		if (rowsAffect==1)erfolgreich =true;
 		if (rowsAffect==0)throw new Exception("Datensatz konnte nicht gespeichert werden!");
 		return erfolgreich;
 		

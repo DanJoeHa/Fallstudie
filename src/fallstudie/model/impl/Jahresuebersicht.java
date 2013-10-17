@@ -57,7 +57,7 @@ public class Jahresuebersicht {
 		
 		try
 		{
-			System.out.println("SELECT * FROM Jahresuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND  Arbeitsgruppe='"+arbeitsgruppeID +"'");
+			//System.out.println("SELECT * FROM Jahresuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND  Arbeitsgruppe='"+arbeitsgruppeID +"'");
 			ResultSet jahresuebersichtResult = Connection.executeQueryStatement(
 					"SELECT * FROM Jahresuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND  Arbeitsgruppe='"+arbeitsgruppeID +"'");
 			
@@ -107,8 +107,8 @@ public class Jahresuebersicht {
 		
 		try
 		{
-			System.out.println("SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"
-					+ kalenderjahr + "' AND  Bereich='" + bereichID + "'");
+			//System.out.println("SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"
+				//	+ kalenderjahr + "' AND  Bereich='" + bereichID + "'");
 			
 			ResultSet jahresuebersichtResult = Connection.executeQueryStatement(
 					"SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"
@@ -159,7 +159,7 @@ public class Jahresuebersicht {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		
-		System.out.println("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
+		//System.out.println("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
 		
 		try {
 			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");

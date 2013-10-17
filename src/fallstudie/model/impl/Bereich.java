@@ -3,7 +3,6 @@ package fallstudie.model.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.sun.jmx.snmp.daemon.CommunicationException;
@@ -357,13 +356,10 @@ public class Bereich {
 		try 
 		{
 			
-				//System.out.println("UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
+				System.out.println("UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 						"UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
 	
-				
-				if (RowsAffected==1)System.out.println("Es wurde "+RowsAffected+" Datens�tze ge�ndert.");
-				
 				
 				erfolgreich=true;
 		
@@ -402,7 +398,7 @@ public class Bereich {
 		try 
 		{		//Check ob mitarbeiter noch bereich zugeordnet sind
 				
-			System.out.println("SELECT * FROM Mitarbeiter WHERE Bereich='"+this.bereichID+"'");
+			//System.out.println("SELECT * FROM Mitarbeiter WHERE Bereich='"+this.bereichID+"'");
 			ResultSet mitarbeiterdrancheck = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Bereich='"+this.bereichID+"'");
 				if(mitarbeiterdrancheck.next())
 					{
@@ -416,14 +412,14 @@ public class Bereich {
 					
 					}
 				//check ob Leiter noch dran ist
-				System.out.println("SELECT * FROM Bereich WHERE BereichID='"+this.bereichID+"'");
+				//System.out.println("SELECT * FROM Bereich WHERE BereichID='"+this.bereichID+"'");
 				ResultSet leiterdranCheck = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE BereichID='"+this.bereichID+"'");
 				leiterdranCheck.next();
 				if(!leiterdranCheck.next()) darfdelteLeiter=true;
 				if(leiterdranCheck.next()) darfdelteLeiter=false;
 				
 				//Check ob Arbeitsgruppe dran ist
-				System.out.println("SELECT * FROM Arbeitsgruppe WHERE Bereich='"+this.bereichID+"'");
+				//System.out.println("SELECT * FROM Arbeitsgruppe WHERE Bereich='"+this.bereichID+"'");
 				ResultSet arbeitsgruppeCheck = Connection.executeQueryStatement(
 						"SELECT * FROM Arbeitsgruppe WHERE Bereich='"+this.bereichID+"'");
 				
@@ -544,7 +540,7 @@ System.err.println("Fehler in Bereich löschen:");
 	
 		try 
 		{	
-			System.out.println("SELECT * FROM Bereich WHERE Aktiv='1'");
+			//System.out.println("SELECT * FROM Bereich WHERE Aktiv='1'");
 				ResultSet resultSet = Connection.executeQueryStatement(
 					"Select * From Bereich WHERE Aktiv='1'");
 				
@@ -583,7 +579,6 @@ System.err.println("Fehler in Bereich löschen:");
 				"UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
 				RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Bereich='"+this.bereichID+"' WHERE Benutzername='"+neuerLeiterBenutzername+"'");
 				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz ge�ndert.");
 				erfolgreich=true;
 			this.leiter  = mitarbeiter;
 				}

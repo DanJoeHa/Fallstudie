@@ -192,7 +192,7 @@ public class Arbeitsgruppe {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		try
-		{	System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
+		{	//System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
 		
 			ResultSet resultSet = Connection.executeQueryStatement
 						("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
@@ -246,7 +246,7 @@ public class Arbeitsgruppe {
 		
 			ResultSet resultSet = Connection.executeQueryStatement(
 					"SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
-			System.out.println	("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
+			//System.out.println	("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
 			//Variablen f�r den sp�teren Konstruktoraufruf
 			resultSet.next();
 			ag = new Arbeitsgruppe(resultSet);
@@ -506,7 +506,7 @@ public class Arbeitsgruppe {
 		{
 		try 
 		{	
-			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			//System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
 			ResultSet checkLeiter = Connection.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			checkLeiter.next();
@@ -518,7 +518,7 @@ public class Arbeitsgruppe {
 			{
 				darfDeleteLeiter=false;
 			}
-			System.out.println("SELECT * FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
+			//System.out.println("SELECT * FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
 			
 			ResultSet mitarbeiterdrancheck = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
 			if(mitarbeiterdrancheck.next())
@@ -675,9 +675,9 @@ public class Arbeitsgruppe {
 		ResultSet resultSet = null;
 		try 
 		{	
-			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"%' OR Leiter LIKE '%"+suchbegriff+"%' OR" +
-					" Bereich LIKE '%"+suchbegriff+"%' OR Beschreibung LIKE '%"+suchbegriff+"%' OR" +
-							" Kurzbezeichnung LIKE '%"+suchbegriff+"%'");
+			//System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"%' OR Leiter LIKE '%"+suchbegriff+"%' OR" +
+				//	" Bereich LIKE '%"+suchbegriff+"%' OR Beschreibung LIKE '%"+suchbegriff+"%' OR" +
+			//				" Kurzbezeichnung LIKE '%"+suchbegriff+"%'");
 				resultSet = Connection.executeQueryStatement(
 						"SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"%' OR Leiter LIKE '%"+suchbegriff+"%' OR" +
 								" Bereich LIKE '%"+suchbegriff+"%' OR Beschreibung LIKE '%"+suchbegriff+"%' OR" +

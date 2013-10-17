@@ -1,9 +1,5 @@
 package fallstudie.model.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import fallstudie.model.mysql.connector.RemoteConnection;
 
 /**
  *@date 11.10.2013 
@@ -20,7 +16,7 @@ public class Zeile {
 	
 	
 	/**
-	 * Konstruktor für die Zeile einer Woche/Jahresuebersicht
+	 * Konstruktor fï¿½r die Zeile einer Woche/Jahresuebersicht
 	 * @param summe
 	 * @param art
 	 */
