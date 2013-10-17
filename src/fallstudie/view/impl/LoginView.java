@@ -42,37 +42,37 @@ public class LoginView extends JPanel implements View {
 		//L_Benutzername
 		JLabel L_Benutzername = new JLabel("Benutzername:");
 		L_Benutzername.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Benutzername.setBounds(30, 100, 150, 30);
+		L_Benutzername.setBounds(30, 52, 150, 30);
 		add(L_Benutzername);
 		
 		//L_Passwort
 		JLabel L_Passwort = new JLabel("Passwort:");
 		L_Passwort.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Passwort.setBounds(30, 150, 150, 30);
+		L_Passwort.setBounds(30, 93, 150, 30);
 		add(L_Passwort);
 		
 		//Hinweis, dass man Daten eingeben soll
 		JLabel L_Hinweis = new JLabel("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein");
 		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Hinweis.setBounds(30, 50, 500, 30);
+		L_Hinweis.setBounds(30, 11, 500, 30);
 		add(L_Hinweis);
 
 		//P_Passwort
 		P_Passwort = new JPasswordField();
-		P_Passwort.setBounds(200, 150, 300, 30);
+		P_Passwort.setBounds(190, 95, 300, 30);
 		add(P_Passwort);
 		
 		//T_Benutzername
 		T_Benutzername = new JTextField();
 		T_Benutzername.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Benutzername.setColumns(10);
-		T_Benutzername.setBounds(200, 100, 300, 30);
+		T_Benutzername.setBounds(190, 53, 300, 30);
 		add(T_Benutzername);
 
 		//B_Login
 		B_Login = new JButton("Login");
 		B_Login.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Login.setBounds(350, 200, 150, 30);
+		B_Login.setBounds(340, 136, 150, 30);
 		add(B_Login);
 
 	}

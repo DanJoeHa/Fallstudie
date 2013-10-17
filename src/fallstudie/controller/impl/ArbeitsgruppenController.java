@@ -3,15 +3,12 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.ArbeitsgruppeBearbeitenAnlegenView;
-import fallstudie.view.impl.BereichBearbeitenAnlegenView;
 import fallstudie.view.impl.BestaetigenPopup;
-import fallstudie.view.impl.DatenAnzeigenAuswahlView;
 import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.SuchenView;
 import fallstudie.view.interfaces.View;
@@ -19,7 +16,6 @@ import fallstudie.view.interfaces.View;
 public class ArbeitsgruppenController implements Controller {
 	
 	private ArbeitsgruppeBearbeitenAnlegenView view;
-	private DatenAnzeigenAuswahlView viewDatenAnz;
 	private SuchenView viewSuche;
 	private String operation;
 	private Collection<Bereich> bereiche;
@@ -91,7 +87,7 @@ public class ArbeitsgruppenController implements Controller {
 		if( button.equals("Speichern") ){
 					
 			//Leiter holen
-			if( !this.view.getAGLeiter().isEmpty() ) oLeiter = new Mitarbeiter( this.view.getAGLeiter() );	
+			if( !this.view.getAGLeiter().isEmpty() ) oLeiter = this.gewaehlteMA;	
 			
 			//Prüfung ob Leiter ersetzt wird
 			boolean replace = false;
