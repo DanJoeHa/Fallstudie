@@ -25,6 +25,7 @@ public class Jahresuebersicht {
 	private int kalenderjahr;
 	private Arbeitsgruppe arbeitsgruppe;
 	private Bereich bereich;
+	private Collection<Arbeitsgruppe> agZuBereich;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -106,17 +107,24 @@ public class Jahresuebersicht {
 		
 		try
 		{
-			//System.out.println("SELECT * FROM Rolle WHERE Rollenbezeichnung='"+rollenbezeichnung+"'");
+			System.out.println("SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"
+					+ kalenderjahr + "' AND  Bereich='" + bereichID + "'");
 			
 			ResultSet jahresuebersichtResult = Connection.executeQueryStatement(
-					"SELECT * FROM Jahresuebersicht WHERE Kalenderjahr='"
+					"SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"
 					+ kalenderjahr + "' AND  Bereich='" + bereichID + "'");
 			jahresuebersichtResult.next();
 			this.kalenderjahr = kalenderjahr;
 			this.bereich = bereich;
-			int arbeitsgruppe = jahresuebersichtResult.getInt("Arbeitsgruppe");
-			this.arbeitsgruppe = new Arbeitsgruppe(arbeitsgruppe);
-			// TODO 
+			
+			this.agZuBereich = new LinkedList<>();
+			
+			while(jahresuebersichtResult.next())
+			{
+				int arbeitsgruppe = jahresuebersichtResult.getInt("Arbeitsgruppe");
+				this.agZuBereich.add(new Arbeitsgruppe(arbeitsgruppe));
+			}
+			 
 
 		}
 		catch (SQLException e)
@@ -149,7 +157,7 @@ public class Jahresuebersicht {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		
-		//System.out.println("SELECT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
+		System.out.println("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
 		
 		try {
 			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
@@ -158,7 +166,6 @@ public class Jahresuebersicht {
 			{	
 				int bereichID = jahresUebersicht.getInt("Bereich");
 				Bereich bereich = new Bereich(bereichID);
-				
 				alleJahresuebersichten.add(new Jahresuebersicht(jahr, bereich));
 			}
 			
@@ -227,7 +234,6 @@ public class Jahresuebersicht {
 	 * @return
 	 */
 	public int getKalenderjahr() {
-		// TODO Auto-generated method stub
 		return this.kalenderjahr;
 	}
 
@@ -236,7 +242,6 @@ public class Jahresuebersicht {
 	 * @return
 	 */
 	public Bereich getBereich() {
-		// TODO Auto-generated method stub
 		return this.bereich;
 	}
 
@@ -244,9 +249,8 @@ public class Jahresuebersicht {
 	 * Arbeitsgruppe der Jahresuebersicht
 	 * @return
 	 */
-	public Arbeitsgruppe getArbeitsgruppe() {
-		// TODO Auto-generated method stub
-		return this.arbeitsgruppe;
+	public Collection<Arbeitsgruppe> getArbeitsgruppe() {
+		return this.agZuBereich;
 	}
 	
 	public Collection<Zeile> getZeileArbeitsgruppe() throws Exception

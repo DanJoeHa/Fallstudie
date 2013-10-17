@@ -75,7 +75,7 @@ public class Arbeitsgruppe {
 				if (kurzbezeichnung.equals(value)) throw new Exception ("Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon!");
 
 		}
-		if (leiter.getBenutzername()!=null)
+		if (leiter!=null)
 		{
 			benutzername = leiter.getBenutzername();
 			
@@ -451,27 +451,20 @@ public class Arbeitsgruppe {
 		//Mitgegebener Bereich ID 
 		String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
 		//Aktueller Bereich ID
-		String alterLeiterBenutzername = this.leiter.getBenutzername();
-		
+		if(!(neuerLeiterBenutzername==null)){
+			
 		try 
-		{	//VERGLEICH DER BEIDEN
-			if(!alterLeiterBenutzername.equals(neuerLeiterBenutzername))
-			{
+		{	
 				//System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz ge�ndert.");
+				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geändert.");
 				erfolgreich=true;
-			}
-			else
-			{
-				System.err.println("Alter und Neuer Leiter sind Identisch! Bitte anderen Leiter w�hlen.");
-				erfolgreich= false;
-			}
+	
 		}
-		
+	
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.err.println("------SQL ERROR-------");
@@ -483,6 +476,12 @@ public class Arbeitsgruppe {
 			{
 				System.err.println("Fehler beim Suchen des alten Leiters.");
 			}
+	}
+		else
+		{
+			this.leiter=null;
+		}
+
 		return erfolgreich;
 	}
 
@@ -531,58 +530,67 @@ public class Arbeitsgruppe {
 	 */
 	public boolean loeschen() throws Exception{
 		boolean erfolgreich = false;
-		boolean aktuellerStatus = this.getAktiv();
-		boolean darfdeletedWerden=false;
-		boolean mitarbeiterdran=false;
+		boolean aktuellerStatus = this.aktiv;
+		
+		boolean darfDeleteLeiter=false;
+		boolean darfDeleteMitarbeiter=false;
 		RemoteConnection Connection = new RemoteConnection();
+		
+		if(aktuellerStatus==true)
+		{
 		try 
 		{	
-			//System.out.println("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			System.out.println("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
-			ResultSet checkMitarbeiter = Connection.executeQueryStatement("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-			checkMitarbeiter.next();
-			String leiter = checkMitarbeiter.getString("Leiter");
+			ResultSet checkLeiter = Connection.executeQueryStatement("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			if(checkLeiter.next())
+			{
+				darfDeleteLeiter=false;
+			}
+			else
+			{
+				darfDeleteLeiter=true;
+			}
+			System.out.println("SELECT Benutzername FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
+			
 			ResultSet mitarbeiterdrancheck = Connection.executeQueryStatement("SELECT Benutzername FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
-			if(mitarbeiterdrancheck.next()) mitarbeiterdran=true;
-			else if(!mitarbeiterdrancheck.next()) mitarbeiterdran=false;
-			//System.out.println(leiter);
-			if (leiter==null) darfdeletedWerden=true;
-			if (leiter!=null || mitarbeiterdran!=true) 
+			if(mitarbeiterdrancheck.next())
 				{
-					darfdeletedWerden=false;
+					darfDeleteMitarbeiter=false;
+				}
+			else 
+				{
+					darfDeleteMitarbeiter=true;
+				}
+			
+			if (darfDeleteLeiter==false|| darfDeleteMitarbeiter==false) 
+				{
 					throw new Exception("Es hängen noch Mitarbeiter an dieser Arbeitsgruppe. Kann nicht gelöscht werden.");
 				}
-			checkMitarbeiter.close();
+			checkLeiter.close();
+			mitarbeiterdrancheck.close();
 		
 		//Erst fragen ob kein Leiter mehr da ist.
-		if(darfdeletedWerden==true)
+		if(darfDeleteLeiter==true && darfDeleteMitarbeiter==true)
 		{
-			if(aktuellerStatus==true)
-			{	
-				//System.out.println("UPDATE Arbeitsgruppe SET Aktiv='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+				
+				System.out.println("UPDATE Arbeitsgruppe SET Aktiv='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Aktiv ='0' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-				
-				if (RowsAffect==1)throw new Exception("Es wurde 1 Datensatz gelöscht.");
+				this.aktiv=false;
 				erfolgreich=true;
-			}
-			if(aktuellerStatus==false)
-			{
+				if (RowsAffect==1)throw new Exception("Es wurde 1 Datensatz gelöscht.");
 				
-				erfolgreich=false;
-			}
 			
-			}
 		}
 		
+	}
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
-			System.err.println(e.getMessage());
+		System.err.println("Fehler beim löschen der Arbeitsgruppe:");
+		System.err.println(e.getMessage());
 		}
+	}
 		return erfolgreich;
 	}
 

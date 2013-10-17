@@ -7,6 +7,8 @@ import java.util.Iterator;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Mitarbeiter;
+import fallstudie.view.impl.BestaetigenPopup;
+import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.SuchenView;
 import fallstudie.view.impl.TabelleView;
 import fallstudie.view.interfaces.View;
@@ -21,6 +23,7 @@ public class SuchController implements Controller {
 	private String operation;
 	private Object auswahl = null;
 	private String suchbegriff;
+	public static BestaetigenPopup popup;
 	
 	private Controller aufrufenderController;
 	
@@ -127,7 +130,14 @@ public class SuchController implements Controller {
 			//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
 			if( button == "Löschen" ){
 				//TODO: popup wirklich löschen
+				popup = new BestaetigenPopup();
+				popup.setController(this);
+				popup.setTitle("Löschen");
+				popup.setAusgabe(HilfeTexte.LoeschenPopup);
+			
 				
+			}
+			if(button.equals("Ja")){
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 				
@@ -143,6 +153,10 @@ public class SuchController implements Controller {
 						break;
 					}
 				}	
+				popup.setVisible(false);
+			}
+			if(button.equals("Nein")){
+				popup.setVisible(false);
 			}
 		}
 		
@@ -202,7 +216,12 @@ public class SuchController implements Controller {
 			//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
 			if( button == "Löschen" ){
 				//TODO: popup wirklich löschen
-				
+				popup = new BestaetigenPopup();
+				popup.setController(this);
+				popup.setTitle("Löschen");
+				popup.setAusgabe(HilfeTexte.LoeschenPopup);
+			}
+			if(button.equals("Ja")){
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
 				
@@ -218,6 +237,10 @@ public class SuchController implements Controller {
 						break;
 					}
 				}
+				popup.setVisible(false);
+			}
+			if(button.equals("Nein")){
+				popup.setVisible(false);
 			}
 		}
 	
