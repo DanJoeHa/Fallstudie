@@ -29,6 +29,10 @@ public class ArbeitsgruppenController implements Controller {
 	private Mitarbeiter gewaehlteMA;
 	public static BestaetigenPopup popup;
 	
+	//ActionPerformed
+	private Bereich oBereich = null;
+	private Mitarbeiter oLeiter = null;
+	
 	/**
 	 * Zeigt  die View zur Arbeitsgruppenbearbeiten/-anlage abhängig von der Operation an
 	 * 
@@ -82,19 +86,13 @@ public class ArbeitsgruppenController implements Controller {
 		
 		//Button bestimmen
 		String button = e.getActionCommand();
-		Bereich oBereich = null;
-		Mitarbeiter oLeiter = null;
 		
 		//Änderungen speichern
 		if( button.equals("Speichern") ){
 					
 			//Leiter holen
-			if( this.view.getAGLeiter().isEmpty() ){
-				oLeiter = null;
-			}else{
-				oLeiter = new Mitarbeiter( this.view.getAGLeiter() );
-			}
-				
+			if( !this.view.getAGLeiter().isEmpty() ) oLeiter = new Mitarbeiter( this.view.getAGLeiter() );	
+			
 			//Arbeitsgruppenleiter ersetzen
 			if( this.operation != "anlegen" && 
 					this.gewaehlteAG.getLeiter() != null &&
@@ -131,6 +129,8 @@ public class ArbeitsgruppenController implements Controller {
 			if(operation.equals("bearbeiten"))
 			{
 				try {
+					System.out.println("bearbeiten, speichern");
+					System.out.println("Leiter-ID: " + oLeiter.getBenutzername());
 					this.gewaehlteAG.setBereich(oBereich);
 					this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
 					this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
