@@ -48,10 +48,7 @@ public class MitarbeiterController implements Controller {
 	public MitarbeiterController(){
 		//alle Rollen und Bereiche holen und speichern
 		this.rollen = Rolle.getAlleRollen();
-		this.bereiche = Bereich.getAlleBereiche();
-		
-		
-		
+		this.bereiche = Bereich.getAlleBereiche();		
 	}
 	
 	/**
