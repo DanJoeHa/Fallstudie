@@ -422,9 +422,8 @@ public class Arbeitsgruppe {
 		{
 		if(!(leiter==null)){
 			
-			String neuerLeiterBenutzername = leiter.getBenutzername();
+				String neuerLeiterBenutzername = leiter.getBenutzername();
 				System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 				System.out.println("UPDATE Mitarbeiter SET Arbeitsgruppe='"+this.arbeitsgruppeID+"' WHERE Benutzername='"+neuerLeiterBenutzername+"'");
