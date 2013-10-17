@@ -64,7 +64,6 @@ public class BereichController implements Controller {
 			this.viewLoesch.setBereiche(Funktionen.BereicheCollection2Array(Bereich.getAlleBereiche()));
 			this.viewLoesch.setButtonName("Bearbeiten");
 			this.viewLoesch.setHinweis("Bitte zu bearbeitenden Bereich auswählen");
-			this.viewLoesch.setButtonName("Abbrechen");
 		}
 	}
 	
@@ -275,6 +274,7 @@ public class BereichController implements Controller {
 	public void fortsetzen() {
 		gewaehlterMA = (Mitarbeiter) this.suche.getAuswahl();
 		this.view.setLeiter(gewaehlterMA.getBenutzername());
+		this.view.setButtonAbbrechenName("Abbrechen");
 		HauptController.hauptfenster.setUeberschrift("Bereich anlegen");
 		HauptController.hauptfenster.setContent(this.view);
 		this.view.repaint();

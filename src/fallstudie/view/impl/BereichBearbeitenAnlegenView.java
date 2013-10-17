@@ -63,6 +63,7 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 	public void setController(Controller c) {
 		this.B_BereichsleiterSuche.addActionListener(c);
 		this.B_Speichern.addActionListener(c);
+		this.B_Zuruecksetzen.addActionListener(c);
 	}
 
 	@Override
