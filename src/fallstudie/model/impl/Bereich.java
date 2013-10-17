@@ -56,6 +56,7 @@ public class Bereich {
 		}
 		try
 		{
+		if(kurzbezeichnung.equals("")) throw new Exception("Kurzbezeichnung muss angegeben werden.");
 		if(leiter!=null)
 		{
 			

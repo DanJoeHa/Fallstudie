@@ -517,6 +517,7 @@ public class Mitarbeiter {
 try
 {	
 		
+		
 		int bereichID = bereich.getID();
 		
 		//System.out.println("UPDATE Mitarbeiter SET Bereich ='"+bereichID+"' WHERE Benutzername='"+this.benutzername+"'");
