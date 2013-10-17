@@ -49,8 +49,8 @@ public class SchliessenPopup extends JDialog implements View{
 		
 		
 		
-		B_ok = new JButton("Hilfe schliessen");
-		B_ok.setActionCommand("Hilfe schliessen");
+		B_ok = new JButton("Schließen");
+		B_ok.setActionCommand("Schließen");
 		B_ok.setEnabled(true);
 		buttonPane.add(B_ok);
 		getRootPane().setDefaultButton(B_ok);
