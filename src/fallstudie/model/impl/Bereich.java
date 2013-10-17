@@ -352,26 +352,10 @@ public class Bereich {
 	 */
 	public boolean setKurzbezeichnung(String kurzbezeichnung) throws Exception {
 		boolean erfolgreich = false;
-		String NeukurzbezeichnungUP = kurzbezeichnung.toUpperCase();
-		String AltkurzbezeichnungUP = this.kurzbezeichnung.toUpperCase();
 		
 		try 
 		{
-			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-					"SELECT Kurzbezeichnung From Bereich");
 			
-			while (checkObVorhanden.next()) 
-			{
-
-					String value = checkObVorhanden.getString("Kurzbezeichnung").toUpperCase();
-					
-					if (NeukurzbezeichnungUP.equals(value)) throw new Exception ("Bereich mit der selben Kurzbezeichnung existiert schon!");
-
-			}
-			checkObVorhanden.close();
-			
-			if (!AltkurzbezeichnungUP.equals(NeukurzbezeichnungUP))
-			{
 				//System.out.println("UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 						"UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
@@ -382,21 +366,12 @@ public class Bereich {
 				
 				erfolgreich=true;
 		
-			}
-			else
-			{
-				System.err.println("Alte und Neue Kurzbezeichnung sind Identisch! Bitte andere Beschreibung w�hlen.");
-				erfolgreich= false;
-			}
 		}
+			
 			catch (SQLException e) {
 			System.err.println("Fehler in setKurzbezeichnung: ");
 			System.err.println(e.getMessage());
 		}
-			catch(NullPointerException e)
-			{
-				System.err.println("Fehler beim Suchen der alten Kurzbezeichnung.");
-			}
 		this.kurzbezeichnung = kurzbezeichnung;
 		return erfolgreich;
 	}
