@@ -109,7 +109,7 @@ public class MitarbeiterController implements Controller {
 			suche = new SuchController();
 			suche.setAufrufenderController( this );
 			suche.setSuchdomain("Arbeitsgruppe");
-
+			
 			switch( this.operation )
 			{
 				case "anlegen": suche.setSuchbegriff(this.viewAnlegen.getArbeitsgruppe());
@@ -118,13 +118,13 @@ public class MitarbeiterController implements Controller {
 					break;
 			}
 			//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
-			HauptController.hilfefenster.setHinweis(HilfeTexte.MitarbeiterAnlegenView);
+			HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiteranlegen_Mitarbeiterbearbeiten_Arbeitsgruppebearbeiten_AG);
 			
 			suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(suche.getView() );
 		}
 		if (operation.equals("bearbeiten"))
-		{
+		{	
 			if( button.equals("Suchen") )
 			{	
 				this.viewSuche.getSuchbegriff();
