@@ -1,12 +1,9 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
-
-import javax.swing.JPanel;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.HauptView;
@@ -112,7 +109,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 	public void valueChanged(TreeSelectionEvent e) {
 		
 		//InfoBox leeren, wenn andere Navigation ausgewählt wird
-		this.hauptfenster.setInfoBox(" ");
+		this.hauptfenster.setInfoBox("");
 		
 		//verhindern, dass User sein erstes Passwort beibehält
 		if( activeUser.passwortIsChanged() ){
@@ -125,7 +122,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 			String folder = "";
 			
 			//Aktionen-Root Knoten
-			if( action.equals("Aktionen") ){
+			if( action.equals("Aktionen") || action.equals("Arbeitsgruppe") || action.equals("Art") || action.equals("Bereich") || action.equals("Mitarbeiter") ){
 				activeController = new WelcomeController();
 				hilfefenster.setHinweis( HilfeTexte.WelcomeView);
 				hilfefenster.setTitle("Hilfe - Startseite");
