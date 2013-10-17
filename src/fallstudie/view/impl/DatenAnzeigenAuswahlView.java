@@ -80,7 +80,7 @@ public class DatenAnzeigenAuswahlView extends JPanel implements View{
 	 * @version 1.0
 	 * @return (int) Kalenderwoche
 	 */
-	public int getWoche(){
+	public int getWoche() throws Exception {
 		String wo = this.T_Woche.getText();
 		
 		if( wo.isEmpty() ) return 0;
@@ -95,7 +95,7 @@ public class DatenAnzeigenAuswahlView extends JPanel implements View{
 	 * @version 1.0
 	 * @return (int) Jahr
 	 */
-	public int getJahr(){
+	public int getJahr()  throws Exception{
 		return Integer.parseInt( this.T_Jahr.getText() );
 	}
 	
