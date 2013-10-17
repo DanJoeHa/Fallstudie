@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Konfig;
+import fallstudie.view.impl.BestaetigenPopup;
 import fallstudie.view.impl.HauptView;
+import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.KonfigurationView;
 import fallstudie.view.interfaces.View;
 
 public class KonfigController implements Controller {
 	
 	private KonfigurationView view;
+	public static BestaetigenPopup popup;
 	
 	public KonfigController(){
 		this.view = new KonfigurationView();
@@ -24,7 +27,14 @@ public class KonfigController implements Controller {
 	
 		//Popup hinzufügen + Infoboxausgabe
 		if(button.equals("Speichern"))
-		{
+		{		
+			popup = new BestaetigenPopup();
+			
+			popup.setController(this);
+			popup.setTitle("Bestätigung");
+			popup.setAusgabe(HilfeTexte.SpeichernPopup);
+		}	
+		if(button.equals("Ja")){
 				String msg = "Neue Job-Konfiguration gespeichert.";
 				int monate = this.view.getAnzahlMonate();
 				System.out.println(monate);
@@ -41,9 +51,12 @@ public class KonfigController implements Controller {
 				}
 				
 					
-					
+				popup.setVisible(false);	
 		
 				HauptController.hauptfenster.setInfoBox(msg);
+		}
+		if(button.equals("Nein")){
+			popup.setVisible(false);
 		}
 	}
 	
