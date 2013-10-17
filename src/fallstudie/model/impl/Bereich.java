@@ -573,7 +573,7 @@ System.err.println("Fehler in Bereich löschen:");
 		//Mitgegebener Bereich ID 
 			try 
 		{	
-				if(!(leiter==null)){
+				if(!(mitarbeiter==null)){
 					String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
 					
 					System.out.println("UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
@@ -586,7 +586,7 @@ System.err.println("Fehler in Bereich löschen:");
 				erfolgreich=true;
 			this.leiter  = mitarbeiter;
 				}
-				else if(leiter==null)
+				else if(mitarbeiter==null)
 				{
 					System.out.println("UPDATE Bereich SET Leiter =NULL WHERE BereichID='"+this.bereichID+"'");
 					
