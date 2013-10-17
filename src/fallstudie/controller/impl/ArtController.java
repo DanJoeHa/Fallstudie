@@ -10,6 +10,7 @@ import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.ArtAnlegenView;
 import fallstudie.view.impl.ArtLoeschenView;
 import fallstudie.view.impl.BestaetigenPopup;
+import fallstudie.view.impl.LoeschenPopup;
 import fallstudie.view.interfaces.View;
 
 public class ArtController implements Controller {
@@ -20,6 +21,8 @@ public class ArtController implements Controller {
 	private Object auswahl;
 	private Collection<Art> art;
 	public static BestaetigenPopup popup;
+	private View test;
+	
 	
 	
 	public ArtController(){
@@ -68,7 +71,12 @@ public class ArtController implements Controller {
 			popup = new BestaetigenPopup();
 			
 			popup.setController(this);
+			popup.setTitle("Bestätigung");
+			popup.setAusgabe("Wollen Sie wirklich speichern?");
+			
+			test = this.view;
 		}	
+			if(test == this.view){
 			if(button.equals("Ja")){
 			
 				
@@ -92,14 +100,24 @@ public class ArtController implements Controller {
 				this.view.reset();
 				popup.setVisible(false);
 			}
-			
+			}
 		
 
 		if(button.equals("Löschen") )
 		{
 			//Art.loeschen(this.viewLoeschen.getArt());
 			
+			popup = new BestaetigenPopup();
+			popup.setController(this);
+			popup.setTitle("Löschen");
+			popup.setAusgabe("Wollen Sie wirklich löschen?");
 			
+			test = this.viewLoeschen;
+		}	
+			if(test == this.viewLoeschen){
+				if(button.equals("Ja")){
+					
+					
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			
 				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
@@ -118,7 +136,16 @@ public class ArtController implements Controller {
 						break;
 					}
 				}
+				
+				this.viewLoeschen.reset();
+				popup.setVisible(false);
+			
+				
 			}
+			if(button.equals("Nein")){
+				popup.setVisible(false);
+			}
+	}
 		}
 
 

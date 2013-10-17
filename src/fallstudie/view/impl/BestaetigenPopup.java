@@ -31,7 +31,7 @@ public class BestaetigenPopup extends JDialog implements View{
 		setVisible(true);
 		setEnabled(true);
 		setModal(true);
-		setTitle("Bestätigung");
+		setTitle("");
 		setResizable(false);
 		setBounds(600, 300, 452, 167);
 		getContentPane().setLayout(new BorderLayout());
@@ -41,7 +41,7 @@ public class BestaetigenPopup extends JDialog implements View{
 		
 		txtrWollenSieWirklich = new JTextArea();
 		txtrWollenSieWirklich.setBackground(SystemColor.menu);
-		txtrWollenSieWirklich.setText("Wollen Sie wirklich speichern?");
+		txtrWollenSieWirklich.setText("");
 		txtrWollenSieWirklich.setEditable(false);
 		contentPanel.add(txtrWollenSieWirklich);
 	
@@ -66,7 +66,9 @@ public class BestaetigenPopup extends JDialog implements View{
 			
 		
 	}
-
+	public void setAusgabe(String text){
+		txtrWollenSieWirklich.setText(text);
+	}
 	@Override
 	public void setController(Controller c) {
 		this.B_speichern.addActionListener(c);
