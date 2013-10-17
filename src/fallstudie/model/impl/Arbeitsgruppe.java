@@ -543,13 +543,15 @@ public class Arbeitsgruppe {
 			System.out.println("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
 			ResultSet checkLeiter = Connection.executeQueryStatement("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-			if(checkLeiter.next())
+			checkLeiter.next();
+			String leiterName = checkLeiter.getString("Leiter");
+			if(leiterName==null)
 			{
-				darfDeleteLeiter=false;
+				darfDeleteLeiter=true;
 			}
 			else
 			{
-				darfDeleteLeiter=true;
+				darfDeleteLeiter=false;
 			}
 			System.out.println("SELECT Benutzername FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
 			
@@ -560,6 +562,7 @@ public class Arbeitsgruppe {
 				}
 			else 
 				{
+				System.out.println("KEIN ARBEITER");
 					darfDeleteMitarbeiter=true;
 				}
 			
