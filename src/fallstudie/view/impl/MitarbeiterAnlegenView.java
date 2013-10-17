@@ -40,19 +40,19 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		//L_Passwort1
 		JLabel L_Passwort1 = new JLabel("Passwort:");
 		L_Passwort1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Passwort1.setBounds(30, 255, 150, 30);
+		L_Passwort1.setBounds(30, 216, 150, 30);
 		add(L_Passwort1);
 		
 		//T_Passwort1
 		T_Passwort1 = new JTextField();
-		T_Passwort1.setBounds(190, 257, 186, 30);
+		T_Passwort1.setBounds(190, 216, 186, 30);
 		add(T_Passwort1);
 		T_Passwort1.setColumns(10);
 		
 		//B_PasswortGenerieren
 		JButton B_PasswortGenerieren = new JButton("Generieren");
 		B_PasswortGenerieren.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_PasswortGenerieren.setBounds(386, 257, 104, 30);
+		B_PasswortGenerieren.setBounds(386, 216, 104, 30);
 		add(B_PasswortGenerieren);
 		
 		B_PasswortGenerieren.addActionListener(new ActionListener(){
@@ -73,11 +73,46 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 	    	
 	    });
 		
+		//Blende die Arbeitsgruppe nach default aus. Da Bereichsleiter als erstes angezeigt wird.		
+		LayoutMitarbeiter.L_Arbeitsgruppe.setVisible(false);
+		
 		//C_Rolle
 		C_Rolle = new JComboBox<String>();
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Rolle.setBounds(190, 135, 300, 30);
 		add(C_Rolle);
+		C_Rolle.addActionListener(new ActionListener() {
+			//Hilfsvariable first_time
+			int first_time=0;
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String wahl = C_Rolle.getSelectedItem().toString();
+				if(first_time!=0){
+					if(wahl.matches("Sachbearbeiter")||wahl.matches("Fachbereichsorganisation")||wahl.matches("Gruppenleiter")){
+						//Arbeitsgruppe anzeigen
+						T_Arbeitsgruppe.setVisible(true);
+						B_SucheArbeitsgruppe.setVisible(true);
+						LayoutMitarbeiter.L_Arbeitsgruppe.setVisible(true);
+						//Bereich ausblenden
+						LayoutMitarbeiter.L_Bereich.setVisible(false);
+						C_Bereich.setVisible(false);
+						revalidate();
+					} 
+					else {
+						//Arbeitsgruppe ausblenden
+						T_Arbeitsgruppe.setVisible(false);
+						B_SucheArbeitsgruppe.setVisible(false);
+						LayoutMitarbeiter.L_Arbeitsgruppe.setVisible(false);
+						//Bereich anzeigen
+						LayoutMitarbeiter.L_Bereich.setVisible(true);
+						C_Bereich.setVisible(true);
+						revalidate();
+					}
+				}
+				first_time++;
+			}
+		});
 				
 		//C_Bereich
 		C_Bereich = new JComboBox<String>();
@@ -89,14 +124,16 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		T_Arbeitsgruppe = new JTextField();
 		T_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Arbeitsgruppe.setColumns(10);
-		T_Arbeitsgruppe.setBounds(190, 217, 186, 30);
+		T_Arbeitsgruppe.setBounds(190, 176, 186, 30);
+		T_Arbeitsgruppe.setVisible(false);
 		add(T_Arbeitsgruppe);
 
 		//B_SucheArbeitsgruppe
 		B_SucheArbeitsgruppe = new JButton("Suchen");
 		B_SucheArbeitsgruppe.setIcon(null);
 		B_SucheArbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_SucheArbeitsgruppe.setBounds(386, 217, 104, 30);
+		B_SucheArbeitsgruppe.setBounds(386, 176, 104, 30);
+		B_SucheArbeitsgruppe.setVisible(false);
 		add(B_SucheArbeitsgruppe);
 		
 		//B_Zuruecksetzen

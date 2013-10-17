@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -47,19 +49,46 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		C_Rolle.setBounds(190, 135, 300, 30);
 		add(C_Rolle);
+		C_Rolle.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String wahl = C_Rolle.getSelectedItem().toString();
+					if(wahl.matches("Sachbearbeiter")||wahl.matches("Fachbereichsorganisation")||wahl.matches("Gruppenleiter")){
+						//Arbeitsgruppe anzeigen
+						T_Arbeitsgruppe.setVisible(true);
+						B_SucheArbeitsgruppe.setVisible(true);
+						LayoutMitarbeiter.L_Arbeitsgruppe.setVisible(true);
+						//Bereich ausblenden
+						LayoutMitarbeiter.L_Bereich.setVisible(false);
+						C_Bereich.setVisible(false);
+						revalidate();
+					} 
+					else {
+						//Arbeitsgruppe ausblenden
+						T_Arbeitsgruppe.setVisible(false);
+						B_SucheArbeitsgruppe.setVisible(false);
+						LayoutMitarbeiter.L_Arbeitsgruppe.setVisible(false);
+						//Bereich anzeigen
+						LayoutMitarbeiter.L_Bereich.setVisible(true);
+						C_Bereich.setVisible(true);
+						revalidate();
+					}
+				}
+		});
 		
 		//T_Arbeitsgruppe
 		T_Arbeitsgruppe = new JTextField();
 		T_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Arbeitsgruppe.setColumns(10);
-		T_Arbeitsgruppe.setBounds(190, 217, 186, 30);
+		T_Arbeitsgruppe.setBounds(190, 176, 186, 30);
 		add(T_Arbeitsgruppe);
 
 		//B_SucheArbeitsgruppe 
 		B_SucheArbeitsgruppe = new JButton("Suchen");
 		B_SucheArbeitsgruppe.setIcon(null);
 		B_SucheArbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_SucheArbeitsgruppe.setBounds(386, 217, 104, 30);
+		B_SucheArbeitsgruppe.setBounds(386, 176, 104, 30);
 		add(B_SucheArbeitsgruppe);
 
 		//B_Abbrechen
