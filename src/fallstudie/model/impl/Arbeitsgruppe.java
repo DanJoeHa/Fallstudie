@@ -83,12 +83,14 @@ public class Arbeitsgruppe {
 			
 			int RowsAffected = RemoteConnection.sql.executeUpdate(
 				"INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"+kurzbezeichnung+"','"+beschreibung+"','"+bereichID+"','"+benutzername+"')");
-			if (RowsAffected==1)throw new Exception("Datensatz erfolgreich gespeichert.");
-				
+			
 			this.beschreibung = beschreibung;
 			this.kurzbezeichnung = kurzbezeichnung;
 			this.bereich = bereich;
-			this.leiter = leiter;				
+			this.leiter = leiter;	
+			if (RowsAffected==1)throw new Exception("Datensatz erfolgreich gespeichert.");
+				
+						
 		}
 		else
 		{			
@@ -103,8 +105,11 @@ public class Arbeitsgruppe {
 			this.bereich = bereich;
 			this.leiter = null;
 			
-			if (RowsAffected==1)throw new Exception("Datensatz erfolgreich gespeichert.");
-			
+			if (RowsAffected==1)throw new Exception("Arbeitsgruppe erfolgreich angelegt.");
+			else
+			{
+				throw new Exception("Arbeitsgruppe nicht angelegt.");
+			}
 		}
 		
 				}
@@ -456,10 +461,12 @@ public class Arbeitsgruppe {
 			
 		try 
 		{	
-				//System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+				System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Arbeitsgruppe SET Leiter ='"+neuerLeiterBenutzername+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+				System.out.println("UPDATE Mitarbeiter SET Arbeitsgruppe='"+this.arbeitsgruppeID+"' WHERE Benutzername='"+neuerLeiterBenutzername+"'");
+				RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Arbeitsgruppe='"+this.arbeitsgruppeID+"' WHERE Benutzername='"+neuerLeiterBenutzername+"'");
 				
 				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz geändert.");
 				erfolgreich=true;
@@ -467,16 +474,9 @@ public class Arbeitsgruppe {
 		}
 	
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
+			System.err.println("fehler in setLeiter");
 			System.err.println(e.getMessage());
 		}
-			catch(NullPointerException e)
-			{
-				System.err.println("Fehler beim Suchen des alten Leiters.");
-			}
 	}
 		else
 		{
