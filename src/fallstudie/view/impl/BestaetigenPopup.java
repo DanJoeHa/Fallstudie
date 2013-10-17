@@ -34,7 +34,8 @@ public class BestaetigenPopup extends JDialog implements View{
 		setModal(true);
 		setTitle("");
 		setResizable(false);
-		setBounds(600, 300, 452, 167);
+		this.setSize(452, 167);
+		this.setLocationRelativeTo(null);		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

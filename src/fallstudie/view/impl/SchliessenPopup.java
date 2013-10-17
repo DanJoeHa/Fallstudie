@@ -29,7 +29,8 @@ public class SchliessenPopup extends JDialog implements View{
 		setTitle("");
 		//setEnabled(true);
 		setResizable(false);
-		setBounds(100, 100, 500, 250);
+		this.setSize(500, 250);
+		this.setLocationRelativeTo(null);	
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
