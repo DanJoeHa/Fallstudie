@@ -109,7 +109,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		add(B_SucheArbeitsgruppe);
 		
 		//B_Zuruecksetzen
-		JButton B_Zuruecksetzen = new JButton("Zurücksetzten");
+		JButton B_Zuruecksetzen = new JButton("Zurücksetzen");
 		B_Zuruecksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Zuruecksetzen.setBounds(30, 600, 150, 30);
 		add(B_Zuruecksetzen);

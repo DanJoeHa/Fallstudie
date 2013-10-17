@@ -99,6 +99,11 @@ public class MitarbeiterController implements Controller {
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 		
+		//Zurücksetzen-Button
+		if( button.equals("Zurücksetzen") ){
+			this.viewAnlegen.reset();
+		}
+		
 		//Arbeitsgruppe suchen
 		if( button.equals("Suchen") ){
 			suche = new SuchController();
