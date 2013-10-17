@@ -112,20 +112,23 @@ public class MitarbeiterController implements Controller {
 				case "bearbeiten": suche.setSuchbegriff(this.view.getArbeitsgruppe());
 					break;
 			}
-			//Hilfe noch im test
+			//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
 			HauptController.hilfefenster.setHinweis(HilfeTexte.TabelleView);
+			
 			suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(suche.getView() );
 		}
 		if (operation.equals("bearbeiten"))
 		{
 			if( button.equals("Suchen") )
-			{
+			{	
 				this.viewSuche.getSuchbegriff();
-				this.viewDatenAnz = new DatenAnzeigenAuswahlView();
+				this.viewDatenAnz = new DatenAnzeigenAuswahlView();				
 				HauptController.hauptfenster.setContent(viewDatenAnz);
 				this.view.setController(suche);
+				
 			}
+			
 		}
 			
 			
