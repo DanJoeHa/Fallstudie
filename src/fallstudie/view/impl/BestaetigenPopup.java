@@ -23,6 +23,7 @@ public class BestaetigenPopup extends JDialog implements View{
 	private JButton B_abbrechen;
 	private JTextArea txtrWollenSieWirklich;
 	
+	
 
 	/**
 	 * Create the dialog.
@@ -51,19 +52,26 @@ public class BestaetigenPopup extends JDialog implements View{
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		
 		
-			B_speichern = new JButton("Ja");
-			//B_speichern.addActionListener(new ActionListener() {
-			//	public void actionPerformed(ActionEvent arg0) {
-			//	}
-			//});
-			B_speichern.setActionCommand("Ja");
-			buttonPane.add(B_speichern);
-			getRootPane().setDefaultButton(B_speichern);
+		B_speichern = new JButton("Ja");
+		//B_speichern.addActionListener(new ActionListener() {
+		//	public void actionPerformed(ActionEvent arg0) {
+		//	}
+		//});
+		B_speichern.setActionCommand("Ja");
+		buttonPane.add(B_speichern);
+		getRootPane().setDefaultButton(B_speichern);
 			
 		B_abbrechen = new JButton("Nein");
 		B_abbrechen.setActionCommand("Nein");
 		buttonPane.add(B_abbrechen);
 			
+		
+	}
+	public void setButtonName(String ButtonJa, String ButtonNein ){
+		this.B_speichern.setText(ButtonJa);
+		this.B_speichern.setActionCommand(ButtonJa);
+		this.B_abbrechen.setText(ButtonNein);
+		this.B_abbrechen.setActionCommand(ButtonNein);
 		
 	}
 	public void setAusgabe(String text){
