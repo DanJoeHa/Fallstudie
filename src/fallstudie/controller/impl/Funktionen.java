@@ -2,9 +2,7 @@ package fallstudie.controller.impl;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import fallstudie.model.impl.Arbeitsgruppe;
-import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;

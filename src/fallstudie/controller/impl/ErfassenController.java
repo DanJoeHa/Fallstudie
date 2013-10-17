@@ -66,7 +66,7 @@ public class ErfassenController implements Controller {
 				}
 				else
 				{
-					Eintrag eintrag = new Eintrag(kalenderjahr,view.getKalenderwoche(), anzahl,HauptController.activeUser.getArbeitsgruppe(), tempArt);
+					new Eintrag(kalenderjahr,view.getKalenderwoche(), anzahl,HauptController.activeUser.getArbeitsgruppe(), tempArt);
 					Calendar cal = Calendar.getInstance();
 				    DateFormat df;
 				    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );

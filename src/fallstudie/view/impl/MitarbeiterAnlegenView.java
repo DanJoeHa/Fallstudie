@@ -1,37 +1,28 @@
 package fallstudie.view.impl;
 
-import javax.swing.JPanel;
-
 import java.awt.SystemColor;
-
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
-
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import javax.swing.JPasswordField;
-
 import fallstudie.controller.interfaces.Controller;
-import fallstudie.view.interfaces.View;
 
 public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
+
+	private static final long serialVersionUID = 1947090676451323070L;
 	private JTextField T_Arbeitsgruppe;
 	private JTextField T_Passwort1;
 	private JButton B_Speichern;
 	private JComboBox<String> C_Rolle;
 	private JComboBox<String> C_Bereich;
-	private JButton B_SucheArbeitsgruppe ;
+	private JButton B_SucheArbeitsgruppe, B_Zuruecksetzen;
 
 	/**
 	 * Create the panel.
@@ -109,7 +100,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		add(B_SucheArbeitsgruppe);
 		
 		//B_Zuruecksetzen
-		JButton B_Zuruecksetzen = new JButton("Zurücksetzten");
+		B_Zuruecksetzen = new JButton("Zurücksetzen");
 		B_Zuruecksetzen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Zuruecksetzen.setBounds(30, 600, 150, 30);
 		add(B_Zuruecksetzen);
@@ -126,13 +117,16 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
 		this.B_SucheArbeitsgruppe.addActionListener(c);
-		
+		this.B_Zuruecksetzen.addActionListener(c);
 	}
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-		
+		this.T_Arbeitsgruppe.setText("");
+		this.T_Passwort1.setText("");
+		this.T_Benutzername.setText("");
+		this.T_Nachname.setText("");
+		this.T_Vorname.setText("");
 	}
 	
 	public void setRolle(String[] rollen){

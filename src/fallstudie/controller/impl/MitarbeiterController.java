@@ -3,10 +3,8 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
-import fallstudie.model.impl.Art;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;
@@ -50,10 +48,7 @@ public class MitarbeiterController implements Controller {
 	public MitarbeiterController(){
 		//alle Rollen und Bereiche holen und speichern
 		this.rollen = Rolle.getAlleRollen();
-		this.bereiche = Bereich.getAlleBereiche();
-		
-		
-		
+		this.bereiche = Bereich.getAlleBereiche();		
 	}
 	
 	/**
@@ -98,6 +93,11 @@ public class MitarbeiterController implements Controller {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
+		
+		//Zurücksetzen-Button
+		if( button.equals("Zurücksetzen") ){
+			this.viewAnlegen.reset();
+		}
 		
 		//Arbeitsgruppe suchen
 		if( button.equals("Suchen") ){
@@ -170,11 +170,11 @@ public class MitarbeiterController implements Controller {
 						Bereich bereich = this.findeBereichZuBezeichnung(this.viewAnlegen.getBereich());
 						
 						//Mitarbeiter mit Bereich anlegen
-						Mitarbeiter neuerMitarbeiter = new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, bereich);
+						new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, bereich);
 					}else{
 						
 						//Mitarbeiter mit Arbeitsgruppe anlegen
-						Mitarbeiter neuerMitarbeiter = new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.arbeitsgruppe);
+						new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.arbeitsgruppe);
 					}
 				}catch(Exception ex){
 					HauptController.hauptfenster.setInfoBox("Mitarbeiter konnte nicht gespeichert werden.");

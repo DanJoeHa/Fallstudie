@@ -1,11 +1,9 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Konfig;
 import fallstudie.view.impl.BestaetigenPopup;
-import fallstudie.view.impl.HauptView;
 import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.KonfigurationView;
 import fallstudie.view.interfaces.View;
