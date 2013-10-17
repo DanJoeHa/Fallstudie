@@ -571,12 +571,13 @@ System.err.println("Fehler in Bereich löschen:");
 
 		boolean erfolgreich = false;
 		//Mitgegebener Bereich ID 
-		String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
 			try 
 		{	
 				if(!(leiter==null)){
-				System.out.println("UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
-			
+					String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
+					
+					System.out.println("UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
+				
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Bereich SET Leiter ='"+neuerLeiterBenutzername+"' WHERE BereichID='"+this.bereichID+"'");
 				RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Bereich='"+this.bereichID+"' WHERE Benutzername='"+neuerLeiterBenutzername+"'");
