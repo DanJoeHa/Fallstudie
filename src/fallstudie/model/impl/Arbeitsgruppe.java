@@ -540,22 +540,21 @@ public class Arbeitsgruppe {
 		{
 		try 
 		{	
-			System.out.println("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			
-			ResultSet checkLeiter = Connection.executeQueryStatement("SELECT Leiter FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			ResultSet checkLeiter = Connection.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 			checkLeiter.next();
-			String leiterName = checkLeiter.getString("Leiter");
-			if(leiterName==null)
+			if(!checkLeiter.next())
 			{
 				darfDeleteLeiter=true;
 			}
-			else
+			if(checkLeiter.next())
 			{
 				darfDeleteLeiter=false;
 			}
-			System.out.println("SELECT Benutzername FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
+			System.out.println("SELECT * FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
 			
-			ResultSet mitarbeiterdrancheck = Connection.executeQueryStatement("SELECT Benutzername FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
+			ResultSet mitarbeiterdrancheck = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
 			if(mitarbeiterdrancheck.next())
 				{
 					darfDeleteMitarbeiter=false;

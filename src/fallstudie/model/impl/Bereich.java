@@ -458,22 +458,41 @@ public class Bereich {
 		boolean darfdelteLeiter=false;
 		try 
 		{		//Check ob mitarbeiter noch bereich zugeordnet sind
-				ResultSet mitarbeiterdrancheck = Connection.executeQueryStatement("SELECT Benutzername FROM Mitarbeiter WHERE Bereich='"+this.bereichID+"'");
-				if(mitarbeiterdrancheck.next()) darfdeleteMitarbeiter=false;
-				else if(!mitarbeiterdrancheck.next()) darfdeleteMitarbeiter=true;
+				
+			System.out.println("SELECT * FROM Mitarbeiter WHERE Bereich='"+this.bereichID+"'");
+			ResultSet mitarbeiterdrancheck = Connection.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Bereich='"+this.bereichID+"'");
+				if(mitarbeiterdrancheck.next())
+					{
+						darfdeleteMitarbeiter=false; 
+						
+					}
+				else if(!mitarbeiterdrancheck.next()) 
+					{
+					darfdeleteMitarbeiter=true;
+					
+					
+					}
 				//check ob Leiter noch dran ist
-				ResultSet leiterdranCheck = Connection.executeQueryStatement("SELECT Leiter FROM Bereich WHERE BereichID='"+this.bereichID+"'");
-				if(leiterdranCheck.next())darfdelteLeiter=false;
-				else if(!leiterdranCheck.next()) darfdelteLeiter=true;
+				System.out.println("SELECT * FROM Bereich WHERE BereichID='"+this.bereichID+"'");
+				ResultSet leiterdranCheck = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE BereichID='"+this.bereichID+"'");
+				leiterdranCheck.next();
+				if(!leiterdranCheck.next()) darfdelteLeiter=true;
+				if(leiterdranCheck.next()) darfdelteLeiter=false;
+				
 				//Check ob Arbeitsgruppe dran ist
+				System.out.println("SELECT * FROM Arbeitsgruppe WHERE Bereich='"+this.bereichID+"'");
 				ResultSet arbeitsgruppeCheck = Connection.executeQueryStatement(
 						"SELECT * FROM Arbeitsgruppe WHERE Bereich='"+this.bereichID+"'");
 				
-				if(arbeitsgruppeCheck.next()) darfdeleteArbeitsgruppe=false;
-				else if(!arbeitsgruppeCheck.next()) darfdeleteArbeitsgruppe=true;
+				if(arbeitsgruppeCheck.next()){
+					darfdeleteArbeitsgruppe=false;
+				}
+				else if(!arbeitsgruppeCheck.next()){
+					darfdeleteArbeitsgruppe=true;
+				}
 				
 				
-				if (darfdeleteArbeitsgruppe==true || darfdelteLeiter==true || darfdeleteMitarbeiter==true)
+				if (darfdeleteArbeitsgruppe==true && darfdelteLeiter==true && darfdeleteMitarbeiter==true)
 				{
 				
 					if(aktuellerStatus==true)
@@ -579,24 +598,21 @@ System.err.println("Fehler in Bereich löschen:");
 		if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 			RemoteConnection.connect();
 		};
-		ResultSet resultSet = null;
+	
 		try 
 		{	
-			//System.out.println("SELECT * FROM Bereich");
-				resultSet = Connection.executeQueryStatement(
-					"Select * From Bereich");
+			System.out.println("SELECT * FROM Bereich WHERE Aktiv='1'");
+				ResultSet resultSet = Connection.executeQueryStatement(
+					"Select * From Bereich WHERE Aktiv='1'");
 				
 				while (resultSet.next()) 
 				{	
-					//Nur aktive werden ausgegeben
-					boolean aktiv = resultSet.getBoolean("Aktiv");
-					if (aktiv==true)
-					{
+					System.out.println(resultSet.getString("Kurzbezeichnung"));
 					result.add(new Bereich(resultSet));
-					}
 				}
+				
 				resultSet.close();
-		}
+		}		
 		catch (SQLException e) 
 		{	System.err.println("Dieser Fehler ist aufgetreten in getAlleBereiche():");
 			System.err.println(e.getMessage());
