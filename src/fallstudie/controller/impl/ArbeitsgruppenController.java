@@ -53,8 +53,6 @@ public class ArbeitsgruppenController implements Controller {
 		//Operation speichern
 		this.operation = operation;
 		
-
-		
 		//wenn Neuanlage einer Arbeitsgruppe
 		if( this.operation.equals( "anlegen" ) ){
 			
@@ -75,8 +73,7 @@ public class ArbeitsgruppenController implements Controller {
 			HauptController.hauptfenster.setUeberschrift("Arbeitsgruppe zur Bearbeitung auswählen");
 			this.viewSuche = (SuchenView) suche.getView() ;
 			HauptController.hauptfenster.setContent( viewSuche);
-			
-			
+	
 		}
 	}
 
@@ -90,17 +87,38 @@ public class ArbeitsgruppenController implements Controller {
 		
 		//Änderungen speichern
 		if( button.equals("Speichern") ){
-			
-			popup = new BestaetigenPopup();
-			
-			popup.setController(this);
-			popup.setTitle("Bestätigung");
-			popup.setAusgabe(HilfeTexte.SpeichernPopup);
-			
+					
+			//Leiter holen
+			if( this.view.getAGLeiter().isEmpty() ){
+				oLeiter = null;
+			}else{
+				oLeiter = new Mitarbeiter( this.view.getAGLeiter() );
+			}
+				
+			//Arbeitsgruppenleiter ersetzen
+			if( this.operation != "anlegen" && 
+					this.gewaehlteAG.getLeiter() != null &&
+					!this.gewaehlteAG.getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ){
+				
+				//Ersetzen-PopUp
+				popup = new BestaetigenPopup();
+				popup.setController(this);
+				popup.setTitle("Arbeitsgruppenleiter ersetzen?");
+				popup.setAusgabe("Wollen Sie den aktuellen Arbeitsgruppenleiter ersetzen und speichern?");
+				popup.setButtonName( "Ersetzen", "Nicht ersetzen" );
+			}else{
+				popup = new BestaetigenPopup();
+				
+				popup.setController(this);
+				popup.setTitle("Bestätigung");
+				popup.setAusgabe(HilfeTexte.SpeichernPopup);
+			}
 			
 		}
 		
-		if(button.equals("Ja")){
+		//Speichern der Angaben
+		if(button.equals("Ja") ||  button.equals("Ersetzen")){
+			
 			//Bereichsobjekt zur Auswahl finden
 			Iterator<Bereich> i = this.bereiche.iterator();
 			
@@ -109,36 +127,40 @@ public class ArbeitsgruppenController implements Controller {
 				if(oBereich.getKurzbezeichnung().equals( this.view.getBereich() ) ) break;
 			}
 			
-			 oLeiter = new Mitarbeiter( this.view.getAGLeiter() );
-			popup.setVisible(false);
-		}
-		
-		if(button.equals("Nein")){
-			popup.setVisible(false);
-		}
-		
-		if(operation.equals("bearbeiten"))
-		{
-			try {
-				this.gewaehlteAG.setBereich(oBereich);
-				this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
-				this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
-				this.gewaehlteAG.setLeiter(oLeiter);
-				
-			} catch (Exception e1) {
-				HauptController.hauptfenster.setInfoBox( e1.getMessage() );
-			}
-		}
-		
-		if(operation.equals("anlegen"))
-		{
-			try{
-				new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
-			}
-			catch (Exception e1)
+			//Arbeitsgruppe bearbeiten
+			if(operation.equals("bearbeiten"))
 			{
-				HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+				try {
+					this.gewaehlteAG.setBereich(oBereich);
+					this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
+					this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
+					this.gewaehlteAG.setLeiter(oLeiter);
+					
+				} catch (Exception e1) {
+					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+				}
 			}
+			
+			//neue Arbeitsgruppe anlegen
+			if(operation.equals("anlegen"))
+			{
+				try{
+					new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
+				}
+				catch (Exception e1)
+				{
+					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+				}
+			}
+			
+			//Popup ausblenden
+			popup.setVisible(false);	
+			
+		}
+		
+		//Nicht speichern
+		if(button.equals("Nein") || button.equals("Nicht ersetzen") ){
+			popup.setVisible(false);
 		}
 		
 		
@@ -147,6 +169,7 @@ public class ArbeitsgruppenController implements Controller {
 			this.view.reset();
 		}
 		
+		//Gruppenleiter suchen
 		if( button.equals("Suchen") ){
 			
 			this.suche= new SuchController();
