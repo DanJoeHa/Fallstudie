@@ -65,6 +65,7 @@ public class TabelleView extends JPanel implements View {
 		TA_Tabelle.setBorder(new LineBorder(new Color(0, 0, 0)));
 		//TA_Tabelle.setEnabled(false);
 		TA_Tabelle.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		TA_Tabelle.setSelectionMode( javax.swing.ListSelectionModel.SINGLE_SELECTION); 
 		
 		B_Abbrechen = new JButton("Abbrechen");
 		B_Abbrechen.setFont(new Font("Tahoma", Font.PLAIN, 14));
