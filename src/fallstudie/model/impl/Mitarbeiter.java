@@ -998,20 +998,16 @@ catch (SQLException e)
 //						" Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
 					
 					String query = "SELECT * FROM Mitarbeiter WHERE (Benutzername LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%')";
-					System.out.println("Suchdomain: "+suchdomain);
+					//System.out.println("Suchdomain: "+suchdomain);
 					if( suchdomain.equals("Bereichsleiter") || suchdomain.equals("Gruppenleiter") ) query+= " AND (Rolle LIKE '" + suchdomain + "')";
 										
-					System.out.println(query);
+					//System.out.println(query);
 					resultSet = Connection.executeQueryStatement(query);
 					//Abfrage ob �berhaupt Datens�tze gefunden worden sind
 					resultSet.last();
 					int resultLength = resultSet.getRow();
 					resultSet.beforeFirst();
 					if (resultLength==0) throw new NullPointerException("Keine Datensätze gefunden");
-					else
-					{
-						System.out.println("Es wurden "+resultLength+" Datensätze gefunden. Die Gel�schten Eintr�ge werden nicht angezeigt.");
-					}
 					while (resultSet.next()) 
 					{
 						//NuR Aktive werden ausgegeben
@@ -1025,7 +1021,7 @@ catch (SQLException e)
 			}
 			catch (SQLException e) 
 			{	System.err.println("Dieser Fehler ist aufgetreten in suche Arbeitsgruppe (suchbegriff):");
-				System.err.println("Select Statement ist fehlerhaft. Bitte �berpr�fen.");
+				System.err.println(e.getMessage());
 			}
 			return result;
 		}
