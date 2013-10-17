@@ -158,9 +158,9 @@ public class ArbeitsgruppenController implements Controller {
 			{
 				try{
 					
+					Arbeitsgruppe neueAG = new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
+					this.gewaehlteAG = neueAG;
 					this.moveLeiter();
-					
-					new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
 				}
 				catch (Exception e1)
 				{

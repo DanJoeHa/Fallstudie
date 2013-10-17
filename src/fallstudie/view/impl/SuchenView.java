@@ -43,10 +43,10 @@ public class SuchenView extends JPanel implements View {
 		B_Suchen.setBounds(458, 12, 150, 30);
 		add(B_Suchen);
 		
-		JLabel lblBitteSuchbegriffEingeben = new JLabel("Bitte Suchbegriff eingeben");
-		lblBitteSuchbegriffEingeben.setBounds(12, 16, 167, 23);
-		lblBitteSuchbegriffEingeben.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(lblBitteSuchbegriffEingeben);
+		JLabel L_Hinweis = new JLabel("Bitte Suchbegriff eingeben");
+		L_Hinweis.setBounds(12, 16, 167, 23);
+		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(L_Hinweis);
 		
 
 		
