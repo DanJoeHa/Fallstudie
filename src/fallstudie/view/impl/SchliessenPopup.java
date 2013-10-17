@@ -4,19 +4,18 @@ package fallstudie.view.impl;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 import java.awt.SystemColor;
 
 public class SchliessenPopup extends JDialog implements View{
 
+	private static final long serialVersionUID = 8389558871657416016L;
 	private final JPanel contentPanel = new JPanel();
 	private JButton B_ok;
 	private JTextPane T_Hinweis;

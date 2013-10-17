@@ -1,30 +1,21 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
-
 import java.awt.SystemColor;
-
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
-
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-
 import java.awt.Dimension;
-
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.JComboBox;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
 public class ArtLoeschenView extends JPanel implements View{
 
-	
+	private static final long serialVersionUID = -4927164539248244321L;
 	private JButton B_Loeschen;
 	private JComboBox<String> C_Art;
 	/**

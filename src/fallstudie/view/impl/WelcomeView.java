@@ -1,20 +1,14 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
-
 import java.awt.SystemColor;
-
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
 import java.awt.Dimension;
 
 public class WelcomeView extends JPanel implements View{

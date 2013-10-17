@@ -13,8 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class LoginView extends JPanel implements View {
 

@@ -1,23 +1,19 @@
 package fallstudie.view.impl;
 
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
 public class BestaetigenPopup extends JDialog implements View{
 
+	private static final long serialVersionUID = -8630370870519774622L;
 	private final JPanel contentPanel = new JPanel();
 	private JButton B_speichern;
 	private JButton B_abbrechen;

@@ -1,28 +1,20 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
-
 import java.awt.SystemColor;
-
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
-
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-
 import java.awt.Dimension;
-
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
 public class LayoutMitarbeiter extends JPanel implements View{
+
+	private static final long serialVersionUID = -5374763696510559443L;
 	protected JTextField T_Vorname;
 	protected JTextField T_Nachname;
 	protected JTextField T_Benutzername;

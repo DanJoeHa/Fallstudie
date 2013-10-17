@@ -1,27 +1,21 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
-
 import java.awt.SystemColor;
-
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
-
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-
 import java.awt.Dimension;
-
 import javax.swing.JButton;
 import javax.swing.JTextField;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
 public class KonfigurationView extends JPanel implements View {
+
+	private static final long serialVersionUID = -8966052424552014399L;
 	private JTextField T_AnzahlMonate;
 	private JButton B_Speichern;
 	/**

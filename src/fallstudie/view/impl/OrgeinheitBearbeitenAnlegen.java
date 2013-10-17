@@ -7,13 +7,13 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
 import java.awt.Dimension;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 public abstract class OrgeinheitBearbeitenAnlegen extends JPanel{
+
+	private static final long serialVersionUID = -3209996671642895324L;
 	protected JTextField T_Kurzbezeichnung;
 	protected JTextField T_Bezeichnung;
 	protected JButton B_Zuruecksetzen, B_Speichern;

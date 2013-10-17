@@ -1,35 +1,23 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
-
 import java.awt.SystemColor;
-
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
-
 import java.awt.Dimension;
-import java.util.Arrays;
-import java.util.Vector;
-
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JRadioButton;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
 import javax.swing.JComboBox;
 
 public class TabelleView extends JPanel implements View {
+
+	private static final long serialVersionUID = 1L;
 	private JTable TA_Tabelle;
 	private JButton B_AuswaehlenLoeschen;
 	private JButton B_Abbrechen;
@@ -101,6 +89,11 @@ public class TabelleView extends JPanel implements View {
 	public void setTabelle(String[] tabellenheadline,Object[][] tabellenwerte){
 		
 		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellenheadline){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			public boolean isCellEditable(int x, int y) {
                 return false;
             }

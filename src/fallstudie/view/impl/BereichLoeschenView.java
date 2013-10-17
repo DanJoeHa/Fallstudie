@@ -11,7 +11,6 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
 
 import java.awt.Dimension;
 
@@ -23,9 +22,9 @@ import fallstudie.view.interfaces.View;
 
 public class BereichLoeschenView extends JPanel implements View{
 
-	
+	private static final long serialVersionUID = 5718285763271323948L;
 	private JButton B_BearbeitenLoeschen;
-	private JComboBox C_Bereich;
+	private JComboBox<String> C_Bereich;
 	private JLabel L_Hinweis;
 	/**
 	 * Create the panel.
@@ -45,7 +44,7 @@ public class BereichLoeschenView extends JPanel implements View{
 		B_BearbeitenLoeschen.setBounds(440, 600, 150, 30);
 		add(B_BearbeitenLoeschen);
 		
-		C_Bereich = new JComboBox();
+		C_Bereich = new JComboBox<String>();
 		C_Bereich.setBounds(293, 21, 297, 30);
 		add(C_Bereich);
 		
