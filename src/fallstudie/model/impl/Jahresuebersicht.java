@@ -251,8 +251,8 @@ public class Jahresuebersicht {
 	 * Arbeitsgruppe der Jahresuebersicht
 	 * @return
 	 */
-	public Collection<Arbeitsgruppe> getArbeitsgruppe() {
-		return this.agZuBereich;
+	public Arbeitsgruppe getArbeitsgruppe() {
+		return this.arbeitsgruppe;
 	}
 	
 	public Collection<Zeile> getZeileArbeitsgruppe() throws Exception
