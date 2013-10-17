@@ -408,6 +408,10 @@ public class DatenAnzeigenController implements Controller {
 			this.viewErg.setTabelle(tabellenspalten, tabellenwerte);			
 			
 		}
+		
+		if( button.equals("Abbrechen") ){
+			HauptController.hauptfenster.zurueck();
+		}
 	}
 
 	private void generiereJahresuebersichtenZuBereich(Collection<Jahresuebersicht> coJahresuebersichten){
@@ -430,7 +434,7 @@ public class DatenAnzeigenController implements Controller {
 			
 			tabellenspalten = new String[ coJahresuebersichten.size() + 1 ];
 			tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 1 ];
-			tabellenspalten[0] = "Art\\Bereich";
+			tabellenspalten[0] = "Art\\Arbeitsgruppe";
 			
 			//Schleifenvars
 			int spalte = 1;
