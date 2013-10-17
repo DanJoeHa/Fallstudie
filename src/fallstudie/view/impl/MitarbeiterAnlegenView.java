@@ -131,8 +131,11 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-		
+		this.T_Arbeitsgruppe.setText("");
+		this.T_Passwort1.setText("");
+		this.T_Benutzername.setText("");
+		this.T_Nachname.setText("");
+		this.T_Vorname.setText("");
 	}
 	
 	public void setRolle(String[] rollen){
