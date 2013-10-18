@@ -8,11 +8,9 @@ import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;
-import fallstudie.view.impl.DatenAnzeigenAuswahlView;
 import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.MitarbeiterAnlegenView;
 import fallstudie.view.impl.MitarbeiterBearbeitenView;
-import fallstudie.view.impl.SchliessenPopup;
 import fallstudie.view.impl.SuchenView;
 import fallstudie.view.interfaces.View;
 
@@ -28,15 +26,12 @@ public class MitarbeiterController implements Controller {
 	private MitarbeiterAnlegenView viewAnlegen;
 	private SuchenView viewSuche;
 	private String operation;
-	private DatenAnzeigenAuswahlView viewDatenAnz;
-	
 	private Collection<Rolle> rollen;
 	private Collection<Bereich> bereiche;
 	private Arbeitsgruppe arbeitsgruppe;
 	private Mitarbeiter gewaehlterMitarbeiter;
 	private Arbeitsgruppe gewaehlteAG;
 	private SuchController suche;
-	public static SchliessenPopup hilfefenster; //Hilfe noch im Test
 	
 	
 	/**
@@ -122,27 +117,11 @@ public class MitarbeiterController implements Controller {
 			
 			suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(suche.getView() );
-		}
-		if (operation.equals("bearbeiten"))
-		{	
-			if( button.equals("Suchen") )
-			{	
-				this.viewSuche.getSuchbegriff();
-				this.viewDatenAnz = new DatenAnzeigenAuswahlView();				
-				HauptController.hauptfenster.setContent(viewDatenAnz);
-				this.view.setController(suche);
-				
-			}
 			
-		}
-			
+		}//Arbeitsgruppe suchen	
 			
 			/*
 			//**********WICHTIG****************** neue Operation, wenn Suche Ergebnis gefunden hat
-			//warte auf Auswahl
-			while( sucheAG.getAuswahl() == null ){
-				sucheAG.getAuswahl();
-			}
 			
 			//gewählte AG speichern
 			this.arbeitsgruppe = (Arbeitsgruppe) sucheAG.getAuswahl();
@@ -154,7 +133,7 @@ public class MitarbeiterController implements Controller {
 				case "bearbeiten": this.view.setArbeitsgruppe( this.arbeitsgruppe.getKurzbezeichnung() );
 			}
 			*/
-		//Arbeitsgruppe suchen
+		
 		
 		//Mitarbeiter anlegen
 		if(this.operation.equals("anlegen"))
@@ -167,10 +146,12 @@ public class MitarbeiterController implements Controller {
 				String vorname = this.viewAnlegen.getVorname();
 				String passwort = this.viewAnlegen.getPasswort();
 				String rollenbez = this.viewAnlegen.getRolle();
+				
 				//finde passendes Rollen-Objekt
 				Rolle rolle = this.findeRolleZuBezeichnung(rollenbez);
 				try{
 					if(rollenbez.equals("Zentralbereichsleiter") || rollenbez.equals("Bereichsleiter") ){
+					
 						//finde passendes Bereichs-Objekt
 						Bereich bereich = this.findeBereichZuBezeichnung(this.viewAnlegen.getBereich());
 						
@@ -179,7 +160,7 @@ public class MitarbeiterController implements Controller {
 					}else{
 						
 						//Mitarbeiter mit Arbeitsgruppe anlegen
-						new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.arbeitsgruppe);
+						new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.gewaehlteAG);
 					}
 				}catch(Exception ex){
 					HauptController.hauptfenster.setInfoBox("Mitarbeiter konnte nicht gespeichert werden.");
@@ -277,8 +258,6 @@ public class MitarbeiterController implements Controller {
 	@Override
 	public void fortsetzen() {
 		
-		
-		
 		try{ //if(this.operation.equals("bearbeiten"))
 			
 			//Mitarbeiter bearbeiten View
@@ -305,9 +284,6 @@ public class MitarbeiterController implements Controller {
 			this.view.repaint();
 			
 		}catch(Exception ex){ //if(this.operation.equals("anlegen"))
-			
-			//Mitarbeiter bearbeiten View
-			this.viewAnlegen.setController( this );
 			
 			//ausgewählte Arbeitsgruppe holen
 			this.gewaehlteAG = (Arbeitsgruppe) this.suche.getAuswahl();
