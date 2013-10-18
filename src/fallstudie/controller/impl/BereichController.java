@@ -168,6 +168,7 @@ public class BereichController implements Controller {
 			HauptController.hauptfenster.setContent(view);
 			this.view.setController( this );
 			this.view.setKurzbezeichnung(tempBereich);
+			this.view.setButtonAbbrechenName("Abbrechen");
 			gewaehlterBereich = Bereich.getBereichByName(tempBereich);
 			this.view.setBezeichnung(gewaehlterBereich.getBeschreibung());
 			try
@@ -278,7 +279,13 @@ public class BereichController implements Controller {
 	public void fortsetzen() {
 		gewaehlterMA = (Mitarbeiter) this.suche.getAuswahl();
 		this.view.setLeiter(gewaehlterMA.getBenutzername());
-		this.view.setButtonAbbrechenName("Abbrechen");
+		if( this.operation.equals("anlegen") ){
+			this.view.setButtonAbbrechenName("Zurücksetzen");
+			HauptController.hauptfenster.setUeberschrift("Bereich anlegen");
+		}else{
+			this.view.setButtonAbbrechenName("Abbrechen");
+			HauptController.hauptfenster.setUeberschrift("Bereich bearbeiten");
+		}
 		HauptController.hauptfenster.setUeberschrift("Bereich anlegen");
 		HauptController.hauptfenster.setContent(this.view);
 		this.view.repaint();
