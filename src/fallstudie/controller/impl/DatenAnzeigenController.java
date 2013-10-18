@@ -143,6 +143,7 @@ public class DatenAnzeigenController implements Controller {
 		//Abbrechen-Button
 		if( button.equals("Abbrechen") ){
 			HauptController.hauptfenster.zurueck();
+			HauptController.hauptfenster.setUeberschrift("Daten anzeigen");
 			HauptController.hilfefenster.setHinweis(HilfeTexte.DatenAnzeigenAuswahlView);
 		}
 
@@ -416,7 +417,8 @@ public class DatenAnzeigenController implements Controller {
 		
 		//an TabelleView übergeben
 		HauptController.hauptfenster.setUeberschrift( this.headline );
-		this.viewErg.setTabelle(tabellenspalten, tabellenwerte);	
+		this.viewErg.setTabelle(tabellenspalten, tabellenwerte);
+		HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 	}
 	
 	/**
