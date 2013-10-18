@@ -111,12 +111,6 @@ public class SuchController implements Controller {
 					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
 				}
 			}
-		
-			if(button == "Abbrechen"){
-			
-				HauptController.hauptfenster.zurueck();
-				
-			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button == "auswählen" ){
@@ -145,7 +139,7 @@ public class SuchController implements Controller {
 			
 			//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
 			if( button == "Löschen" ){
-				//TODO: popup wirklich löschen
+
 				popup = new BestaetigenPopup();
 				popup.setController(this);
 				popup.setTitle("Löschen");

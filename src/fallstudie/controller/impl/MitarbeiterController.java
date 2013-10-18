@@ -148,7 +148,7 @@ public class MitarbeiterController implements Controller {
 						new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.gewaehlteAG);
 					}
 				}catch(Exception ex){
-					HauptController.hauptfenster.setInfoBox("Mitarbeiter konnte nicht gespeichert werden.");
+					HauptController.hauptfenster.setInfoBox(ex.getMessage());
 				}
 			}	
 		}//anlegen
