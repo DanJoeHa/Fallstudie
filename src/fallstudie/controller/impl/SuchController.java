@@ -77,6 +77,10 @@ public class SuchController implements Controller {
 						//initiere Ergebnistabelle
 						this.viewErg = new TabelleView();
 						this.viewErg.setController( this );
+						
+						//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiterbearbearbeiten_Mitarbeiterloeschen_Arbeitsgruppeanlegen_Arbeitsgruppebearbeiten_Gruppenleiter_Bereichanlegen_Bereichsleiter_Bereichbearbeiten_Bereichsleiter);
+
 						this.viewErg.setButtonName("auswählen");
 						
 						
@@ -171,6 +175,10 @@ public class SuchController implements Controller {
 						//initiere Ergebnistabelle
 						this.viewErg = new TabelleView();
 						this.viewErg.setController( this );
+						
+						//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiteranlegen_Mitarbeiterbearbeiten_Arbeitsgruppebearbeiten_AG);
+
 						this.viewErg.setButtonName("auswählen");
 						
 						//hole passende Suchergebnisse
