@@ -61,13 +61,20 @@ public class Jahresuebersicht {
 			ResultSet jahresuebersichtResult = Connection.executeQueryStatement(
 					"SELECT * FROM Jahresuebersicht WHERE Kalenderjahr='"+ kalenderjahr +"' AND  Arbeitsgruppe='"+arbeitsgruppeID +"'");
 			
-			jahresuebersichtResult.next();
+			if(jahresuebersichtResult.next())
+					{
+						int bereich = jahresuebersichtResult.getInt("Bereich");
+						this.bereich = new Bereich(bereich);
+				
+					}
+			else
+			{
+				this.bereich=null;
+			}
 			
 			this.kalenderjahr = kalenderjahr;
 			this.arbeitsgruppe = arbeitsgruppe;
-			int bereich = jahresuebersichtResult.getInt("Bereich");
-			this.bereich = new Bereich(bereich);
-		
+			
 
 		}
 		catch (SQLException e)
