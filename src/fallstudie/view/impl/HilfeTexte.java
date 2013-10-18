@@ -3,7 +3,7 @@ package fallstudie.view.impl;
 public abstract class HilfeTexte {
 	
 	public static String WelcomeView = "Um eine Aktion durchzuführen wählen Sie mit einem Mausklick einen Punkt aus dem Baum aus.";
-	public static String LoginView="In das Feld 'Benutzername' geben Sie den Ihnen zugewiesenen Benutzername ein. In das Feld 'Passwort' geben Sie Ihr Passwort ein.";
+	public static String LoginView="In das Feld 'Benutzername' geben Sie den Ihnen zugewiesenen Benutzername ein. In das Feld 'Passwort' geben Sie Ihr Passwort ein. Wenn Sie ihr Passwort vergessen haben, melden Sie sich beim UHD unter der Nummer 06328";
 	public static String BereichLoeschenView="Wählen Sie mithilfe der DropDownBox einen Bereich aus und bestätigen sie mit 'Löschen'."; 
 	public static String KonfigurationView="Geben Sie die Anzahl der Monate an, nach denen die Einträge gelöscht werden sollen. Bestätigen Sie mit 'Speichern'.";
 	public static String DruckenView="Um die Übersicht zu drucken drücken Sie auf den 'Drucken' Knopf.";
