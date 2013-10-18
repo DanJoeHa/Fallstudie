@@ -80,9 +80,15 @@ public class TabelleView extends JPanel implements View {
 	
 	public String getAuswahl(){
 		int row = TA_Tabelle.getSelectedRow();
-		String auswahl = TA_Tabelle.getValueAt(row, 0).toString();
-		System.out.println(auswahl);
-		return auswahl;
+		if(row == -1)
+		{
+			return "";
+		}
+		else
+		{
+			String auswahl = TA_Tabelle.getValueAt(row, 0).toString();
+			return auswahl;	
+		}
 	}
 	
 	//Tabelle befüllen

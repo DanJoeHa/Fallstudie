@@ -77,6 +77,10 @@ public class SuchController implements Controller {
 						//initiere Ergebnistabelle
 						this.viewErg = new TabelleView();
 						this.viewErg.setController( this );
+						
+						//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiterbearbearbeiten_Mitarbeiterloeschen_Arbeitsgruppeanlegen_Arbeitsgruppebearbeiten_Gruppenleiter_Bereichanlegen_Bereichsleiter_Bereichbearbeiten_Bereichsleiter);
+
 						this.viewErg.setButtonName("auswählen");
 						
 						
@@ -120,13 +124,20 @@ public class SuchController implements Controller {
 				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
 				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 				String name = this.viewErg.getAuswahl();
-				while( i.hasNext() ){
-					Mitarbeiter MA = (Mitarbeiter) i.next();
-					String benutzername = MA.getBenutzername();
-					if( benutzername.equals( name ) ){
-						this.auswahl = MA;
-						this.aufrufenderController.fortsetzen();
-						break;
+				if(name.equals(""))
+				{
+					HauptController.hauptfenster.setInfoBox("Bitte einen Mitarbeiter mit Klick in die Tabelle auswählen.");
+				}
+				else
+				{
+					while( i.hasNext() ){
+						Mitarbeiter MA = (Mitarbeiter) i.next();
+						String benutzername = MA.getBenutzername();
+						if( benutzername.equals( name ) ){
+							this.auswahl = MA;
+							this.aufrufenderController.fortsetzen();
+							break;
+						}
 					}
 				}
 			}
@@ -145,20 +156,28 @@ public class SuchController implements Controller {
 			if(button.equals("Ja")){
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
-				
-				while( i.hasNext() ){
-					Mitarbeiter MA = (Mitarbeiter) i.next();
-					String benutzername = MA.getBenutzername();
-					if( benutzername.equals( this.viewErg.getAuswahl() ) ){
-						if( MA.loeschen() ){
-							HauptController.hauptfenster.setInfoBox("Mitarbeiter gelöscht.");
-						}else{
-							HauptController.hauptfenster.setInfoBox("Mitarbeiter konnte nicht gelöscht werden. Bitte stellen Sie sicher, dass der Mitarbeiter keiner Arbeitsgruppe/keinem Bereich als Leiter zugeordnet ist.");
+				String auswahl =  this.viewErg.getAuswahl();
+				if(auswahl.equals(""))
+				{
+					popup.setVisible(false);
+					HauptController.hauptfenster.setInfoBox("Bitte den zu löschenden Mitarbeiter mit Klick in die Tabelle auswählen.");
+				}
+				else
+				{
+					while( i.hasNext() ){
+						Mitarbeiter MA = (Mitarbeiter) i.next();
+						String benutzername = MA.getBenutzername();
+						if( benutzername.equals(auswahl ) ){
+							if( MA.loeschen() ){
+								HauptController.hauptfenster.setInfoBox("Mitarbeiter gelöscht.");
+							}else{
+								HauptController.hauptfenster.setInfoBox("Mitarbeiter konnte nicht gelöscht werden. Bitte stellen Sie sicher, dass der Mitarbeiter keiner Arbeitsgruppe/keinem Bereich als Leiter zugeordnet ist.");
+							}
+							break;
 						}
-						break;
-					}
-				}	
-				popup.setVisible(false);
+					}	
+					popup.setVisible(false);
+				}
 			}
 			if(button.equals("Nein")){
 				popup.setVisible(false);
@@ -171,6 +190,10 @@ public class SuchController implements Controller {
 						//initiere Ergebnistabelle
 						this.viewErg = new TabelleView();
 						this.viewErg.setController( this );
+						
+						//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiteranlegen_Mitarbeiterbearbeiten_Arbeitsgruppebearbeiten_AG);
+
 						this.viewErg.setButtonName("auswählen");
 						
 						//hole passende Suchergebnisse
@@ -207,13 +230,20 @@ public class SuchController implements Controller {
 				//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
 				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
 				String AGname = this.viewErg.getAuswahl();
-				while( i.hasNext() ){
-					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
-					String kurzbez = AG.getKurzbezeichnung();
-					if( kurzbez.equals( AGname ) ){
-						this.auswahl = AG;
-						this.aufrufenderController.fortsetzen();
-						break;
+				if(AGname.equals(""))
+				{
+					HauptController.hauptfenster.setInfoBox("Bitte eine Arbeitsgruppe mit Klick in die Tabelle auswählen.");
+				}
+				else
+				{
+					while( i.hasNext() ){
+						Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
+						String kurzbez = AG.getKurzbezeichnung();
+						if( kurzbez.equals( AGname ) ){
+							this.auswahl = AG;
+							this.aufrufenderController.fortsetzen();
+							break;
+						}
 					}
 				}
 			}
@@ -230,19 +260,28 @@ public class SuchController implements Controller {
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
 				
-				while( i.hasNext() ){
-					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
-					String kurzbez = AG.getKurzbezeichnung();
-					if( kurzbez.equals( this.viewErg.getAuswahl() ) ){
-						try{
-							AG.loeschen();
-						}catch(Exception ex){
-							HauptController.hauptfenster.setInfoBox(ex.getMessage());
-						}
-						break;
-					}
+				String auswahl = this.viewErg.getAuswahl();
+				if(auswahl.equals(""))
+				{
+					popup.setVisible(false);
+					HauptController.hauptfenster.setInfoBox("Bitte die zu löschende Arbeitsgruppe mit Klick in die Tabelle auswählen.");
 				}
-				popup.setVisible(false);
+				else
+				{
+					while( i.hasNext() ){
+						Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
+						String kurzbez = AG.getKurzbezeichnung();
+						if( kurzbez.equals( auswahl) ){
+							try{
+								AG.loeschen();
+							}catch(Exception ex){
+								HauptController.hauptfenster.setInfoBox(ex.getMessage());
+							}
+							break;
+						}
+					}
+					popup.setVisible(false);
+				}
 			}
 			if(button.equals("Nein")){
 				popup.setVisible(false);
