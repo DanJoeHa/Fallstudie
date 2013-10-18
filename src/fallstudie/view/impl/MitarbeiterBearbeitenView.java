@@ -29,6 +29,7 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 	 * Create the panel.
 	 */
 	public MitarbeiterBearbeitenView() {
+		T_Benutzername.setEditable(false);
 		setPreferredSize(new Dimension(620, 655));
 		setMinimumSize(new Dimension(620, 655));
 		setMaximumSize(new Dimension(620, 655));
