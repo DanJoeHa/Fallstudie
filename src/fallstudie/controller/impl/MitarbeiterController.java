@@ -118,22 +118,7 @@ public class MitarbeiterController implements Controller {
 			suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(suche.getView() );
 			
-		}//Arbeitsgruppe suchen	
-			
-			/*
-			//**********WICHTIG****************** neue Operation, wenn Suche Ergebnis gefunden hat
-			
-			//gewählte AG speichern
-			this.arbeitsgruppe = (Arbeitsgruppe) sucheAG.getAuswahl();
-			
-			//AG-Kurzbezeichnung an Maske liefern
-			switch( this.operation )
-			{
-				case "anlegen": this.viewAnlegen.setArbeitsgruppe( this.arbeitsgruppe.getKurzbezeichnung() );
-				case "bearbeiten": this.view.setArbeitsgruppe( this.arbeitsgruppe.getKurzbezeichnung() );
-			}
-			*/
-		
+		}//Arbeitsgruppe suchen			
 		
 		//Mitarbeiter anlegen
 		if(this.operation.equals("anlegen"))
