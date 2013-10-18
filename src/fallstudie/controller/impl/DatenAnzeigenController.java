@@ -3,6 +3,7 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.exportieren.PDFDruck;
@@ -41,8 +42,6 @@ public class DatenAnzeigenController implements Controller {
 		this.view = new DatenAnzeigenAuswahlView();
 		this.view.setController( this );
 		
-		//Bereiche befüllen
-		this.bereiche = Bereich.getAlleBereiche();
 	}
 	
 	/**
@@ -62,6 +61,9 @@ public class DatenAnzeigenController implements Controller {
 			//View laden
 			this.viewErg = new TabelleView();
 			this.viewErg.setController( this );
+			
+			//Bereiche-Collection initiieren/zurücksetzen
+			this.bereiche = new LinkedList<>();
 			
 			//Angaben holen
 			try
@@ -168,7 +170,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				int anzZeilen = oJahr.getZeileBereich().size();
 				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-				//if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich()); //hier schebberts
+				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
 				
 			}
 			
@@ -283,7 +285,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				int anzZeilen = oWoche.getZeileBereich().size();
 				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-				//if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich()); //hier schebberts
+				if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich());
 			}
 			
 			//DrillDown-Button und ComboBox anzeigen
@@ -458,7 +460,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				int anzZeilen = oJahr.getZeileBereich().size();
 				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-				//if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich()); //hier schebberts
+				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
 				
 			}
 			
@@ -522,7 +524,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				int anzZeilen = oJahr.getZeileBereich().size();
 				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
-				//if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich()); //hier schebberts
+				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
 			}
 			
 			sumcol = coWochenuebersichten.size() + 1;
