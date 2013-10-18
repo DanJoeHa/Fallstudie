@@ -235,12 +235,12 @@ public class Mitarbeiter {
 		
 		//System.out.println("SELECT Benutzername From Mitarbeiter");
 		//Checken obs den Mitarbeiter schon gibt.
-		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-				"SELECT Benutzername From Mitarbeiter");
+		
 		
 	if(!benutzername.equals(""))
 	{			
-	
+		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+				"SELECT Benutzername From Mitarbeiter");
 		while (checkObVorhanden.next()) 
 		{
 
@@ -254,10 +254,10 @@ public class Mitarbeiter {
 		
 		
 		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
-				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+arbeitsgruppeID+"'");
+				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+arbeitsgruppeID+"')");
 		
-		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
-				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+arbeitsgruppeID+"'");
+		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
+				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+arbeitsgruppeID+"')");
 		
 		this.benutzername = benutzername;
 		this.passwort = verschluesseltPasswort;
