@@ -124,13 +124,20 @@ public class SuchController implements Controller {
 				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
 				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 				String name = this.viewErg.getAuswahl();
-				while( i.hasNext() ){
-					Mitarbeiter MA = (Mitarbeiter) i.next();
-					String benutzername = MA.getBenutzername();
-					if( benutzername.equals( name ) ){
-						this.auswahl = MA;
-						this.aufrufenderController.fortsetzen();
-						break;
+				if(name.equals(""))
+				{
+					HauptController.hauptfenster.setInfoBox("Bitte einen Mitarbeiter mit Klick in die Tabelle auswählen.");
+				}
+				else
+				{
+					while( i.hasNext() ){
+						Mitarbeiter MA = (Mitarbeiter) i.next();
+						String benutzername = MA.getBenutzername();
+						if( benutzername.equals( name ) ){
+							this.auswahl = MA;
+							this.aufrufenderController.fortsetzen();
+							break;
+						}
 					}
 				}
 			}
@@ -215,13 +222,20 @@ public class SuchController implements Controller {
 				//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
 				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
 				String AGname = this.viewErg.getAuswahl();
-				while( i.hasNext() ){
-					Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
-					String kurzbez = AG.getKurzbezeichnung();
-					if( kurzbez.equals( AGname ) ){
-						this.auswahl = AG;
-						this.aufrufenderController.fortsetzen();
-						break;
+				if(AGname.equals(""))
+				{
+					HauptController.hauptfenster.setInfoBox("Bitte eine Arbeitsgruppe mit Klick in die Tabelle auswählen.");
+				}
+				else
+				{
+					while( i.hasNext() ){
+						Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
+						String kurzbez = AG.getKurzbezeichnung();
+						if( kurzbez.equals( AGname ) ){
+							this.auswahl = AG;
+							this.aufrufenderController.fortsetzen();
+							break;
+						}
 					}
 				}
 			}
