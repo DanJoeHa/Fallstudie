@@ -18,11 +18,13 @@ public class DatenAnzeigenController implements Controller {
 	private DatenAnzeigenAuswahlView view;
 	private TabelleView viewErg;
 	
-	private String headline = "Daten anzeigen ";
+	private String headline;
 	private String[] tabellenspalten = new String[1];
 	private Object[][] tabellenwerte = new Object[1][1];
-	private int kw;
-	private int jahr;
+	private String[][] aArtPos;
+	private int artName = 0;
+	private int artZeile = 1;
+	private int kw, jahr, sumcol;
 	private Collection<Bereich> bereiche;
 	
 	/**
@@ -69,7 +71,7 @@ public class DatenAnzeigenController implements Controller {
 				//Jahresübersicht
 				if( kw == 0 ){
 					
-					this.headline += "Jahr " + jahr;
+					this.headline = "Daten anzeigen Jahr " + jahr;
 					
 					//Jahresübersicht Zentralbereichsleiter/Fachbereichsorganisation
 					if( HauptController.activeUser.checkRecht("Lesen alle Bereiche Jahr") ) this.uebersichtJahrZentralbereichsleiter();
@@ -87,7 +89,7 @@ public class DatenAnzeigenController implements Controller {
 				}else{
 				//Kalenderwochenübersicht
 					
-					this.headline += "KW " + kw + "/" + jahr;
+					this.headline = "Daten anzeigen Jahr " + jahr + "KW " + kw + "/" + jahr;
 					
 					//Kalenderwochenübersicht Zentralbereichsleiter/Fachbereichsorganisation
 					if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ) this.uebersichtWocheZentralbereichsleiter();
@@ -155,19 +157,20 @@ public class DatenAnzeigenController implements Controller {
 			this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
 			this.viewErg.setDrillDown(true);
 			
-			tabellenspalten = new String[ coJahresuebersichten.size() + 1 ];
-			tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 1 ];
+			sumcol = coJahresuebersichten.size() + 1;
+			tabellenspalten = new String[ coJahresuebersichten.size() + 2 ];
+			tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 2 ];
 			tabellenspalten[0] = "Art\\Bereich";
+			tabellenspalten[sumcol] = "Summe";
 			
 			//Schleifenvars
 			int spalte = 1;
-			String[][] aArtPos = new String[maxZeilen][2]; 
+			aArtPos = new String[maxZeilen][2]; 
 			for(int s = 0; s < maxZeilen; s++){
 				aArtPos[s][0] = "";
 				aArtPos[s][1] = "";
 			}
-			int artName = 0;
-			int artZeile = 1;
+			
 			int i = 0;
 			
 			//alle Jahresuebersichten aus Collection durchlaufen
@@ -186,36 +189,8 @@ public class DatenAnzeigenController implements Controller {
 				//alle Zeilen durchlaufen
 				while( itZeile.hasNext() ){
 					
-					//naechste Zeile holen
-					Zeile oZeile = (Zeile) itZeile.next();
-					
-					//prüfen ob Art bereits in Tabellenarray vorhanden und wenn ja wo
-					int artInZeile;
-					boolean found = false;
-					for(artInZeile = 0; artInZeile < aArtPos.length; artInZeile++){
-						//wenn Schleife an erster Stelle ohne Inhalt angekommen ist, abbrechen
-						if( aArtPos[artInZeile][artName].isEmpty() ) break;
-						
-						//wenn Uebereinstimmung zwischen Zeilenart und Arrayspeicher gefunden
-						if( aArtPos[artInZeile][artName].equals( oZeile.getArt().getName() ) ){
-							found = true;
-							break;	
-						}
-					}
-					
-					//Tabellenzeile bestimmen
-					int zeile = 0;
-					if(found){
-						zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
-					}else{
-						zeile = i;
-						tabellenwerte[zeile][0] = oZeile.getArt().getName();
-						aArtPos[artInZeile][artName] = oZeile.getArt().getName();
-						aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
-					}
-					
-					//Tabellenwert in Spalte & Zeile eintragen
-					tabellenwerte[zeile][spalte] = Integer.toString( oZeile.getSumme() );
+					//Zeile hinzufügen
+					this.addZeile(itZeile, i, spalte, true);
 					i++;
 				}
 				
@@ -296,19 +271,19 @@ public class DatenAnzeigenController implements Controller {
 			this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
 			this.viewErg.setDrillDown(true);
 			
-			tabellenspalten = new String[ coWochenuebersichten.size() + 1 ];
-			tabellenwerte = new Object[ maxZeilen ][ coWochenuebersichten.size() + 1 ];
+			sumcol = coWochenuebersichten.size() + 1;
+			tabellenspalten = new String[ coWochenuebersichten.size() + 2 ];
+			tabellenwerte = new Object[ maxZeilen ][ coWochenuebersichten.size() + 2 ];
 			tabellenspalten[0] = "Art\\Bereich";
+			tabellenspalten[sumcol] = "Summe";
 			
 			//Schleifenvars
 			int spalte = 1;
-			String[][] aArtPos = new String[maxZeilen][2]; 
+			aArtPos = new String[maxZeilen][2]; 
 			for(int s = 0; s < maxZeilen; s++){
 				aArtPos[s][0] = "";
 				aArtPos[s][1] = "";
 			}
-			int artName = 0;
-			int artZeile = 1;
 			int i = 0;
 			
 			//alle Wochenuebersichten aus Collection durchlaufen
@@ -326,36 +301,8 @@ public class DatenAnzeigenController implements Controller {
 				//alle Zeilen durchlaufen
 				while( itZeile.hasNext() ){
 					
-					//naechste Zeile holen
-					Zeile oZeile = (Zeile) itZeile.next();
-					
-					//prüfen ob Art bereits in Tabellenarray vorhanden und wenn ja wo
-					int artInZeile;
-					boolean found = false;
-					for(artInZeile = 0; artInZeile < aArtPos.length; artInZeile++){
-						//wenn Schleife an erster Stelle ohne Inhalt angekommen ist, abbrechen
-						if( aArtPos[artInZeile][artName].isEmpty() ) break;
-						
-						//wenn Uebereinstimmung zwischen Zeilenart und Arrayspeicher gefunden
-						if( aArtPos[artInZeile][artName].equals( oZeile.getArt().getName() ) ){
-							found = true;
-							break;	
-						}
-					}
-					
-					//Tabellenzeile bestimmen
-					int zeile = 0;
-					if(found){
-						zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
-					}else{
-						zeile = i;
-						tabellenwerte[zeile][0] = oZeile.getArt().getName();
-						aArtPos[artInZeile][artName] = oZeile.getArt().getName();
-						aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
-					}
-					
-					//Tabellenwert in Spalte & Zeile eintragen
-					tabellenwerte[zeile][spalte] = Integer.toString( oZeile.getSumme() );
+					//Zeile hinzufügen
+					this.addZeile(itZeile, i, spalte, true);
 					i++;
 				}
 				
@@ -497,21 +444,20 @@ public class DatenAnzeigenController implements Controller {
 			}
 			
 			
-			int sumcol = coJahresuebersichten.size() + 1;
-			tabellenspalten = new String[ sumcol + 1 ];
-			tabellenwerte = new Object[ maxZeilen ][ sumcol + 1 ];
+			sumcol = coJahresuebersichten.size() + 1;
+			tabellenspalten = new String[ coJahresuebersichten.size() + 2 ];
+			tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 2 ];
 			tabellenspalten[0] = "Art\\Arbeitsgruppe";
 			tabellenspalten[sumcol] = "Summe";
 			
 			//Schleifenvars
 			int spalte = 1;
-			String[][] aArtPos = new String[maxZeilen][2]; 
+			aArtPos = new String[maxZeilen][2]; 
 			for(int s = 0; s < maxZeilen; s++){
 				aArtPos[s][0] = "";
 				aArtPos[s][1] = "";
 			}
-			int artName = 0;
-			int artZeile = 1;
+
 			int i = 0;
 			
 			//alle Jahresuebersichten aus Collection durchlaufen
@@ -525,42 +471,12 @@ public class DatenAnzeigenController implements Controller {
 				//alle Zeilen des aktiven Jahresbericht holen un mit durchzählen
 				Collection<Zeile> z = oJahresuebersicht.getZeileArbeitsgruppe();
 				Iterator<Zeile> itZeile = z.iterator();
-				//int i = 0;
 				
 				//alle Zeilen durchlaufen
 				while( itZeile.hasNext() ){
 					
-					//naechste Zeile holen
-					Zeile oZeile = (Zeile) itZeile.next();
-					
-					//prüfen ob Art bereits in Tabellenarray vorhanden und wenn ja wo
-					int artInZeile;
-					boolean found = false;
-					for(artInZeile = 0; artInZeile < aArtPos.length; artInZeile++){
-						//wenn Schleife an erster Stelle ohne Inhalt angekommen ist, abbrechen
-						if( aArtPos[artInZeile][artName].isEmpty() ) break;
-						
-						//wenn Uebereinstimmung zwischen Zeilenart und Arrayspeicher gefunden
-						if( aArtPos[artInZeile][artName].equals( oZeile.getArt().getName() ) ){
-							found = true;
-							break;	
-						}
-					}
-					
-					//Tabellenzeile bestimmen
-					int zeile = 0;
-					if(found){
-						zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
-					}else{
-						zeile = i;
-						tabellenwerte[zeile][0] = oZeile.getArt().getName();
-						aArtPos[artInZeile][artName] = oZeile.getArt().getName();
-						aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
-					}
-					
-					//Tabellenwert in Spalte & Zeile eintragen
-					tabellenwerte[zeile][spalte] = Integer.toString( oZeile.getSumme() );
-					tabellenwerte[zeile][sumcol] = Integer.toString( Integer.parseInt( tabellenwerte[zeile][sumcol].toString() ) + oZeile.getSumme() );
+					//Zeile hinzufügen
+					this.addZeile(itZeile, i, spalte, true);
 					i++;
 				}
 				
@@ -590,22 +506,20 @@ public class DatenAnzeigenController implements Controller {
 				//if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich()); //hier schebberts
 			}
 			
-			
-			int sumcol = coWochenuebersichten.size() + 1;
-			tabellenspalten = new String[ sumcol + 1 ];
-			tabellenwerte = new Object[ maxZeilen ][ sumcol + 1 ];
+			sumcol = coWochenuebersichten.size() + 1;
+			tabellenspalten = new String[ coWochenuebersichten.size() + 2 ];
+			tabellenwerte = new Object[ maxZeilen ][ coWochenuebersichten.size() + 2 ];
 			tabellenspalten[0] = "Art\\Arbeitsgruppe";
 			tabellenspalten[sumcol] = "Summe";
 			
 			//Schleifenvars
 			int spalte = 1;
-			String[][] aArtPos = new String[maxZeilen][2]; 
+			aArtPos = new String[maxZeilen][2]; 
 			for(int s = 0; s < maxZeilen; s++){
 				aArtPos[s][0] = "";
 				aArtPos[s][1] = "";
 			}
-			int artName = 0;
-			int artZeile = 1;
+			
 			int i = 0;
 			
 			//alle Wochenuebersichten aus Collection durchlaufen
@@ -623,37 +537,8 @@ public class DatenAnzeigenController implements Controller {
 				//alle Zeilen durchlaufen
 				while( itZeile.hasNext() ){
 					
-					//naechste Zeile holen
-					Zeile oZeile = (Zeile) itZeile.next();
-					
-					//prüfen ob Art bereits in Tabellenarray vorhanden und wenn ja wo
-					int artInZeile;
-					boolean found = false;
-					for(artInZeile = 0; artInZeile < aArtPos.length; artInZeile++){
-						//wenn Schleife an erster Stelle ohne Inhalt angekommen ist, abbrechen
-						if( aArtPos[artInZeile][artName].isEmpty() ) break;
-						
-						//wenn Uebereinstimmung zwischen Zeilenart und Arrayspeicher gefunden
-						if( aArtPos[artInZeile][artName].equals( oZeile.getArt().getName() ) ){
-							found = true;
-							break;	
-						}
-					}
-					
-					//Tabellenzeile bestimmen
-					int zeile = 0;
-					if(found){
-						zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
-					}else{
-						zeile = i;
-						tabellenwerte[zeile][0] = oZeile.getArt().getName();
-						aArtPos[artInZeile][artName] = oZeile.getArt().getName();
-						aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
-					}
-					
-					//Tabellenwert in Spalte & Zeile eintragen
-					tabellenwerte[zeile][spalte] = Integer.toString( oZeile.getSumme() );
-					tabellenwerte[zeile][sumcol] = Integer.toString( Integer.parseInt( tabellenwerte[zeile][sumcol].toString() ) + oZeile.getSumme() );
+					//Zeile hinzufügen
+					this.addZeile(itZeile, i, spalte, true);
 					i++;
 				}
 				
@@ -664,6 +549,59 @@ public class DatenAnzeigenController implements Controller {
 		}catch(Exception ex){
 			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden");
 			ex.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Fügt dem Bericht eine Zeile hinzu
+	 * 
+	 * @param itZeile
+	 * @param i
+	 * @param spalte
+	 */
+	private void addZeile(Iterator<Zeile> itZeile, int i, int spalte, boolean summierung){
+		
+		//naechste Zeile holen
+		Zeile oZeile = (Zeile) itZeile.next();
+		
+		//prüfen ob Art bereits in Tabellenarray vorhanden und wenn ja wo
+		int artInZeile;
+		boolean found = false;
+		for(artInZeile = 0; artInZeile < aArtPos.length; artInZeile++){
+			//wenn Schleife an erster Stelle ohne Inhalt angekommen ist, abbrechen
+			if( aArtPos[artInZeile][artName].isEmpty() ) break;
+			
+			//wenn Uebereinstimmung zwischen Zeilenart und Arrayspeicher gefunden
+			if( aArtPos[artInZeile][artName].equals( oZeile.getArt().getName() ) ){
+				found = true;
+				break;	
+			}
+		}
+		
+		//Tabellenzeile bestimmen
+		int zeile = 0;
+		if(found){
+			zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
+		}else{
+			zeile = i;
+			tabellenwerte[zeile][0] = oZeile.getArt().getName();
+			aArtPos[artInZeile][artName] = oZeile.getArt().getName();
+			aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
+		}
+		
+		//Tabellenwert in Spalte & Zeile eintragen
+		tabellenwerte[zeile][spalte] = Integer.toString( oZeile.getSumme() );
+		
+		//wenn Summierung erforderlich, Summenspalte befüllen
+		if(summierung){
+			int sum = 0;
+			if( tabellenwerte[zeile][sumcol] != null ){				
+				sum += Integer.parseInt( tabellenwerte[zeile][sumcol].toString() ) + oZeile.getSumme();
+			}else{
+				sum += oZeile.getSumme();
+			}
+			tabellenwerte[zeile][sumcol] = Integer.toString( sum );
 		}
 		
 	}
