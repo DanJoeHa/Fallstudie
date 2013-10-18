@@ -141,7 +141,10 @@ public class DatenAnzeigenController implements Controller {
 		if( button.equals("DrillDown") ) this.drilldown();
 		
 		//Abbrechen-Button
-		if( button.equals("Abbrechen") ) HauptController.hauptfenster.zurueck();
+		if( button.equals("Abbrechen") ){
+			HauptController.hauptfenster.zurueck();
+			HauptController.hilfefenster.setHinweis(HilfeTexte.DatenAnzeigenAuswahlView);
+		}
 
 	}
 	
