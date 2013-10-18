@@ -22,13 +22,11 @@ public class SuchController implements Controller {
 	private Collection<Arbeitsgruppe> suchergebnisseAg;
 	private String operation;
 	private Object auswahl = null;
-	private String suchbegriff;
+	private String suchbegriff = "";
 	public static BestaetigenPopup popup;
 	
 	private Controller aufrufenderController;
-	
-	
-	
+
 	public SuchController(){
 		
 	}
@@ -70,8 +68,16 @@ public class SuchController implements Controller {
 			HauptController.hauptfenster.zurueck();
 		}
 		
+		//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
+		if( button == "Löschen" ){
+			popup = new BestaetigenPopup();
+			popup.setController(this);
+			popup.setTitle("Löschen");
+			popup.setAusgabe(HilfeTexte.LoeschenPopup);	
+		}
+		
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
-			if( button == "Suchen" ){
+			if( button.equals( "Suchen" ) ){
 				try{
 						
 						//initiere Ergebnistabelle
@@ -83,11 +89,9 @@ public class SuchController implements Controller {
 
 						this.viewErg.setButtonName("auswählen");
 						
-						
-						
-						String suche;
+						String suche = "";
 						if(e.getID() == 1 ){
-							suche = this.suchbegriff;
+							if( !this.suchbegriff.isEmpty() ) suche = this.suchbegriff;
 						}
 						else
 						{
@@ -113,7 +117,7 @@ public class SuchController implements Controller {
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
-			if( button == "auswählen" ){
+			if( button.equals( "auswählen" ) ){
 				
 				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
 				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
@@ -136,17 +140,6 @@ public class SuchController implements Controller {
 				}
 			}
 			
-			
-			//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
-			if( button == "Löschen" ){
-
-				popup = new BestaetigenPopup();
-				popup.setController(this);
-				popup.setTitle("Löschen");
-				popup.setAusgabe(HilfeTexte.LoeschenPopup);
-			
-				
-			}
 			if(button.equals("Ja")){
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
@@ -191,10 +184,9 @@ public class SuchController implements Controller {
 						this.viewErg.setButtonName("auswählen");
 						
 						//hole passende Suchergebnisse
-						
-						String suche;
+						String suche = "";
 						if(e.getID() == 1 ){
-							suche = this.suchbegriff;
+							if( !this.suchbegriff.isEmpty() ) suche = this.suchbegriff;
 						}
 						else
 						{
@@ -220,7 +212,7 @@ public class SuchController implements Controller {
 			}
 		
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
-			if( button == "auswählen" ){
+			if( button.equals( "auswählen" ) ){
 				//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
 				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
 				String AGname = this.viewErg.getAuswahl();
@@ -242,14 +234,6 @@ public class SuchController implements Controller {
 				}
 			}
 			
-			//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
-			if( button == "Löschen" ){
-				//TODO: popup wirklich löschen
-				popup = new BestaetigenPopup();
-				popup.setController(this);
-				popup.setTitle("Löschen");
-				popup.setAusgabe(HilfeTexte.LoeschenPopup);
-			}
 			if(button.equals("Ja")){
 				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
@@ -301,8 +285,5 @@ public class SuchController implements Controller {
 	}
 
 	@Override
-	public void fortsetzen() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void fortsetzen() {}
 }

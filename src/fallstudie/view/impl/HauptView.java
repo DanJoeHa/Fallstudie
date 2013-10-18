@@ -20,7 +20,7 @@ public class HauptView extends JFrame implements View{
 
 	private static final long serialVersionUID = 999907361524491947L;
 	private JPanel Content, NavigationBackground;
-	private View activeView, lastView;
+	private View activeView, lastView, lastlastView;
 	private JButton B_Logout, B_Hilfe;
 	private JTextPane InfoBox;
 	private JTree Navigation;
@@ -201,6 +201,7 @@ public class HauptView extends JFrame implements View{
 		}
 		this.Content.add(v);
 		v.repaint();
+		this.lastlastView = this.lastView;
 		this.lastView = this.activeView;
 		this.activeView = vi;
 		this.Content.doLayout();
@@ -209,8 +210,11 @@ public class HauptView extends JFrame implements View{
 	}
 	
 	public void zurueck(){
-		
-		this.setContent( this.lastView );
+		if( this.lastView.equals(this.activeView) ){
+			this.setContent(this.lastlastView);
+		}else{
+			this.setContent( this.lastView );
+		}
 	}
 	
 	@Override

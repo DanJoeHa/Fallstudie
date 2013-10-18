@@ -95,9 +95,7 @@ public class TabelleView extends JPanel implements View {
 	public void setTabelle(String[] tabellenheadline,Object[][] tabellenwerte){
 		
 		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellenheadline){
-			/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int x, int y) {

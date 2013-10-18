@@ -47,7 +47,6 @@ public class HauptController implements Controller, TreeSelectionListener {
 		hauptfenster.setUeberschrift("Login");
 		hauptfenster.setContent( activeController.getView() );
 		
-		
 	}
 	
 	/**
