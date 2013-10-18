@@ -179,7 +179,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 						acedit.setOperation("bearbeiten");
 						this.activeController = acedit;
 						hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
-						hilfefenster.setHinweis( HilfeTexte.ArbeitsgruppeBearbeitenAnlegenView);
+						hilfefenster.setHinweis( HilfeTexte.SuchenView);
 						hilfefenster.setTitle("Hilfe - AG bearbeiten");
 						break;
 					case "löschen":
@@ -236,7 +236,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 						bcedit.setOperation("bearbeiten");
 						this.activeController = bcedit;
 						hauptfenster.setUeberschrift("Bereich bearbeiten");
-						hilfefenster.setHinweis( HilfeTexte.BereichBearbeitenAnlegenView);
+						hilfefenster.setHinweis( HilfeTexte.BereichBearbeiten);
 						hilfefenster.setTitle("Hilfe - Bereich bearbeiten");
 						break;
 					case "löschen":
