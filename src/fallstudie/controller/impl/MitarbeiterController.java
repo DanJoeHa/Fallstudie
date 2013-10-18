@@ -28,10 +28,10 @@ public class MitarbeiterController implements Controller {
 	private String operation;
 	private Collection<Rolle> rollen;
 	private Collection<Bereich> bereiche;
-	private Arbeitsgruppe arbeitsgruppe;
 	private Mitarbeiter gewaehlterMitarbeiter;
 	private Arbeitsgruppe gewaehlteAG;
 	private SuchController suche;
+	private boolean suchag = false;
 	
 	
 	/**
@@ -186,7 +186,7 @@ public class MitarbeiterController implements Controller {
 				if( rollenbezeichnung.equals("Zentralbereichsleiter") || rollenbezeichnung.equals("Bereichsleiter") ){
 					if( !this.gewaehlterMitarbeiter.setBereich( this.findeBereichZuBezeichnung( this.view.getBereich() ) ) ) errmsg+= "Bereich konnte nicht geändert werden. \n";
 				}else{
-					if( !this.gewaehlterMitarbeiter.setArbeitsgruppe( this.arbeitsgruppe ) ) errmsg+= "Arbeitsgruppe konnte nicht geändert werden. \n";
+					if( !this.gewaehlterMitarbeiter.setArbeitsgruppe( this.gewaehlteAG ) ) errmsg+= "Arbeitsgruppe konnte nicht geändert werden. \n";
 				}
 				
 				//Rückmeldung an User ausgeben
@@ -260,29 +260,44 @@ public class MitarbeiterController implements Controller {
 		
 		try{ //if(this.operation.equals("bearbeiten"))
 			
-			//Mitarbeiter bearbeiten View
-			this.view = new MitarbeiterBearbeitenView();
-			this.view.setController( this );
+			//Mitarbeiter zur Bearbeitung ausgewählt
+			if(!suchag){
+				
+				//Mitarbeiter bearbeiten View
+				this.view = new MitarbeiterBearbeitenView();
+				this.view.setController( this );
+				
+				//ausgewählten Mitarbeiter holen
+				this.gewaehlterMitarbeiter = (Mitarbeiter) suche.getAuswahl();
+				
+				this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
+				this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
+				this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
+				this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
+				try{
+					this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
+				}
+				catch (Exception ex)
+				{
+					this.view.setArbeitsgruppe("");
+				}
+				this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
+				HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
+				HauptController.hauptfenster.setContent( this.view );
+				this.view.repaint();
+				this.suchag = true;
 			
-			//ausgewählten Mitarbeiter holen
-			this.gewaehlterMitarbeiter = (Mitarbeiter) suche.getAuswahl();
-			
-			this.view.setVorname( this.gewaehlterMitarbeiter.getVorname() );
-			this.view.setNachname( this.gewaehlterMitarbeiter.getNachname() );
-			this.view.setBenutzername( this.gewaehlterMitarbeiter.getBenutzername() );
-			this.view.setRolle(Funktionen.RollenCollection2Array(this.rollen), this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung() );
-			try{
-				this.view.setArbeitsgruppe( this.gewaehlterMitarbeiter.getArbeitsgruppe().getKurzbezeichnung());
+			}else{
+				//Arbeitsgruppe für zu bearbeitenden Mitarbeiter ausgewählt
+				this.gewaehlteAG = (Arbeitsgruppe) this.suche.getAuswahl();
+				this.view.setArbeitsgruppe(gewaehlteAG.getKurzbezeichnung());
+				
+				HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
+				HauptController.hauptfenster.setContent( this.view );
+				this.view.repaint();
+				
 			}
-			catch (Exception ex)
-			{
-				this.view.setArbeitsgruppe("");
-			}
-			this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
-			HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
-			HauptController.hauptfenster.setContent( this.view );
-			this.view.repaint();
-			
+				
 		}catch(Exception ex){ //if(this.operation.equals("anlegen"))
 			
 			//ausgewählte Arbeitsgruppe holen
