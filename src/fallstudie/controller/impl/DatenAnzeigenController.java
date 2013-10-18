@@ -3,6 +3,7 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Bereich;
@@ -10,6 +11,7 @@ import fallstudie.model.impl.Jahresuebersicht;
 import fallstudie.model.impl.Wochenuebersicht;
 import fallstudie.model.impl.Zeile;
 import fallstudie.view.impl.DatenAnzeigenAuswahlView;
+import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.TabelleView;
 import fallstudie.view.interfaces.View;
 
@@ -74,17 +76,24 @@ public class DatenAnzeigenController implements Controller {
 					this.headline = "Daten anzeigen Jahr " + jahr;
 					
 					//Jahresübersicht Zentralbereichsleiter/Fachbereichsorganisation
-					if( HauptController.activeUser.checkRecht("Lesen alle Bereiche Jahr") ) this.uebersichtJahrZentralbereichsleiter();
+					if( HauptController.activeUser.checkRecht("Lesen alle Bereiche Jahr") ){
+						this.uebersichtJahrZentralbereichsleiter();
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich);
+					}
 					
 					//Jahresübersicht Bereichsleiter
 					if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs Jahr") ){
 						Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
 						
 						this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 					}
 					
 					//Jahresübersicht Gruppenleiter
-					if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe Jahr") ) this.uebersichtJahrGruppenleiter();
+					if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe Jahr") ){
+						this.uebersichtJahrGruppenleiter();
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Arbeitsgruppeeinsehen_Gruppenleiter);
+					}
 					
 				}else{
 				//Kalenderwochenübersicht
@@ -92,17 +101,24 @@ public class DatenAnzeigenController implements Controller {
 					this.headline = "Daten anzeigen Jahr " + jahr + "KW " + kw + "/" + jahr;
 					
 					//Kalenderwochenübersicht Zentralbereichsleiter/Fachbereichsorganisation
-					if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ) this.uebersichtWocheZentralbereichsleiter();
+					if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ){
+						this.uebersichtWocheZentralbereichsleiter();
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich);
+					}
 					
 					//Kalenderwochenübersicht Bereichsleiter
 					if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs KW") ){
 						Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, HauptController.activeUser.getBereich() );
 						
 						this.generiereWochenuebersichtenZuBereich(coWochenuebersichten);
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 					}
 					
 					//Kalenderwochenübersicht Gruppenleiter
-					if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe KW") ) this.uebersichtWocheGruppenleiter();
+					if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe KW") ){
+						this.uebersichtWocheGruppenleiter();
+						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Arbeitsgruppeeinsehen_Gruppenleiter);
+					}
 				}
 				
 				//an TabelleView übergeben
