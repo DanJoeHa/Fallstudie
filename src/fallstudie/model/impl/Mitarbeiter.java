@@ -227,19 +227,20 @@ public class Mitarbeiter {
 				RemoteConnection.connect();
 			};
 			
-		
+		if(benutzername.length()>44 || passwort.length()>44 | vorname.length()>45 
+				|| nachname.length()>45) throw new Exception("Maximal 44 Zeichen erlaubt.");
 		//IDs und Namen herauskriegen
 		String rollenName = rolle.getRollenbezeichnung();
 		int arbeitsgruppeID = arbeitsgruppe.getID();
 		
 		//System.out.println("SELECT Benutzername From Mitarbeiter");
 		//Checken obs den Mitarbeiter schon gibt.
-		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-				"SELECT Benutzername From Mitarbeiter");
+		
 		
 	if(!benutzername.equals(""))
 	{			
-	
+		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+				"SELECT Benutzername From Mitarbeiter");
 		while (checkObVorhanden.next()) 
 		{
 
@@ -252,11 +253,11 @@ public class Mitarbeiter {
 		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 		
 		
-		/*System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
-				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+arbeitsgruppeID+"'");
-		*/
-		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
-				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"''"+arbeitsgruppeID+"'");
+		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
+				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+arbeitsgruppeID+"')");
+		
+		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
+				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+arbeitsgruppeID+"')");
 		
 		this.benutzername = benutzername;
 		this.passwort = verschluesseltPasswort;
@@ -297,7 +298,9 @@ public class Mitarbeiter {
 				RemoteConnection.connect();
 			};
 			
-		
+			if(benutzername.length()>44 || passwort.length()>44 | vorname.length()>45 
+					|| nachname.length()>45) throw new Exception("Maximal 44 Zeichen erlaubt.");
+			
 		//IDs und Namen herauskriegen
 		String rollenName = rolle.getRollenbezeichnung();
 		
