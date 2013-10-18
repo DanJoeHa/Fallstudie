@@ -28,5 +28,5 @@ public abstract class HilfeTexte {
 	public static String Tabelle_Mitarbeiteranlegen_Mitarbeiterbearbeiten_Arbeitsgruppebearbeiten_AG="Um eine Arbeitsgruppe auszuwählen klicken Sie auf die gewünschte Zeile und bestätigen mit 'Auswählen'";
 	public static String Tabelle_Mitarbeiterbearbearbeiten_Mitarbeiterloeschen_Arbeitsgruppeanlegen_Arbeitsgruppebearbeiten_Gruppenleiter_Bereichanlegen_Bereichsleiter_Bereichbearbeiten_Bereichsleiter="Um einen Mitarbeiter auszuwählen klicken Sie auf die gewünschte Zeile und bestätigen mit 'Auswählen'.";
 	public static String Tabelle_Arbeitsgruppeloeschen="Um eine Arbeitsgruppe zu löschen klicken Sie auf die gewünschte Zeile und bestätigen mit 'Löschen'.";
-
+	public static String BereichBearbeiten="Wählen Sie mit Hilfe der DropDownBox den gewünschten Bereich aus und drücken Sie auf den Knopf 'Bearbeiten'.";
 }
