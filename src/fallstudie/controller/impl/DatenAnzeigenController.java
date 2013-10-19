@@ -206,7 +206,6 @@ public class DatenAnzeigenController implements Controller {
 				//alle Zeilen des aktiven Jahresbericht holen un mit durchzählen
 				Collection<Zeile> z = oJahresuebersicht.getZeileBereich();
 				Iterator<Zeile> itZeile = z.iterator();
-				//int i = 0;
 				
 				//alle Zeilen durchlaufen
 				while( itZeile.hasNext() ){
