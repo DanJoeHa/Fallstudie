@@ -3,9 +3,6 @@ package fallstudie.exportieren;
  
 import java.awt.print.PrinterException;
 import java.io.IOException;
-import java.io.Serializable;
-
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.pdfbox.exceptions.COSVisitorException;
  
 public class ExportTesterKlasse {
