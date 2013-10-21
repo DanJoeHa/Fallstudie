@@ -100,7 +100,7 @@ public class MitarbeiterController implements Controller {
 		
 		//Abbrechen-Button
 		if( button.equals("Abbrechen") ){
-			HauptController.hauptfenster.zurueck();
+			HauptController.startMitarbeiterBearbeiten();
 		}
 		
 		//Arbeitsgruppe suchen

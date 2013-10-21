@@ -26,11 +26,15 @@ public class HauptController implements Controller, TreeSelectionListener {
 	public static HauptView hauptfenster;
 	public static Mitarbeiter activeUser;
 	public static SchliessenPopup hilfefenster;
+	private static HauptController hc;
 	
 	/**
 	 * Ruft das Hauptfenster der Anwendung auf und läd die LoginView hinein
 	 */
 	public HauptController(){
+		
+		//Instanz sichern
+		HauptController.hc = this;
 		
 		//Schließen-Popup vorbereiten
 		hilfefenster = new SchliessenPopup();
@@ -174,12 +178,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 						hilfefenster.setTitle("Hilfe - AG anlegen");
 						break;
 					case "bearbeiten":
-						ArbeitsgruppenController acedit = new ArbeitsgruppenController();
-						acedit.setOperation("bearbeiten");
-						this.activeController = acedit;
-						hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
-						hilfefenster.setHinweis( HilfeTexte.SuchenView);
-						hilfefenster.setTitle("Hilfe - AG bearbeiten");
+						startArbeitsgruppeBearbeiten();
 						break;
 					case "löschen":
 						SuchController ascdelete = new SuchController();
@@ -263,12 +262,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 						hilfefenster.setTitle("Hilfe - Mitarbeiter anlegen");
 						break;
 					case "bearbeiten":
-						MitarbeiterController mcedit = new MitarbeiterController();
-						mcedit.setOperation("bearbeiten");
-						this.activeController = mcedit;
-						hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
-						hilfefenster.setHinweis( HilfeTexte.MitarbeiterBearbeitenView);
-						hilfefenster.setTitle("Hilfe - Mitarbeiter bearbeiten");
+						startMitarbeiterBearbeiten();
 						break;
 					case "löschen":
 						SuchController mscdelete = new SuchController();
@@ -302,9 +296,36 @@ public class HauptController implements Controller, TreeSelectionListener {
 	}
 
 	@Override
-	public void fortsetzen() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void fortsetzen() {}
 
+	/**
+	 * Startet Arbeitsgruppe bearbeiten neu
+	 * 
+	 * @autor Johannes
+	 * @version 1.0
+	 */
+	public static void startArbeitsgruppeBearbeiten(){
+		ArbeitsgruppenController acedit = new ArbeitsgruppenController();
+		acedit.setOperation("bearbeiten");
+		HauptController.hc.activeController = acedit;
+		hauptfenster.setUeberschrift("Arbeitsgruppe bearbeiten");
+		hilfefenster.setHinweis( HilfeTexte.SuchenView);
+		hilfefenster.setTitle("Hilfe - AG bearbeiten");
+	}
+	
+	
+	/**
+	 * Startet Mitarbeiter bearbeiten neu
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
+	public static void startMitarbeiterBearbeiten(){
+		MitarbeiterController mcedit = new MitarbeiterController();
+		mcedit.setOperation("bearbeiten");
+		HauptController.hc.activeController = mcedit;
+		hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
+		hilfefenster.setHinweis( HilfeTexte.MitarbeiterBearbeitenView);
+		hilfefenster.setTitle("Hilfe - Mitarbeiter bearbeiten");
+	}
 }

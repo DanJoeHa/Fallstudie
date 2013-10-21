@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.tree.TreePath;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Bereich;
@@ -87,7 +90,7 @@ public class ArbeitsgruppenController implements Controller {
 		
 		//Abbrechen
 		if( button.equals("Abbrechen") ){
-			HauptController.hauptfenster.zurueck();
+			HauptController.startArbeitsgruppeBearbeiten();
 		}
 		
 		//Zurücksetzen
