@@ -27,24 +27,24 @@ public class SuchenView extends JPanel implements View {
 		setMinimumSize(new Dimension(620, 655));
 		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 620, 660));
+		setBounds(new Rectangle(0, 0, 620, 655));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
 		//T_Suchfeld
 		T_Suchfeld = new JTextField("");
-		T_Suchfeld.setBounds(182, 13, 264, 30);
+		T_Suchfeld.setBounds(200, 310, 220, 30);
 		add(T_Suchfeld);
 		
 		//B_Suchen
 		B_Suchen = new JButton("Suchen");
 		B_Suchen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Suchen.setBounds(458, 12, 150, 30);
+		B_Suchen.setBounds(440, 310, 150, 30);
 		add(B_Suchen);
 		
 		JLabel L_Hinweis = new JLabel("Bitte Suchbegriff eingeben");
-		L_Hinweis.setBounds(12, 16, 167, 23);
+		L_Hinweis.setBounds(30, 310, 170, 30);
 		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(L_Hinweis);
 		

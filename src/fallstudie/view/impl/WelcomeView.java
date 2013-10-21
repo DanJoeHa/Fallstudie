@@ -27,7 +27,7 @@ public class WelcomeView extends JPanel implements View{
 		setMinimumSize(new Dimension(620, 655));
 		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 620, 660));
+		setBounds(new Rectangle(0, 0, 620, 655));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -35,7 +35,7 @@ public class WelcomeView extends JPanel implements View{
 		//L_Hinweis
 		Hinweis = new JTextPane();
 		Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		Hinweis.setBounds(30, 11, 560, 100);
+		Hinweis.setBounds(30, 50, 560, 100);
 		Hinweis.setEditable(false);
 		this.add(Hinweis);
 		

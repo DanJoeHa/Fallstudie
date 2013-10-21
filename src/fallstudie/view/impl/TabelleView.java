@@ -33,18 +33,18 @@ public class TabelleView extends JPanel implements View {
 		setMinimumSize(new Dimension(620, 655));
 		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 620, 660));
+		setBounds(new Rectangle(0, 0, 620, 655));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
 		B_AuswaehlenLoeschen = new JButton("Löschen");
 		B_AuswaehlenLoeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_AuswaehlenLoeschen.setBounds(415, 600, 150, 30);
+		B_AuswaehlenLoeschen.setBounds(440, 600, 150, 30);
 		add(B_AuswaehlenLoeschen);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(45, 45, 520, 544);
+		scrollPane.setBounds(30, 50, 560, 540);
 		add(scrollPane);
 		
 		TA_Tabelle = new JTable();
@@ -57,17 +57,17 @@ public class TabelleView extends JPanel implements View {
 		
 		B_Abbrechen = new JButton("Abbrechen");
 		B_Abbrechen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_Abbrechen.setBounds(45, 600, 150, 30);
+		B_Abbrechen.setBounds(30, 600, 150, 30);
 		add(B_Abbrechen);
 		
 		C_DrillDown = new JComboBox<String>();
 		C_DrillDown.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_DrillDown.setBounds(365, 13, 101, 23);
+		C_DrillDown.setBounds(380, 13, 100, 30);
 		C_DrillDown.setVisible(false);
 		add(C_DrillDown);
 		
 		B_DrillDown = new JButton("DrillDown");
-		B_DrillDown.setBounds(476, 13, 89, 23);
+		B_DrillDown.setBounds(500, 13, 90, 30);
 		B_DrillDown.setVisible(false);
 		add(B_DrillDown);
 		
