@@ -149,12 +149,12 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 	    long milliseconds = System.currentTimeMillis(); 
 	    SimpleDateFormat sdf = new SimpleDateFormat( "dd.MM.yyyy'_'HH.mm.ss" ); 
 		Date resultdate = new Date(milliseconds);
-		File dir = new File(System.getProperty("user.home")+ "\\Desktop\\DatenExport");
+		File dir = new File(System.getProperty("user.home")+ "\\Desktop\\PDF aus Stippler");
 		if(!dir.exists())dir.mkdir();
 		
-	doc.save(System.getProperty("user.home")+ "\\Desktop\\PDFExport"+sdf.format(resultdate)+".pdf");
+	doc.save(System.getProperty("user.home")+ "\\Desktop\\PDF aus Stippler\\PDFExport_"+sdf.format(resultdate)+".pdf");
 	doc.close();
-	File PDF = new File(System.getProperty("user.home")+ "\\Desktop\\PDFExport"+sdf.format(resultdate)+".pdf");
+	File PDF = new File(System.getProperty("user.home")+ "\\Desktop\\PDF aus Stippler\\PDFExport_"+sdf.format(resultdate)+".pdf");
     Desktop.getDesktop().open(PDF);
 
 }
