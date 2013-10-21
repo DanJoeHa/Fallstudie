@@ -35,6 +35,7 @@ public class LoginController implements Controller
 				if( !HauptController.activeUser.passwortIsChanged() ){
 					PasswortController pc = new PasswortController();
 					HauptController.hauptfenster.setContent( pc.getView() );
+					HauptController.hauptfenster.setUeberschrift("Initial Passwort ändern");
 					HauptController.hilfefenster.setHinweis(HilfeTexte.PasswortaendernView);
 					HauptController.hilfefenster.setTitle("Hilfe - Passwort ändern");
 				}else{
