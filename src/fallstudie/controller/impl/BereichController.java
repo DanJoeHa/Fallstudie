@@ -248,14 +248,12 @@ public class BereichController implements Controller {
 	private void moveLeiter(){
 		//Leiter in neuen Bereich schieben und alten Bereich entfernen
 		if( oLeiter != null){
-			System.out.println("blub");
 			if( oLeiter.getBereich().getLeiter() != null ){
-				System.out.println("blub1");
 				//nur wenn Leiter = zu verschiebendem Leiter
 				if( oLeiter.getBereich().getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ){
-					System.out.println("blub2");
-					oLeiter.getBereich().setLeiter(null);
-					System.out.println("blub3");
+					try {
+						oLeiter.getBereich().setLeiter(null);
+					} catch (Exception e) {}
 				}
 			}
 			System.out.println("blub4");
