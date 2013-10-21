@@ -313,9 +313,10 @@ public class Bereich {
 	 * Beschreibung eines bereichs �ndern
 	 * @param beschreibung
 	 * @return
+	 * @throws Exception 
 	 */
 	
-	public boolean setBeschreibung(String beschreibung) {
+	public boolean setBeschreibung(String beschreibung) throws Exception {
 		boolean erfolgreich = false;
 		int RowsAffected;
 		try 
@@ -325,6 +326,7 @@ public class Bereich {
 					"UPDATE Bereich SET Beschreibung='"+beschreibung+"' WHERE BereichID='"+this.bereichID+"'");	
 				erfolgreich=true;
 		
+				if(RowsAffected==1)throw new Exception("Datensatz geändert.");
 			if(RowsAffected==0)	erfolgreich= false;
 		}
 			catch (SQLException e) {
@@ -360,6 +362,7 @@ public class Bereich {
 				int RowsAffected = RemoteConnection.sql.executeUpdate(
 						"UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
 	
+				if(RowsAffected==1)throw new Exception("Datensatz geändert.");
 				
 				erfolgreich=true;
 		
@@ -562,9 +565,10 @@ System.err.println("Fehler in Bereich löschen:");
 	 * Leiter eines Bereichs setzen
 	 * @param Mitarbeiter
 	 * @return
+	 * @throws Exception 
 	 */
 	
-	public boolean setLeiter(Mitarbeiter mitarbeiter) {
+	public boolean setLeiter(Mitarbeiter mitarbeiter) throws Exception {
 
 		boolean erfolgreich = false;
 		//Mitgegebener Bereich ID 
@@ -581,6 +585,8 @@ System.err.println("Fehler in Bereich löschen:");
 				
 				erfolgreich=true;
 			this.leiter  = mitarbeiter;
+			if(RowsAffect==1)throw new Exception("Datensatz geändert.");
+			
 				}
 				else if(mitarbeiter==null)
 				{
@@ -591,6 +597,8 @@ System.err.println("Fehler in Bereich löschen:");
 					
 					erfolgreich=true;
 					this.leiter  = null;
+					if(RowsAffect==1)throw new Exception("Datensatz geändert.");
+					
 				}
 				
 		}
