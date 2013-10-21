@@ -50,24 +50,34 @@ public class PasswortController implements Controller {
 			//Prüfe, ob altes Passwort mit derzeitigem Passwort übereinstimmt
 			if( HauptController.activeUser.checkPasswort(altesPasswort)){
 				
-				//Prüfe, ob neues Passwort und dessen Wiederholung gleich sind
-				if(wdhPasswort.equals(neuesPasswort)){
+				//Pürfe, neues Passwort vorhanden
+				if(!neuesPasswort.equals(""))
+				{
 					
-					//Prüfe, ob neues Passowrt mit dem alten Passowort übereinstimmt
-					if(!altesPasswort.equals(neuesPasswort)){
-						HauptController.activeUser.setPasswort(neuesPasswort);
-						HauptController.hauptfenster.setInfoBox("Passwort erfolgreich geändert");
+					//Prüfe, ob neues Passwort und dessen Wiederholung gleich sind
+					if(wdhPasswort.equals(neuesPasswort)){
+						
+						//Prüfe, ob neues Passowrt mit dem alten Passowort übereinstimmt
+						if(!altesPasswort.equals(neuesPasswort)){
+							HauptController.activeUser.setPasswort(neuesPasswort);
+							HauptController.hauptfenster.setInfoBox("Passwort erfolgreich geändert");
+							this.view.reset();
+						}
+						else{
+							HauptController.hauptfenster.setInfoBox("Ihr Passwort wurde nicht geändert! Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen");
+							this.view.reset();
+						}
+						
+					}
+					else
+					{
+						HauptController.hauptfenster.setInfoBox("Passwörter stimmen nicht überein");
 						this.view.reset();
 					}
-					else{
-						HauptController.hauptfenster.setInfoBox("Ihr Passwort wurde nicht geändert! Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen");
-						this.view.reset();
-					}
-					
 				}
 				else
 				{
-					HauptController.hauptfenster.setInfoBox("Passwörter stimmen nicht überein");
+					HauptController.hauptfenster.setInfoBox("Bitte neues Passwort eintragen.");
 					this.view.reset();
 				}
 			}
