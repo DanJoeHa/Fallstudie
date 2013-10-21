@@ -98,7 +98,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 						C_Bereich.setVisible(false);
 						revalidate();
 					} 
-					else if(wahl.matches("Fachbereichsorganisation")||wahl.matches("Zentralsbereichsleiter")){
+					else if(wahl.matches("Fachbereichsorganisation")||wahl.matches("Zentralbereichsleiter")){
 						//Arbeitsgruppe ausblenden
 						T_Arbeitsgruppe.setVisible(false);
 						B_SucheArbeitsgruppe.setVisible(false);
