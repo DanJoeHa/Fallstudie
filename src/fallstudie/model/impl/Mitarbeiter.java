@@ -152,44 +152,28 @@ public class Mitarbeiter {
 	
 	public Mitarbeiter(String benutzername, String passwort,
 			String vorname, String nachname, Rolle rolle, Bereich bereich) throws Exception {
-		
+		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
 				RemoteConnection.connect();
 			};
 			
-		
+			if(benutzername.length()>44 || passwort.length()>44 | vorname.length()>45 
+					|| nachname.length()>45) throw new Exception("Maximal 44 Zeichen erlaubt.");
+			
 		//IDs und Namen herauskriegen
 		String rollenName = rolle.getRollenbezeichnung();
 		int bereichID = bereich.getID();
 		
-		//System.out.println("SELECT Benutzername From Mitarbeiter");
+		System.out.println("SELECT * From Mitarbeiter");
 		//Checken obs den Mitarbeiter schon gibt.
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-				"SELECT Benutzername From Mitarbeiter");
+				"SELECT * From Mitarbeiter");
+		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
+		
 		if(!benutzername.equals(""))
 		{
-			while (checkObVorhanden.next()) 
-			{
-					
-					String value = checkObVorhanden.getString("Benutzername");
-					//System.out.println(value);
-					if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
-					
-			}
-			checkObVorhanden.close();
-			//passwort wird verschl�sselt in die DB geschrieben
-			String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
-			
-			
-			System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
-			" VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
-			
-			int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
-					"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
-			
-			
 			
 			this.benutzername = benutzername;
 			this.passwort = verschluesseltPasswort;
@@ -197,6 +181,39 @@ public class Mitarbeiter {
 			this.nachname = nachname;
 			this.rolle = rolle;
 			this.bereich = bereich;
+			
+			while (checkObVorhanden.next()) 
+			{		
+					boolean aktiv = checkObVorhanden.getBoolean("Aktiv");					
+					String value = checkObVorhanden.getString("Benutzername");
+					//System.out.println(value);
+					if(aktiv==true)
+					{
+					if (benutzername.toUpperCase().equals(value.toUpperCase())) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
+					}
+					else if(aktiv==false)
+					{
+						if(benutzername.toUpperCase().equals(value.toUpperCase())) 
+						{
+							System.out.println("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Bereich='"+bereich.getID()+"', PWChanged=0 WHERE Benutzername='"+benutzername+"'");
+							RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Bereich='"+bereich.getID()+"', PWChanged=0 WHERE Benutzername='"+benutzername+"'");
+							throw new Exception("Mitarbeiter wurde erfolgreich angelegt.");
+						}
+					}
+			}
+			checkObVorhanden.close();
+			
+			//passwort wird verschl�sselt in die DB geschrieben
+			
+			
+			System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
+			" VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
+			
+			int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)" +
+					"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+bereichID+"')");
+			System.out.println("UPDATE Bereich SET Leiter='"+benutzername+"' WHERE BereichID='"+bereich.getID()+"'");
+			RemoteConnection.sql.executeUpdate("UPDATE Bereich SET Leiter='"+benutzername+"' WHERE BereichID='"+bereich.getID()+"'");
+		
 			if (affectedRows==1)throw new Exception("Mitarbeiter erfolgreich angelegt.");
 			}
 		}
@@ -235,21 +252,40 @@ public class Mitarbeiter {
 		//System.out.println("SELECT Benutzername From Mitarbeiter");
 		//Checken obs den Mitarbeiter schon gibt.
 		
+		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
+		this.benutzername = benutzername;
+		this.passwort = verschluesseltPasswort;
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.rolle = rolle;
+		this.arbeitsgruppe = arbeitsgruppe;
 		
-	if(!benutzername.equals(""))
+		if(!benutzername.equals(""))
 	{			
 		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-				"SELECT Benutzername From Mitarbeiter");
+				"SELECT * From Mitarbeiter");
 		while (checkObVorhanden.next()) 
-		{
-
+		{		
+				boolean aktiv = checkObVorhanden.getBoolean("Aktiv");					
 				String value = checkObVorhanden.getString("Benutzername");
-				
-				if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
-				
+				//System.out.println(value);
+				if(aktiv==true)
+				{
+				if (benutzername.toUpperCase().equals(value.toUpperCase())) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
+				}
+				else if(aktiv==false)
+				{
+					if(benutzername.toUpperCase().equals(value.toUpperCase())) 
+					{
+						System.out.println("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe='"+arbeitsgruppe.getID()+"', PWChanged=0 WHERE Benutzername='"+benutzername+"'");
+						RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe='"+arbeitsgruppe.getID()+"', PWChanged=0 WHERE Benutzername='"+benutzername+"'");
+						throw new Exception("Mitarbeiter wurde erfolgreich angelegt.");
+					}
+				}
 		}
 		checkObVorhanden.close();
-		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
+		
+		
 		
 		
 		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
@@ -258,12 +294,7 @@ public class Mitarbeiter {
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+arbeitsgruppeID+"')");
 		
-		this.benutzername = benutzername;
-		this.passwort = verschluesseltPasswort;
-		this.vorname = vorname;
-		this.nachname = nachname;
-		this.rolle = rolle;
-		this.arbeitsgruppe = arbeitsgruppe;
+	
 		if (affectedRows==1)throw new Exception("Mitarbeiter wurde angelegt.");
 		
 		}
@@ -305,21 +336,34 @@ public class Mitarbeiter {
 		
 		//System.out.println("SELECT Benutzername From Mitarbeiter");
 		//Checken obs den Mitarbeiter schon gibt.
-		ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-				"SELECT Benutzername From Mitarbeiter");
 		
 		if(!benutzername.equals(""))
 		{
-		while (checkObVorhanden.next()) 
-		{
-
-				String value = checkObVorhanden.getString("Benutzername");
-				
-				if (benutzername.equals(value)) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
-				
-		}
+			String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
+			
+			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
+					"SELECT * From Mitarbeiter");
+			while (checkObVorhanden.next()) 
+			{		
+					boolean aktiv = checkObVorhanden.getBoolean("Aktiv");					
+					String value = checkObVorhanden.getString("Benutzername");
+					//System.out.println(value);
+					if(aktiv==true)
+					{
+					if (benutzername.toUpperCase().equals(value.toUpperCase())) throw new Exception ("Mitarbeiter mit selben Benutzername existiert schon.");
+					}
+					else if(aktiv==false)
+					{
+						if(benutzername.toUpperCase().equals(value.toUpperCase())) 
+						{
+							System.out.println("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe=NULL, Bereich=NULL, PWChanged=0 WHERE Benutzername='"+benutzername+"'");
+							RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe=NULL, Bereich=NULL, PWChanged=0 WHERE Benutzername='"+benutzername+"'");
+							throw new Exception("Mitarbeiter wurde erfolgreich angelegt.");
+						}
+					}
+			}
+			checkObVorhanden.close();
 		
-		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
 		
 		
 		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)" +
@@ -799,41 +843,25 @@ catch (SQLException e)
 		boolean darfdeletedWerdenBereich=false;
 		boolean aktiv;
 		boolean darfdeletedWerdenArbeitsgruppe = false;
-		String leiter;
 		RemoteConnection Connection = new RemoteConnection();
 		
 		try 
 		{	//IN Bereich pr�fen
-			System.out.println("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
+			//System.out.println("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
 			
 			ResultSet checkMitarbeiterInBereich = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
-			while(checkMitarbeiterInBereich.next())
-			{
-				 leiter = checkMitarbeiterInBereich.getString("Leiter");
-//				 bereich = checkMitarbeiterInBereich.getString("Kurzbezeichnung");
-				 if (leiter.equals(null)) darfdeletedWerdenBereich=true;
-					if (!leiter.equals(null)) 
-						{
-							darfdeletedWerdenBereich=false;
-						}
-			}
+			 if (!checkMitarbeiterInBereich.next()) darfdeletedWerdenBereich=true;
+					if (checkMitarbeiterInBereich.next()) darfdeletedWerdenBereich=false;
+
 			checkMitarbeiterInBereich.close();
 		
 			//IN Arbeitsgruppe pr�fen!
 			
-			System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
+			//System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
 			
 			ResultSet checkMitarbeiterInArbeitsgruppe = Connection.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
-			while(checkMitarbeiterInArbeitsgruppe.next())
-			{
-				 leiter = checkMitarbeiterInArbeitsgruppe.getString("Leiter");
-				 //arbeitsgruppe = checkMitarbeiterInArbeitsgruppe.getString("Kurzbezeichnung");
-				 if (leiter.equals(null)) darfdeletedWerdenArbeitsgruppe=true;
-					if (!leiter.equals(null)) 
-						{
-							darfdeletedWerdenArbeitsgruppe=false;
-						}
-			}
+			 if (!checkMitarbeiterInArbeitsgruppe.next()) darfdeletedWerdenArbeitsgruppe=true;
+					if (checkMitarbeiterInArbeitsgruppe.next()) darfdeletedWerdenArbeitsgruppe=false;
 			checkMitarbeiterInArbeitsgruppe.close();
 			
 		//abfrage ob weder im Bereich noch in der Arbeitsgruppe noch als Leiter t�tig
@@ -843,7 +871,7 @@ catch (SQLException e)
 			{	
 			
 			
-			//System.out.println("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"+this.benutzername+"'");
+			System.out.println("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"+this.benutzername+"'");
 				
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"+this.benutzername+"'");
 			
