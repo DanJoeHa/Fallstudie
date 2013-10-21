@@ -133,23 +133,30 @@ public class MitarbeiterController implements Controller {
 				String passwort = this.viewAnlegen.getPasswort();
 				String rollenbez = this.viewAnlegen.getRolle();
 				
-				//finde passendes Rollen-Objekt
-				Rolle rolle = this.findeRolleZuBezeichnung(rollenbez);
-				try{
-					if(rollenbez.equals("Zentralbereichsleiter") || rollenbez.equals("Bereichsleiter") ){
-					
-						//finde passendes Bereichs-Objekt
-						Bereich bereich = this.findeBereichZuBezeichnung(this.viewAnlegen.getBereich());
+				if (!(vorname.equals("")||nachname.equals("")||benutzername.equals("")||passwort.equals("")))
+				{
+					//finde passendes Rollen-Objekt
+					Rolle rolle = this.findeRolleZuBezeichnung(rollenbez);
+					try{
+						if(rollenbez.equals("Zentralbereichsleiter") || rollenbez.equals("Bereichsleiter") ){
 						
-						//Mitarbeiter mit Bereich anlegen
-						new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, bereich);
-					}else{
-						
-						//Mitarbeiter mit Arbeitsgruppe anlegen
-						new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.gewaehlteAG);
+							//finde passendes Bereichs-Objekt
+							Bereich bereich = this.findeBereichZuBezeichnung(this.viewAnlegen.getBereich());
+							
+							//Mitarbeiter mit Bereich anlegen
+							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, bereich);
+						}else{
+							
+							//Mitarbeiter mit Arbeitsgruppe anlegen
+							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.gewaehlteAG);
+						}
+					}catch(Exception ex){
+						HauptController.hauptfenster.setInfoBox(ex.getMessage());
 					}
-				}catch(Exception ex){
-					HauptController.hauptfenster.setInfoBox(ex.getMessage());
+				}
+				else
+				{
+					HauptController.hauptfenster.setInfoBox("Bitte die Pflichtfelder Vorname, Nachname, Benutzername, Passwort ausfüllen.");
 				}
 			}	
 		}//anlegen
