@@ -55,7 +55,7 @@ public class LayoutMitarbeiter extends JPanel implements View{
 		//L_Bereich
 		L_Bereich = new JLabel("Bereich:");
 		L_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Bereich.setBounds(30, 176, 150, 30);
+		L_Bereich.setBounds(30, 216, 150, 30);
 		add(L_Bereich);
 		
 		//L_Rolle
@@ -67,7 +67,7 @@ public class LayoutMitarbeiter extends JPanel implements View{
 		//L_Arbeitsgruppe
 		L_Arbeitsgruppe = new JLabel("Arbeitsgruppe:");
 		L_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Arbeitsgruppe.setBounds(30, 176, 150, 30);
+		L_Arbeitsgruppe.setBounds(30, 216, 150, 30);
 		add(L_Arbeitsgruppe);
 		
 		//T_Vorname
