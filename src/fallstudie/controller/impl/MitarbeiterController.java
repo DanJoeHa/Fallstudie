@@ -3,11 +3,13 @@ package fallstudie.controller.impl;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;
+import fallstudie.view.impl.BestaetigenPopup;
 import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.MitarbeiterAnlegenView;
 import fallstudie.view.impl.MitarbeiterBearbeitenView;
@@ -32,6 +34,7 @@ public class MitarbeiterController implements Controller {
 	private Arbeitsgruppe gewaehlteAG;
 	private SuchController suche;
 	private boolean suchag = false;
+	public static BestaetigenPopup popup;
 	
 	
 	/**
@@ -125,7 +128,12 @@ public class MitarbeiterController implements Controller {
 		if(this.operation.equals("anlegen"))
 		{
 			if( button.equals("Speichern") ){
-				
+				popup = new BestaetigenPopup();
+				popup.setController(this);
+				popup.setTitle("Speichern");
+				popup.setAusgabe(HilfeTexte.SpeichernPopup);
+			}
+			if(button.equals("Ja")){
 				//hole Nutzerdaten
 				String benutzername = this.viewAnlegen.getBenutzername();
 				String nachname = this.viewAnlegen.getNachname();
@@ -158,7 +166,11 @@ public class MitarbeiterController implements Controller {
 				{
 					HauptController.hauptfenster.setInfoBox("Bitte die Pflichtfelder Vorname, Nachname, Benutzername, Passwort ausfüllen.");
 				}
-			}	
+				popup.setVisible(false);
+			}
+			if(button.equals("Nein")){
+				popup.setVisible(false);
+			}
 		}//anlegen
 		
 		
