@@ -91,6 +91,7 @@ public class MitarbeiterController implements Controller {
 		
 		//Zurücksetzen-Button
 		if( button.equals("Zurücksetzen") ){
+			this.suchag = false;
 			this.viewAnlegen.reset();
 		}
 		
