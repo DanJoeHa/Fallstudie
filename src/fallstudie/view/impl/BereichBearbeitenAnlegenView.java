@@ -25,7 +25,7 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		setMinimumSize(new Dimension(620, 655));
 		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 620, 660));
+		setBounds(new Rectangle(0, 0, 620, 655));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -33,20 +33,20 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		//L_Bereichsleiter
 		JLabel L_Bereichsleiter = new JLabel("Bereichsleiter:");
 		L_Bereichsleiter.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Bereichsleiter.setBounds(30, 117, 150, 30);
+		L_Bereichsleiter.setBounds(30, 200, 150, 30);
 		add(L_Bereichsleiter);
 		
 		//T_Bereichsleiter_Suchbegriff
 		T_BereichsleiterSuchbegriff = new JTextField();
 		T_BereichsleiterSuchbegriff.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_BereichsleiterSuchbegriff.setBounds(200, 118, 220, 30);
+		T_BereichsleiterSuchbegriff.setBounds(200, 200, 220, 30);
 		add(T_BereichsleiterSuchbegriff);
 		T_BereichsleiterSuchbegriff.setColumns(10);
 		
 		//B_Bereichsleiter_Suche
 		B_BereichsleiterSuche = new JButton("Suchen");
 		B_BereichsleiterSuche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_BereichsleiterSuche.setBounds(432, 117, 158, 30);
+		B_BereichsleiterSuche.setBounds(440, 200, 150, 30);
 		add(B_BereichsleiterSuche);
 
 	}

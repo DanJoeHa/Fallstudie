@@ -30,11 +30,13 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 	 * Create the panel.
 	 */
 	public ArbeitsgruppeBearbeitenAnlegenView() {
+		T_Bezeichnung.setLocation(200, 150);
+		T_Kurzbezeichnung.setLocation(200, 100);
 		setPreferredSize(new Dimension(620, 655));
 		setMinimumSize(new Dimension(620, 655));
 		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 620, 660));
+		setBounds(new Rectangle(0, 0, 620, 655));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -42,33 +44,33 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 		//L_AG_Leiter
 		JLabel L_AGLeiter = new JLabel("Gruppenleiter:");
 		L_AGLeiter.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_AGLeiter.setBounds(30, 113, 150, 30);
+		L_AGLeiter.setBounds(30, 200, 150, 30);
 		add(L_AGLeiter);
 		
 		//L_Bereich
 		JLabel L_Bereich = new JLabel("Bereich:");
 		L_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Bereich.setBounds(30, 167, 150, 30);
+		L_Bereich.setBounds(30, 250, 150, 30);
 		add(L_Bereich);
 		
 		//T_AG_Leiter_Suchbegriff
 		T_AGLeiterSuchbegriff = new JTextField();
 		T_AGLeiterSuchbegriff.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_AGLeiterSuchbegriff.setColumns(10);
-		T_AGLeiterSuchbegriff.setBounds(200, 114, 220, 30);
+		T_AGLeiterSuchbegriff.setBounds(200, 200, 220, 30);
 		add(T_AGLeiterSuchbegriff);
 		
 		//C_Bereich
 		C_Bereich = new JComboBox<String>();
 		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Bereich.setBounds(200, 167, 391, 30);
+		C_Bereich.setBounds(200, 250, 390, 30);
 		add(C_Bereich);
 		
 		//B_AG_Leiter_Suche mit Lupe
 		B_AGLeiterSuche = new JButton("Suchen");
 		B_AGLeiterSuche.setIcon(null);
 		B_AGLeiterSuche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_AGLeiterSuche.setBounds(441, 113, 150, 30);
+		B_AGLeiterSuche.setBounds(440, 200, 150, 30);
 		add(B_AGLeiterSuche);
 		
 

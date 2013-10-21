@@ -38,11 +38,11 @@ public class ErfassenView extends JPanel implements View {
 	public ErfassenView() {
 					
 		//Styling
-		setPreferredSize(new Dimension(620, 660));
-		setMinimumSize(new Dimension(620, 660));
-		setMaximumSize(new Dimension(620, 660));
+		setPreferredSize(new Dimension(620, 655));
+		setMinimumSize(new Dimension(620, 655));
+		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 620, 660));
+		setBounds(new Rectangle(0, 0, 620, 655));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -168,7 +168,7 @@ public class ErfassenView extends JPanel implements View {
 	    //Combo_Art_waehlen
 	    C_Art = new JComboBox<String>();
 	    C_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    C_Art.setBounds(200, 200, 350, 30);
+	    C_Art.setBounds(200, 200, 390, 30);
 	    add(C_Art);
 	    
 		//B_Zurücksetzen

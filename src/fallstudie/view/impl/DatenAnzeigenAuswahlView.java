@@ -32,7 +32,7 @@ public class DatenAnzeigenAuswahlView extends JPanel implements View{
 		setMinimumSize(new Dimension(620, 655));
 		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 620, 660));
+		setBounds(new Rectangle(0, 0, 620, 655));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -44,30 +44,30 @@ public class DatenAnzeigenAuswahlView extends JPanel implements View{
 		
 		JLabel L_Jahr = new JLabel("Kalenderjahr:");
 		L_Jahr.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Jahr.setBounds(30, 11, 150, 30);
+		L_Jahr.setBounds(30, 100, 150, 30);
 		add(L_Jahr);
 		
 		JLabel L_Woche = new JLabel("Kalenderwoche:");
 		L_Woche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Woche.setBounds(30, 53, 150, 30);
+		L_Woche.setBounds(30, 150, 150, 30);
 		add(L_Woche);
 		
 		T_Jahr = new JTextField();
 		T_Jahr.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_Jahr.setBounds(190, 12, 70, 30);
+		T_Jahr.setBounds(200, 100, 70, 30);
 		add(T_Jahr);
 		T_Jahr.setColumns(10);
 		
 		T_Woche = new JTextField();
 		T_Woche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_Woche.setBounds(190, 54, 70, 30);
+		T_Woche.setBounds(200, 150, 70, 30);
 		add(T_Woche);
 		T_Woche.setColumns(10);
 		
 		L_Hinweis = new JTextArea();
 		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		L_Hinweis.setText("Wenn Sie die Daten eines ganzen Kalenderjahres sehen wollen, lassen Sie das Feld\r\n\"Kalenderwoche\" leer.");
-		L_Hinweis.setBounds(30, 104, 520, 60);
+		L_Hinweis.setBounds(30, 200, 560, 60);
 		L_Hinweis.setEditable(false);
 		add(L_Hinweis);
 
