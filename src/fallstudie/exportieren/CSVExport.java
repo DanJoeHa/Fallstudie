@@ -3,6 +3,8 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -10,8 +12,14 @@ import org.apache.commons.lang3.ArrayUtils;
 public class CSVExport {
 
 	public static void exportCSV(String[][] contentTable, String[] ueberschriften) throws IOException 
-	{PrintWriter writer = new PrintWriter(
-			"ExportFiles\\CSVExport.csv");
+	{
+	    long milliseconds = System.currentTimeMillis(); 
+	    SimpleDateFormat sdf = new SimpleDateFormat( "dd.MM.yyyy'_'HH.mm.ss" ); 
+		Date resultdate = new Date(milliseconds);
+		File dir = new File(System.getProperty("user.home")+ "\\Desktop\\DatenExport");
+		if(!dir.exists())dir.mkdir();
+		PrintWriter writer = new PrintWriter(
+			System.getProperty("user.home")+ "\\Desktop\\DatenExport\\CSVExport"+sdf.format(resultdate)+".csv");
 	int zeilen = contentTable.length;
 	int spalten = contentTable[0].length;
 	
@@ -29,7 +37,7 @@ public class CSVExport {
 		     writer.println();
 		 }
 		 writer.close();
-		 File CSV = new File("ExportFiles\\CSVExport.csv");
+		 File CSV = new File(System.getProperty("user.home")+ "\\Desktop\\DatenExport\\CSVExport"+sdf.format(resultdate)+".csv");
 		    Desktop.getDesktop().open(CSV);
 	
 	}

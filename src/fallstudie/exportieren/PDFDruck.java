@@ -11,7 +11,9 @@ import java.awt.Desktop;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.pdfbox.exceptions.COSVisitorException;
@@ -21,6 +23,7 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 public class PDFDruck
 {
+	
 	public PDFDruck()
 	{
 		
@@ -35,6 +38,8 @@ public static void drawTablePDF(PDPage page, PDPageContentStream contentStream,
     final float tableHeight = rowHeight * rows;
     final float colWidth = tableWidth/(float)cols;
     final float cellMargin=5f;
+    
+
     
     //draw the rows
     float nexty = y ;
@@ -141,10 +146,15 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		i=a;
 		}
 		while(zeilenubrig!=0);
-
-	doc.save("ExportFiles\\PDFExport.pdf");
+	    long milliseconds = System.currentTimeMillis(); 
+	    SimpleDateFormat sdf = new SimpleDateFormat( "dd.MM.yyyy'_'HH.mm.ss" ); 
+		Date resultdate = new Date(milliseconds);
+		File dir = new File(System.getProperty("user.home")+ "\\Desktop\\DatenExport");
+		if(!dir.exists())dir.mkdir();
+		
+	doc.save(System.getProperty("user.home")+ "\\Desktop\\PDFExport"+sdf.format(resultdate)+".pdf");
 	doc.close();
-	File PDF = new File("ExportFiles\\PDFExport.pdf");
+	File PDF = new File(System.getProperty("user.home")+ "\\Desktop\\PDFExport"+sdf.format(resultdate)+".pdf");
     Desktop.getDesktop().open(PDF);
 
 }
