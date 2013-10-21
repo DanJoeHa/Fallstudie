@@ -55,7 +55,7 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String wahl = C_Rolle.getSelectedItem().toString();
-					if(wahl.matches("Sachbearbeiter")||wahl.matches("Fachbereichsorganisation")||wahl.matches("Gruppenleiter")){
+					if(wahl.matches("Sachbearbeiter") || wahl.matches("Gruppenleiter")){
 						//Arbeitsgruppe anzeigen
 						T_Arbeitsgruppe.setVisible(true);
 						B_SucheArbeitsgruppe.setVisible(true);
@@ -64,8 +64,9 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 						LayoutMitarbeiter.L_Bereich.setVisible(false);
 						C_Bereich.setVisible(false);
 						revalidate();
-					} 
-					else {
+					}
+					
+					if(wahl.matches("Bereichsleiter")){
 						//Arbeitsgruppe ausblenden
 						T_Arbeitsgruppe.setVisible(false);
 						B_SucheArbeitsgruppe.setVisible(false);
@@ -73,6 +74,15 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 						//Bereich anzeigen
 						LayoutMitarbeiter.L_Bereich.setVisible(true);
 						C_Bereich.setVisible(true);
+						revalidate();
+					}
+					
+					if(wahl.matches("Fachbereichsorganisation") || wahl.matches("Zentralbereichsleiter")){
+						T_Arbeitsgruppe.setVisible(false);
+						B_SucheArbeitsgruppe.setVisible(false);
+						L_Arbeitsgruppe.setVisible(false);
+						L_Bereich.setVisible(false);
+						C_Bereich.setVisible(false);
 						revalidate();
 					}
 				}
@@ -113,6 +123,14 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 			if( rollen[i].equals(aktuelleRolle) ) {
 				this.C_Rolle.setSelectedIndex(i);
 			}
+		}
+		
+		if( aktuelleRolle.equals("Fachbereichsorganisation") || aktuelleRolle.equals("Zentralbereichsleiter") ){
+			this.B_SucheArbeitsgruppe.setVisible(false);
+			this.T_Arbeitsgruppe.setVisible(false);
+			L_Arbeitsgruppe.setVisible(false);
+			L_Bereich.setVisible(false);
+			this.C_Bereich.setVisible(false);
 		}
 	}
 	
