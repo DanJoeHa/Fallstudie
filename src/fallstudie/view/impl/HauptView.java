@@ -38,7 +38,7 @@ public class HauptView extends JFrame implements View{
 		this.setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Stipler");
+		this.setTitle("Stippler");
 		
 		//Panel für allen Inhalt des Frames
 		JPanel Panel = new JPanel();
