@@ -146,18 +146,25 @@ public class MitarbeiterController implements Controller {
 					//finde passendes Rollen-Objekt
 					Rolle rolle = this.findeRolleZuBezeichnung(rollenbez);
 					try{
-						if(rollenbez.equals("Zentralbereichsleiter") || rollenbez.equals("Bereichsleiter") ){
+						if( rollenbez.equals("Bereichsleiter") ){
 						
 							//finde passendes Bereichs-Objekt
 							Bereich bereich = this.findeBereichZuBezeichnung(this.viewAnlegen.getBereich());
 							
 							//Mitarbeiter mit Bereich anlegen
 							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, bereich);
-						}else{
+						}
+						
+						if( rollenbez.equals("Sachbearbeiter") || rollenbez.equals("Gruppenleiter") ){
 							
 							//Mitarbeiter mit Arbeitsgruppe anlegen
 							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.gewaehlteAG);
 						}
+					
+						if( rollenbez.equals("Fachbereichsorganisation") || rollenbez.equals("Zentralbereichsleiter") ){
+							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle);
+						}
+						
 					}catch(Exception ex){
 						HauptController.hauptfenster.setInfoBox(ex.getMessage());
 					}
@@ -286,15 +293,16 @@ public class MitarbeiterController implements Controller {
 				{
 					this.view.setArbeitsgruppe("");
 				}
+				
 				String rolle = this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung();
-				if(rolle.equals("Zentralbereichsleiter")|| rolle.equals("Bereichsleiter"))
-				{
+				if( rolle.equals("Bereichsleiter") ){
 					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
 				}
-				else
-				{
+				
+				if( rolle.equals("Gruppenleiter")|| rolle.equals("Sachberarbeiter") ){
 					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich().getKurzbezeichnung() );
 				}
+				
 				HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
 				HauptController.hauptfenster.setContent( this.view );
 				this.view.repaint();
