@@ -794,7 +794,7 @@ catch (SQLException e)
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean loeschen()  {
+	public boolean loeschen() throws Exception  {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
 		boolean darfdeletedWerdenBereich=false;
@@ -807,39 +807,39 @@ catch (SQLException e)
 		{	//IN Bereich pr�fen
 			//System.out.println("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
 			
-			ResultSet checkMitarbeiterInBereich = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
-			while(checkMitarbeiterInBereich.next())
-			{
-				 leiter = checkMitarbeiterInBereich.getString("Leiter");
-				 bereich = checkMitarbeiterInBereich.getString("Kurzbezeichnung");
-				 if (leiter==null) darfdeletedWerdenBereich=true;
-					if (leiter!=null) 
-						{
-							darfdeletedWerdenBereich=false;
-						}
-			}
-			checkMitarbeiterInBereich.close();
+//			ResultSet checkMitarbeiterInBereich = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
+//			while(checkMitarbeiterInBereich.next())
+//			{
+//				 leiter = checkMitarbeiterInBereich.getString("Leiter");
+//				 bereich = checkMitarbeiterInBereich.getString("Kurzbezeichnung");
+//				 if (leiter==null) darfdeletedWerdenBereich=true;
+//					if (leiter!=null) 
+//						{
+//							darfdeletedWerdenBereich=false;
+//						}
+//			}
+//			checkMitarbeiterInBereich.close();
 		
 			//IN Arbeitsgruppe pr�fen!
 			
 			//System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
 			
-			ResultSet checkMitarbeiterInArbeitsgruppe = Connection.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
-			while(checkMitarbeiterInArbeitsgruppe.next())
-			{
-				 leiter = checkMitarbeiterInArbeitsgruppe.getString("Leiter");
-				 arbeitsgruppe = checkMitarbeiterInArbeitsgruppe.getString("Kurzbezeichnung");
-				 if (leiter==null) darfdeletedWerdenArbeitsgruppe=true;
-					if (leiter!=null) 
-						{
-							darfdeletedWerdenArbeitsgruppe=false;
-						}
-			}
-			checkMitarbeiterInArbeitsgruppe.close();
+//			ResultSet checkMitarbeiterInArbeitsgruppe = Connection.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
+//			while(checkMitarbeiterInArbeitsgruppe.next())
+//			{
+//				 leiter = checkMitarbeiterInArbeitsgruppe.getString("Leiter");
+//				 arbeitsgruppe = checkMitarbeiterInArbeitsgruppe.getString("Kurzbezeichnung");
+//				 if (leiter==null) darfdeletedWerdenArbeitsgruppe=true;
+//					if (leiter!=null) 
+//						{
+//							darfdeletedWerdenArbeitsgruppe=false;
+//						}
+//			}
+//			checkMitarbeiterInArbeitsgruppe.close();
 			
 		//abfrage ob weder im Bereich noch in der Arbeitsgruppe noch als Leiter t�tig
-		if(darfdeletedWerdenBereich==true && darfdeletedWerdenArbeitsgruppe==true)
-		{
+//		if(darfdeletedWerdenBereich==true)
+//		{
 			if(aktuellerStatus==true)
 			{	
 			
@@ -849,10 +849,10 @@ catch (SQLException e)
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"+this.benutzername+"'");
 			
 			if (rowsAffect==0) erfolgreich =false;
-			if (rowsAffect==1) erfolgreich =true; aktiv =false; this.aktiv=aktiv;
+			if (rowsAffect==1) erfolgreich =true; aktiv =false; this.aktiv=aktiv;throw new Exception("Mitarbeiter wurde gelöscht.");
 			}
 			
-		}
+//		}
 		}
 		catch (SQLException e)
 		{
