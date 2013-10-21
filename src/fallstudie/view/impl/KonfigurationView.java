@@ -26,7 +26,7 @@ public class KonfigurationView extends JPanel implements View {
 		setMinimumSize(new Dimension(620, 655));
 		setMaximumSize(new Dimension(620, 655));
 		setFont(new Font("Tahoma", Font.PLAIN, 14));
-		setBounds(new Rectangle(0, 0, 620, 660));
+		setBounds(new Rectangle(0, 0, 620, 655));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -40,13 +40,13 @@ public class KonfigurationView extends JPanel implements View {
 		//L_AnzahlMonate
 		JLabel L_AnzahlMonate = new JLabel("Anzahl der Monate vor dem Löschen der Eintr\u00E4ge:");
 		L_AnzahlMonate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_AnzahlMonate.setBounds(12, 13, 400, 30);
+		L_AnzahlMonate.setBounds(30, 310, 390, 30);
 		add(L_AnzahlMonate);
 		
 		//T_AnzahlMonate
 		T_AnzahlMonate = new JTextField();
 		T_AnzahlMonate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_AnzahlMonate.setBounds(440, 14, 70, 30);
+		T_AnzahlMonate.setBounds(440, 310, 70, 30);
 		add(T_AnzahlMonate);
 		T_AnzahlMonate.setColumns(10);
 
