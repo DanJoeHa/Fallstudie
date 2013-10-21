@@ -286,7 +286,15 @@ public class MitarbeiterController implements Controller {
 				{
 					this.view.setArbeitsgruppe("");
 				}
-				this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
+				String rolle = this.gewaehlterMitarbeiter.getRolle().getRollenbezeichnung();
+				if(rolle.equals("Zentralbereichsleiter")|| rolle.equals("Bereichsleiter"))
+				{
+					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
+				}
+				else
+				{
+					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich().getKurzbezeichnung() );
+				}
 				HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
 				HauptController.hauptfenster.setContent( this.view );
 				this.view.repaint();
