@@ -256,10 +256,9 @@ public class BereichController implements Controller {
 					} catch (Exception e) {}
 				}
 			}
-			System.out.println("blub4");
+			
 			//neuen Leiter in Bereich schieben
 			oLeiter.setBereich(this.gewaehlterBereich);
-			System.out.println("blub5");
 		}
 	}
 
