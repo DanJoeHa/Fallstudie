@@ -19,9 +19,6 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  */
 public class Wochenuebersicht {
 
-	private int summe;
-	private Art art;
-	private Collection<Zeile> zeile;
 	private int kalenderjahr;
 	private int kalenderwoche;
 	private Arbeitsgruppe arbeitsgruppe;

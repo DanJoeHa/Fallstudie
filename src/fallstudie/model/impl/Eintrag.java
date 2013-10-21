@@ -1,10 +1,8 @@
 package fallstudie.model.impl;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import fallstudie.model.mysql.connector.RemoteConnection;
 
@@ -21,12 +19,6 @@ import fallstudie.model.mysql.connector.RemoteConnection;
 
 public class Eintrag {
 
-	private Date datum;
-	private Arbeitsgruppe arbeitsgruppe;
-	private int anzahl;
-	private Art art;
-	private int kalenderwoche;
-	private int kalenderjahr;
 
 	// -----------------------------------------------------------
 	// ---------------------KONSTRUKTOR--------------------------
@@ -69,7 +61,7 @@ public class Eintrag {
 							+ "VALUES ('" + kalenderjahr + "','" + kalenderwoche + "','" + anzahl
 							+ "','" + arbeitsgruppeID + "','" + art.getName() + "','" + datum + "')");
 
-			int RowsAffected = RemoteConnection.sql
+			RemoteConnection.sql
 					.executeUpdate("INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum) VALUES ('"
 							+ kalenderjahr + "','" + kalenderwoche + "','" + anzahl + "','" + arbeitsgruppeID
 							+ "','" + art.getName() + "','" + datum + "')");

@@ -204,7 +204,6 @@ public class Art {
 	{
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
-		RemoteConnection Connection = new RemoteConnection();
 		try 
 		{	
 			

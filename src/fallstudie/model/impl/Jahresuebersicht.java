@@ -20,12 +20,9 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  */
 public class Jahresuebersicht {
 	
-	private int summe;
-	private Collection<Zeile> zeile;
 	private int kalenderjahr;
 	private Arbeitsgruppe arbeitsgruppe;
 	private Bereich bereich;
-	private Collection<Arbeitsgruppe> agZuBereich;
 	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------

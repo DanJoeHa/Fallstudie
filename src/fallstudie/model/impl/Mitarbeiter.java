@@ -39,7 +39,6 @@ public class Mitarbeiter {
 	private Bereich bereich;
 	private String letzterLogin;
 	private boolean aktiv;
-	private boolean pwChanged;
 	private int bereichID;	
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOREN-------------------------
@@ -716,7 +715,7 @@ catch (SQLException e)
 				
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Passwort ='"+newPasswortVerschluesselt+"',PWCHanged='1' WHERE Benutzername='"+this.benutzername+"'");
 			if (rowsAffect==0) erfolgreich =false;
-			if (rowsAffect==1) erfolgreich =true; this.passwort=newPasswortVerschluesselt; this.pwChanged=true;
+			if (rowsAffect==1) erfolgreich =true; this.passwort=newPasswortVerschluesselt;
 			
 		}
 		
@@ -800,7 +799,7 @@ catch (SQLException e)
 		boolean darfdeletedWerdenBereich=false;
 		boolean aktiv;
 		boolean darfdeletedWerdenArbeitsgruppe = false;
-		String leiter,bereich,arbeitsgruppe;
+		String leiter;
 		RemoteConnection Connection = new RemoteConnection();
 		
 		try 
@@ -812,8 +811,8 @@ catch (SQLException e)
 			{
 				 leiter = checkMitarbeiterInBereich.getString("Leiter");
 //				 bereich = checkMitarbeiterInBereich.getString("Kurzbezeichnung");
-				 if (leiter==null) darfdeletedWerdenBereich=true;
-					if (leiter!=null) 
+				 if (leiter.equals(null)) darfdeletedWerdenBereich=true;
+					if (!leiter.equals(null)) 
 						{
 							darfdeletedWerdenBereich=false;
 						}
@@ -828,9 +827,9 @@ catch (SQLException e)
 			while(checkMitarbeiterInArbeitsgruppe.next())
 			{
 				 leiter = checkMitarbeiterInArbeitsgruppe.getString("Leiter");
-				 arbeitsgruppe = checkMitarbeiterInArbeitsgruppe.getString("Kurzbezeichnung");
-				 if (leiter==null) darfdeletedWerdenArbeitsgruppe=true;
-					if (leiter!=null) 
+				 //arbeitsgruppe = checkMitarbeiterInArbeitsgruppe.getString("Kurzbezeichnung");
+				 if (leiter.equals(null)) darfdeletedWerdenArbeitsgruppe=true;
+					if (!leiter.equals(null)) 
 						{
 							darfdeletedWerdenArbeitsgruppe=false;
 						}
@@ -980,7 +979,7 @@ catch (SQLException e)
 		//alle Berechtigungen von Rolle geben, Collection festlegen
 		alleRechteVonRolle = rolle.getBerechtigungenzuRolle();
 		//Druch alle Rechte einer Rolle durchiterieren
-		for (Iterator i = alleRechteVonRolle.iterator(); i.hasNext();)
+		for (Iterator<Rechte> i = alleRechteVonRolle.iterator(); i.hasNext();)
 		{
 			Rechte rechte = (Rechte) i.next();
 			String rechtName = rechte.getName();
