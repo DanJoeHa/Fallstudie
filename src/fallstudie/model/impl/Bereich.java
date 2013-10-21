@@ -63,7 +63,7 @@ public class Bereich {
 			leiterBenutzername = leiter.getBenutzername();
 		 	//System.out.println("SELECT Kurzbezeichnung From Arbeitsgruppe");
 			ResultSet checkObVorhanden = RemoteConnection.sql.executeQuery(
-					"SELECT Kurzbezeichnung From Bereich");
+					"SELECT Kurzbezeichnung From Bereich WHERE Aktiv=1");
 			
 			while (checkObVorhanden.next()) 
 			{

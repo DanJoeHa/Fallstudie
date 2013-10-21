@@ -65,7 +65,7 @@ public class Arbeitsgruppe {
 	int bereichID =bereich.getID();
 	try {
 		ResultSet checkObVorhanden = Connection.executeQueryStatement(
-				"SELECT Kurzbezeichnung From Arbeitsgruppe");
+				"SELECT Kurzbezeichnung From Arbeitsgruppe WHERE Aktiv=1");
 		
 		while (checkObVorhanden.next()) 
 		{
