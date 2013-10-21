@@ -175,12 +175,7 @@ public class Mitarbeiter {
 		if(!benutzername.equals(""))
 		{
 			
-			this.benutzername = benutzername;
-			this.passwort = verschluesseltPasswort;
-			this.vorname = vorname;
-			this.nachname = nachname;
-			this.rolle = rolle;
-			this.bereich = bereich;
+			
 			
 			while (checkObVorhanden.next()) 
 			{		
@@ -195,6 +190,13 @@ public class Mitarbeiter {
 					{
 						if(benutzername.toUpperCase().equals(value.toUpperCase())) 
 						{
+							this.benutzername = benutzername;
+							this.passwort = verschluesseltPasswort;
+							this.vorname = vorname;
+							this.nachname = nachname;
+							this.rolle = rolle;
+							this.bereich = bereich;
+							
 							System.out.println("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Bereich='"+bereich.getID()+"', PWChanged=0 WHERE Benutzername='"+benutzername+"'");
 							RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Bereich='"+bereich.getID()+"', PWChanged=0 WHERE Benutzername='"+benutzername+"'");
 							throw new Exception("Mitarbeiter wurde erfolgreich angelegt.");
@@ -214,6 +216,13 @@ public class Mitarbeiter {
 			System.out.println("UPDATE Bereich SET Leiter='"+benutzername+"' WHERE BereichID='"+bereich.getID()+"'");
 			RemoteConnection.sql.executeUpdate("UPDATE Bereich SET Leiter='"+benutzername+"' WHERE BereichID='"+bereich.getID()+"'");
 		
+			this.benutzername = benutzername;
+			this.passwort = verschluesseltPasswort;
+			this.vorname = vorname;
+			this.nachname = nachname;
+			this.rolle = rolle;
+			this.bereich = bereich;
+			
 			if (affectedRows==1)throw new Exception("Mitarbeiter erfolgreich angelegt.");
 			}
 		}
@@ -253,12 +262,7 @@ public class Mitarbeiter {
 		//Checken obs den Mitarbeiter schon gibt.
 		
 		String verschluesseltPasswort = VerschluesselungSHA1.getEncodedSha1Sum(passwort);
-		this.benutzername = benutzername;
-		this.passwort = verschluesseltPasswort;
-		this.vorname = vorname;
-		this.nachname = nachname;
-		this.rolle = rolle;
-		this.arbeitsgruppe = arbeitsgruppe;
+		
 		
 		if(!benutzername.equals(""))
 	{			
@@ -277,6 +281,13 @@ public class Mitarbeiter {
 				{
 					if(benutzername.toUpperCase().equals(value.toUpperCase())) 
 					{
+						this.benutzername = benutzername;
+						this.passwort = verschluesseltPasswort;
+						this.vorname = vorname;
+						this.nachname = nachname;
+						this.rolle = rolle;
+						this.arbeitsgruppe = arbeitsgruppe;
+						
 						System.out.println("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe='"+arbeitsgruppe.getID()+"', PWChanged=0 WHERE Benutzername='"+benutzername+"'");
 						RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe='"+arbeitsgruppe.getID()+"', PWChanged=0 WHERE Benutzername='"+benutzername+"'");
 						throw new Exception("Mitarbeiter wurde erfolgreich angelegt.");
@@ -294,7 +305,13 @@ public class Mitarbeiter {
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)" +
 				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"','"+arbeitsgruppeID+"')");
 		
-	
+		this.benutzername = benutzername;
+		this.passwort = verschluesseltPasswort;
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.rolle = rolle;
+		this.arbeitsgruppe = arbeitsgruppe;
+		
 		if (affectedRows==1)throw new Exception("Mitarbeiter wurde angelegt.");
 		
 		}
@@ -356,6 +373,14 @@ public class Mitarbeiter {
 					{
 						if(benutzername.toUpperCase().equals(value.toUpperCase())) 
 						{
+							this.benutzername = benutzername;
+							this.passwort = verschluesseltPasswort;
+							this.vorname = vorname;
+							this.nachname = nachname;
+							this.rolle = rolle;
+							this.arbeitsgruppe=null;
+							this.bereich = null;
+							
 							System.out.println("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe=NULL, Bereich=NULL, PWChanged=0 WHERE Benutzername='"+benutzername+"'");
 							RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe=NULL, Bereich=NULL, PWChanged=0 WHERE Benutzername='"+benutzername+"'");
 							throw new Exception("Mitarbeiter wurde erfolgreich angelegt.");
