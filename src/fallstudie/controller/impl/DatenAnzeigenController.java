@@ -108,7 +108,7 @@ public class DatenAnzeigenController implements Controller {
 				}else{
 				//Kalenderwochenübersicht
 					
-					this.headline = "Daten anzeigen Jahr " + jahr + "KW " + kw + "/" + jahr;
+					this.headline = "Daten anzeigen KW " + kw + "/" + jahr;
 					
 					//Kalenderwochenübersicht Zentralbereichsleiter/Fachbereichsorganisation
 					if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ){
