@@ -152,7 +152,6 @@ public class Mitarbeiter {
 	
 	public Mitarbeiter(String benutzername, String passwort,
 			String vorname, String nachname, Rolle rolle, Bereich bereich) throws Exception {
-		RemoteConnection Connection = new RemoteConnection();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -312,6 +311,9 @@ public class Mitarbeiter {
 		this.rolle = rolle;
 		this.arbeitsgruppe = arbeitsgruppe;
 		
+		System.out.println("UPDATE Arbeitsgruppe SET Leiter='"+benutzername+"' WHERE ArbeitsgruppeID='"+arbeitsgruppe.getID()+"'");
+		RemoteConnection.sql.executeUpdate("UPDATE Arbeitsgruppe SET Leiter='"+benutzername+"' WHERE ArbeitsgruppeID='"+arbeitsgruppe.getID()+"'");
+	
 		if (affectedRows==1)throw new Exception("Mitarbeiter wurde angelegt.");
 		
 		}
@@ -872,7 +874,7 @@ catch (SQLException e)
 		
 		try 
 		{	//IN Bereich pr�fen
-			//System.out.println("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
+			System.out.println("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
 			
 			ResultSet checkMitarbeiterInBereich = Connection.executeQueryStatement("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
 			 if (!checkMitarbeiterInBereich.next()) darfdeletedWerdenBereich=true;
@@ -882,7 +884,7 @@ catch (SQLException e)
 		
 			//IN Arbeitsgruppe pr�fen!
 			
-			//System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
+			System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
 			
 			ResultSet checkMitarbeiterInArbeitsgruppe = Connection.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
 			 if (!checkMitarbeiterInArbeitsgruppe.next()) darfdeletedWerdenArbeitsgruppe=true;
@@ -904,6 +906,10 @@ catch (SQLException e)
 			if (rowsAffect==1) erfolgreich =true; aktiv =false; this.aktiv=aktiv;throw new Exception("Mitarbeiter wurde gelöscht.");
 			}
 			
+		}
+		else
+		{
+			throw new Exception("Mitarbeiter ist noch als Leiter eines Bereichs oder einer Arbeitsgruppe einegtragen. Löschen nicht möglich.");
 		}
 		}
 		catch (SQLException e)
