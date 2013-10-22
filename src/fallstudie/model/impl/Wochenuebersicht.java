@@ -178,7 +178,7 @@ public class Wochenuebersicht {
 				//	"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
 					"SELECT Art, Summe FROM Wochenuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
-					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
+					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"' GROUP BY Art");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	
 					int Zeilensumme = resultSet.getInt("Summe");
@@ -228,7 +228,7 @@ public class Wochenuebersicht {
 			//		"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Bereich ='"+this.bereich.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
 					"SELECT Art, Summe FROM Wochenuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
-					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Bereich ='"+this.bereich.getID()+"'");
+					"' AND Kalenderwoche ='"+ this.kalenderwoche +"' AND Bereich ='"+this.bereich.getID()+"' GROUP BY Art");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	
 					int Zeilensumme = resultSet.getInt("Summe");

@@ -111,8 +111,8 @@ public class Jahresuebersicht {
 		
 		try
 		{
-			//System.out.println("SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"
-				//	+ kalenderjahr + "' AND  Bereich='" + bereichID + "'");
+			System.out.println("SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"
+					+ kalenderjahr + "' AND  Bereich='" + bereichID + "'");
 			
 			ResultSet jahresuebersichtResult = Connection.executeQueryStatement(
 					"SELECT DISTINCT Arbeitsgruppe FROM Jahresuebersicht WHERE Kalenderjahr='"
@@ -163,7 +163,7 @@ public class Jahresuebersicht {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		
-		//System.out.println("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
+		System.out.println("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
 		
 		try {
 			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
@@ -284,7 +284,7 @@ public class Jahresuebersicht {
 				//	"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
 					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
-					"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
+					"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"' GROUP BY Art");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	
 					int Zeilensumme = resultSet.getInt("Summe");
@@ -330,10 +330,10 @@ public class Jahresuebersicht {
 		try 
 		{			
 			//System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
-				//	"' AND Bereich ='"+this.bereich.getID()+"'");
+				//	"' AND Bereich ='"+this.bereich.getID()+"' GROUP BY Art");
 			resultSet = Connection.executeQueryStatement(
 					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
-					"' AND Bereich ='"+this.bereich.getID()+"'");
+					"' AND Bereich ='"+this.bereich.getID()+"' GROUP BY Art");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	
 					int Zeilensumme = resultSet.getInt("Summe");
