@@ -68,13 +68,7 @@ public class ArtController implements Controller {
 		//Popup-Bestaetigung abfragen + Ausgaben in Infobox hinzuf�gen
 		if(button.equals("Speichern") )
 		{
-			popup = new BestaetigenPopup();
-			
-			popup.setController(this);
-			popup.setTitle("Bestätigung");
-			popup.setAusgabe(HilfeTexte.SpeichernPopup);
-			
-			aktView = this.view;
+			artAnlegen();
 		}	
 			if(aktView == this.view){
 			if(button.equals("Ja")){
@@ -107,12 +101,7 @@ public class ArtController implements Controller {
 		{
 			//Art.loeschen(this.viewLoeschen.getArt());
 			
-			popup = new BestaetigenPopup();
-			popup.setController(this);
-			popup.setTitle("Löschen");
-			popup.setAusgabe(HilfeTexte.LoeschenPopup);
-			
-			aktView = this.viewLoeschen;
+			artLoeschen();
 		}	
 			if(aktView == this.viewLoeschen){
 				if(button.equals("Ja")){
@@ -147,6 +136,25 @@ public class ArtController implements Controller {
 			}
 	}
 		}
+
+	private void artLoeschen() {
+		popup = new BestaetigenPopup();
+		popup.setController(this);
+		popup.setTitle("Löschen");
+		popup.setAusgabe(HilfeTexte.LoeschenPopup);
+		
+		aktView = this.viewLoeschen;
+	}
+
+	private void artAnlegen() {
+		popup = new BestaetigenPopup();
+		
+		popup.setController(this);
+		popup.setTitle("Bestätigung");
+		popup.setAusgabe(HilfeTexte.SpeichernPopup);
+		
+		aktView = this.view;
+	}
 
 
 	/**
@@ -208,7 +216,16 @@ public class ArtController implements Controller {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			if(this.operation.equals("anlegen")){
+				artAnlegen();
+			}
+			if(this.operation.equals("loeschen")){
+				artLoeschen();
+			}
+			
+		}
 		
 	}
 

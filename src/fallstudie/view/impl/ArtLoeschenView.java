@@ -74,6 +74,8 @@ public class ArtLoeschenView extends JPanel implements View{
 	@Override
 	public void setController(Controller c) {
 		this.B_Loeschen.addActionListener(c);
+		this.B_Loeschen.addKeyListener(c);
+		this.C_Art.addKeyListener(c);
 	}
 
 	@Override
