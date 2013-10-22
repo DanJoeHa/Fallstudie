@@ -165,6 +165,8 @@ public class MitarbeiterController implements Controller {
 							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle);
 						}
 						
+						this.viewAnlegen.reset();
+						
 					}catch(Exception ex){
 						HauptController.hauptfenster.setInfoBox(ex.getMessage());
 					}
@@ -204,6 +206,8 @@ public class MitarbeiterController implements Controller {
 				//Rückmeldung an User ausgeben
 				if( !errmsg.isEmpty() ){
 					msg = errmsg;
+				}else{
+					HauptController.startMitarbeiterBearbeiten();
 				}
 				HauptController.hauptfenster.setInfoBox(msg);
 			}
