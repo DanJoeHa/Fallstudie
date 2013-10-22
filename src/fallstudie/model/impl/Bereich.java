@@ -326,8 +326,7 @@ public class Bereich {
 					"UPDATE Bereich SET Beschreibung='"+beschreibung+"' WHERE BereichID='"+this.bereichID+"'");	
 				erfolgreich=true;
 		
-				if(RowsAffected==1)throw new Exception("Datensatz geändert.");
-			if(RowsAffected==0)	erfolgreich= false;
+				if(RowsAffected==0)	erfolgreich= false;
 		}
 			catch (SQLException e) {
 			System.err.println("Fehler in setBeschreibung in Bereich:");
@@ -359,12 +358,10 @@ public class Bereich {
 		{
 			
 				System.out.println("UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
-				int RowsAffected = RemoteConnection.sql.executeUpdate(
+				RemoteConnection.sql.executeUpdate(
 						"UPDATE Bereich SET Kurzbezeichnung='"+kurzbezeichnung+"' WHERE BereichID='"+this.bereichID+"'");
 	
-				if(RowsAffected==1)throw new Exception("Datensatz geändert.");
-				
-				erfolgreich=true;
+					erfolgreich=true;
 		
 		}
 			
