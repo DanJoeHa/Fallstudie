@@ -100,7 +100,9 @@ public class ArbeitsgruppenController implements Controller {
 			//Leiter holen
 			if( !this.view.getAGLeiter().isEmpty() ){
 				oLeiter = this.gewaehlteMA;
-				if(oLeiter == null) oLeiter = new Mitarbeiter(this.view.getAGLeiter());
+				if(oLeiter == null){
+					oLeiter = new Mitarbeiter(this.view.getAGLeiter());
+				}
 			}
 			
 			//Prüfung ob Leiter ersetzt wird
@@ -154,26 +156,26 @@ public class ArbeitsgruppenController implements Controller {
 			if(operation.equals("bearbeiten"))
 			{
 				try {
-					
-					this.moveLeiter();
-					boolean erfolgreich1 = false;
-					boolean erfolgreich2 = false;
-					boolean erfolgreich3 = false;
-					boolean erfolgreich4 = false;
-					erfolgreich1 = this.gewaehlteAG.setBereich(oBereich);
-					erfolgreich2 = this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
-					erfolgreich3 = this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
-					erfolgreich4 = this.gewaehlteAG.setLeiter(oLeiter);
 
-					//Abfrage ob erfolgreich, weil in DB Ebene nicht möglich
-					if(erfolgreich1 && erfolgreich2 && erfolgreich3 && erfolgreich4)
-					{
-						HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde erfolgreich bearbeitet.");
-					}
-					else
-					{
-						HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde nicht geändert.");
-					}
+						this.moveLeiter();
+						boolean erfolgreich1 = false;
+						boolean erfolgreich2 = false;
+						boolean erfolgreich3 = false;
+						boolean erfolgreich4 = false;
+						erfolgreich1 = this.gewaehlteAG.setBereich(oBereich);
+						erfolgreich2 = this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
+						erfolgreich3 = this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
+						erfolgreich4 = this.gewaehlteAG.setLeiter(oLeiter);
+	
+						//Abfrage ob erfolgreich, weil in DB Ebene nicht möglich
+						if(erfolgreich1 && erfolgreich2 && erfolgreich3 && erfolgreich4)
+						{
+							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde erfolgreich bearbeitet.");
+						}
+						else
+						{
+							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde nicht geändert.");
+						}						
 					
 				} catch (Exception e1) {
 					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
@@ -280,7 +282,8 @@ public class ArbeitsgruppenController implements Controller {
 				
 				//nur wenn Leiter = zu verschiebendem Leiter
 				if( oLeiter.getArbeitsgruppe().getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ){
-					oLeiter.getArbeitsgruppe().setLeiter(null);
+						oLeiter.getArbeitsgruppe().setLeiter(null);
+
 				}
 			}
 			
