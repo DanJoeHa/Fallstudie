@@ -72,10 +72,7 @@ public class SuchController implements Controller,MouseListener {
 		
 		//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
 		if( button == "Löschen" ){
-			popup = new BestaetigenPopup();
-			popup.setController(this);
-			popup.setTitle("Löschen");
-			popup.setAusgabe(HilfeTexte.LoeschenPopup);	
+			auswahlLoeschen();	
 		}
 		
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
@@ -235,6 +232,13 @@ public class SuchController implements Controller,MouseListener {
 	
 }
 
+	private void auswahlLoeschen() {
+		popup = new BestaetigenPopup();
+		popup.setController(this);
+		popup.setTitle("Löschen");
+		popup.setAusgabe(HilfeTexte.LoeschenPopup);
+	}
+
 	private void auswahlAction_allgemein() {
 		//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
 		Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
@@ -300,11 +304,12 @@ public class SuchController implements Controller,MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(e.getClickCount());
 		if(e.getClickCount()==2){
 			if(this.suchdomain.equals( "Arbeitsgruppe" )){
 				auswahlAction_Arbeitsgruppe();
-			}else {
+			}else if (this.operation=="loeschen"){
+				auswahlLoeschen();
+			}else{
 				auswahlAction_allgemein();
 			}
 		} 
