@@ -148,10 +148,7 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 						hilfefenster.setTitle("Hilfe - Daten erfassen");
 						break;
 					case "Daten anzeigen":
-						activeController = new DatenAnzeigenController();
-						hauptfenster.setUeberschrift("Daten anzeigen");
-						hilfefenster.setHinweis( HilfeTexte.DatenAnzeigenAuswahlView);
-						hilfefenster.setTitle("Hilfe - Daten anzeigen");
+						startDatenAnzeigen();
 						break;
 					case "Job-Einstellungen":
 						activeController = new KonfigController();
@@ -301,7 +298,21 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 
 	@Override
 	public void fortsetzen() {}
-
+	/**
+	 * Startet Daten Anzeigen neu
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
+	public static void startDatenAnzeigen(){
+		System.out.println("neustart Daten anzeigen");
+		hc.activeController = new DatenAnzeigenController();
+		hauptfenster.setUeberschrift("Daten anzeigen");
+		hilfefenster.setHinweis( HilfeTexte.DatenAnzeigenAuswahlView);
+		hilfefenster.setTitle("Hilfe - Daten anzeigen");
+		hauptfenster.setContent(hc.activeController.getView());
+	}
+	
 	/**
 	 * Startet Arbeitsgruppe bearbeiten neu
 	 * 
