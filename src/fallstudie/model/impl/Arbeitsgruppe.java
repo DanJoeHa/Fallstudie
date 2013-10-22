@@ -545,7 +545,7 @@ public class Arbeitsgruppe {
 			
 			if (darfDeleteLeiter==false|| darfDeleteMitarbeiter==false) 
 				{
-					throw new Exception("Es hängen noch Mitarbeiter an dieser Arbeitsgruppe. Kann nicht gelöscht werden.");
+					throw new Exception("Bitte alle Mitarbeiter aus dieser Arbeitsgruppe entfernen oder einer Anderen zuordnen.");
 				}
 			checkLeiter.close();
 			mitarbeiterdrancheck.close();
