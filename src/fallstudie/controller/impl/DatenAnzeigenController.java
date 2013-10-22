@@ -164,6 +164,7 @@ public class DatenAnzeigenController implements Controller {
 		if( button.equals("Abbrechen") ){
 			if(this.drilldown){
 				HauptController.hauptfenster.zurueck();
+				this.drilldown = false;
 			}else{
 				HauptController.startDatenAnzeigen();
 			}
