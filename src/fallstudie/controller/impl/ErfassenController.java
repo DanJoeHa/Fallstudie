@@ -74,8 +74,11 @@ public class ErfassenController implements Controller {
 					view.reset();
 				}
 			}
-			
 
+		}
+		if(button == "Zurücksetzen")
+		{	
+			this.view.reset();
 		}
 	}
 

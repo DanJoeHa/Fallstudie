@@ -40,20 +40,20 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		//L_Passwort1 216
 		JLabel L_Passwort1 = new JLabel("Passwort:");
 		L_Passwort1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Passwort1.setBounds(30, 350, 150, 30);
+		L_Passwort1.setBounds(30, 280, 150, 30);
 		add(L_Passwort1);
 		
 		//T_Passwort1
 		T_Passwort1 = new JTextField();
 		T_Passwort1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_Passwort1.setBounds(200, 350, 220, 30);
+		T_Passwort1.setBounds(200, 280, 220, 30);
 		add(T_Passwort1);
 		T_Passwort1.setColumns(10);
 		
 		//B_PasswortGenerieren
 		JButton B_PasswortGenerieren = new JButton("Generieren");
 		B_PasswortGenerieren.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_PasswortGenerieren.setBounds(440, 350, 150, 30);
+		B_PasswortGenerieren.setBounds(440, 280, 150, 30);
 		add(B_PasswortGenerieren);
 		
 		B_PasswortGenerieren.addActionListener(new ActionListener(){
@@ -80,7 +80,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		//C_Rolle
 		C_Rolle = new JComboBox<String>();
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Rolle.setBounds(200, 250, 390, 30);
+		C_Rolle.setBounds(200, 180, 390, 30);
 		add(C_Rolle);
 		C_Rolle.addActionListener(new ActionListener() {
 			//Hilfsvariable first_time
@@ -127,14 +127,14 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		//C_Bereich
 		C_Bereich = new JComboBox<String>();
 		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Bereich.setBounds(200, 300, 390, 30);
+		C_Bereich.setBounds(200, 230, 390, 30);
 		add(C_Bereich);
 			
 		//T_Arbeitsgruppe
 		T_Arbeitsgruppe = new JTextField();
 		T_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Arbeitsgruppe.setColumns(10);
-		T_Arbeitsgruppe.setBounds(200, 300, 220, 30);
+		T_Arbeitsgruppe.setBounds(200, 230, 220, 30);
 		T_Arbeitsgruppe.setVisible(false);
 		add(T_Arbeitsgruppe);
 
@@ -142,7 +142,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		B_SucheArbeitsgruppe = new JButton("Suchen");
 		B_SucheArbeitsgruppe.setIcon(null);
 		B_SucheArbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_SucheArbeitsgruppe.setBounds(440, 300, 150, 30);
+		B_SucheArbeitsgruppe.setBounds(440, 230, 150, 30);
 		B_SucheArbeitsgruppe.setVisible(false);
 		add(B_SucheArbeitsgruppe);
 		
