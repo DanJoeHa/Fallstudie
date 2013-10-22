@@ -416,7 +416,7 @@ public class Arbeitsgruppe {
 	 * @return boolean ob erfolgreich
 	 * @throws Exception 
 	 */
-	public boolean setLeiter(Mitarbeiter leiter) throws Exception {
+	public boolean setLeiter(Mitarbeiter leiter){
 		//RemoteConnection Connection = new RemoteConnection();
 		boolean erfolgreich = false;
 		/*
