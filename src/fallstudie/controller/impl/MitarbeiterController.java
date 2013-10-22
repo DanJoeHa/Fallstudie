@@ -303,6 +303,10 @@ public class MitarbeiterController implements Controller {
 					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich().getKurzbezeichnung() );
 				}
 				
+				if( rolle.equals("Fachbereichsorganisation") || rolle.equals("Zentralbereichsleiter") ){
+					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche));
+				}
+				
 				HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
 				HauptController.hauptfenster.setContent( this.view );
 				this.view.repaint();
