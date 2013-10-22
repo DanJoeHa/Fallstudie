@@ -28,6 +28,7 @@ public class DatenAnzeigenController implements Controller {
 	private int artZeile = 1;
 	private int kw, jahr, sumcol;
 	private Collection<Bereich> bereiche;
+	private String noDS = "Keine Datensätze gefunden!";
 	
 	/**
 	 * Maske zur Eingabe der Rahmendaten KW und Jahr anzeigen
@@ -90,9 +91,8 @@ public class DatenAnzeigenController implements Controller {
 					//Jahresübersicht Bereichsleiter
 					if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs Jahr") ){
 						Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
-						
 						this.headline += " für alle Arbeitsgruppen in Ihrem Bereich '" + HauptController.activeUser.getBereich().getKurzbezeichnung() + "'";
-						
+							
 						this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 					}
@@ -120,9 +120,11 @@ public class DatenAnzeigenController implements Controller {
 					//Kalenderwochenübersicht Bereichsleiter
 					if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs KW") ){
 						Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, HauptController.activeUser.getBereich() );
+						
 						this.headline += " für alle Arbeitsgruppen in Ihrem Bereich '" + HauptController.activeUser.getBereich().getKurzbezeichnung() + "'";
 						this.generiereWochenuebersichtenZuBereich(coWochenuebersichten);
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
+		
 					}
 					
 					//Kalenderwochenübersicht Gruppenleiter
@@ -173,6 +175,8 @@ public class DatenAnzeigenController implements Controller {
 		Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZuAllenBereichen( jahr );
 		
 		try{
+			
+			if(coJahresuebersichten.size() == 0 ) throw new Exception();
 			
 			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
 			Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
@@ -231,7 +235,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 			
 		}catch(Exception ex){
-			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden");
+			HauptController.hauptfenster.setInfoBox(noDS);
 			ex.printStackTrace();
 		}
 		
@@ -269,7 +273,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 			
 		} catch (Exception e1) {
-			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
+			HauptController.hauptfenster.setInfoBox(noDS);
 			tabellenwerte[0][0] = "#";
 		}
 		
@@ -287,6 +291,8 @@ public class DatenAnzeigenController implements Controller {
 		Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZuAllenBereichen(jahr, kw);
 		
 		try{
+			
+			if(coWochenuebersichten.size() == 0 ) throw new Exception();
 			
 			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
 			Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
@@ -343,7 +349,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 			
 		}catch(Exception ex){
-			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden");
+			HauptController.hauptfenster.setInfoBox(noDS);
 			ex.printStackTrace();
 		}
 		
@@ -361,6 +367,7 @@ public class DatenAnzeigenController implements Controller {
 		
 		
 		try {
+			
 			tabellenspalten = new String[2];
 			tabellenspalten[0] = "Art";
 			tabellenspalten[1] = "Summe";
@@ -379,7 +386,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 			
 		} catch (Exception e1) {
-			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
+			HauptController.hauptfenster.setInfoBox(noDS);
 			tabellenwerte[0][0] = "#";
 		}
 		
@@ -464,6 +471,8 @@ public class DatenAnzeigenController implements Controller {
 		
 		try{
 			
+			if(coJahresuebersichten.size() == 0) throw new Exception();
+			
 			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
 			Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
 			int maxZeilen = 0;
@@ -518,7 +527,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 			
 		}catch(Exception ex){
-			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden");
+			HauptController.hauptfenster.setInfoBox(noDS);
 			ex.printStackTrace();
 		}
 		
@@ -527,6 +536,8 @@ public class DatenAnzeigenController implements Controller {
 	private void generiereWochenuebersichtenZuBereich(Collection<Wochenuebersicht> coWochenuebersichten){
 		
 		try{
+			
+			if(coWochenuebersichten.size() == 0) throw new Exception();
 			
 			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
 			Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
@@ -580,7 +591,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 			
 		}catch(Exception ex){
-			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden");
+			HauptController.hauptfenster.setInfoBox(noDS);
 			ex.printStackTrace();
 		}
 		
