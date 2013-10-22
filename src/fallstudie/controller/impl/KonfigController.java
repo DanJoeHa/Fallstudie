@@ -36,8 +36,7 @@ public class KonfigController implements Controller {
 				String msg = "Neue Job-Konfiguration gespeichert.";
 				int monate = this.view.getAnzahlMonate();
 				System.out.println(monate);
-				if(monate == 0){
-					System.out.println("HI");
+				if(monate <= 0){
 					msg = "Bitte nur Zahlen eingeben, die größer als 0 sind";
 				}
 				else{
