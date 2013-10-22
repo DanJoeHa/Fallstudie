@@ -142,7 +142,7 @@ public class ErfassenView extends JPanel implements View {
 	    //B_Plus
 	    JButton B_Plus = new JButton("+");
 	    B_Plus.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    B_Plus.setBounds(370, 180, 70, 30);
+	    B_Plus.setBounds(450, 180, 70, 30);
 	    add(B_Plus);
 	    
 	    //Increment-Logik
@@ -168,7 +168,7 @@ public class ErfassenView extends JPanel implements View {
 	    //Combo_Art_waehlen
 	    C_Art = new JComboBox<String>();
 	    C_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    C_Art.setBounds(200, 130, 390, 30);
+	    C_Art.setBounds(200, 130, 320, 30);
 	    add(C_Art);
 	    
 		//B_Zurücksetzen
@@ -182,6 +182,30 @@ public class ErfassenView extends JPanel implements View {
 		B_Anlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_Anlegen.setBounds(440, 600, 150, 30);
 		add(B_Anlegen);
+		
+		JButton B_Minus = new JButton("-");
+		B_Minus.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_Minus.setBounds(370, 180, 70, 30);
+		add(B_Minus);
+		
+		B_Minus.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int derzeitigerWert;
+				try
+				{
+					derzeitigerWert =  Integer.parseInt( T_AnzahlErfassen.getText() );
+				}
+				catch (Exception ex)
+				{
+					derzeitigerWert = 0;
+				}
+				int neuerWert = derzeitigerWert - 1;
+				T_AnzahlErfassen.setText(""+neuerWert);
+			}
+	    	
+	    });
 		
 	}
 	
