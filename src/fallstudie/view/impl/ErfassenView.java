@@ -50,24 +50,24 @@ public class ErfassenView extends JPanel implements View {
 		//L_Kalenderjahr
 		JLabel L_Kalenderjahr = new JLabel("Kalenderjahr:");
 		L_Kalenderjahr.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Kalenderjahr.setBounds(30, 100, 150, 30);
+		L_Kalenderjahr.setBounds(30, 30, 150, 30);
 		add(L_Kalenderjahr);
 		
 		//L_Kalenderwoche
 		JLabel L_Kalenderwoche = new JLabel("Kalenderwoche:");
 		L_Kalenderwoche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Kalenderwoche.setBounds(30, 150, 150, 30);
+		L_Kalenderwoche.setBounds(30, 80, 150, 30);
 		add(L_Kalenderwoche);
 		
 		//L_Erfassen statt L_Erstattungen und L_Schriftwechsel
 		JLabel L_Art = new JLabel("Art:");
 		L_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Art.setBounds(30, 200, 150, 30);
+		L_Art.setBounds(30, 130, 150, 30);
 		add(L_Art);
 		
 		JLabel L_Anzahl = new JLabel("Anzahl:");
 		L_Anzahl.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Anzahl.setBounds(30, 250, 150, 30);
+		L_Anzahl.setBounds(30, 180, 150, 30);
 		add(L_Anzahl);
 		
 		//Datumswerte bestimmen
@@ -94,14 +94,14 @@ public class ErfassenView extends JPanel implements View {
 		T_Kalenderjahr.setText(""+jahr);
 		T_Kalenderjahr.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Kalenderjahr.setColumns(10);
-		T_Kalenderjahr.setBounds(200, 100, 150, 30);
+		T_Kalenderjahr.setBounds(200, 30, 150, 30);
 		T_Kalenderjahr.setEditable(false);
 		add(T_Kalenderjahr);
 		
 		//R_KalenderwocheDavor
 		R_KalenderwocheDavor = new JRadioButton(""+vorKW_checked);
 		R_KalenderwocheDavor.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		R_KalenderwocheDavor.setBounds(200, 150, 70, 30);
+		R_KalenderwocheDavor.setBounds(200, 80, 70, 30);
 		add(R_KalenderwocheDavor);
 		R_KalenderwocheDavor.addActionListener(new ActionListener(){
 			@Override
@@ -115,7 +115,7 @@ public class ErfassenView extends JPanel implements View {
 		//R_KalenderwocheAktuell
 		R_KalenderwocheAktuell = new JRadioButton(""+aktKW);
 		R_KalenderwocheAktuell.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		R_KalenderwocheAktuell.setBounds(290, 150, 70, 30);
+		R_KalenderwocheAktuell.setBounds(290, 80, 70, 30);
 		add(R_KalenderwocheAktuell);
 		R_KalenderwocheAktuell.setSelected(true);
 		R_KalenderwocheAktuell.addActionListener(new ActionListener(){
@@ -134,7 +134,7 @@ public class ErfassenView extends JPanel implements View {
 	    T_AnzahlErfassen = new JTextField();
 	    T_AnzahlErfassen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	    T_AnzahlErfassen.setColumns(10);
-	    T_AnzahlErfassen.setBounds(200, 250, 150, 30);
+	    T_AnzahlErfassen.setBounds(200, 180, 150, 30);
 	    add(T_AnzahlErfassen);
 		//Intialwert Erfassen 0
 		T_AnzahlErfassen.setText("0");
@@ -142,7 +142,7 @@ public class ErfassenView extends JPanel implements View {
 	    //B_Plus
 	    JButton B_Plus = new JButton("+");
 	    B_Plus.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    B_Plus.setBounds(370, 250, 70, 30);
+	    B_Plus.setBounds(370, 180, 70, 30);
 	    add(B_Plus);
 	    
 	    //Increment-Logik
@@ -168,7 +168,7 @@ public class ErfassenView extends JPanel implements View {
 	    //Combo_Art_waehlen
 	    C_Art = new JComboBox<String>();
 	    C_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    C_Art.setBounds(200, 200, 390, 30);
+	    C_Art.setBounds(200, 130, 390, 30);
 	    add(C_Art);
 	    
 		//B_Zurücksetzen
