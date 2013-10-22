@@ -73,13 +73,11 @@ public class ArtLoeschenView extends JPanel implements View{
 	}
 	@Override
 	public void setController(Controller c) {
-		// TODO Auto-generated method stub
 		this.B_Loeschen.addActionListener(c);
 	}
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
 		
 	}
 }
