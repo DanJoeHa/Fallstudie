@@ -280,10 +280,10 @@ public class Jahresuebersicht {
 		ResultSet resultSet = null;
 		try 
 		{			
-			//System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+			//System.out.println("SELECT Art, SUM(Summe) FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 				//	"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"'");
 			resultSet = Connection.executeQueryStatement(
-					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"SELECT Art, SUM(Summe) as Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 					"' AND Arbeitsgruppe ='"+this.arbeitsgruppe.getID()+"' GROUP BY Art");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	
@@ -329,10 +329,10 @@ public class Jahresuebersicht {
 		ResultSet resultSet = null;
 		try 
 		{			
-			//System.out.println("SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+			//System.out.println("SELECT Art, SUM(Summe) FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 				//	"' AND Bereich ='"+this.bereich.getID()+"' GROUP BY Art");
 			resultSet = Connection.executeQueryStatement(
-					"SELECT Art, Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
+					"SELECT Art, SUM(Summe) as Summe FROM Jahresuebersicht WHERE Kalenderjahr ='"+ this.kalenderjahr + 
 					"' AND Bereich ='"+this.bereich.getID()+"' GROUP BY Art");
 				while (resultSet.next()) //Die Ausgelesenen ERgebnisse in die Collection bringen
 				{	

@@ -33,10 +33,6 @@ public class DatenAnzeigenController implements Controller {
 	private Collection<Bereich> bereiche;
 	private String noDS = "Keine Datensätze gefunden!";
 	private boolean drilldown = false;
-
-	//TODO: nach DrillDown wieder auf Übersicht zurück (mittels Abbrechen)
-	//TODO: Fehlermeldung falls keine Datensätze vorhanden
-	
 	
 	/**
 	 * Maske zur Eingabe der Rahmendaten KW und Jahr anzeigen
@@ -201,7 +197,7 @@ public class DatenAnzeigenController implements Controller {
 				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
 				
 			}
-			
+
 			//DrillDown-Button und ComboBox anzeigen
 			this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
 			if( this.bereiche.size() > 0 ) this.viewErg.setDrillDown(true);
@@ -218,13 +214,13 @@ public class DatenAnzeigenController implements Controller {
 			for(int s = 0; s < maxZeilen; s++){
 				aArtPos[s][0] = "";
 				aArtPos[s][1] = "";
-			}
-			
-			int i = 0;
+			}			
 			
 			//alle Jahresuebersichten aus Collection durchlaufen
 			itJahre = coJahresuebersichten.iterator();
 			while( itJahre.hasNext() ){
+				
+				int i = 0;
 				
 				//Schreibe Bereich in Tabellenkopf
 				Jahresuebersicht oJahresuebersicht = itJahre.next();
@@ -236,10 +232,11 @@ public class DatenAnzeigenController implements Controller {
 				
 				//alle Zeilen durchlaufen
 				while( itZeile.hasNext() ){
-					
+					System.out.println("i: " + i);
 					//Zeile hinzufügen
 					this.addZeile(itZeile, i, spalte, true);
 					i++;
+					
 				}
 				
 				//nächste Spalte im Gesamtbericht
@@ -334,11 +331,12 @@ public class DatenAnzeigenController implements Controller {
 				aArtPos[s][0] = "";
 				aArtPos[s][1] = "";
 			}
-			int i = 0;
 			
 			//alle Wochenuebersichten aus Collection durchlaufen
 			itWoche = coWochenuebersichten.iterator();
 			while( itWoche.hasNext() ){
+				
+				int i = 0;
 				
 				//Schreibe Bereich in Tabellenkopf
 				Wochenuebersicht oWochenuebersicht = itWoche.next();
@@ -448,6 +446,7 @@ public class DatenAnzeigenController implements Controller {
 		//neue View erstellen
 		this.viewErg = new TabelleView();
 		this.viewErg.setController(this);
+		this.viewErg.setButtonName("Drucken");
 		
 		//DrillDown ausblenden
 		this.viewErg.setDrillDown(false);
@@ -518,12 +517,12 @@ public class DatenAnzeigenController implements Controller {
 				aArtPos[s][0] = "";
 				aArtPos[s][1] = "";
 			}
-
-			int i = 0;
 			
 			//alle Jahresuebersichten aus Collection durchlaufen
 			itJahre = coJahresuebersichten.iterator();
 			while( itJahre.hasNext() ){
+				
+				int i = 0;
 				
 				//Schreibe Bereich in Tabellenkopf
 				Jahresuebersicht oJahresuebersicht = itJahre.next();
@@ -583,11 +582,11 @@ public class DatenAnzeigenController implements Controller {
 				aArtPos[s][1] = "";
 			}
 			
-			int i = 0;
-			
 			//alle Wochenuebersichten aus Collection durchlaufen
 			itWoche = coWochenuebersichten.iterator();
 			while( itWoche.hasNext() ){
+				
+				int i = 0;
 				
 				//Schreibe Bereich in Tabellenkopf
 				Wochenuebersicht oWochenuebersicht = itWoche.next();
