@@ -134,7 +134,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		T_Arbeitsgruppe = new JTextField();
 		T_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Arbeitsgruppe.setColumns(10);
-		T_Arbeitsgruppe.setBounds(200, 300, 200, 30);
+		T_Arbeitsgruppe.setBounds(200, 300, 220, 30);
 		T_Arbeitsgruppe.setVisible(false);
 		add(T_Arbeitsgruppe);
 
