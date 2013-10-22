@@ -919,7 +919,7 @@ catch (SQLException e)
 		}
 		else
 		{
-			throw new Exception("Mitarbeiter ist noch als Leiter eines Bereichs oder einer Arbeitsgruppe einegtragen. Löschen nicht möglich.");
+			throw new Exception("Mitarbeiter ist noch als Leiter eines Bereichs oder einer Arbeitsgruppe eingetragen. Löschen nicht möglich.");
 		}
 		}
 		catch (SQLException e)
