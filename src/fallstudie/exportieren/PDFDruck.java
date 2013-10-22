@@ -55,7 +55,7 @@ public static void drawTablePDF(PDPage page, PDPageContentStream contentStream,
     }
 
     //now add the text        
-    contentStream.setFont( PDType1Font.HELVETICA_BOLD , 12 );        
+    contentStream.setFont( PDType1Font.HELVETICA_BOLD , 9 );        
 
     float textx = margin+cellMargin;
     float texty = y-15;        
@@ -118,7 +118,7 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		 //Überschrift
 					 contentStream.beginText();
 					 contentStream.setNonStrokingColor(0, 0, 255);
-					 contentStream.setFont( PDType1Font.HELVETICA_BOLD_OBLIQUE, 15 ); 
+					 contentStream.setFont( PDType1Font.HELVETICA_BOLD_OBLIQUE, 11 ); 
 					 contentStream.moveTextPositionByAmount(10, 732);
 					 contentStream.drawString(PDFUeberschrift);
 					 contentStream.endText();
@@ -133,7 +133,7 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 			 //Überschrift
 						 contentStream.beginText();
 						 contentStream.setNonStrokingColor(0, 0, 255);
-						 contentStream.setFont( PDType1Font.HELVETICA_BOLD_OBLIQUE, 15 ); 
+						 contentStream.setFont( PDType1Font.HELVETICA_BOLD_OBLIQUE, 11 ); 
 						 contentStream.moveTextPositionByAmount(10, 732);
 						 contentStream.drawString(PDFUeberschrift);
 						 contentStream.endText();
