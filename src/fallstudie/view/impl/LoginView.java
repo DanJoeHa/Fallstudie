@@ -40,31 +40,31 @@ public class LoginView extends JPanel implements View {
 		//L_Benutzername
 		JLabel L_Benutzername = new JLabel("Benutzername:");
 		L_Benutzername.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Benutzername.setBounds(30, 80, 150, 30);
+		L_Benutzername.setBounds(30, 100, 150, 30);
 		add(L_Benutzername);
 		
 		//L_Passwort
 		JLabel L_Passwort = new JLabel("Passwort:");
 		L_Passwort.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Passwort.setBounds(30, 130, 150, 30);
+		L_Passwort.setBounds(30, 150, 150, 30);
 		add(L_Passwort);
 		
 		//Hinweis, dass man Daten eingeben soll
 		JLabel L_Hinweis = new JLabel("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein");
 		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Hinweis.setBounds(30, 30, 560, 30);
+		L_Hinweis.setBounds(30, 50, 560, 30);
 		add(L_Hinweis);
 
 		//P_Passwort
 		P_Passwort = new JPasswordField();
-		P_Passwort.setBounds(200, 130, 390, 30);
+		P_Passwort.setBounds(200, 150, 390, 30);
 		add(P_Passwort);
 		
 		//T_Benutzername
 		T_Benutzername = new JTextField();
 		T_Benutzername.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Benutzername.setColumns(10);
-		T_Benutzername.setBounds(200, 80, 390, 30);
+		T_Benutzername.setBounds(200, 100, 390, 30);
 		add(T_Benutzername);
 
 		//B_Login
