@@ -74,61 +74,67 @@ public class Mitarbeiter {
 			
 			ResultSet mitarbeiterResult = Connection.executeQueryStatement(
 					"SELECT * FROM Mitarbeiter WHERE Benutzername ='"+benutzername+"'");
-			
-			mitarbeiterResult.next();
-			int bereichID = mitarbeiterResult.getInt("Bereich");
-			//Wenn Bereich zugeordnet wird ein Objekt erzeugt
-			if (bereichID!=0)
+			if(mitarbeiterResult.next())
 			{
-				this.bereich = new Bereich(bereichID);
+				int bereichID = mitarbeiterResult.getInt("Bereich");
+				//Wenn Bereich zugeordnet wird ein Objekt erzeugt
+				if (bereichID!=0)
+				{
+					this.bereich = new Bereich(bereichID);
+				}
+				else
+				{
+					this.bereich = null;
+				}
+			
+				//Wenn Arbeitsgruppe zugeordnet wird ein Objekt erzeugt
+				int arbeitsgruppeID = mitarbeiterResult.getInt("Arbeitsgruppe");
+				
+				if (arbeitsgruppeID!=0)
+				{
+					this.arbeitsgruppe = new Arbeitsgruppe(arbeitsgruppeID);
+				}
+				else
+				{
+					this.arbeitsgruppe = null;
+				}
+			//Benutzername wird zugeordnet
+			this.benutzername = benutzername;
+			//ROLLE
+			String rolle = mitarbeiterResult.getString("Rolle");
+			this.rolle = new Rolle(rolle);
+			//PASSWORT
+			this.passwort =  mitarbeiterResult.getString("Passwort");;
+			//AKTIV
+			this.aktiv =  mitarbeiterResult.getBoolean("Aktiv");;
+			//Vorname
+			this.vorname = mitarbeiterResult.getString("Vorname");
+			//NACHNAME
+			this.nachname = mitarbeiterResult.getString("Nachname");
+			//Last Login
+			String komplettletzterLogin = mitarbeiterResult.getString("LetzterLogin");
+			if(komplettletzterLogin!=null)
+			{
+				String jahr = komplettletzterLogin.substring(0, 4);
+				String monat = komplettletzterLogin.substring(5,7);
+				String tag = komplettletzterLogin.substring(8,10);
+			
+				this.letzterLogin = tag+"."+monat+"."+jahr;
 			}
 			else
 			{
-				this.bereich = null;
+				this.letzterLogin = null;
 			}
 			
-			//Wenn Arbeitsgruppe zugeordnet wird ein Objekt erzeugt
-			int arbeitsgruppeID = mitarbeiterResult.getInt("Arbeitsgruppe");
+			mitarbeiterResult.close();
 			
-			if (arbeitsgruppeID!=0)
-			{
-				this.arbeitsgruppe = new Arbeitsgruppe(arbeitsgruppeID);
-			}
-			else
-			{
-				this.arbeitsgruppe = null;
-			}
-		//Benutzername wird zugeordnet
-		this.benutzername = benutzername;
-		//ROLLE
-		String rolle = mitarbeiterResult.getString("Rolle");
-		this.rolle = new Rolle(rolle);
-		//PASSWORT
-		this.passwort =  mitarbeiterResult.getString("Passwort");;
-		//AKTIV
-		this.aktiv =  mitarbeiterResult.getBoolean("Aktiv");;
-		//Vorname
-		this.vorname = mitarbeiterResult.getString("Vorname");
-		//NACHNAME
-		this.nachname = mitarbeiterResult.getString("Nachname");
-		//Last Login
-		String komplettletzterLogin = mitarbeiterResult.getString("LetzterLogin");
-		if(komplettletzterLogin!=null)
-		{
-		String jahr = komplettletzterLogin.substring(0, 4);
-		String monat = komplettletzterLogin.substring(5,7);
-		String tag = komplettletzterLogin.substring(8,10);
-		
-		this.letzterLogin = tag+"."+monat+"."+jahr;
+			
 		}
-		else
-		{
-			this.letzterLogin = null;
-		}
-		
-		mitarbeiterResult.close();
-		
-		
+			else	
+			{
+				
+				this.benutzername= null;
+			}
 		}
 		catch (SQLException e)
 		{   System.err.println("Dieser Fehler ist aufgetreten in Mitarbeiter (String benutzername):");

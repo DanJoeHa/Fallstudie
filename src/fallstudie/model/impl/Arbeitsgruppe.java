@@ -414,13 +414,25 @@ public class Arbeitsgruppe {
 	 * �bergeben wird ein Mitarbeiterobjekt
 	 * @param leiter
 	 * @return boolean ob erfolgreich
+	 * @throws Exception 
 	 */
-	public boolean setLeiter(Mitarbeiter leiter) {
-		
+	public boolean setLeiter(Mitarbeiter leiter) throws Exception {
+		//RemoteConnection Connection = new RemoteConnection();
 		boolean erfolgreich = false;
-		
+		/*
+		try
+		{
+			ResultSet existiertMitarbeiter = Connection.executeQueryStatement("SELECT Benutzername FROM Mitarbeiter WHERE Benutzername='"+leiter.getBenutzername()+"'");
+			if(!existiertMitarbeiter.next()) throw new Exception("Daten wurden geändert, aber der angegebene Bereichsleiter wurde nicht gefunden. Bitte anderen Leiter wählen.");
+		}
+		catch (SQLException e) {
+			System.err.println("fehler in setLeiter");
+			System.err.println(e.getMessage());
+		}
+		*/
 		try 
 		{
+			
 		if(!(leiter==null)){
 			
 				String neuerLeiterBenutzername = leiter.getBenutzername();
