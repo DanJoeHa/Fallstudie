@@ -225,7 +225,7 @@ public class ArtController implements Controller {
 		{
 			if(this.operation.equals("anlegen")){
 				artAnlegen();
-				
+				System.out.println("anlegen");
 			}
 			if(this.operation.equals("loeschen")){
 				artLoeschen();
@@ -236,10 +236,13 @@ public class ArtController implements Controller {
 		{
 			if(this.view == aktView && button == "Ja"){
 				artAnlegenPopup();
+				System.out.println("Ja");
+				
 			}
 			if(this.view == aktView && button == "Nein"){
 				this.view.reset();
 				popup.setVisible(false);
+				System.out.println("Nein");
 			}
 		}
 //		if(button == "Ja"){

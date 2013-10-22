@@ -1,15 +1,23 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
+
 import java.awt.Dimension;
+import java.awt.event.KeyListener;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
@@ -65,8 +73,8 @@ public class ArtAnlegenView extends JPanel implements View{
 	@Override
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
-		this.T_Art.addKeyListener(c);
-		this.B_Speichern.addKeyListener(c);
+		this.T_Art.addKeyListener((KeyListener)c);
+		this.B_Speichern.addKeyListener((KeyListener)c);
 	}
 
 	@Override
