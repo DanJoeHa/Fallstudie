@@ -40,13 +40,13 @@ public class ArtLoeschenView extends JPanel implements View{
 		//L_Bezeichnung
 		JLabel L_Bezeichnung = new JLabel("Bitte die zu löschende Art auswählen");
 		L_Bezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Bezeichnung.setBounds(30, 310, 230, 30);
+		L_Bezeichnung.setBounds(30, 30, 230, 30);
 		add(L_Bezeichnung);
 		
 		//J_Combobox -> Zur Auswahl der Art, die man l�schen m�chte
 		C_Art = new JComboBox<String>();
 		C_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Art.setBounds(270, 310, 320, 30);
+		C_Art.setBounds(270, 30, 320, 30);
 		add(C_Art);
 
 	}
