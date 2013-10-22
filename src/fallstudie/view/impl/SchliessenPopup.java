@@ -51,7 +51,9 @@ public class SchliessenPopup extends JDialog implements View{
 		buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		
-		
+		contentPanel.setFocusable(true);
+		contentPanel.setRequestFocusEnabled(true);
+		contentPanel.grabFocus();
 		
 		B_ok = new JButton("Schließen");
 		B_ok.setActionCommand("Schließen");
