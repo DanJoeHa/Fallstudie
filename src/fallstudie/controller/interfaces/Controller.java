@@ -1,6 +1,9 @@
 package fallstudie.controller.interfaces;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+
 import fallstudie.view.interfaces.View;
 
 /**
@@ -10,7 +13,7 @@ import fallstudie.view.interfaces.View;
  * @version 1.0
  *
  */
-public interface Controller extends ActionListener {
+public interface Controller extends ActionListener, MouseListener, KeyListener {
 	
 	/**
 	 * Schnittstelle zur R�ckgabe der View des Controllers

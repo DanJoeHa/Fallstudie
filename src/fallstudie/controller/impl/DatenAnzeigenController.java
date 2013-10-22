@@ -1,9 +1,12 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Bereich;
@@ -673,4 +676,28 @@ public class DatenAnzeigenController implements Controller {
 
 	@Override
 	public void fortsetzen() {}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void keyPressed(KeyEvent e) {}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
 }
