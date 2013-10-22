@@ -210,11 +210,7 @@ public class DatenAnzeigenController implements Controller {
 			
 			//Schleifenvars
 			int spalte = 1;
-			aArtPos = new String[maxZeilen][2]; 
-			for(int s = 0; s < maxZeilen; s++){
-				aArtPos[s][0] = "";
-				aArtPos[s][1] = "";
-			}			
+			this.initiierePositionsArray(maxZeilen);			
 			
 			//alle Jahresuebersichten aus Collection durchlaufen
 			itJahre = coJahresuebersichten.iterator();
@@ -232,7 +228,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				//alle Zeilen durchlaufen
 				while( itZeile.hasNext() ){
-					System.out.println("i: " + i);
+					
 					//Zeile hinzufügen
 					this.addZeile(itZeile, i, spalte, true);
 					i++;
@@ -248,6 +244,14 @@ public class DatenAnzeigenController implements Controller {
 			ex.printStackTrace();
 		}
 		
+	}
+
+	private void initiierePositionsArray(int maxZeilen) {
+		aArtPos = new String[maxZeilen][2]; 
+		for(int s = 0; s < maxZeilen; s++){
+			aArtPos[s][0] = "";
+			aArtPos[s][1] = "";
+		}
 	}
 	
 	
@@ -326,11 +330,7 @@ public class DatenAnzeigenController implements Controller {
 			
 			//Schleifenvars
 			int spalte = 1;
-			aArtPos = new String[maxZeilen][2]; 
-			for(int s = 0; s < maxZeilen; s++){
-				aArtPos[s][0] = "";
-				aArtPos[s][1] = "";
-			}
+			this.initiierePositionsArray(maxZeilen);	
 			
 			//alle Wochenuebersichten aus Collection durchlaufen
 			itWoche = coWochenuebersichten.iterator();
@@ -512,11 +512,7 @@ public class DatenAnzeigenController implements Controller {
 			
 			//Schleifenvars
 			int spalte = 1;
-			aArtPos = new String[maxZeilen][2]; 
-			for(int s = 0; s < maxZeilen; s++){
-				aArtPos[s][0] = "";
-				aArtPos[s][1] = "";
-			}
+			this.initiierePositionsArray(maxZeilen);	
 			
 			//alle Jahresuebersichten aus Collection durchlaufen
 			itJahre = coJahresuebersichten.iterator();
@@ -576,11 +572,7 @@ public class DatenAnzeigenController implements Controller {
 			
 			//Schleifenvars
 			int spalte = 1;
-			aArtPos = new String[maxZeilen][2]; 
-			for(int s = 0; s < maxZeilen; s++){
-				aArtPos[s][0] = "";
-				aArtPos[s][1] = "";
-			}
+			this.initiierePositionsArray(maxZeilen);	
 			
 			//alle Wochenuebersichten aus Collection durchlaufen
 			itWoche = coWochenuebersichten.iterator();
