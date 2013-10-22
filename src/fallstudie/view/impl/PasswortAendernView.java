@@ -50,42 +50,42 @@ public class PasswortAendernView extends JPanel implements View {
 		//L_Hinweis
 		JLabel L_Hinweis = new JLabel("Bitte geben Sie Ihren Benutzernamen und Ihr Passwort ein.");
 		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Hinweis.setBounds(30, 50, 560, 30);
+		L_Hinweis.setBounds(30, 30, 560, 30);
 		add(L_Hinweis);
 		
 		//L_AltesPasswort
 		JLabel L_AltesPasswort = new JLabel("Altes Passwort:");
 		L_AltesPasswort.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_AltesPasswort.setBounds(30, 100, 200, 30);
+		L_AltesPasswort.setBounds(30, 80, 200, 30);
 		add(L_AltesPasswort);
 		
 		//L_NeuesPasswort
 		JLabel L_NeuesPasswort = new JLabel("Neues Passwort:");
 		L_NeuesPasswort.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_NeuesPasswort.setBounds(30, 150, 200, 30);
+		L_NeuesPasswort.setBounds(30, 130, 200, 30);
 		add(L_NeuesPasswort);
 		
 		//L_WdhPasswort
 		JLabel L_WdhPasswort = new JLabel("Neues Passwort wiederholen:");
 		L_WdhPasswort.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_WdhPasswort.setBounds(30, 200, 200, 30);
+		L_WdhPasswort.setBounds(30, 180, 200, 30);
 		add(L_WdhPasswort);
 
 		//P_AltesPasswort
 		P_AltesPasswort = new JPasswordField();
 		P_AltesPasswort.setText("");
-		P_AltesPasswort.setBounds(250, 100, 340, 30);
+		P_AltesPasswort.setBounds(250, 80, 340, 30);
 		add(P_AltesPasswort);
 		
 		//P_NeuesPasswort
 		P_NeuesPasswort = new JPasswordField();
-		P_NeuesPasswort.setBounds(250, 150, 340, 30);
+		P_NeuesPasswort.setBounds(250, 130, 340, 30);
 		add(P_NeuesPasswort);
 		
 		//P_WdhPasswort
 		P_WdhPasswort = new JPasswordField();
 		P_WdhPasswort.setText("");
-		P_WdhPasswort.setBounds(250, 200, 340, 30);
+		P_WdhPasswort.setBounds(250, 180, 340, 30);
 		add(P_WdhPasswort);
 
 		//B_Speichern
