@@ -29,6 +29,11 @@ public class DatenAnzeigenController implements Controller {
 	private int kw, jahr, sumcol;
 	private Collection<Bereich> bereiche;
 	private String noDS = "Keine Datensätze gefunden!";
+	private boolean drilldown = false;
+
+	//TODO: nach DrillDown wieder auf Übersicht zurück (mittels Abbrechen)
+	//TODO: Fehlermeldung falls keine Datensätze vorhanden
+	
 	
 	/**
 	 * Maske zur Eingabe der Rahmendaten KW und Jahr anzeigen
@@ -157,9 +162,12 @@ public class DatenAnzeigenController implements Controller {
 		
 		//Abbrechen-Button
 		if( button.equals("Abbrechen") ){
-			HauptController.hauptfenster.zurueck();
-			HauptController.hauptfenster.setUeberschrift("Daten anzeigen");
-			HauptController.hilfefenster.setHinweis(HilfeTexte.DatenAnzeigenAuswahlView);
+			if(this.drilldown){
+				HauptController.hauptfenster.zurueck();
+				this.drilldown = false;
+			}else{
+				HauptController.startDatenAnzeigen();
+			}
 		}
 
 	}
@@ -399,9 +407,8 @@ public class DatenAnzeigenController implements Controller {
 	 * @version 1.0
 	 */
 	private void drilldown(){
-		
-		//DrillDown ausblenden
-		this.viewErg.setDrillDown(false);
+		//drilldown
+		this.drilldown = true;
 		
 		//Bereichsobjekt zur Auswahl finden
 		Iterator<Bereich> i = this.bereiche.iterator();
@@ -434,9 +441,17 @@ public class DatenAnzeigenController implements Controller {
 
 		}
 		
+		//neue View erstellen
+		this.viewErg = new TabelleView();
+		this.viewErg.setController(this);
+		
+		//DrillDown ausblenden
+		this.viewErg.setDrillDown(false);
+		
 		//an TabelleView übergeben
 		HauptController.hauptfenster.setUeberschrift( this.headline );
 		this.viewErg.setTabelle(tabellenspalten, tabellenwerte);
+		HauptController.hauptfenster.setContent(this.viewErg);
 		HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 	}
 	
