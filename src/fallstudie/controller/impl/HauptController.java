@@ -1,9 +1,13 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.view.impl.HauptView;
@@ -19,7 +23,7 @@ import fallstudie.view.interfaces.View;
  * @version 0.1
  *
  */
-public class HauptController implements Controller, TreeSelectionListener {
+public class HauptController implements Controller, TreeSelectionListener, KeyListener {
 
 	private Controller activeController;
 	protected View view;
@@ -31,7 +35,7 @@ public class HauptController implements Controller, TreeSelectionListener {
 	/**
 	 * Ruft das Hauptfenster der Anwendung auf und läd die LoginView hinein
 	 */
-	public HauptController(){
+	public HauptController() {
 		
 		//Instanz sichern
 		HauptController.hc = this;
@@ -327,5 +331,22 @@ public class HauptController implements Controller, TreeSelectionListener {
 		hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
 		hilfefenster.setHinweis( HilfeTexte.MitarbeiterBearbeitenView);
 		hilfefenster.setTitle("Hilfe - Mitarbeiter bearbeiten");
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode()== KeyEvent.VK_ENTER) hilfefenster.setVisible(false);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
