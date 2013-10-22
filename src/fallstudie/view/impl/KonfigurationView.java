@@ -40,13 +40,13 @@ public class KonfigurationView extends JPanel implements View {
 		//L_AnzahlMonate
 		JLabel L_AnzahlMonate = new JLabel("Anzahl der Monate vor dem Löschen der Eintr\u00E4ge:");
 		L_AnzahlMonate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_AnzahlMonate.setBounds(30, 310, 390, 30);
+		L_AnzahlMonate.setBounds(30, 30, 390, 30);
 		add(L_AnzahlMonate);
 		
 		//T_AnzahlMonate
 		T_AnzahlMonate = new JTextField();
 		T_AnzahlMonate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_AnzahlMonate.setBounds(440, 310, 70, 30);
+		T_AnzahlMonate.setBounds(440, 30, 70, 30);
 		add(T_AnzahlMonate);
 		T_AnzahlMonate.setColumns(10);
 

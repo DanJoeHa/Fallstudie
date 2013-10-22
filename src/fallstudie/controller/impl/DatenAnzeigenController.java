@@ -70,7 +70,9 @@ public class DatenAnzeigenController implements Controller {
 				kw = this.view.getWoche();
 				jahr = this.view.getJahr();
 			
-			
+				//Angaben prüfen
+				if( kw < 0 || jahr < 0 ) throw new Exception();
+				
 				//Jahresübersicht
 				if( kw == 0 ){
 					
@@ -78,6 +80,9 @@ public class DatenAnzeigenController implements Controller {
 					
 					//Jahresübersicht Zentralbereichsleiter/Fachbereichsorganisation
 					if( HauptController.activeUser.checkRecht("Lesen alle Bereiche Jahr") ){
+						
+						this.headline += " für alle Bereiche";
+						
 						this.uebersichtJahrZentralbereichsleiter();
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich);
 					}
@@ -86,12 +91,16 @@ public class DatenAnzeigenController implements Controller {
 					if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs Jahr") ){
 						Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
 						
+						this.headline += " für alle Arbeitsgruppen in Ihrem Bereich '" + HauptController.activeUser.getBereich().getKurzbezeichnung() + "'";
+						
 						this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 					}
 					
 					//Jahresübersicht Gruppenleiter
 					if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe Jahr") ){
+						
+						this.headline += " für Ihre Arbeitsgruppe '" + HauptController.activeUser.getArbeitsgruppe().getKurzbezeichnung() + "'";
 						this.uebersichtJahrGruppenleiter();
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Arbeitsgruppeeinsehen_Gruppenleiter);
 					}
@@ -99,10 +108,11 @@ public class DatenAnzeigenController implements Controller {
 				}else{
 				//Kalenderwochenübersicht
 					
-					this.headline = "Daten anzeigen Jahr " + jahr + "KW " + kw + "/" + jahr;
+					this.headline = "Daten anzeigen KW " + kw + "/" + jahr;
 					
 					//Kalenderwochenübersicht Zentralbereichsleiter/Fachbereichsorganisation
 					if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ){
+						this.headline += " für alle Bereiche";
 						this.uebersichtWocheZentralbereichsleiter();
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich);
 					}
@@ -110,13 +120,14 @@ public class DatenAnzeigenController implements Controller {
 					//Kalenderwochenübersicht Bereichsleiter
 					if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs KW") ){
 						Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, HauptController.activeUser.getBereich() );
-						
+						this.headline += " für alle Arbeitsgruppen in Ihrem Bereich '" + HauptController.activeUser.getBereich().getKurzbezeichnung() + "'";
 						this.generiereWochenuebersichtenZuBereich(coWochenuebersichten);
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 					}
 					
 					//Kalenderwochenübersicht Gruppenleiter
 					if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe KW") ){
+						this.headline += " für Ihre Arbeitsgruppe '" + HauptController.activeUser.getArbeitsgruppe().getKurzbezeichnung() + "'";
 						this.uebersichtWocheGruppenleiter();
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Arbeitsgruppeeinsehen_Gruppenleiter);
 					}
@@ -131,7 +142,8 @@ public class DatenAnzeigenController implements Controller {
 			}
 			catch(Exception ex)
 			{
-				HauptController.hauptfenster.setInfoBox("Bitte das mindestens das Kalenderjahr ausfüllen (ausschließlich Ziffern!).");
+				HauptController.hauptfenster.setInfoBox("Bitte das mindestens das Kalenderjahr ausfüllen (ausschließlich Ziffern > 0!).");
+				this.view.reset();
 			}
 		}
 		
