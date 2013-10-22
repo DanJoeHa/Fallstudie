@@ -22,6 +22,7 @@ public class ArtController implements Controller {
 	private Collection<Art> art;
 	public static BestaetigenPopup popup;
 	private View aktView;
+	private String button;
 	
 	
 	
@@ -63,7 +64,7 @@ public class ArtController implements Controller {
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		String button = e.getActionCommand();
+		button = e.getActionCommand();
 		
 		//Popup-Bestaetigung abfragen + Ausgaben in Infobox hinzuf�gen
 		if(button.equals("Speichern") )
@@ -74,21 +75,7 @@ public class ArtController implements Controller {
 			if(button.equals("Ja")){
 			
 				
-				try{				
-				
-					new Art(this.view.getArt());
-				
-				
-					
-				}
-				catch(Exception ex){
-					HauptController.hauptfenster.setInfoBox(ex.getMessage());
-				}
-					
-				finally{
-					this.view.reset();
-					popup.setVisible(false);
-				}
+				artAnlegenPopup();
 			}
 			if(button.equals("Nein")){
 				this.view.reset();
@@ -136,6 +123,24 @@ public class ArtController implements Controller {
 			}
 	}
 		}
+
+	private void artAnlegenPopup() {
+		try{				
+		
+			new Art(this.view.getArt());
+		
+		
+			
+		}
+		catch(Exception ex){
+			HauptController.hauptfenster.setInfoBox(ex.getMessage());
+		}
+			
+		finally{
+			this.view.reset();
+			popup.setVisible(false);
+		}
+	}
 
 	private void artLoeschen() {
 		popup = new BestaetigenPopup();
@@ -220,12 +225,36 @@ public class ArtController implements Controller {
 		{
 			if(this.operation.equals("anlegen")){
 				artAnlegen();
+				
 			}
 			if(this.operation.equals("loeschen")){
 				artLoeschen();
 			}
 			
 		}
+		if (e.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			if(this.view == aktView && button == "Ja"){
+				artAnlegenPopup();
+			}
+			if(this.view == aktView && button == "Nein"){
+				this.view.reset();
+				popup.setVisible(false);
+			}
+		}
+//		if(button == "Ja"){
+//			if(e.getKeyCode() == KeyEvent.VK_ENTER){
+//				
+//				artAnlegenPopup();
+//				
+//			}
+//		}
+//		if(button == "Nein"){
+//			if(e.getKeyCode() == KeyEvent.VK_ENTER){
+//				this.view.reset();
+//				popup.setVisible(false);
+//			}
+//		}
 		
 	}
 

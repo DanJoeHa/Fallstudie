@@ -47,6 +47,9 @@ public class BestaetigenPopup extends JDialog implements View{
 		buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		
+		contentPanel.setFocusable(true);
+		contentPanel.setRequestFocusEnabled(true);
+		contentPanel.grabFocus();
 		
 		B_speichern = new JButton("Ja");
 		//B_speichern.addActionListener(new ActionListener() {
@@ -55,11 +58,15 @@ public class BestaetigenPopup extends JDialog implements View{
 		//});
 		B_speichern.setActionCommand("Ja");
 		buttonPane.add(B_speichern);
+		B_speichern.setDefaultCapable(true);
 		getRootPane().setDefaultButton(B_speichern);
+		B_speichern.setFocusable(true);
+		
 			
 		B_abbrechen = new JButton("Nein");
 		B_abbrechen.setActionCommand("Nein");
 		buttonPane.add(B_abbrechen);
+		B_abbrechen.setFocusable(true);
 			
 		
 	}
@@ -77,6 +84,8 @@ public class BestaetigenPopup extends JDialog implements View{
 	public void setController(Controller c) {
 		this.B_speichern.addActionListener(c);
 		this.B_abbrechen.addActionListener(c);
+		this.B_speichern.addKeyListener(c);
+		this.B_abbrechen.addKeyListener(c);
 	}
 
 	@Override
