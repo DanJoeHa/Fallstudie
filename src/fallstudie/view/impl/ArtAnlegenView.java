@@ -41,14 +41,14 @@ public class ArtAnlegenView extends JPanel implements View{
 		//L_Bezeichnung
 		JLabel L_Bezeichnung = new JLabel("Bezeichnung:");
 		L_Bezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Bezeichnung.setBounds(30, 310, 150, 30);
+		L_Bezeichnung.setBounds(30, 30, 150, 30);
 		add(L_Bezeichnung);
 		
 		
 		//T_Art -> Name der neuen Art kann festgelegt werden
 		T_Art = new JTextField();
 		T_Art.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		T_Art.setBounds(200, 310, 390, 30);
+		T_Art.setBounds(200, 30, 390, 30);
 		add(T_Art);
 		T_Art.setColumns(10);
 
