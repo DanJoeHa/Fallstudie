@@ -119,7 +119,6 @@ public class LayoutMitarbeiter extends JPanel implements View{
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
 		
 	}
 
