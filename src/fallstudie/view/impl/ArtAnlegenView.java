@@ -65,6 +65,8 @@ public class ArtAnlegenView extends JPanel implements View{
 	@Override
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
+		this.T_Art.addKeyListener(c);
+		this.B_Speichern.addKeyListener(c);
 	}
 
 	@Override
