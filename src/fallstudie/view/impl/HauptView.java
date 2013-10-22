@@ -210,19 +210,26 @@ public class HauptView extends JFrame implements View{
 		
 	}
 	
-	public void zurueck(){
+	public View zurueck(){
 		if( this.lastView.equals(this.activeView) ){
-			this.zurueck(2);
+			return this.zurueck(2);
 		}else{
-			this.zurueck(1);
+			return this.zurueck(1);
 		}
 	}
 	
-	public void zurueck(int anz){
+	public View zurueck(int anz){
 		if(anz <= 2 && anz > 0){
-			if( anz == 1) this.setContent(this.lastView);
-			if( anz == 2) this.setContent(this.lastlastView);
+			if( anz == 1){
+				this.setContent(this.lastView);
+				return this.lastView;
+			}
+			if( anz == 2){
+				this.setContent(this.lastlastView);
+				return this.lastlastView;
+			}
 		}
+		return null;
 	}
 	
 	@Override

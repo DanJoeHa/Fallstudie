@@ -149,7 +149,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 			catch(Exception ex)
 			{
-				HauptController.hauptfenster.setInfoBox("Bitte das mindestens das Kalenderjahr ausfüllen (ausschließlich Ziffern > 0!).");
+				HauptController.hauptfenster.setInfoBox("Bitte mindestens das Kalenderjahr ausfüllen (ausschließlich Ziffern > 0!).");
 				this.view.reset();
 			}
 		}
@@ -163,8 +163,9 @@ public class DatenAnzeigenController implements Controller {
 		//Abbrechen-Button
 		if( button.equals("Abbrechen") ){
 			if(this.drilldown){
-				HauptController.hauptfenster.zurueck();
 				this.drilldown = false;
+				ActionEvent event = new ActionEvent(this, 1, "Weiter");
+				this.actionPerformed(event);
 			}else{
 				HauptController.startDatenAnzeigen();
 			}
