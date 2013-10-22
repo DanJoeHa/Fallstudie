@@ -45,12 +45,12 @@ public class BereichLoeschenView extends JPanel implements View{
 		add(B_BearbeitenLoeschen);
 		
 		C_Bereich = new JComboBox<String>();
-		C_Bereich.setBounds(350, 310, 240, 30);
+		C_Bereich.setBounds(350, 30, 240, 30);
 		add(C_Bereich);
 		
 		L_Hinweis = new JLabel("Bitte den zu löschenden Bereich auswählen");
 		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Hinweis.setBounds(30, 310, 300, 30);
+		L_Hinweis.setBounds(30, 30, 300, 30);
 		add(L_Hinweis);
 
 	}
