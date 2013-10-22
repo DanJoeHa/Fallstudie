@@ -98,7 +98,11 @@ public class BereichController implements Controller {
 			popup.setController(this);
 			
 			//Leiter holen
-			if( !this.view.getLeiter().isEmpty() ) oLeiter = this.gewaehlterMA;	
+			if( !this.view.getLeiter().isEmpty() ){
+				oLeiter = this.gewaehlterMA;
+				if(oLeiter == null) oLeiter = new Mitarbeiter(this.view.getLeiter());
+			}
+			
 			
 			//Prüfung ob Leiter ersetzt wird
 			boolean replace = false;

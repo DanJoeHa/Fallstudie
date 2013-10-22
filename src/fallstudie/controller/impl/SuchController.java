@@ -157,11 +157,9 @@ public class SuchController implements Controller {
 						if( benutzername.equals(auswahl ) ){
 							try{
 								MA.loeschen();
-								HauptController.hauptfenster.setInfoBox("Mitarbeiter gelöscht.");
 							}catch (Exception ex)
 							{
 								HauptController.hauptfenster.setInfoBox(ex.getMessage());
-								//HauptController.hauptfenster.setInfoBox("Mitarbeiter konnte nicht gelöscht werden. Bitte stellen Sie sicher, dass der Mitarbeiter keiner Arbeitsgruppe/keinem Bereich als Leiter zugeordnet ist.");
 							}
 							break;
 						}

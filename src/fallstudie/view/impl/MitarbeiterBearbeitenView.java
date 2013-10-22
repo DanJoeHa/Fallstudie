@@ -1,19 +1,16 @@
 package fallstudie.view.impl;
 
-import java.awt.SystemColor;
-
-import javax.swing.border.LineBorder;
-
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Font;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 import fallstudie.controller.interfaces.Controller;
 

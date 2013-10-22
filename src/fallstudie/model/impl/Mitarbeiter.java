@@ -625,7 +625,11 @@ catch (SQLException e)
 		boolean erfolgreich = false;
 		try
 		{	
-				
+				if(rolle.getRollenbezeichnung().equals("Sachbearbeiter") || rolle.getRollenbezeichnung().equals("Zentralbereichsleiter") || rolle.getRollenbezeichnung().equals("Fachbereichsorganisation"))
+				{
+					RemoteConnection.sql.executeUpdate("UPDATE Arbeitsgruppe SET Leiter=NULL WHERE Leiter='"+this.benutzername+"'");
+					RemoteConnection.sql.executeUpdate("UPDATE Bereich SET Leiter=NULL WHERE Leiter='"+this.benutzername+"'");
+				}
 				String rollenName = rolle.getRollenbezeichnung();
 				
 				//System.out.println("UPDATE Mitarbeiter SET Rolle ='"+rollenName+"' WHERE Benutzername='"+this.benutzername+"'");
