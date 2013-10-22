@@ -305,7 +305,6 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 	 * @version 1.0
 	 */
 	public static void startDatenAnzeigen(){
-		System.out.println("neustart Daten anzeigen");
 		hc.activeController = new DatenAnzeigenController();
 		hauptfenster.setUeberschrift("Daten anzeigen");
 		hilfefenster.setHinweis( HilfeTexte.DatenAnzeigenAuswahlView);
