@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Bereich;
@@ -132,7 +131,7 @@ public class DatenAnzeigenController implements Controller {
 			}
 			catch(Exception ex)
 			{
-				HauptController.hauptfenster.setInfoBox("Bitte ausschließlich Ziffern eintragen");
+				HauptController.hauptfenster.setInfoBox("Bitte das mindestens das Kalenderjahr ausfüllen (ausschließlich Ziffern!).");
 			}
 		}
 		
@@ -177,7 +176,7 @@ public class DatenAnzeigenController implements Controller {
 			
 			//DrillDown-Button und ComboBox anzeigen
 			this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
-			this.viewErg.setDrillDown(true);
+			if( this.bereiche.size() > 0 ) this.viewErg.setDrillDown(true);
 			
 			sumcol = coJahresuebersichten.size() + 1;
 			tabellenspalten = new String[ coJahresuebersichten.size() + 2 ];
@@ -619,9 +618,9 @@ public class DatenAnzeigenController implements Controller {
 		if(summierung){
 			int sum = 0;
 			if( tabellenwerte[zeile][sumcol] != null ){				
-				sum += Integer.parseInt( tabellenwerte[zeile][sumcol].toString() ) + oZeile.getSumme();
+				sum = Integer.parseInt( tabellenwerte[zeile][sumcol].toString() ) + oZeile.getSumme();
 			}else{
-				sum += oZeile.getSumme();
+				sum = oZeile.getSumme();
 			}
 			tabellenwerte[zeile][sumcol] = Integer.toString( sum );
 		}
