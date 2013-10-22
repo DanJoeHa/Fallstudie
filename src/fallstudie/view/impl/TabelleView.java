@@ -1,18 +1,25 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Dimension;
+import java.awt.event.MouseListener;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
+
 import javax.swing.JComboBox;
 
 public class TabelleView extends JPanel implements View {
@@ -126,6 +133,7 @@ public class TabelleView extends JPanel implements View {
 		this.B_Abbrechen.addActionListener(c);
 		this.B_AuswaehlenLoeschen.addActionListener(c);
 		this.B_DrillDown.addActionListener(c);
+		this.TA_Tabelle.addMouseListener((MouseListener) c);
 	}
 
 	@Override
