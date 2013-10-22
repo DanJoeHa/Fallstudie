@@ -299,7 +299,7 @@ public class MitarbeiterController implements Controller {
 					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getBereich().getKurzbezeichnung() );
 				}
 				
-				if( rolle.equals("Gruppenleiter")|| rolle.equals("Sachberarbeiter") ){
+				if( rolle.equals("Gruppenleiter")|| rolle.equals("Sachbearbeiter") ){
 					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich().getKurzbezeichnung() );
 				}
 				
