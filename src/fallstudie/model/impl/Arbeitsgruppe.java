@@ -72,7 +72,7 @@ public class Arbeitsgruppe {
 
 				String value = checkObVorhanden.getString("Kurzbezeichnung");
 				
-				if (kurzbezeichnung.equals(value)) throw new Exception ("Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon!");
+				if (kurzbezeichnung.equals(value)) throw new Exception ("Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon.");
 
 		}
 		if(kurzbezeichnung.equals("")) throw new Exception("Kurzbezeichnung muss angegeben werden.");
