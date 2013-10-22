@@ -1,6 +1,8 @@
 package fallstudie.controller.impl;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -13,7 +15,7 @@ import fallstudie.view.impl.SuchenView;
 import fallstudie.view.impl.TabelleView;
 import fallstudie.view.interfaces.View;
 
-public class SuchController implements Controller {
+public class SuchController implements Controller,MouseListener {
 	
 	private SuchenView view;
 	private TabelleView viewErg;
@@ -70,10 +72,7 @@ public class SuchController implements Controller {
 		
 		//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
 		if( button == "Löschen" ){
-			popup = new BestaetigenPopup();
-			popup.setController(this);
-			popup.setTitle("Löschen");
-			popup.setAusgabe(HilfeTexte.LoeschenPopup);	
+			auswahlLoeschen();	
 		}
 		
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
@@ -119,25 +118,7 @@ public class SuchController implements Controller {
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button.equals( "auswählen" ) ){
 				
-				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
-				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
-				String name = this.viewErg.getAuswahl();
-				if(name.equals(""))
-				{
-					HauptController.hauptfenster.setInfoBox("Bitte einen Mitarbeiter mit Klick in die Tabelle auswählen.");
-				}
-				else
-				{
-					while( i.hasNext() ){
-						Mitarbeiter MA = (Mitarbeiter) i.next();
-						String benutzername = MA.getBenutzername();
-						if( benutzername.equals( name ) ){
-							this.auswahl = MA;
-							this.aufrufenderController.fortsetzen();
-							break;
-						}
-					}
-				}
+				auswahlAction_allgemein();
 			}
 			
 			if(button.equals("Ja")){
@@ -214,25 +195,7 @@ public class SuchController implements Controller {
 		
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button.equals( "auswählen" ) ){
-				//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
-				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
-				String AGname = this.viewErg.getAuswahl();
-				if(AGname.equals(""))
-				{
-					HauptController.hauptfenster.setInfoBox("Bitte eine Arbeitsgruppe mit Klick in die Tabelle auswählen.");
-				}
-				else
-				{
-					while( i.hasNext() ){
-						Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
-						String kurzbez = AG.getKurzbezeichnung();
-						if( kurzbez.equals( AGname ) ){
-							this.auswahl = AG;
-							this.aufrufenderController.fortsetzen();
-							break;
-						}
-					}
-				}
+				auswahlAction_Arbeitsgruppe();
 			}
 			
 			if(button.equals("Ja")){
@@ -267,7 +230,58 @@ public class SuchController implements Controller {
 			}
 		}
 	
-}	
+}
+
+	private void auswahlLoeschen() {
+		popup = new BestaetigenPopup();
+		popup.setController(this);
+		popup.setTitle("Löschen");
+		popup.setAusgabe(HilfeTexte.LoeschenPopup);
+	}
+
+	private void auswahlAction_allgemein() {
+		//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
+		Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
+		String name = this.viewErg.getAuswahl();
+		if(name.equals(""))
+		{
+			HauptController.hauptfenster.setInfoBox("Bitte einen Mitarbeiter mit Klick in die Tabelle auswählen.");
+		}
+		else
+		{
+			while( i.hasNext() ){
+				Mitarbeiter MA = (Mitarbeiter) i.next();
+				String benutzername = MA.getBenutzername();
+				if( benutzername.equals( name ) ){
+					this.auswahl = MA;
+					this.aufrufenderController.fortsetzen();
+					break;
+				}
+			}
+		}
+	}
+
+	private void auswahlAction_Arbeitsgruppe() {
+		//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
+		Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
+		String AGname = this.viewErg.getAuswahl();
+		if(AGname.equals(""))
+		{
+			HauptController.hauptfenster.setInfoBox("Bitte eine Arbeitsgruppe mit Klick in die Tabelle auswählen.");
+		}
+		else
+		{
+			while( i.hasNext() ){
+				Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
+				String kurzbez = AG.getKurzbezeichnung();
+				if( kurzbez.equals( AGname ) ){
+					this.auswahl = AG;
+					this.aufrufenderController.fortsetzen();
+					break;
+				}
+			}
+		}
+	}	
 
 	public void setAufrufenderController(Controller c)
 	{
@@ -287,4 +301,37 @@ public class SuchController implements Controller {
 
 	@Override
 	public void fortsetzen() {}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getClickCount()==2){
+			if(this.suchdomain.equals( "Arbeitsgruppe" )){
+				auswahlAction_Arbeitsgruppe();
+			}else if (this.operation=="loeschen"){
+				auswahlLoeschen();
+			}else{
+				auswahlAction_allgemein();
+			}
+		} 
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+	}
 }
