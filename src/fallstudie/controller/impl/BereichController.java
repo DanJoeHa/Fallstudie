@@ -94,54 +94,7 @@ public class BereichController implements Controller {
 		
 		//Bereich anlegen/bearbeiten speichern
 		if(button.equals("Speichern")){	
-			popup = new BestaetigenPopup();
-			popup.setController(this);
-			
-			//Leiter holen
-			if( !this.view.getLeiter().isEmpty() ){
-				oLeiter = this.gewaehlterMA;
-				if(oLeiter == null)
-				{
-					try {
-						oLeiter = new Mitarbeiter(this.view.getLeiter());
-					} catch (Exception e1) 
-					{
-						oLeiter = null;
-	
-					}
-				}
-			}
-			
-			
-			//Prüfung ob Leiter ersetzt wird
-			boolean replace = false;
-			
-			//Bereichsleiter bei Bearbeiten ersetzen, wenn ein Leiter gesetzt war
-			if( this.operation == "bearbeiten" && this.gewaehlterBereich.getLeiter() != null ){
-					
-				//Bereich soll keinen Leiter mehr haben
-				if( oLeiter == null ){
-					replace = true;
-				}else{
-					//neuer Leiter != neuem Leiter
-					if( !this.gewaehlterBereich.getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ) replace = true;
-				}
-
-			}
-			
-			//Ersetzen-Popup anzeigen
-			if(replace){
-				//Ersetzen-PopUp
-				popup.setTitle("Bereichsleiter ersetzen?");
-				popup.setAusgabe("Wollen Sie den aktuellen Bereichsleiter ersetzen und speichern?");
-				popup.setButtonName( "Ersetzen", "Nicht ersetzen" );
-				
-			//Wirklich speichern Popup anzeigen
-			}else{
-				popup.setTitle("Bestätigung");
-				popup.setAusgabe(HilfeTexte.SpeichernPopup);
-			}
-			
+			anlegenBearbeitenPopup();			
 		}
 		
 
@@ -201,20 +154,7 @@ public class BereichController implements Controller {
 			//Bereich anlegen
 			if(this.operation.equals("anlegen")){
 				
-				try{
-					Bereich neuerBereich = new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oLeiter);
-					this.gewaehlterBereich = neuerBereich;
-					this.moveLeiter();
-				}
-				catch (Exception ex)
-				{
-					HauptController.hauptfenster.setInfoBox(ex.getMessage());
-					if(oLeiter == null){
-						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Bereich wurde ohne Leiter angelegt.");
-					}
-				}finally{
-					popup.setVisible(false);
-				}
+				bereichAnlegen();
 			}
 			
 			//Bereich bearbeiten
@@ -239,6 +179,73 @@ public class BereichController implements Controller {
 			}					
 		}
 		
+	}
+
+	private void bereichAnlegen() {
+		try{
+			Bereich neuerBereich = new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oLeiter);
+			this.gewaehlterBereich = neuerBereich;
+			this.moveLeiter();
+		}
+		catch (Exception ex)
+		{
+			HauptController.hauptfenster.setInfoBox(ex.getMessage());
+			if(oLeiter == null){
+				HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Bereich wurde ohne Leiter angelegt.");
+			}
+		}finally{
+			popup.setVisible(false);
+		}
+	}
+
+	private void anlegenBearbeitenPopup() {
+		popup = new BestaetigenPopup();
+		popup.setController(this);
+		
+		//Leiter holen
+		if( !this.view.getLeiter().isEmpty() ){
+			oLeiter = this.gewaehlterMA;
+			if(oLeiter == null)
+			{
+				try {
+					oLeiter = new Mitarbeiter(this.view.getLeiter());
+				} catch (Exception e1) 
+				{
+					oLeiter = null;
+
+				}
+			}
+		}
+		
+		
+		//Prüfung ob Leiter ersetzt wird
+		boolean replace = false;
+		
+		//Bereichsleiter bei Bearbeiten ersetzen, wenn ein Leiter gesetzt war
+		if( this.operation == "bearbeiten" && this.gewaehlterBereich.getLeiter() != null ){
+				
+			//Bereich soll keinen Leiter mehr haben
+			if( oLeiter == null ){
+				replace = true;
+			}else{
+				//neuer Leiter != neuem Leiter
+				if( !this.gewaehlterBereich.getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ) replace = true;
+			}
+
+		}
+		
+		//Ersetzen-Popup anzeigen
+		if(replace){
+			//Ersetzen-PopUp
+			popup.setTitle("Bereichsleiter ersetzen?");
+			popup.setAusgabe("Wollen Sie den aktuellen Bereichsleiter ersetzen und speichern?");
+			popup.setButtonName( "Ersetzen", "Nicht ersetzen" );
+			
+		//Wirklich speichern Popup anzeigen
+		}else{
+			popup.setTitle("Bestätigung");
+			popup.setAusgabe(HilfeTexte.SpeichernPopup);
+		}
 	}
 
 	private void bereichLoeschen() {
@@ -345,19 +352,56 @@ public class BereichController implements Controller {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		//Operation löschen & anlegen
 		if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen" && isPop == false)
-		{
-			bereichLoeschenPopup();
-			isPop = true;
+		{	
+			if(this.operation=="loeschen"){
+				bereichLoeschenPopup();
+				isPop = true;
+				this.operation = "popupLoeschen";
+			}
+			if(this.operation=="anlegen"){
+				anlegenBearbeitenPopup();
+				isPop = true;
+				this.operation = "popupAnlegen";
+			}
 		}
-		if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa")){
-			bereichLoeschen();
-			isPop = false;
+		if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa" )){
+			if(this.operation == "popupLoeschen"){
+				bereichLoeschen();
+				isPop = false;
+			}
+			if(this.operation == "popupAnlegen"){
+				bereichAnlegen();
+				isPop = false;
+			}
 		}
 		if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein")){
-			popup.setVisible(false);
-			isPop = false;
+			if(this.operation=="popupLoeschen"){	
+				popup.setVisible(false);
+				isPop = false;
+				this.operation = "loeschen";
+			}
+			if(this.operation=="popupAnlegen"){
+				popup.setVisible(false);
+				isPop = false;
+				this.operation = "anlegen";
+			}
 		}
+		//Operation anlegen
+//		if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen" && isPop == false)
+//		{
+//			anlegenBearbeitenPopup();
+//			isPop = true;
+//		}
+//		if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa")){
+//			bereichAnlegen();
+//			isPop = false;
+//		}
+//		if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein")){
+//			popup.setVisible(false);
+//			isPop = false;
+//		}
 	}
 
 	@Override
