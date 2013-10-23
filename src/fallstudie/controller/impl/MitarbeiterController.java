@@ -197,7 +197,8 @@ public class MitarbeiterController implements Controller {
 				if( !this.gewaehlterMitarbeiter.setNachname( this.view.getNachname() ) ) errmsg+= "Nachname konnte nicht geändert werden. \n";
 				String rollenbezeichnung = this.view.getRolle();
 				if( !this.gewaehlterMitarbeiter.setRolle( this.findeRolleZuBezeichnung( rollenbezeichnung ) ) ) errmsg+= "Rolle konnte nicht geändert werden. \n";
-				//TODO: klären: passwort für einen Mitarbeiter ändern?
+
+				if(this.view.getPasswort().isEmpty()==false) this.gewaehlterMitarbeiter.setPasswort(this.view.getPasswort());
 				
 				if( rollenbezeichnung.equals("Zentralbereichsleiter") || rollenbezeichnung.equals("Bereichsleiter") ){
 					if( !this.gewaehlterMitarbeiter.setBereich( this.findeBereichZuBezeichnung( this.view.getBereich() ) ) ) errmsg+= "Bereich konnte nicht geändert werden. \n";
