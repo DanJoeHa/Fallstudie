@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import com.sun.jmx.snmp.daemon.CommunicationException;
-
 import fallstudie.model.mysql.connector.RemoteConnection;
 
 /**
@@ -61,8 +59,6 @@ public class Arbeitsgruppe {
 			System.err.println(e.getMessage());
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
-		//BereichID kriegen
-		int bereichID = bereich.getID();
 		
 		try {	
 				//Abfangen auf Kurzbezeichnung ist leer
@@ -110,7 +106,7 @@ public class Arbeitsgruppe {
 									+ "','"
 									+ beschreibung
 									+ "','"
-									+ bereichID
+									+ bereich.getID()
 									+ "','"
 									+ leiter.getBenutzername()
 									+ "')");
@@ -147,7 +143,7 @@ public class Arbeitsgruppe {
 									+ kurzbezeichnung
 									+ "','"
 									+ beschreibung
-									+ "','" + bereichID + "')");
+									+ "','" + bereich.getID() + "')");
 					
 					//Setzen der Instanzattribute
 					this.beschreibung = beschreibung;
@@ -288,8 +284,8 @@ public class Arbeitsgruppe {
 	 * @return boolean
 	 */
 	public boolean setBeschreibung(String beschreibung) {
-
 		boolean erfolgreich = false;
+		
 		try 
 		{	/*
 			System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"
@@ -297,6 +293,7 @@ public class Arbeitsgruppe {
 					+ this.arbeitsgruppeID + "'");
 			*/
 			//Beschreibung wird auf der Datenbank geändert
+			
 			RemoteConnection.sql
 					.executeUpdate("UPDATE Arbeitsgruppe SET Beschreibung='"
 							+ beschreibung + "' WHERE ArbeitsgruppeID='"
@@ -304,7 +301,7 @@ public class Arbeitsgruppe {
 
 			erfolgreich = true;
 
-		}//END TRY 
+		}	//END TRY 
 		catch (SQLException e)
 		{
 			System.err.println("Fehler in SetBeschreibung Arbeitsgrupppe");
@@ -314,9 +311,9 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert Beschreibung zur Arbeitsgruppe zur�ck
+	 * Methode liefert Beschreibung des Arbeitsgruppenobjekts
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getBeschreibung() {
 
@@ -349,24 +346,26 @@ public class Arbeitsgruppe {
 				{	System.out.println("VALOUU");
 					//Bekommt die Kurzbezeichnung aus dem Resultset
 					String value = checkObVorhanden.getString("Kurzbezeichnung");
-					//Prüfung
+					//Prüfung auf gleichheit
 					if (kurzbezeichnung.equals(value))
 					{
 						erfolgreich=false;
 					}
 				}
-			/*	System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"
+			
+				/*	System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"
 						+ kurzbezeichnung + "' WHERE ArbeitsgruppeID='"
 						+ this.arbeitsgruppeID + "'");
-			 */
-			if(erfolgreich==true)
-			{
-				RemoteConnection.sql
-						.executeUpdate("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"
-								+ kurzbezeichnung
-								+ "' WHERE ArbeitsgruppeID='"
-								+ this.arbeitsgruppeID + "'");
-			}
+				*/
+				//Wenn keine Redundanzen vorliegen
+				if(erfolgreich==true)
+				{
+					RemoteConnection.sql
+							.executeUpdate("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"
+									+ kurzbezeichnung
+									+ "' WHERE ArbeitsgruppeID='"
+									+ this.arbeitsgruppeID + "'");
+				}
 
 		
 		} 
@@ -398,16 +397,15 @@ public class Arbeitsgruppe {
 
 	public boolean setBereich(Bereich bereich) {
 		boolean erfolgreich = false;
-		// Mitgegebener Bereich ID
-		int bereichID = bereich.getID();
-		// Aktueller Bereich ID
-
-		try {
-			System.out.println("UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+		//Update in der Datenbank
+		try 
+		{
+			
+			//System.out.println("UPDATE Arbeitsgruppe SET Bereich ='"+bereich.getID()+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 
 			RemoteConnection.sql
 					.executeUpdate("UPDATE Arbeitsgruppe SET Bereich ='"
-							+ bereichID + "' WHERE ArbeitsgruppeID='"
+							+ bereich.getID() + "' WHERE ArbeitsgruppeID='"
 							+ this.arbeitsgruppeID + "'");
 			erfolgreich = true;
 
@@ -421,17 +419,18 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert Bereichsobjekt des dazugeh�rigen Bereichs der
-	 * Arbeitsgruppe
+	 * Methode liefert Bereich der Arbeitsgruppe als Objekt zurück
 	 * 
-	 * @return
+	 * @return Bereich
 	 */
 
 	public Bereich getBereich() {
-
+		//Wenn bereits ein Bereich instanziiert wurde
 		if (this.bereich != null)
 			return this.bereich;
-
+		//Wenn bei der Instanziierung der Arbeitsgruppe kein Bereich gefunden wurde, wurde das Attribut 
+		//BereichID=0 gesetzt und somit wird ein leerer Bereich zurückgegeben. Ansonsten wird der Bereich 
+		//aus der ID generiert.
 		if (bereichID != 0) {
 			this.bereich = new Bereich(bereichID);
 		} else {
@@ -616,8 +615,9 @@ public class Arbeitsgruppe {
 	 * 
 	 * @param kurzbezeichnung
 	 * @return
+	 * @throws Exception 
 	 */
-	public static int getIDbyKurzbezeichnung(String kurzbezeichnung) {
+	public static int getIDbyKurzbezeichnung(String kurzbezeichnung) throws Exception {
 		int id = 0;
 		RemoteConnection Connection = new RemoteConnection();
 		if (RemoteConnection.connection == null || RemoteConnection.sql == null) {
@@ -630,23 +630,22 @@ public class Arbeitsgruppe {
 			ResultSet resultSet = Connection
 					.executeQueryStatement("SELECT ArbeitsgruppeID FROM Arbeitsgruppe WHERE Kurzbezeichnung='"
 							+ kurzbezeichnung + "'");
-			resultSet.next();
-			id = resultSet.getInt("ArbeitsgruppeID");
-			resultSet.close();
-
+			if(resultSet.next())
+			{
+				id = resultSet.getInt("ArbeitsgruppeID");
+				resultSet.close();
+			}
+			else if(!resultSet.next())
+			{
+				throw new Exception("Arbeitsgruppe mit dieser Kurzbezeichnung existiert nicht.");
+			}
 		}
 
 		catch (SQLException e) {
 			System.err
 					.println("Fehler aufgetreten in der Methode getIDByKurzbezeichnung in Arbeitsgruppe:");
 			System.err.println(e.getMessage());
-		} catch (NullPointerException e1) {
-			System.err
-					.println("Konnte keine Arbeitsgruppe mit dieser Kurzbezeichnung finden.");
-		} catch (CommunicationException e2) {
-			System.err.println("keine Connection zur Db");
-		}
-
+		} 
 		return id;
 	}
 
