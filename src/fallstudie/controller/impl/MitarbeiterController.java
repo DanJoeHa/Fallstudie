@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.Iterator;
 
+import sun.org.mozilla.javascript.internal.EcmaError;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.model.impl.Arbeitsgruppe;
 import fallstudie.model.impl.Bereich;
@@ -33,7 +34,7 @@ public class MitarbeiterController implements Controller {
 	private Collection<Rolle> rollen;
 	private Collection<Bereich> bereiche;
 	private Mitarbeiter gewaehlterMitarbeiter;
-	private Arbeitsgruppe gewaehlteAG;
+	private Arbeitsgruppe gewaehlteAG = null;
 	private SuchController suche;
 	private boolean suchag = false;
 	public static BestaetigenPopup popup;
@@ -52,7 +53,7 @@ public class MitarbeiterController implements Controller {
 	}
 	
 	/**
-	 * Bestimmt, welche View ausgegeben werden soll
+	 * Bestimmt, welche View ausgegeben werden soll. Erwartet einen der Strings "anlegen" oder "bearbeiten"
 	 * 
 	 * @author Johannes
 	 * @version 0.1
@@ -155,21 +156,33 @@ public class MitarbeiterController implements Controller {
 					//finde passendes Rollen-Objekt
 					Rolle rolle = this.findeRolleZuBezeichnung(rollenbez);
 					try{
+						
+						//Bereichsleiter anlegen
 						if( rollenbez.equals("Bereichsleiter") ){
 						
-							//finde passendes Bereichs-Objekt
+							//finde passendes Bereichs-Objekt oder null
 							Bereich bereich = this.findeBereichZuBezeichnung(this.viewAnlegen.getBereich());
 							
 							//Mitarbeiter mit Bereich anlegen
-							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, bereich);
+							if( bereich != null ){
+								new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, bereich);
+							}else{
+								throw new Exception("Bitte einen gültigen Bereich auswählen!");
+							}
 						}
 						
+						//Sachbearbeiter oder Gruppenleiter anlegen
 						if( rollenbez.equals("Sachbearbeiter") || rollenbez.equals("Gruppenleiter") ){
 							
 							//Mitarbeiter mit Arbeitsgruppe anlegen
-							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.gewaehlteAG);
+							if( this.gewaehlteAG != null ){
+								new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.gewaehlteAG);
+							}else{
+								throw new Exception("Bitte eine gültige Arbeitsgruppe auswählen!");
+							}
 						}
-					
+						
+						//Fachbereichsorganisation oder Zentralbereichsleiter anlegen
 						if( rollenbez.equals("Fachbereichsorganisation") || rollenbez.equals("Zentralbereichsleiter") ){
 							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle);
 						}
@@ -197,28 +210,93 @@ public class MitarbeiterController implements Controller {
 		{
 			if( button.equals("Ja") ){
 				
-				String msg = "Benutzerdaten wurden erfolgreich geändert.";
-				String errmsg = "";
-				
-				if( !this.gewaehlterMitarbeiter.setVorname( this.view.getVorname() ) ) errmsg+= "Vorname konnte nicht geändert werden. \n";
-				if( !this.gewaehlterMitarbeiter.setNachname( this.view.getNachname() ) ) errmsg+= "Nachname konnte nicht geändert werden. \n";
-				String rollenbezeichnung = this.view.getRolle();
-				if( !this.gewaehlterMitarbeiter.setRolle( this.findeRolleZuBezeichnung( rollenbezeichnung ) ) ) errmsg+= "Rolle konnte nicht geändert werden. \n";
-
-				if(this.view.getPasswort().isEmpty()==false) this.gewaehlterMitarbeiter.setPasswort(this.view.getPasswort());
-				
-				if( rollenbezeichnung.equals("Zentralbereichsleiter") || rollenbezeichnung.equals("Bereichsleiter") ){
-					if( !this.gewaehlterMitarbeiter.setBereich( this.findeBereichZuBezeichnung( this.view.getBereich() ) ) ) errmsg+= "Bereich konnte nicht geändert werden. \n";
-				}else{
-					if( !this.gewaehlterMitarbeiter.setArbeitsgruppe( this.gewaehlteAG ) ) errmsg+= "Arbeitsgruppe konnte nicht geändert werden. \n";
+				try{
+					//Daten aus View holen
+					String vorname = this.view.getVorname();
+					String nachname = this.view.getNachname();
+					String rollenbezeichnung = this.view.getRolle();
+					String passwort = this.view.getPasswort();
+					String arbeitsgruppe = this.view.getArbeitsgruppe();
+					String bereich = this.view.getBereich();
+					
+					//Vorname ändern
+					if( !this.gewaehlterMitarbeiter.setVorname( vorname ) ){
+						throw new Exception("Vorname konnte nicht geändert werden.");
+					}
+					
+					//Nachname ändern
+					if( !this.gewaehlterMitarbeiter.setNachname( nachname ) ){
+						throw new Exception("Nachname konnte nicht geändert werden.");
+					}
+					
+					//Rolle finden
+					Rolle rolle = this.findeRolleZuBezeichnung( rollenbezeichnung );
+					if( rolle == null ){
+						throw new Exception("Bitte eine gültige Rolle auswählen!");
+					}
+					
+					//Rolle ändern
+					if( !this.gewaehlterMitarbeiter.setRolle( rolle ) ){
+						throw new Exception("Rolle konnte nicht geändert werden.");
+					}
+					
+					//Passwort ändern (nur wenn neues angegeben wurde!)
+					if(!passwort.isEmpty()){
+						if( !this.gewaehlterMitarbeiter.setPasswort(passwort) ){
+							throw new Exception("Passwort konnte nicht geändert werden.");
+						}
+					}
+					
+					//Bereich speichern
+					if( rollenbezeichnung.equals("Bereichsleiter") ){
+						
+						//Bereich finden
+						Bereich b = this.findeBereichZuBezeichnung( bereich );
+						
+						//Prüfen ob Bereich existiert
+						if(b == null){
+							throw new Exception("Bitte gültigen Bereich auswählen!");
+						}else{
+							if( !this.gewaehlterMitarbeiter.setBereich( b ) ){
+								throw new Exception("Bereich konnte nicht geändert werden.");
+							}
+						}
+						
+						
+					}
+	
+					//Arbeitsgruppe speichern
+					if( rollenbezeichnung.equals("Sachbearbeiter") || rollenbezeichnung.equals("Gruppenleiter")){
+						
+						//Arbeitsgruppe finden falls keine über Suchen ausgewählt wurde
+						if( this.gewaehlteAG == null ){
+							
+							//Prüfen ob eine Arbeitsgruppe angegeben wurde und ob diese existiert
+							if( !arbeitsgruppe.isEmpty() ){
+								//Arbeitsgruppe aus Model-Schicht holen
+								int id = Arbeitsgruppe.getIDbyKurzbezeichnung(arbeitsgruppe);
+								this.gewaehlteAG = new Arbeitsgruppe( id );
+							}else{
+								//keine Arbeitsgruppe angegeben
+								throw new Exception("Mitarbeiter muss einer Arbeitsgruppe zugeordnet werden.");
+							}							
+						
+						}
+						
+						//Speichere Arbeitsgruppe
+						if( !this.gewaehlterMitarbeiter.setArbeitsgruppe( this.gewaehlteAG ) ){
+							throw new Exception("Arbeitsgruppe konnte nicht geändert werden. Bitte stellen Sie sicher, dass eine gültige Kurzbezeichnung angegeben ist.");
+						}
+					}
+					
+					//Rückmeldung an User ausgeben
+					HauptController.hauptfenster.setInfoBox("Benutzerdaten erfolgreich geändert");
+					
+				}catch(Exception ex){
+					HauptController.hauptfenster.setInfoBox(ex.getMessage());
+				}finally{
+					popup.setVisible(false);
 				}
-				
-				//Rückmeldung an User ausgeben
-				if( !errmsg.isEmpty() ){
-					msg = errmsg;
-				}
-				popup.setVisible(false);
-				HauptController.hauptfenster.setInfoBox(msg);
 			}
 		}
 	}
