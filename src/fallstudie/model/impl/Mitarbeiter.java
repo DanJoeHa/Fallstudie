@@ -792,7 +792,7 @@ catch (SQLException e)
 		try
 		{	
 			String newPasswortVerschluesselt = VerschluesselungSHA1.getEncodedSha1Sum(newPasswort);
-			//System.out.println("UPDATE Mitarbeiter SET Passwort ='"+newPasswortVerschluesselt+"' WHERE Benutzername='"+this.benutzername+"'");
+			System.out.println("UPDATE Mitarbeiter SET Passwort ='"+newPasswortVerschluesselt+"' WHERE Benutzername='"+this.benutzername+"'");
 				
 			int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Passwort ='"+newPasswortVerschluesselt+"',PWCHanged='1' WHERE Benutzername='"+this.benutzername+"'");
 			if (rowsAffect==0) erfolgreich =false;
