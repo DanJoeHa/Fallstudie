@@ -147,11 +147,11 @@ public class Jahresuebersicht {
 	 * @param jahr
 	 * @return
 	 */
-	public static Collection<Jahresuebersicht> getAlleJahresuebersichtenZuAllenBereichen(int jahr)
+	public static UebersichtSchnittstellenKlasse getAlleJahresuebersichtenZuAllenBereichen(int jahr)
 	{
 		RemoteConnection Connection = new RemoteConnection();
 		Collection<Jahresuebersicht> alleJahresuebersichten = new LinkedList<>();
-		
+		UebersichtSchnittstellenKlasse uS = new UebersichtSchnittstellenKlasse();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -176,12 +176,13 @@ public class Jahresuebersicht {
 			}
 			
 		jahresUebersicht.close();
+		uS.Jahresuebersichten = alleJahresuebersichten;
 		} 
 		catch (SQLException e) {
 			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZuAllenbereichen(String) aufgetreten:");
 			System.err.println(e.getMessage());
 		}
-		return alleJahresuebersichten;
+		return uS;
 		
 		
 	}

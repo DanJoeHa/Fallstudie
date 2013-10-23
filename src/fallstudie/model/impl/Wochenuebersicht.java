@@ -253,11 +253,11 @@ public class Wochenuebersicht {
 	 * @param woche
 	 * @return Collection von Wochenuebersichten welche einem Bereich zugeordnet sind
 	 */
-	public static Collection<Wochenuebersicht> getAlleWochenuebersichtenZuAllenBereichen(int jahr, int woche)
+	public static UebersichtSchnittstellenKlasse getAlleWochenuebersichtenZuAllenBereichen(int jahr, int woche)
 	{
 		RemoteConnection Connection = new RemoteConnection();
 		Collection<Wochenuebersicht> alleWochenuebersichten = new LinkedList<>();
-		
+		UebersichtSchnittstellenKlasse uS = new UebersichtSchnittstellenKlasse("");
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -283,12 +283,14 @@ public class Wochenuebersicht {
 			}
 			
 		wochenUebersicht.close();
+		uS.Wochenuebersichten = alleWochenuebersichten;
+		
 		} 
 		catch (SQLException e) {
 			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZuAllenbereichen(String) aufgetreten:");
 			System.err.println(e.getMessage());
 		}
-		return alleWochenuebersichten;
+		return uS;
 		
 		
 	}
