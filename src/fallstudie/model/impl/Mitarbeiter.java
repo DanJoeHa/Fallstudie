@@ -974,6 +974,8 @@ public class Mitarbeiter {
 	public boolean setArbeitsgruppe(Arbeitsgruppe arbeitsgruppe) {
 		boolean erfolgreich = false;
 		try {
+		if(arbeitsgruppe!=null)
+		{
 			int arbeitsgrupepID = arbeitsgruppe.getID();
 			// System.out.println("UPDATE Mitarbeiter SET Arbeitsgruppe ='"+arbeitsgrupepID+"' WHERE Benutzername='"+this.benutzername+"'");
 
@@ -987,7 +989,19 @@ public class Mitarbeiter {
 			if (rowsAffect == 1)
 				erfolgreich = true;
 			this.arbeitsgruppe = arbeitsgruppe;
+		}
+		else
+		{
+			int rowsAffect = RemoteConnection.sql
+					.executeUpdate("UPDATE Mitarbeiter SET Arbeitsgruppe =NULL WHERE Benutzername='"
+							+ this.benutzername + "'");
 
+			if (rowsAffect == 0)
+				erfolgreich = false;
+			if (rowsAffect == 1)
+				erfolgreich = true;
+			this.arbeitsgruppe = arbeitsgruppe;
+		}
 		} catch (SQLException e) {
 			System.err
 					.println("Dieser Fehler ist in setpasswort(String) aufgetreten:");

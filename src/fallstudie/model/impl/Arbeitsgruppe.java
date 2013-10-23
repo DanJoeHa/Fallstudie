@@ -20,7 +20,7 @@ import fallstudie.model.mysql.connector.RemoteConnection;
  * @change Alle Methoden implementiert.
  */
 public class Arbeitsgruppe {
-
+	//Attribute werden gesetzt
 	private String beschreibung;
 	private String kurzbezeichnung;
 	private int arbeitsgruppeID;
@@ -36,8 +36,7 @@ public class Arbeitsgruppe {
 	// -----------------------------------------------------------
 
 	/**
-	 * Neue Arbeitsgruppe anlegen Konstruktor, alle Parameter werden von GUI
-	 * �bergeben
+	 * Neue Arbeitsgruppe anlegen Konstruktor mit allen Parametern
 	 * 
 	 * @param kurzbezeichnung
 	 * @param beschreibung
@@ -49,9 +48,8 @@ public class Arbeitsgruppe {
 	 */
 	public Arbeitsgruppe(String kurzbezeichnung, String beschreibung,
 			Bereich bereich, Mitarbeiter leiter) throws Exception {
-
+		//DB Connection herstellen
 		RemoteConnection Connection = new RemoteConnection();
-		String benutzername;
 		try {
 			if (RemoteConnection.connection == null
 					|| RemoteConnection.sql == null) {
@@ -63,115 +61,150 @@ public class Arbeitsgruppe {
 			System.err.println(e.getMessage());
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
-
+		//BereichID kriegen
 		int bereichID = bereich.getID();
-		try {
-			ResultSet checkObVorhanden = Connection
-					.executeQueryStatement("SELECT Kurzbezeichnung From Arbeitsgruppe WHERE Aktiv=1");
+		
+		try {	
+				//Abfangen auf Kurzbezeichnung ist leer
+				if (kurzbezeichnung.equals(""))
+				{
+					throw new Exception("Kurzbezeichnung muss angegeben werden.");
+				}
+				
+				//Prüfung auf Redundanz der Kurzbezeichnung der Arbeitsgruppe
+				ResultSet checkObVorhanden = Connection
+						.executeQueryStatement("SELECT Kurzbezeichnung From Arbeitsgruppe WHERE Aktiv=1");
 
-			while (checkObVorhanden.next()) {
+				while (checkObVorhanden.next()) 
+				{
+					//Bekommt die Kurzbezeichnung aus dem Resultset
+					String value = checkObVorhanden.getString("Kurzbezeichnung");
+					//Prüfung
+					if (kurzbezeichnung.equals(value))
+					{
+						throw new Exception(
+								"Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon.");
+					}
+	
+				}
+				//Prüfung auf Redundanz ENDE
+				//Prüfung ob Leiter angegeben wurde
+				if (leiter != null) {
+					
+				/*	
+					System.out
+							.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"
+									+ kurzbezeichnung
+									+ "','"
+									+ beschreibung
+									+ "','"
+									+ bereichID
+									+ "','"
+									+ leiter.getBenutzername()
+									+ "')");
+				 */
+				//Insert auf die Datenbank
+					int RowsAffected = RemoteConnection.sql
+							.executeUpdate("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"
+									+ kurzbezeichnung
+									+ "','"
+									+ beschreibung
+									+ "','"
+									+ bereichID
+									+ "','"
+									+ leiter.getBenutzername()
+									+ "')");
+					
+				//Setzen der Instanzattribute
+					this.beschreibung = beschreibung;
+					this.kurzbezeichnung = kurzbezeichnung;
+					this.bereich = bereich;
+					this.leiter = leiter;
+				
+				//Exception beim Anlegen der Arbeitsgruppe
+					if (RowsAffected == 1)
+					{
+						throw new Exception("Arbeitsgruppe erfolgreich angelegt.");
+					}
+				//END-IF
+					
+				}
+				//Else wenn der Leiter NULL ist, dann wird die Arbeitsgruppe ohne Leiter angelegt.
+				else
+				{
+					
+					/*
+					System.out
+							.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich) VALUES ('"
+									+ kurzbezeichnung
+									+ "','"
+									+ beschreibung
+									+ "','" + bereichID + "')");
+					 */
+					//Insert auf die Datenbank
+					int RowsAffected = RemoteConnection.sql
+							.executeUpdate("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich) VALUES ('"
+									+ kurzbezeichnung
+									+ "','"
+									+ beschreibung
+									+ "','" + bereichID + "')");
+					
+					//Setzen der Instanzattribute
+					this.beschreibung = beschreibung;
+					this.kurzbezeichnung = kurzbezeichnung;
+					this.bereich = bereich;
+					this.leiter = null;
+	
+					//Exception beim Anlegen der Arbeitsgruppe
+					if (RowsAffected == 1)
+					{
+						throw new Exception("Arbeitsgruppe erfolgreich angelegt.");
+					}
+					//END-IF
 
-				String value = checkObVorhanden.getString("Kurzbezeichnung");
+			}//END IF Leiter abfrage
 
-				if (kurzbezeichnung.equals(value))
-					throw new Exception(
-							"Arbeitgsuppe mit der selben Kurzbezeichnung existiert schon.");
-
-			}
-			if (kurzbezeichnung.equals(""))
-				throw new Exception("Kurzbezeichnung muss angegeben werden.");
-			if (leiter != null) {
-				benutzername = leiter.getBenutzername();
-
-				System.out
-						.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"
-								+ kurzbezeichnung
-								+ "','"
-								+ beschreibung
-								+ "','"
-								+ bereichID
-								+ "','"
-								+ benutzername
-								+ "')");
-
-				int RowsAffected = RemoteConnection.sql
-						.executeUpdate("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich, Leiter) VALUES ('"
-								+ kurzbezeichnung
-								+ "','"
-								+ beschreibung
-								+ "','"
-								+ bereichID
-								+ "','"
-								+ benutzername
-								+ "')");
-
-				this.beschreibung = beschreibung;
-				this.kurzbezeichnung = kurzbezeichnung;
-				this.bereich = bereich;
-				this.leiter = leiter;
-				if (RowsAffected == 1)
-					throw new Exception("Datensatz erfolgreich gespeichert.");
-
-			} else {
-				System.out
-						.println("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich) VALUES ('"
-								+ kurzbezeichnung
-								+ "','"
-								+ beschreibung
-								+ "','" + bereichID + "')");
-
-				int RowsAffected = RemoteConnection.sql
-						.executeUpdate("INSERT INTO Arbeitsgruppe (Kurzbezeichnung, Beschreibung, Bereich) VALUES ('"
-								+ kurzbezeichnung
-								+ "','"
-								+ beschreibung
-								+ "','" + bereichID + "')");
-
-				this.beschreibung = beschreibung;
-				this.kurzbezeichnung = kurzbezeichnung;
-				this.bereich = bereich;
-				this.leiter = null;
-
-				if (RowsAffected == 1)
-					throw new Exception("Arbeitsgruppe erfolgreich angelegt.");
-
-			}
-
-		}
+		}//END TRY
 
 		catch (SQLException e) {
+			System.err.println("Fehler im Arbeitsgruppe-Konstruktor mit Leiter:");
 			System.err.println(e.getMessage());
-			System.err.println("SQL Statement ist fehlerhaft!");
+			
 		}
 
 	}
 
 	/**
-	 * Durch �berreichen des Resultsets werden die Objekte vom Typ
-	 * ArbeitsgruppeImpl erzeugt
+	 * Durch überreichen des Resultsets werden die Objekte vom Typ Arbeitsgruppe erzeugt
 	 * 
 	 * @param resultSet
-	 * @throws SQLException
 	 */
-	public Arbeitsgruppe(ResultSet resultSet) throws SQLException {
-		try {
-			if (RemoteConnection.connection == null
-					|| RemoteConnection.sql == null) {
+	public Arbeitsgruppe(ResultSet resultSet){
+		//DB Connection abfragen
+		try 
+		{
+				if (RemoteConnection.connection == null || RemoteConnection.sql == null)
+				{
 				RemoteConnection.connect();
-			}
-			;
-		} catch (NullPointerException e) {
+				}
+
+		}
+		catch (NullPointerException e)
+		{
 			System.err.println(e.getMessage());
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
-		try {
+		//END TRY DB Connection
+		
+		
+		//START TRY Befüllen der Instanzobjekte
+		try 
+		{
+			
 			// ID der Arbeitsgruppe
 			this.arbeitsgruppeID = resultSet.getInt("ArbeitsgruppeID");
-
 			// Mitarbeiterobjekt aus der ID
 			this.leiterBenutzername = resultSet.getString("Leiter");
-
-			// Mitarbeiter Resultset holen
 			// Bereichobjekt aus der BereichsID
 			this.bereichID = resultSet.getInt("Bereich");
 			// Beschreibung der Arbeitsgruppe
@@ -182,123 +215,88 @@ public class Arbeitsgruppe {
 			this.aktiv = resultSet.getBoolean("Aktiv");
 			// Bereich aus der ID generieren
 
-		} catch (SQLException e) {
-			System.err
-					.println("Dieser Fehler ist aufgetretn in Arbeitsgruppe (ResultSet):");
+		}//END TRY 
+		catch (SQLException e)
+		{
+			System.err.println("Dieser Fehler ist aufgetretn in Arbeitsgruppe (ResultSet):");
 			System.err.println(e.getMessage());
 		}
 
 	}
 
 	/**
-	 * ArbeitsgruppeObjekt per ID (Prim�rschl�ssel) erzeugen
+	 * ArbeitsgruppeObjekt per ID (Primärschlüssel) erzeugen
 	 * 
 	 * @param arbeitsgruppeid
 	 */
 
 	public Arbeitsgruppe(int arbeitsgruppeid) {
+		//Instanziieren der DatenbankConnection
 		RemoteConnection Connection = new RemoteConnection();
-		try {
-			if (RemoteConnection.connection == null
-					|| RemoteConnection.sql == null) {
+		//DB Connection abfragen
+		try 
+		{
+				if (RemoteConnection.connection == null || RemoteConnection.sql == null)
+				{
 				RemoteConnection.connect();
-			}
-			;
-		} catch (NullPointerException e) {
+				}
+
+		}
+		catch (NullPointerException e)
+		{
 			System.err.println(e.getMessage());
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
-		try { // System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
-
-			ResultSet resultSet = Connection
-					.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"
-							+ arbeitsgruppeid + "'");
-			resultSet.next();
+		//END TRY DB Connection
+		try
+		{ 
+			// System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+arbeitsgruppeid+"'");
+			//ResultSet aus der Datenbank anhand der ID
+			ResultSet resultSet = Connection.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+ arbeitsgruppeid + "'");
+				resultSet.next();
+			//Neue Arbeitsgruppe
 			Arbeitsgruppe ag = new Arbeitsgruppe(resultSet);
+			//ID der Arbeitsgruppe
 			this.arbeitsgruppeID = arbeitsgruppeid;
+			//Aktiv der Arbeitsgruppe
 			this.aktiv = ag.getAktiv();
+			//Bereich ID
 			this.bereich = ag.getBereich();
+			//Beschreibung
 			this.beschreibung = ag.getBeschreibung();
+			//Kurzbezeichnung
 			this.kurzbezeichnung = ag.getKurzbezeichnung();
+			//Leiter wird gesetzt
 			this.leiter = ag.getLeiter();
 
-		} catch (SQLException e) {
-			System.err
-					.println("Dieser Fehler ist aufgetreten in Arbeitsgruppe (id)");
+		} 
+		catch (SQLException e) 
+		{
+			System.err.println("Dieser Fehler ist aufgetreten in Arbeitsgruppe (id)");
 			System.err.println(e.getMessage());
 		}
 	}
 
-	/**
-	 * Methode wenn nur die Kurzbezeichnung �bergeben wird, alles andere wird in
-	 * der Datenbank geholt mit SELECT
-	 * 
-	 * @param kurzbezeichnung
-	 * @return
-	 * @return
-	 * @throws SQLException
-	 */
-	public static Arbeitsgruppe getArbeitsgruppeByName(String kurzbezeichnung) {
-
-		RemoteConnection Connection = new RemoteConnection();
-		try {
-			if (RemoteConnection.connection == null
-					|| RemoteConnection.sql == null) {
-				RemoteConnection.connect();
-			}
-			;
-		} catch (NullPointerException e) {
-			System.err.println(e.getMessage());
-			System.err.println("Konnte keine Datenbankverbindung herstellen!");
-		}
-
-		Arbeitsgruppe ag = null;
-
-		try {
-
-			ResultSet resultSet = Connection
-					.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"
-							+ kurzbezeichnung + "'");
-			// System.out.println
-			// ("SELECT * FROM Arbeitsgruppe WHERE Kurzbezeichnung = '"+kurzbezeichnung+"'");
-			// Variablen f�r den sp�teren Konstruktoraufruf
-			resultSet.next();
-			ag = new Arbeitsgruppe(resultSet);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
-			System.err.println(e.getMessage());
-		} catch (NullPointerException e) {
-			System.err
-					.println("Konnte kein Ergebnis mit der Kurzbezeichnung finden.");
-		}
-
-		return ag;
-	}
-
+	
 	// -----------------------------------------------------------
 	// ---------------------KONSTRUKTOREN-------------------------
 	// -----------------------------------------------------------
 
 	/**
-	 * Mehode �ndert die Beschreibung einer Arbeitsgruppe Abfrage ob die alte
-	 * Beschreibung identisch mit der Neuen ist, wenn ja dann wird das Setzen
-	 * nicht vollzogen.
-	 * 
-	 * @param beschreibung
-	 * @return boolean ob erfolgreich
+	 * Mehode ändert die Beschreibung einer Arbeitsgruppe.
+	 * @param String
+	 * @return boolean
 	 */
 	public boolean setBeschreibung(String beschreibung) {
 
 		boolean erfolgreich = false;
-		try {
+		try 
+		{	/*
 			System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"
 					+ beschreibung + "' WHERE ArbeitsgruppeID='"
 					+ this.arbeitsgruppeID + "'");
-
+			*/
+			//Beschreibung wird auf der Datenbank geändert
 			RemoteConnection.sql
 					.executeUpdate("UPDATE Arbeitsgruppe SET Beschreibung='"
 							+ beschreibung + "' WHERE ArbeitsgruppeID='"
@@ -306,7 +304,9 @@ public class Arbeitsgruppe {
 
 			erfolgreich = true;
 
-		} catch (SQLException e) {
+		}//END TRY 
+		catch (SQLException e)
+		{
 			System.err.println("Fehler in SetBeschreibung Arbeitsgrupppe");
 			System.err.println(e.getMessage());
 		}
@@ -324,35 +324,55 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode �ndert Kurzbezeichnung der Arbeitsgruppe
+	 * Methode ändert Kurzbezeichnung der Arbeitsgruppe
 	 * 
 	 * @param kurzbezeichnung
 	 * @return
 	 * @throws Exception
 	 */
 	public boolean setKurzbezeichnung(String kurzbezeichnung) throws Exception {
-
-		boolean erfolgreich = false;
-		try {
-
-			{
-				System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"
+		RemoteConnection Connection = new RemoteConnection();
+		
+		boolean erfolgreich = true;
+		try{			
+				//Abfangen auf Kurzbezeichnung ist leer
+				if (kurzbezeichnung.equals(""))
+				{
+					erfolgreich=false;
+				}
+				
+				//Prüfung auf Redundanz der Kurzbezeichnung der Arbeitsgruppe
+				ResultSet checkObVorhanden = Connection
+						.executeQueryStatement("SELECT Kurzbezeichnung From Arbeitsgruppe WHERE Aktiv=1");
+	
+				while (checkObVorhanden.next()) 
+				{	System.out.println("VALOUU");
+					//Bekommt die Kurzbezeichnung aus dem Resultset
+					String value = checkObVorhanden.getString("Kurzbezeichnung");
+					//Prüfung
+					if (kurzbezeichnung.equals(value))
+					{
+						erfolgreich=false;
+					}
+				}
+			/*	System.out.println("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"
 						+ kurzbezeichnung + "' WHERE ArbeitsgruppeID='"
 						+ this.arbeitsgruppeID + "'");
-
+			 */
+			if(erfolgreich==true)
+			{
 				RemoteConnection.sql
 						.executeUpdate("UPDATE Arbeitsgruppe SET Kurzbezeichnung='"
 								+ kurzbezeichnung
 								+ "' WHERE ArbeitsgruppeID='"
 								+ this.arbeitsgruppeID + "'");
-
-				erfolgreich = true;
-
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err
-					.println("------SQL ERROR------- in setKurzbezeichnung bei Arbeitsgruppe");
+
+		
+		} 
+		catch (SQLException e) 
+		{
+			System.err.println("SQL ERROR in setKurzbezeichnung bei Arbeitsgruppe:");
 			System.err.println(e.getMessage());
 		}
 		return erfolgreich;
@@ -383,7 +403,7 @@ public class Arbeitsgruppe {
 		// Aktueller Bereich ID
 
 		try {
-			// System.out.println("UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
+			System.out.println("UPDATE Arbeitsgruppe SET Bereich ='"+bereichID+"' WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
 
 			RemoteConnection.sql
 					.executeUpdate("UPDATE Arbeitsgruppe SET Bereich ='"
@@ -431,19 +451,8 @@ public class Arbeitsgruppe {
 	 * @throws Exception
 	 */
 	public boolean setLeiter(Mitarbeiter leiter) {
-		// RemoteConnection Connection = new RemoteConnection();
 		boolean erfolgreich = false;
-		/*
-		 * try { ResultSet existiertMitarbeiter =
-		 * Connection.executeQueryStatement
-		 * ("SELECT Benutzername FROM Mitarbeiter WHERE Benutzername='"
-		 * +leiter.getBenutzername()+"'"); if(!existiertMitarbeiter.next())
-		 * throw new Exception(
-		 * "Daten wurden geändert, aber der angegebene Bereichsleiter wurde nicht gefunden. Bitte anderen Leiter wählen."
-		 * ); } catch (SQLException e) {
-		 * System.err.println("fehler in setLeiter");
-		 * System.err.println(e.getMessage()); }
-		 */
+
 		try {
 
 			if (!(leiter == null)) {
