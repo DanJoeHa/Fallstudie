@@ -75,6 +75,10 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 		
 
 	}
+	/**
+	 * Füllt die Auswahlbox mit den Bereichen
+	 * @param bereiche
+	 */
 	public void setBereich(String[] bereiche){
 		for( int i = 0; i < bereiche.length; i++){
 			this.C_Bereich.addItem( bereiche[i] );
@@ -82,6 +86,11 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 		
 	}
 	
+	/**
+	 * Füllt die Auswahlbix nit den Bereich und legt zusätzlich den vorausgewählten Bereich fest
+	 * @param bereiche
+	 * @param aktuellerBereich
+	 */
 	public void setBereich(String[] bereiche, String aktuellerBereich){
 		this.setBereich(bereiche);
 		for( int i = 0; i < bereiche.length; i++){
@@ -91,15 +100,26 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 			}
 		}
 	}
-	
+	/**
+	 * Gibt den ausgewählten Bereich aus der AuswahlBox zurück
+	 * @return Bezeichnung des Bereichs
+	 */
 	public String getBereich(){
 		return this.C_Bereich.getSelectedItem().toString();
 	}
 	
+	/**
+	 * Arbeitsgruppenleiter Feld setzen
+	 * @param Benutzername des Mitarbeiters
+	 */
 	public void setAGLeiter(String benutzerid){
 		this.T_AGLeiterSuchbegriff.setText(benutzerid);
 	}
 	
+	/**
+	 * Gibt den Benutzernamen des Arbeitsgruppenleiters zurück
+	 * @return Benutzername des Arbeitsgruppenleiters
+	 */
 	public String getAGLeiter(){
 		return this.T_AGLeiterSuchbegriff.getText();
 	}
