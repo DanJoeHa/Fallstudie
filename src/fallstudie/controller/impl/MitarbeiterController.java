@@ -126,15 +126,22 @@ public class MitarbeiterController implements Controller {
 			
 		}//Arbeitsgruppe suchen			
 		
+		//Speicherbutton
+		if( button.equals("Speichern") ){
+			popup = new BestaetigenPopup();
+			popup.setController(this);
+			popup.setTitle("Speichern");
+			popup.setAusgabe(HilfeTexte.SpeichernPopup);
+		}
+		
+		//Speicherabfrage ausblenden
+		if(button.equals("Nein")){
+			popup.setVisible(false);
+		}
+		
 		//Mitarbeiter anlegen
 		if(this.operation.equals("anlegen"))
 		{
-			if( button.equals("Speichern") ){
-				popup = new BestaetigenPopup();
-				popup.setController(this);
-				popup.setTitle("Speichern");
-				popup.setAusgabe(HilfeTexte.SpeichernPopup);
-			}
 			if(button.equals("Ja")){
 				//hole Nutzerdaten
 				String benutzername = this.viewAnlegen.getBenutzername();
@@ -188,7 +195,7 @@ public class MitarbeiterController implements Controller {
 		//Mitarbeiter bearbeiten
 		if(this.operation.equals("bearbeiten"))
 		{
-			if( button.equals("Speichern") ){
+			if( button.equals("Ja") ){
 				
 				String msg = "Benutzerdaten wurden erfolgreich geändert.";
 				String errmsg = "";
@@ -209,9 +216,8 @@ public class MitarbeiterController implements Controller {
 				//Rückmeldung an User ausgeben
 				if( !errmsg.isEmpty() ){
 					msg = errmsg;
-				}else{
-					HauptController.startMitarbeiterBearbeiten();
 				}
+				popup.setVisible(false);
 				HauptController.hauptfenster.setInfoBox(msg);
 			}
 		}
