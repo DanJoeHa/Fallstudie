@@ -64,6 +64,10 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		this.B_BereichsleiterSuche.addActionListener(c);
 		this.B_Speichern.addActionListener(c);
 		this.B_Zuruecksetzen.addActionListener(c);
+		this.B_Speichern.addKeyListener(c);
+		this.T_Bezeichnung.addKeyListener(c);
+		this.T_Kurzbezeichnung.addKeyListener(c);
+		this.B_Zuruecksetzen.addKeyListener(c);
 	}
 
 	@Override
