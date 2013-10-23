@@ -40,6 +40,7 @@ public class ArtAnlegenView extends JPanel implements View{
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
+		grabFocus();
 		//B_Speichern
 		B_Speichern = new JButton("Speichern");
 		B_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
