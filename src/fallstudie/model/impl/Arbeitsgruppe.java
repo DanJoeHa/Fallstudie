@@ -340,14 +340,18 @@ public class Arbeitsgruppe {
 				
 				//Prüfung auf Redundanz der Kurzbezeichnung der Arbeitsgruppe
 				ResultSet checkObVorhanden = Connection
-						.executeQueryStatement("SELECT Kurzbezeichnung From Arbeitsgruppe WHERE Aktiv=1");
+						.executeQueryStatement("SELECT ArbeitsgruppeID From Arbeitsgruppe WHERE Aktiv=1 AND Kurzbezeichnung='"+this.kurzbezeichnung+"'");
 	
 				while (checkObVorhanden.next()) 
 				{	
 					//Bekommt die Kurzbezeichnung aus dem Resultset
-					String value = checkObVorhanden.getString("Kurzbezeichnung");
+					int ID = checkObVorhanden.getInt("ArbeitsgruppeID");
 					//Prüfung auf gleichheit
-					if (kurzbezeichnung.equals(value))
+					if (this.arbeitsgruppeID==ID)
+					{
+						erfolgreich=true;
+					}
+					else
 					{
 						erfolgreich=false;
 					}
