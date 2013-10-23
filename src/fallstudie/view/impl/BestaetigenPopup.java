@@ -59,7 +59,7 @@ public class BestaetigenPopup extends JDialog implements View{
 		B_speichern.setActionCommand("Ja");
 		buttonPane.add(B_speichern);
 //		B_speichern.setDefaultCapable(true);
-		getRootPane().setDefaultButton(B_speichern);
+		B_speichern.requestFocusInWindow();
 		//B_speichern.setFocusable(true);
 			
 		B_abbrechen = new JButton("Nein");
@@ -68,6 +68,16 @@ public class BestaetigenPopup extends JDialog implements View{
 		//B_abbrechen.setFocusable(true);
 			
 		
+	}
+	public String hatFocus(){
+		if(this.B_abbrechen.isFocusOwner()== true){
+			System.out.println("popupnein");
+			return "popupNein";
+		}
+		else{
+			System.out.println("popupja");
+			return "popupJa";
+		}
 	}
 	public void setButtonName(String ButtonJa, String ButtonNein ){
 		this.B_speichern.setText(ButtonJa);
