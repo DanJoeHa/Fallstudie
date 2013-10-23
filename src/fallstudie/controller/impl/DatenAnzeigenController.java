@@ -161,6 +161,7 @@ public class DatenAnzeigenController implements Controller {
 		
 		//Abbrechen-Button
 		if( button.equals("Abbrechen") ){
+			HauptController.hauptfenster.setInfoBox("");
 			if(this.drilldown){
 				this.drilldown = false;
 				ActionEvent event = new ActionEvent(this, 1, "Weiter");
@@ -221,8 +222,6 @@ public class DatenAnzeigenController implements Controller {
 			itJahre = coJahresuebersichten.iterator();
 			while( itJahre.hasNext() ){
 				
-				int i = 0;
-				
 				//Schreibe Bereich in Tabellenkopf
 				Jahresuebersicht oJahresuebersicht = itJahre.next();
 				tabellenspalten[spalte] = oJahresuebersicht.getBereich().getKurzbezeichnung();
@@ -235,8 +234,8 @@ public class DatenAnzeigenController implements Controller {
 				while( itZeile.hasNext() ){
 
 					//Zeile hinzufügen
-					this.addZeile(itZeile, i, spalte, true);
-					i++;
+					this.addZeile(itZeile, spalte, true);
+	
 					
 				}
 				
@@ -346,8 +345,6 @@ public class DatenAnzeigenController implements Controller {
 			itWoche = coWochenuebersichten.iterator();
 			while( itWoche.hasNext() ){
 				
-				int i = 0;
-				
 				//Schreibe Bereich in Tabellenkopf
 				Wochenuebersicht oWochenuebersicht = itWoche.next();
 				tabellenspalten[spalte] = oWochenuebersicht.getBereich().getKurzbezeichnung();
@@ -360,8 +357,8 @@ public class DatenAnzeigenController implements Controller {
 				while( itZeile.hasNext() ){
 					
 					//Zeile hinzufügen
-					this.addZeile(itZeile, i, spalte, true);
-					i++;
+					this.addZeile(itZeile, spalte, true);
+			
 				}
 				
 				//nächste Spalte im Gesamtbericht
@@ -531,8 +528,6 @@ public class DatenAnzeigenController implements Controller {
 			itJahre = coJahresuebersichten.iterator();
 			while( itJahre.hasNext() ){
 				
-				int i = 0;
-				
 				//Schreibe Bereich in Tabellenkopf
 				Jahresuebersicht oJahresuebersicht = itJahre.next();
 				tabellenspalten[spalte] = oJahresuebersicht.getArbeitsgruppe().getKurzbezeichnung();
@@ -545,8 +540,8 @@ public class DatenAnzeigenController implements Controller {
 				while( itZeile.hasNext() ){
 					
 					//Zeile hinzufügen
-					this.addZeile(itZeile, i, spalte, true);
-					i++;
+					this.addZeile(itZeile, spalte, true);
+		
 				}
 				
 				//nächste Spalte im Gesamtbericht
@@ -594,8 +589,6 @@ public class DatenAnzeigenController implements Controller {
 			itWoche = coWochenuebersichten.iterator();
 			while( itWoche.hasNext() ){
 				
-				int i = 0;
-				
 				//Schreibe Bereich in Tabellenkopf
 				Wochenuebersicht oWochenuebersicht = itWoche.next();
 				tabellenspalten[spalte] = oWochenuebersicht.getArbeitsgruppe().getKurzbezeichnung();
@@ -608,8 +601,8 @@ public class DatenAnzeigenController implements Controller {
 				while( itZeile.hasNext() ){
 					
 					//Zeile hinzufügen
-					this.addZeile(itZeile, i, spalte, true);
-					i++;
+					this.addZeile(itZeile, spalte, true);
+	
 				}
 				
 				//nächste Spalte im Gesamtbericht
@@ -630,7 +623,7 @@ public class DatenAnzeigenController implements Controller {
 	 * @param i
 	 * @param spalte
 	 */
-	private void addZeile(Iterator<Zeile> itZeile, int i, int spalte, boolean summierung){
+	private void addZeile(Iterator<Zeile> itZeile, int spalte, boolean summierung){
 		
 		//naechste Zeile holen
 		Zeile oZeile = (Zeile) itZeile.next();
@@ -654,9 +647,8 @@ public class DatenAnzeigenController implements Controller {
 		if(found){
 			zeile = Integer.parseInt( aArtPos[ artInZeile ][ artZeile ] );
 		}else{
-			zeile = i;
+			zeile = artInZeile;
 			tabellenwerte[zeile][0] = oZeile.getArt().getName();
-			System.out.println("i: " + i + " art in Zeile: " + artInZeile);
 			aArtPos[artInZeile][artName] = oZeile.getArt().getName();
 			aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
 		}

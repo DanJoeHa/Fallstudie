@@ -1,14 +1,24 @@
 package fallstudie.view.impl;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
+
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
@@ -18,6 +28,7 @@ public class LayoutMitarbeiter extends JPanel implements View{
 	protected JTextField T_Vorname;
 	protected JTextField T_Nachname;
 	protected JTextField T_Benutzername;
+	protected JTextField T_Passwort1;
 	protected static JLabel L_Bereich;
 	protected static JLabel L_Arbeitsgruppe;
 
@@ -55,19 +66,19 @@ public class LayoutMitarbeiter extends JPanel implements View{
 		//L_Bereich
 		L_Bereich = new JLabel("Bereich:");
 		L_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Bereich.setBounds(30, 230, 150, 30);
+		L_Bereich.setBounds(30, 280, 150, 30);
 		add(L_Bereich);
 		
 		//L_Rolle
 		JLabel L_Rolle = new JLabel("Rolle:");
 		L_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Rolle.setBounds(30, 180, 150, 30);
+		L_Rolle.setBounds(30, 230, 150, 30);
 		add(L_Rolle);
 		
 		//L_Arbeitsgruppe
 		L_Arbeitsgruppe = new JLabel("Arbeitsgruppe:");
 		L_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		L_Arbeitsgruppe.setBounds(30, 230, 150, 30);
+		L_Arbeitsgruppe.setBounds(30, 280, 150, 30);
 		add(L_Arbeitsgruppe);
 		
 		//T_Vorname
@@ -90,6 +101,43 @@ public class LayoutMitarbeiter extends JPanel implements View{
 		T_Benutzername.setColumns(10);
 		T_Benutzername.setBounds(200, 130, 390, 30);
 		add(T_Benutzername);
+		
+		//L_Passwort1 280
+		JLabel L_Passwort1 = new JLabel("Passwort:");
+		L_Passwort1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		L_Passwort1.setBounds(30, 180, 150, 30);
+		add(L_Passwort1);
+		
+		//T_Passwort1
+		T_Passwort1 = new JTextField();
+		T_Passwort1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		T_Passwort1.setBounds(200, 180, 220, 30);
+		add(T_Passwort1);
+		T_Passwort1.setColumns(10);
+		
+		//B_PasswortGenerieren
+		JButton B_PasswortGenerieren = new JButton("Generieren");
+		B_PasswortGenerieren.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_PasswortGenerieren.setBounds(440, 180, 150, 30);
+		add(B_PasswortGenerieren);
+		
+		B_PasswortGenerieren.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StringBuilder zufallsPasswort = new StringBuilder("xxxxxxxx");
+		        java.util.Random rGen=new java.util.Random();
+		        char[] passArray=new char[8];
+		        
+		        for(int i=0;i<8;i++) {
+		            passArray[i]=(char)(rGen.nextInt(26)+97);
+		            zufallsPasswort.setCharAt(i, passArray[i]);
+		        }
+		        
+				T_Passwort1.setText(zufallsPasswort.toString());
+			}
+	    	
+	    });
 		
 	}
 	
