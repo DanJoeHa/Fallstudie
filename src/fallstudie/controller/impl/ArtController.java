@@ -240,7 +240,7 @@ public class ArtController implements Controller {
 			artLoeschen();
 			}
 		
-			if ((e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && popup.isFocused() == true && this.operation=="popupJa" && popup.hatFocus()== "popupJa") ||(e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && popup.isFocused() == true && this.operation=="popupNein" && popup.hatFocus()== "popupJa"))
+			if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa"))
 			{
 				if(this.operation == "popupJa"){
 					artAnlegenPopup();
@@ -249,7 +249,7 @@ public class ArtController implements Controller {
 					artLoeschenPopup();
 				}
 			}
-			if ((e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && popup.isFocused() == true && this.operation =="popupJa" && popup.hatFocus() == "popupNein") || (e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && popup.isFocused() == true && this.operation =="popupNein" && popup.hatFocus() == "popupNein"))
+			if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein"))
 			{
 				if(this.operation =="popupJa"){
 					this.view.reset();
