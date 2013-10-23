@@ -143,6 +143,8 @@ public class PasswortAendernView extends JPanel implements View {
 	@Override
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);	
+		this.B_Speichern.addKeyListener(c);
+		this.P_WdhPasswort.addKeyListener(c);
 	}
 
 	/**

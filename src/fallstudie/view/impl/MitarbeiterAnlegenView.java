@@ -154,9 +154,6 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		return C_Rolle.getSelectedItem().toString();
 	}
 	
-	public String getPasswort(){
-		return T_Passwort1.getText();
-	}
 	
 	public String getBereich(){
 		return C_Bereich.getSelectedItem().toString();

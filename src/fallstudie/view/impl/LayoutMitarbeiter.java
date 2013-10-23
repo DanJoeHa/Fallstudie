@@ -165,6 +165,10 @@ public class LayoutMitarbeiter extends JPanel implements View{
 		return T_Benutzername.getText();
 	}
 
+	public String getPasswort(){
+		return T_Passwort1.getText();
+	}
+	
 	@Override
 	public void reset() {
 		
