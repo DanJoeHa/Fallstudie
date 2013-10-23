@@ -44,51 +44,55 @@ public class PasswortController implements Controller {
 		// wenn button "Speichern" angeklickt wurde
 		if(button.equals("Speichern"))
 		{
-			//Hole Daten aus View
-			String neuesPasswort = this.view.getNeuesPasswort();
-			String wdhPasswort = this.view.getWdhPasswort();
-			String altesPasswort = this.view.getAltesPasswort();
+			speichernAction();
+		}
+		
+	}
+
+	private void speichernAction() {
+		//Hole Daten aus View
+		String neuesPasswort = this.view.getNeuesPasswort();
+		String wdhPasswort = this.view.getWdhPasswort();
+		String altesPasswort = this.view.getAltesPasswort();
+		
+		//Prüfe, ob altes Passwort mit derzeitigem Passwort übereinstimmt
+		if( HauptController.activeUser.checkPasswort(altesPasswort)){
 			
-			//Prüfe, ob altes Passwort mit derzeitigem Passwort übereinstimmt
-			if( HauptController.activeUser.checkPasswort(altesPasswort)){
+			//Pürfe, neues Passwort vorhanden
+			if(!neuesPasswort.equals(""))
+			{
 				
-				//Pürfe, neues Passwort vorhanden
-				if(!neuesPasswort.equals(""))
-				{
+				//Prüfe, ob neues Passwort und dessen Wiederholung gleich sind
+				if(wdhPasswort.equals(neuesPasswort)){
 					
-					//Prüfe, ob neues Passwort und dessen Wiederholung gleich sind
-					if(wdhPasswort.equals(neuesPasswort)){
-						
-						//Prüfe, ob neues Passowrt mit dem alten Passowort übereinstimmt
-						if(!altesPasswort.equals(neuesPasswort)){
-							HauptController.activeUser.setPasswort(neuesPasswort);
-							HauptController.hauptfenster.setInfoBox("Passwort erfolgreich geändert");
-							this.view.reset();
-						}
-						else{
-							HauptController.hauptfenster.setInfoBox("Ihr Passwort wurde nicht geändert! Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen");
-							this.view.reset();
-						}
-						
-					}
-					else
-					{
-						HauptController.hauptfenster.setInfoBox("Passwörter stimmen nicht überein");
+					//Prüfe, ob neues Passowrt mit dem alten Passowort übereinstimmt
+					if(!altesPasswort.equals(neuesPasswort)){
+						HauptController.activeUser.setPasswort(neuesPasswort);
+						HauptController.hauptfenster.setInfoBox("Passwort erfolgreich geändert");
 						this.view.reset();
 					}
+					else{
+						HauptController.hauptfenster.setInfoBox("Ihr Passwort wurde nicht geändert! Das neue Passwort darf nicht mit dem alten Passwort übereinstimmen");
+						this.view.reset();
+					}
+					
 				}
 				else
 				{
-					HauptController.hauptfenster.setInfoBox("Bitte neues Passwort eintragen.");
+					HauptController.hauptfenster.setInfoBox("Passwörter stimmen nicht überein");
 					this.view.reset();
 				}
 			}
 			else
 			{
-				HauptController.hauptfenster.setInfoBox("Altes Passwort falsch");
+				HauptController.hauptfenster.setInfoBox("Bitte neues Passwort eintragen.");
+				this.view.reset();
 			}
 		}
-		
+		else
+		{
+			HauptController.hauptfenster.setInfoBox("Altes Passwort falsch");
+		}
 	}
 
 	@Override
@@ -98,55 +102,41 @@ public class PasswortController implements Controller {
 
 	@Override
 	public void fortsetzen() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			speichernAction();
+		}		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
