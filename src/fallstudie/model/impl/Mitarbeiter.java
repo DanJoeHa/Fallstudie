@@ -400,10 +400,10 @@ public class Mitarbeiter {
 		
 		
 		System.out.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)" +
-				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"'");
+				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"')");
 		
 		int affectedRows = RemoteConnection.sql.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)" +
-				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"'");
+				"	VALUES ('"+benutzername+"','"+verschluesseltPasswort+"','"+vorname+"','"+nachname+"','"+rollenName+"')");
 		
 		if (affectedRows==1)System.out.println("Es wurde "+affectedRows+" Datensatz eingef�gt.");
 		
