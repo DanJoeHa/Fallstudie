@@ -30,6 +30,7 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
+		
 		//L_Bereichsleiter
 		JLabel L_Bereichsleiter = new JLabel("Bereichsleiter:");
 		L_Bereichsleiter.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -48,7 +49,7 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		B_BereichsleiterSuche.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_BereichsleiterSuche.setBounds(440, 130, 150, 30);
 		add(B_BereichsleiterSuche);
-
+		
 	}
 	
 	public void setLeiter(String benutzerid){

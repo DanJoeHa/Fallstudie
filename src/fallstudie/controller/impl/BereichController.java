@@ -25,6 +25,7 @@ public class BereichController implements Controller {
 	private Bereich gewaehlterBereich;
 	public static BestaetigenPopup popup;
 	private boolean isPop=false;
+	private boolean istPop=false;
 
 	private Collection<Bereich> bereich;
 	
@@ -113,21 +114,7 @@ public class BereichController implements Controller {
 		//Bereich zur Bearbeitung ausgewählt
 		if(button.equals("Bearbeiten") ){
 			
-			String tempBereich = this.viewLoesch.getBereich();
-			this.view = new BereichBearbeitenAnlegenView();
-			HauptController.hauptfenster.setContent(view);
-			this.view.setController( this );
-			this.view.setKurzbezeichnung(tempBereich);
-			this.view.setButtonAbbrechenName("Abbrechen");
-			gewaehlterBereich = Bereich.getBereichByName(tempBereich);
-			this.view.setBezeichnung(gewaehlterBereich.getBeschreibung());
-			try
-			{
-				this.view.setLeiter(gewaehlterBereich.getLeiter().getBenutzername());
-			}
-			catch(Exception ex)
-			{
-			}
+			bearbeitenButton();
 			
 		}
 		
@@ -160,25 +147,47 @@ public class BereichController implements Controller {
 			//Bereich bearbeiten
 			if(this.operation.equals("bearbeiten"))	{
 				
-				try
-				{
-					this.moveLeiter();
-					this.gewaehlterBereich.setBeschreibung(this.view.getBezeichnung());
-					this.gewaehlterBereich.setKurzbezeichnung(this.view.getKurzbezeichnung());
-					this.gewaehlterBereich.setLeiter(oLeiter);
-				}
-				catch (Exception ex)
-				{
-					HauptController.hauptfenster.setInfoBox(ex.getMessage());
-					if(oLeiter == null){
-						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Bereich wurde ohne Leiter angelegt.");
-					}
-				}finally{
-					popup.setVisible(false);
-				}
+				bearbeitenBereich();
 			}					
 		}
 		
+	}
+
+	private void bearbeitenBereich() {
+		try
+		{
+			this.moveLeiter();
+			this.gewaehlterBereich.setBeschreibung(this.view.getBezeichnung());
+			this.gewaehlterBereich.setKurzbezeichnung(this.view.getKurzbezeichnung());
+			this.gewaehlterBereich.setLeiter(oLeiter);
+		}
+		catch (Exception ex)
+		{
+			HauptController.hauptfenster.setInfoBox(ex.getMessage());
+			if(oLeiter == null){
+				HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Bereich wurde ohne Leiter angelegt.");
+			}
+		}finally{
+			popup.setVisible(false);
+		}
+	}
+
+	private void bearbeitenButton() {
+		String tempBereich = this.viewLoesch.getBereich();
+		this.view = new BereichBearbeitenAnlegenView();
+		HauptController.hauptfenster.setContent(view);
+		this.view.setController( this );
+		this.view.setKurzbezeichnung(tempBereich);
+		this.view.setButtonAbbrechenName("Abbrechen");
+		gewaehlterBereich = Bereich.getBereichByName(tempBereich);
+		this.view.setBezeichnung(gewaehlterBereich.getBeschreibung());
+		try
+		{
+			this.view.setLeiter(gewaehlterBereich.getLeiter().getBenutzername());
+		}
+		catch(Exception ex)
+		{
+		}
 	}
 
 	private void bereichAnlegen() {
@@ -352,56 +361,88 @@ public class BereichController implements Controller {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		//Operation löschen & anlegen
-		if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen" && isPop == false)
-		{	
+		//Operation löschen & anlegen & bearbeiten	
 			if(this.operation=="loeschen"){
-				bereichLoeschenPopup();
-				isPop = true;
-				this.operation = "popupLoeschen";
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen" && isPop == false)
+				{
+					bereichLoeschenPopup();
+					isPop = true;
+					this.operation = "popupLoeschen";
+				}
 			}
 			if(this.operation=="anlegen"){
-				anlegenBearbeitenPopup();
-				isPop = true;
-				this.operation = "popupAnlegen";
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen" && isPop == false)
+				{
+					anlegenBearbeitenPopup();
+					isPop = true;
+					this.operation = "popupAnlegen";
+				}
 			}
-		}
-		if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa" )){
+		
 			if(this.operation == "popupLoeschen"){
-				bereichLoeschen();
-				isPop = false;
+				if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa" ))
+				{
+					bereichLoeschen();
+					isPop = false;
+					this.operation = "loeschen";
+				}
 			}
 			if(this.operation == "popupAnlegen"){
-				bereichAnlegen();
-				isPop = false;
+				if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa" ))
+				{
+					bereichAnlegen();
+					isPop = false;
+					this.operation = "anlegen";
+				}
 			}
-		}
-		if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein")){
+		
 			if(this.operation=="popupLoeschen"){	
-				popup.setVisible(false);
-				isPop = false;
-				this.operation = "loeschen";
-			}
+				if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein"))
+				{
+					popup.setVisible(false);
+					isPop = false;
+					this.operation = "loeschen";
+				}
+			}	
 			if(this.operation=="popupAnlegen"){
-				popup.setVisible(false);
-				isPop = false;
-				this.operation = "anlegen";
+				if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein"))
+				{
+					popup.setVisible(false);
+					isPop = false;
+					this.operation = "anlegen";
+				}
 			}
-		}
-		//Operation anlegen
-//		if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen" && isPop == false)
-//		{
-//			anlegenBearbeitenPopup();
-//			isPop = true;
-//		}
-//		if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa")){
-//			bereichAnlegen();
-//			isPop = false;
-//		}
-//		if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein")){
-//			popup.setVisible(false);
-//			isPop = false;
-//		}
+			if(this.operation=="bearbeiten"){
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="bearbeiten" && isPop == false)
+				{
+					bearbeitenButton();
+					isPop = true;
+				}
+			}
+			if(this.operation=="bearbeiten"){
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="bearbeiten")
+				{
+					anlegenBearbeitenPopup();
+					isPop = true;
+					this.operation = "popupBearbeiten";
+				}
+			}
+			if(this.operation == "popupBearbeiten"){
+				if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa" ))
+				{
+					bearbeitenBereich();
+					isPop = false;
+					this.operation = "bearbeiten";
+				}
+			}
+			if(this.operation=="popupBearbeiten"){
+				if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein"))
+				{
+					popup.setVisible(false);
+					isPop = false;
+					this.operation = "bearbeiten";
+				}
+			}
 	}
 
 	@Override
