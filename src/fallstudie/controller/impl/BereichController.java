@@ -24,6 +24,7 @@ public class BereichController implements Controller {
 	private Mitarbeiter gewaehlterMA, oLeiter;
 	private Bereich gewaehlterBereich;
 	public static BestaetigenPopup popup;
+	private boolean isPop=false;
 
 	private Collection<Bereich> bereich;
 	
@@ -88,10 +89,7 @@ public class BereichController implements Controller {
 		
 		//Bereich löschen bestätigten
 		if(button.equals("Löschen") ){
-			popup = new BestaetigenPopup();
-			popup.setController(this);
-			popup.setTitle("Löschen");
-			popup.setAusgabe(HilfeTexte.LoeschenPopup);
+			bereichLoeschenPopup();
 		}
 		
 		//Bereich anlegen/bearbeiten speichern
@@ -151,23 +149,7 @@ public class BereichController implements Controller {
 		//Bereich löschen durchführen
 		if( this.operation.equals("loeschen") && button.equals("Ja") ){
 			
-			//Bereich zum löschen finden und löschen
-			Iterator<Bereich> i = this.bereich.iterator();		
-			while( i.hasNext() ){
-				Bereich B = (Bereich) i.next();
-				String Bezeichnung = B.getKurzbezeichnung();
-				if( Bezeichnung.equals( this.viewLoesch.getBereich() ) ){
-					try{
-						B.loeschen();
-					}catch(Exception ex){
-						HauptController.hauptfenster.setInfoBox(ex.getMessage());
-					}
-					break;
-				}
-			}
-			
-			//Popup wieder ausblenden
-			popup.setVisible(false);
+			bereichLoeschen();
 		}
 			
 		//Abbrechen Lösch-Aktion
@@ -258,6 +240,33 @@ public class BereichController implements Controller {
 		}
 		
 	}
+
+	private void bereichLoeschen() {
+		//Bereich zum löschen finden und löschen
+		Iterator<Bereich> i = this.bereich.iterator();		
+		while( i.hasNext() ){
+			Bereich B = (Bereich) i.next();
+			String Bezeichnung = B.getKurzbezeichnung();
+			if( Bezeichnung.equals( this.viewLoesch.getBereich() ) ){
+				try{
+					B.loeschen();
+				}catch(Exception ex){
+					HauptController.hauptfenster.setInfoBox(ex.getMessage());
+				}
+				break;
+			}
+		}
+		
+		//Popup wieder ausblenden
+		popup.setVisible(false);
+	}
+
+	private void bereichLoeschenPopup() {
+		popup = new BestaetigenPopup();
+		popup.setController(this);
+		popup.setTitle("Löschen");
+		popup.setAusgabe(HilfeTexte.LoeschenPopup);
+	}
 	
 	/**
 	 * Prüft, ob Leiter = Leiter der alten AG -> setzt null, und schiebt Leiter in neue AG
@@ -312,49 +321,48 @@ public class BereichController implements Controller {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent e) {	
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mousePressed(MouseEvent e) {		
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseReleased(MouseEvent e) {	
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void keyPressed(KeyEvent e) {		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen" && isPop == false)
+		{
+			bereichLoeschenPopup();
+			isPop = true;
+		}
+		if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa")){
+			bereichLoeschen();
+			isPop = false;
+		}
+		if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein")){
+			popup.setVisible(false);
+			isPop = false;
+		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 }
