@@ -38,8 +38,8 @@ public class BereichLoeschenView extends JPanel implements View{
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(SystemColor.window);
 		setLayout(null);
+				
 		
-		grabFocus();
 		
 		B_BearbeitenLoeschen = new JButton("Löschen");
 		B_BearbeitenLoeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -48,6 +48,7 @@ public class BereichLoeschenView extends JPanel implements View{
 		
 		C_Bereich = new JComboBox<String>();
 		C_Bereich.setBounds(350, 30, 240, 30);
+		C_Bereich.requestFocus();
 		add(C_Bereich);
 		
 		L_Hinweis = new JLabel("Bitte den zu löschenden Bereich auswählen");
