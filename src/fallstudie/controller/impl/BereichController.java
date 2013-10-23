@@ -102,7 +102,16 @@ public class BereichController implements Controller {
 			//Leiter holen
 			if( !this.view.getLeiter().isEmpty() ){
 				oLeiter = this.gewaehlterMA;
-				if(oLeiter == null) oLeiter = new Mitarbeiter(this.view.getLeiter());
+				if(oLeiter == null)
+				{
+					try {
+						oLeiter = new Mitarbeiter(this.view.getLeiter());
+					} catch (Exception e1) 
+					{
+						oLeiter = null;
+	
+					}
+				}
 			}
 			
 			
@@ -183,7 +192,6 @@ public class BereichController implements Controller {
 			}
 			catch(Exception ex)
 			{
-				this.view.setLeiter(ex.getMessage());
 			}
 			
 		}
@@ -219,6 +227,9 @@ public class BereichController implements Controller {
 				catch (Exception ex)
 				{
 					HauptController.hauptfenster.setInfoBox(ex.getMessage());
+					if(oLeiter == null){
+						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
+					}
 				}finally{
 					popup.setVisible(false);
 				}
@@ -237,6 +248,9 @@ public class BereichController implements Controller {
 				catch (Exception ex)
 				{
 					HauptController.hauptfenster.setInfoBox(ex.getMessage());
+					if(oLeiter == null){
+						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
+					}
 				}finally{
 					popup.setVisible(false);
 				}

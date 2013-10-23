@@ -107,7 +107,13 @@ public class ArbeitsgruppenController implements Controller {
 				//Falls Leiter nicht über SuchController gefunden wurde
 				if(oLeiter == null){
 					//Hole Mitarbeiter aus DB
-					oLeiter = new Mitarbeiter(this.view.getAGLeiter());
+					try {
+						oLeiter = new Mitarbeiter(this.view.getAGLeiter());
+					} catch (Exception e1) 
+					{
+						oLeiter = null;
+						//HauptController.hauptfenster.setInfoBox(e1.getMessage());
+					}
 				}
 			}
 			
@@ -177,6 +183,9 @@ public class ArbeitsgruppenController implements Controller {
 						if(erfolgreich1 && erfolgreich2 && erfolgreich3 && erfolgreich4)
 						{
 							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde erfolgreich bearbeitet.");
+							if(oLeiter == null){
+								HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter gespeichert.");
+							}
 						}
 						else
 						{
@@ -201,7 +210,7 @@ public class ArbeitsgruppenController implements Controller {
 				{
 					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
 					//ist Mitarbeiter nicht in DB vorhanden
-					if(oLeiter.getBenutzername() == null){
+					if(oLeiter == null){
 						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
 					}
 				}
