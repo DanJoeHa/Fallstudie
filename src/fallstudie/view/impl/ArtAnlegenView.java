@@ -64,8 +64,8 @@ public class ArtAnlegenView extends JPanel implements View{
 	}
 	
 	/**
-	 * neue Art anlegen
-	 * @return
+	 * Gibt Bezeichnung der anzulegenden Art zurück
+	 * @return String Bezeichnung der Art
 	 */
 	public String getArt(){
 		return this.T_Art.getText();
