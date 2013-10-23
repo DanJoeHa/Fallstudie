@@ -232,7 +232,7 @@ public class ArtController implements Controller {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen")
 			{
 				artAnlegen();
-				System.out.println("anlegen");
+				
 			}
 			
 			if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen")
@@ -244,7 +244,6 @@ public class ArtController implements Controller {
 			{
 				if(this.operation == "popupJa"){
 					artAnlegenPopup();
-					System.out.println("Ja");
 				}else{
 					artLoeschenPopup();
 				}
@@ -254,7 +253,6 @@ public class ArtController implements Controller {
 				if(this.operation =="popupJa"){
 					this.view.reset();
 					popup.setVisible(false);
-					System.out.println("Nein");
 				}else{
 					this.viewLoeschen.reset();
 					popup.setVisible(false);
