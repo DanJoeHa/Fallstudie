@@ -109,6 +109,8 @@ public class DatenAnzeigenAuswahlView extends JPanel implements View{
 	@Override
 	public void setController(Controller c) {
 		this.B_Weiter.addActionListener(c);
+		this.T_Jahr.addKeyListener(c);
+		this.T_Woche.addKeyListener(c);
 	}
 	
 	/**
