@@ -343,7 +343,7 @@ public class Arbeitsgruppe {
 						.executeQueryStatement("SELECT Kurzbezeichnung From Arbeitsgruppe WHERE Aktiv=1");
 	
 				while (checkObVorhanden.next()) 
-				{	System.out.println("VALOUU");
+				{	
 					//Bekommt die Kurzbezeichnung aus dem Resultset
 					String value = checkObVorhanden.getString("Kurzbezeichnung");
 					//Prüfung auf gleichheit
