@@ -71,11 +71,9 @@ public class BestaetigenPopup extends JDialog implements View{
 	}
 	public String hatFocus(){
 		if(this.B_abbrechen.isFocusOwner()== true){
-			System.out.println("popupnein");
 			return "popupNein";
 		}
 		else{
-			System.out.println("popupja");
 			return "popupJa";
 		}
 	}
