@@ -58,10 +58,9 @@ public class BestaetigenPopup extends JDialog implements View{
 		//});
 		B_speichern.setActionCommand("Ja");
 		buttonPane.add(B_speichern);
-		//B_speichern.setDefaultCapable(true);
-		//getRootPane().setDefaultButton(B_speichern);
+//		B_speichern.setDefaultCapable(true);
+		getRootPane().setDefaultButton(B_speichern);
 		//B_speichern.setFocusable(true);
-		
 			
 		B_abbrechen = new JButton("Nein");
 		B_abbrechen.setActionCommand("Nein");
