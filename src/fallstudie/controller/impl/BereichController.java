@@ -228,7 +228,7 @@ public class BereichController implements Controller {
 				{
 					HauptController.hauptfenster.setInfoBox(ex.getMessage());
 					if(oLeiter == null){
-						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
+						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Bereich wurde ohne Leiter angelegt.");
 					}
 				}finally{
 					popup.setVisible(false);
@@ -249,7 +249,7 @@ public class BereichController implements Controller {
 				{
 					HauptController.hauptfenster.setInfoBox(ex.getMessage());
 					if(oLeiter == null){
-						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
+						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Bereich wurde ohne Leiter angelegt.");
 					}
 				}finally{
 					popup.setVisible(false);
