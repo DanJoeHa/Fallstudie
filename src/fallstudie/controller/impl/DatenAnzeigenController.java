@@ -80,6 +80,8 @@ public class DatenAnzeigenController implements Controller {
 	}
 
 	private void weiterAction() {
+		//InfoBox leeren
+		HauptController.hauptfenster.setInfoBox("");
 		//View laden
 		this.viewErg = new TabelleView();
 		this.viewErg.setController( this );
@@ -748,7 +750,11 @@ public class DatenAnzeigenController implements Controller {
 	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void keyPressed(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode()==KeyEvent.VK_ENTER){
+			HauptController.hauptfenster.setInfoBox("Einen Moment bitte!");
+		}
+	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
