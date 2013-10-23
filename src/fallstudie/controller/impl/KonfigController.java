@@ -15,6 +15,7 @@ public class KonfigController implements Controller {
 	
 	private KonfigurationView view;
 	public static BestaetigenPopup popup;
+	private boolean isPop=false;
 	
 	public KonfigController(){
 		this.view = new KonfigurationView();
@@ -29,35 +30,43 @@ public class KonfigController implements Controller {
 		//Popup hinzufügen + Infoboxausgabe
 		if(button.equals("Speichern"))
 		{		
-			popup = new BestaetigenPopup();
-			
-			popup.setController(this);
-			popup.setTitle("Bestätigung");
-			popup.setAusgabe(HilfeTexte.SpeichernPopup);
+			konfigPopup();
 		}	
 		if(button.equals("Ja")){
-				String msg = "Neue Job-Konfiguration gespeichert.";
-				int monate = this.view.getAnzahlMonate();
-				System.out.println(monate);
-				if(monate <= 0){
-					msg = "Bitte nur Zahlen eingeben, die größer als 0 sind";
-				}
-				else{
-					try {
-						Konfig.setJobIntervall(this.view.getAnzahlMonate());
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-				}
-				
-					
-				popup.setVisible(false);	
-		
-				HauptController.hauptfenster.setInfoBox(msg);
+				jaAction();
 		}
 		if(button.equals("Nein")){
 			popup.setVisible(false);
 		}
+	}
+
+	private void jaAction() {
+		String msg = "Neue Job-Konfiguration gespeichert.";
+		int monate = this.view.getAnzahlMonate();
+		System.out.println(monate);
+		if(monate <= 0){
+			msg = "Bitte nur Zahlen eingeben, die größer als 0 sind";
+		}
+		else{
+			try {
+				Konfig.setJobIntervall(this.view.getAnzahlMonate());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+			
+		popup.setVisible(false);	
+
+		HauptController.hauptfenster.setInfoBox(msg);
+	}
+
+	private void konfigPopup() {
+		popup = new BestaetigenPopup();
+		
+		popup.setController(this);
+		popup.setTitle("Bestätigung");
+		popup.setAusgabe(HilfeTexte.SpeichernPopup);
 	}
 	
 	/**
@@ -73,55 +82,50 @@ public class KonfigController implements Controller {
 
 	@Override
 	public void fortsetzen() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getKeyCode() == KeyEvent.VK_ENTER && isPop==false){
+			konfigPopup();
+			isPop=true;
+		}
+		if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa")){
+			jaAction();
+			isPop=false;
+		}
+		if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein")){
+			popup.setVisible(false);
+			isPop=false;
+			HauptController.hauptfenster.setInfoBox("");
+		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
