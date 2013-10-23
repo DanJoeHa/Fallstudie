@@ -67,7 +67,10 @@ public class SchliessenPopup extends JDialog implements View{
 	
 	}
 	
-	
+	/**
+	 * Hinweis setzen
+	 * @param Hinweistext
+	 */
 	public void setHinweis(String Hinweis){
 		T_Hinweis.setText(Hinweis);
 	}
