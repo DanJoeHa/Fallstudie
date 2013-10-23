@@ -80,11 +80,17 @@ public class TabelleView extends JPanel implements View {
 		
 		
 	}
-	
+	/**
+	 * Button umbenennen
+	 * @param Buttonbezeichnung
+	 */
 	public void setButtonName(String buttonbezeichnung){
 		this.B_AuswaehlenLoeschen.setText(buttonbezeichnung);
 	}
-	
+	/**
+	 * Ausgewählte Zeile der Tabelle
+	 * @return auswahl
+	 */
 	public String getAuswahl(){
 		int row = TA_Tabelle.getSelectedRow();
 		if(row == -1)
@@ -99,6 +105,11 @@ public class TabelleView extends JPanel implements View {
 	}
 	
 	//Tabelle befüllen
+	/**
+	 * Tabelle befüllen
+	 * @param tabellenheadline
+	 * @param tabellenwerte
+	 */
 	public void setTabelle(String[] tabellenheadline,Object[][] tabellenwerte){
 		
 		TA_Tabelle.setModel(new DefaultTableModel(tabellenwerte, tabellenheadline){
@@ -111,19 +122,28 @@ public class TabelleView extends JPanel implements View {
 		});	
 		
 	}
-	
+	/**
+	 * Button und ComboBox für DrillDown Möglichkeit anzeigen
+	 * @param visible
+	 */
 	public void setDrillDown(boolean visible){
 		this.C_DrillDown.setVisible(visible);
 		this.B_DrillDown.setVisible(visible);
 	}
-	
+	/**
+	 * DrillDown AuswahlBox mit Bereichen füllen
+	 * @param bereiche
+	 */
 	public void setBereiche(String[] bereiche){
 		for( int i = 0; i < bereiche.length; i++){
 			this.C_DrillDown.addItem( bereiche[i] );
 		}
 		
 	}
-	
+	/**
+	 * ausgewählter Bereich aus DrillDown
+	 * @return DrillDown Auswahl
+	 */
 	public String getDrillDownBereich(){
 		return this.C_DrillDown.getSelectedItem().toString();
 	}
