@@ -39,6 +39,8 @@ public class BereichLoeschenView extends JPanel implements View{
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
+		grabFocus();
+		
 		B_BearbeitenLoeschen = new JButton("Löschen");
 		B_BearbeitenLoeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_BearbeitenLoeschen.setBounds(440, 600, 150, 30);
@@ -58,6 +60,8 @@ public class BereichLoeschenView extends JPanel implements View{
 	@Override
 	public void setController(Controller c) {
 		this.B_BearbeitenLoeschen.addActionListener(c);
+		this.B_BearbeitenLoeschen.addKeyListener(c);
+		this.C_Bereich.addKeyListener(c);
 	}
 
 	@Override
