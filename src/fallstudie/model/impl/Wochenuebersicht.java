@@ -339,14 +339,14 @@ public class Wochenuebersicht {
 			
 		wochenUebersicht.close();
 		us.Wochenuebersichten = alleWochenuebersichten;
-		ResultSet artenZahl = Connection.executeQueryStatement("SELECT Count(DISTINCT Art) AS Anzahl FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"' AND Bereich='"+bereichID+"' AND Kalenderwoche='"+woche+"'");
+		ResultSet artenZahl = Connection.executeQueryStatement("SELECT Count(DISTINCT Art) AS Anzahl FROM Wochenuebersicht WHERE Kalenderjahr='"+jahr+"' AND Bereich='"+bereichID+"' AND Kalenderwoche='"+woche+"'");
 		artenZahl.next();
 		us.anzahlArten = artenZahl.getInt("Anzahl");
 		artenZahl.close();
 		
 		} 
 		catch (SQLException e) {
-			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZumBereich(String) aufgetreten:");
+			System.err.println("Dieser Fehler ist in getAlleWochenuebersichtenZumBereich(String) aufgetreten:");
 			System.err.println(e.getMessage());
 		}
 		return us;
