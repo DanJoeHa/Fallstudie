@@ -244,6 +244,7 @@ public class ArtController implements Controller {
 			{
 				if(this.operation == "popupJa"){
 					artAnlegenPopup();
+					this.operation = "anlegen";
 				}else{
 					artLoeschenPopup();
 				}
@@ -253,9 +254,11 @@ public class ArtController implements Controller {
 				if(this.operation =="popupJa"){
 					this.view.reset();
 					popup.setVisible(false);
+					this.operation ="anlegen";
 				}else{
 					this.viewLoeschen.reset();
 					popup.setVisible(false);
+					this.operation = "loeschen";
 				}
 			}
 	}	
