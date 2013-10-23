@@ -173,11 +173,21 @@ public class MitarbeiterController implements Controller {
 						if( rollenbez.equals("Sachbearbeiter") || rollenbez.equals("Gruppenleiter") ){
 							
 							//Mitarbeiter mit Arbeitsgruppe anlegen
-							if( this.gewaehlteAG != null ){
-								new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.gewaehlteAG);
-							}else{
-								throw new Exception("Bitte eine gültige Arbeitsgruppe auswählen!");
+							if( this.gewaehlteAG == null ){
+								
+								//wenn keine Arbeitsgruppe angegeben wurde
+								if( this.viewAnlegen.getArbeitsgruppe().isEmpty() ){
+									throw new Exception("Bitte eine gültige Arbeitsgruppe auswählen!");
+								}else{
+									//Arbeitsgruppe aus Model-Schicht holen, falls in View nur eingegeben und nicht gesucht
+									int id = Arbeitsgruppe.getIDbyKurzbezeichnung(this.viewAnlegen.getArbeitsgruppe());
+									this.gewaehlteAG = new Arbeitsgruppe( id );
+								}
+								
 							}
+							//speichern
+							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle, this.gewaehlteAG);
+							
 						}
 						
 						//Fachbereichsorganisation oder Zentralbereichsleiter anlegen
