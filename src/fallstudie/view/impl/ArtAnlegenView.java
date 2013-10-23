@@ -80,5 +80,6 @@ public class ArtAnlegenView extends JPanel implements View{
 	@Override
 	public void reset() {
 		this.T_Art.setText("");
+		
 	}
 }

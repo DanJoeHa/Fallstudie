@@ -71,6 +71,7 @@ public class KonfigurationView extends JPanel implements View {
 	@Override
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);		
+		this.T_AnzahlMonate.addKeyListener(c);
 	}
 	@Override
 	public void reset() {
