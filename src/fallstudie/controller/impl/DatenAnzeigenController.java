@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Bereich;
@@ -20,19 +21,19 @@ import fallstudie.view.interfaces.View;
 
 public class DatenAnzeigenController implements Controller {
 	
-	private DatenAnzeigenAuswahlView view;
-	private TabelleView viewErg;
+	private DatenAnzeigenAuswahlView view;					//View zur Eingabe von Jahr und KW
+	private TabelleView viewErg;							//Ergebnisdarstellung in Tabelle
 	
-	private String headline;
-	private String[] tabellenspalten = new String[1];
-	private Object[][] tabellenwerte = new Object[1][1];
-	private String[][] aArtPos;
-	private int artName = 0;
-	private int artZeile = 1;
-	private int kw, jahr, sumcol;
-	private Collection<Bereich> bereiche;
-	private String noDS = "Keine Datensätze gefunden!";
-	private boolean drilldown = false;
+	private String headline;								//Überschrift für View und Druck
+	private String[] tabellenspalten = new String[1];		//Tabellenheader
+	private Object[][] tabellenwerte = new Object[1][1];	//Tabellendimension
+	private String[][] aArtPos;								//Array zur Speicherung der Positionen von Postarten
+	private int artName = 0;								//der Name der Art steht immer in Spalte 0
+	private int artZeile = 1;								//die Zeile der Art steht immer in Spalte 1
+	private int kw, jahr, sumcol;							//Kalenderwoche, Jahr und Summenspalte
+	private Collection<Bereich> bereiche;					//Bereiche für DrillDown-Operation
+	private String noDS = "Keine Datensätze gefunden!";		//Fehlermeldung, wenn keine Datensätze vorhanden
+	private boolean drilldown = false;						//Flag ob in DrillDown
 	
 	/**
 	 * Maske zur Eingabe der Rahmendaten KW und Jahr anzeigen
@@ -49,7 +50,7 @@ public class DatenAnzeigenController implements Controller {
 	}
 	
 	/**
-	 * ActionListener
+	 * ActionListener für Views der Controllers
 	 * 
 	 * @author Johannes
 	 * @version 1.0
@@ -57,6 +58,8 @@ public class DatenAnzeigenController implements Controller {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		//hole Button
 		String button = e.getActionCommand();
 		
 		//Rahmendaten eingegeben
@@ -72,6 +75,7 @@ public class DatenAnzeigenController implements Controller {
 			//Angaben holen
 			try
 			{
+				//hole Kalenderwoche und Jahr aus View
 				kw = this.view.getWoche();
 				jahr = this.view.getJahr();
 			
@@ -81,6 +85,7 @@ public class DatenAnzeigenController implements Controller {
 				//Jahresübersicht
 				if( kw == 0 ){
 					
+					//Überschrift erweitern
 					this.headline = "Daten anzeigen Jahr " + jahr;
 					
 					//Jahresübersicht Zentralbereichsleiter/Fachbereichsorganisation
@@ -160,17 +165,36 @@ public class DatenAnzeigenController implements Controller {
 		if( button.equals("DrillDown") ) this.drilldown();
 		
 		//Abbrechen-Button
-		if( button.equals("Abbrechen") ){
-			HauptController.hauptfenster.setInfoBox("");
-			if(this.drilldown){
-				this.drilldown = false;
-				ActionEvent event = new ActionEvent(this, 1, "Weiter");
-				this.actionPerformed(event);
-			}else{
-				HauptController.startDatenAnzeigen();
-			}
-		}
+		if( button.equals("Abbrechen") ) this.abbrechen();
 
+	}
+	
+	/**
+	 * Wechselt die View und setzt die InfoBox wieder leer
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 */
+	private void abbrechen(){
+		//leere InfoBox
+		HauptController.hauptfenster.setInfoBox("");
+		
+		//wenn in DrillDown
+		if(this.drilldown){
+			
+			//Flag wieder false setzten
+			this.drilldown = false;
+			
+			//eigene ActionEvent-Methode aufrufen um übergeordnete View wieder aufzubauen
+			ActionEvent event = new ActionEvent(this, 1, "Weiter");
+			this.actionPerformed(event);
+			
+		//Daten anzeige in übergeordneter View
+		}else{
+			
+			//Daten anzeigen neu starten
+			HauptController.startDatenAnzeigen();
+		}
 	}
 	
 	/**
@@ -186,40 +210,30 @@ public class DatenAnzeigenController implements Controller {
 		
 		try{
 			
-			//wenn keine Zeilen zur Ausgabe, Exception werfen
-			if(uebersichtSST.anzahlArten == 0) throw new Exception();
-			
-			//maximale Anzahl zeilen bestimmen
-			int maxZeilen = uebersichtSST.anzahlArten;
+			//Maximale Anzahl an Zeilen bestimmen
+			int maxZeilen = this.bestimmeMaxZeilen(uebersichtSST);
 			
 			//Jahresübersichten in COllection holen
 			Collection<Jahresuebersicht> coJahresuebersichten = uebersichtSST.Jahresuebersichten;
 			
 			//Bereiche-Collection für Combobox in View befüllen
-			Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
-			while( itJahre.hasNext() ){
-				Jahresuebersicht oJahr = itJahre.next();
-				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
-				
-			}
+			this.fuelleBereichCollectionJahresuebersicht(coJahresuebersichten);
 
 			//DrillDown-Button und ComboBox anzeigen
 			this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
+			
+			//ComboBox nur anzeigen, wenn Bereiche in Collection vorhanden
 			if( this.bereiche.size() > 0 ) this.viewErg.setDrillDown(true);
 			
-			//Summenspalte festlegen und Array-Dimensionen bestimmen
-			sumcol = coJahresuebersichten.size() + 1;
-			tabellenspalten = new String[ coJahresuebersichten.size() + 2 ];
-			tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 2 ];
-			tabellenspalten[0] = "Art\\Bereich";
-			tabellenspalten[sumcol] = "Summe";
+			//Definiere Tabelle
+			this.definiereTabelle(maxZeilen, coJahresuebersichten.size(), "Bereich");
 			
 			//Schleifenvars
 			int spalte = 1;
 			this.initiierePositionsArray(maxZeilen);			
 			
 			//alle Jahresuebersichten aus Collection durchlaufen
-			itJahre = coJahresuebersichten.iterator();
+			Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
 			while( itJahre.hasNext() ){
 				
 				//Schreibe Bereich in Tabellenkopf
@@ -235,7 +249,6 @@ public class DatenAnzeigenController implements Controller {
 
 					//Zeile hinzufügen
 					this.addZeile(itZeile, spalte, true);
-	
 					
 				}
 				
@@ -249,7 +262,46 @@ public class DatenAnzeigenController implements Controller {
 		}
 		
 	}
+	
+	/**
+	 * Befüllt die BereichsCollection aus einer Collection von Jahresübersichten
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * @param coJahresuebersichten
+	 */
+	private void fuelleBereichCollectionJahresuebersicht(Collection<Jahresuebersicht> coJahresuebersichten) {
+		
+		Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
+		while( itJahre.hasNext() ){
+			Jahresuebersicht oJahr = itJahre.next();
+			if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
+			
+		}
+	}
+	
+	/**
+	 * Bestimmt die maximale Anzahl an Zeilen und wirft bei 0 eine Exception
+	 * 
+	 * @version 1.0
+	 * @param uebersichtSST
+	 * @return
+	 * @throws Exception
+	 */
+	private int bestimmeMaxZeilen(UebersichtSchnittstellenKlasse uebersichtSST)throws Exception {
+		//wenn keine Zeilen zur Ausgabe, Exception werfen
+		if(uebersichtSST.anzahlArten == 0) throw new Exception();
+		
+		//maximale Anzahl zeilen bestimmen
+		return uebersichtSST.anzahlArten;
+	}
 
+	/**
+	 * Befüll das PositionsArray zur Speicherung von Arten und deren Zeilen mit leeren Werten
+	 * @param maxZeilen
+	 * @author Johannes
+	 * @version 1.0
+	 */
 	private void initiierePositionsArray(int maxZeilen) {
 		aArtPos = new String[maxZeilen][2]; 
 		for(int s = 0; s < maxZeilen; s++){
@@ -310,39 +362,28 @@ public class DatenAnzeigenController implements Controller {
 		
 		try{
 			
-			//Falls keine Einträge enthalten, Exception werfen
-			if(uebersichtSST.anzahlArten == 0 ) throw new Exception();
-			
-			//bestimme max. Anzahl an Zeilen der Tabelle
-			int maxZeilen = uebersichtSST.anzahlArten;
+			//Maximale Anzahl an Zeilen bestimmen
+			int maxZeilen = bestimmeMaxZeilen(uebersichtSST);
 			
 			//hole Wochenübersichten
 			Collection<Wochenuebersicht> coWochenuebersichten = uebersichtSST.Wochenuebersichten;
 			
 			//befülle Bereich-COllectoin (für Combobox in View-Schicht)
-			Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
-			while( itWoche.hasNext() ){
-				Wochenuebersicht oWoche = itWoche.next();
-				if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich());
-			}
+			this.befuelleBereichCollectionWochenuebersicht(coWochenuebersichten);
 			
 			//DrillDown-Button und ComboBox anzeigen
 			this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
 			this.viewErg.setDrillDown(true);
 			
 			//Summenspalte bestimmen und Array-Größen definieren
-			sumcol = coWochenuebersichten.size() + 1;
-			tabellenspalten = new String[ coWochenuebersichten.size() + 2 ];
-			tabellenwerte = new Object[ maxZeilen ][ coWochenuebersichten.size() + 2 ];
-			tabellenspalten[0] = "Art\\Bereich";
-			tabellenspalten[sumcol] = "Summe";
+			this.definiereTabelle(maxZeilen, coWochenuebersichten.size(), "Bereiche");
 			
 			//Schleifenvars
 			int spalte = 1;
 			this.initiierePositionsArray(maxZeilen);	
 			
 			//alle Wochenuebersichten aus Collection durchlaufen
-			itWoche = coWochenuebersichten.iterator();
+			Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
 			while( itWoche.hasNext() ){
 				
 				//Schreibe Bereich in Tabellenkopf
@@ -370,6 +411,38 @@ public class DatenAnzeigenController implements Controller {
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	/**
+	 * Definiert die TabellenArrays
+	 * 
+	 * @author Johannes
+	 * @version 1.0
+	 * 
+	 * @param maxZeilen
+	 * @param collectionsize
+	 * @param organisationseinheit
+	 */
+	private void definiereTabelle(int maxZeilen, int collectionsize, String organisationseinheit) {
+		sumcol = collectionsize + 1;
+		tabellenspalten = new String[ collectionsize + 2 ];
+		tabellenwerte = new Object[ maxZeilen ][ collectionsize + 2 ];
+		tabellenspalten[0] = "Art\\" + organisationseinheit;
+		tabellenspalten[sumcol] = "Summe";
+	}
+
+	/**
+	 * Befüllt aus einer Wochenübersicht Collection die Bereich Collection
+	 * @author Johannes
+	 * @version 1.0
+	 * @param coWochenuebersichten
+	 */
+	private void befuelleBereichCollectionWochenuebersicht(Collection<Wochenuebersicht> coWochenuebersichten) {
+		Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
+		while( itWoche.hasNext() ){
+			Wochenuebersicht oWoche = itWoche.next();
+			if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich());
+		}
 	}
 	
 	/**
@@ -496,36 +569,24 @@ public class DatenAnzeigenController implements Controller {
 	private void generiereJahresuebersichtenZuBereich(UebersichtSchnittstellenKlasse uebersichtSST){
 		
 		try{
-			//Prüfe ob Zeilen zur Anzeige vorhanden
-			if(uebersichtSST.anzahlArten == 0) throw new Exception();
-			
-			//Bestimme anzahl Zeilen
-			int maxZeilen = uebersichtSST.anzahlArten;
+			//Maximale Anzahl an Zeilen bestimmen
+			int maxZeilen = bestimmeMaxZeilen(uebersichtSST);
 			
 			//hole Collection
 			Collection<Jahresuebersicht> coJahresuebersichten = uebersichtSST.Jahresuebersichten;
 			
-			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
-			Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
-			while( itJahre.hasNext() ){
-				Jahresuebersicht oJahr = itJahre.next();
-				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
-				
-			}
+			//BereichCollection füllen
+			this.fuelleBereichCollectionJahresuebersicht(coJahresuebersichten);
 			
-			
-			sumcol = coJahresuebersichten.size() + 1;
-			tabellenspalten = new String[ coJahresuebersichten.size() + 2 ];
-			tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 2 ];
-			tabellenspalten[0] = "Art\\Arbeitsgruppe";
-			tabellenspalten[sumcol] = "Summe";
+			//Definiere Tabelle
+			this.definiereTabelle(maxZeilen, coJahresuebersichten.size(), "Arbeitsgruppe");
 			
 			//Schleifenvars
 			int spalte = 1;
 			this.initiierePositionsArray(maxZeilen);	
 			
 			//alle Jahresuebersichten aus Collection durchlaufen
-			itJahre = coJahresuebersichten.iterator();
+			Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
 			while( itJahre.hasNext() ){
 				
 				//Schreibe Bereich in Tabellenkopf
@@ -559,34 +620,24 @@ public class DatenAnzeigenController implements Controller {
 		
 		try{
 			
-			//Falls nichts anzuzeigen, werfe Exception
-			if(uebersichtSST.anzahlArten == 0) throw new Exception();
-			
-			//bestimme max. Anzahl an Zeilen
-			int maxZeilen = uebersichtSST.anzahlArten;
+			//Maximale Anzahl an Zeilen bestimmen
+			int maxZeilen = bestimmeMaxZeilen(uebersichtSST);
 			
 			//hole Collection
 			Collection<Wochenuebersicht> coWochenuebersichten = uebersichtSST.Wochenuebersichten;
 			
-			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
-			Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
-			while( itWoche.hasNext() ){
-				Wochenuebersicht oJahr = itWoche.next();
-				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
-			}
+			//Befülle Bereich Collection aus Wochenübersicht-Collection
+			this.befuelleBereichCollectionWochenuebersicht(coWochenuebersichten);
 			
-			sumcol = coWochenuebersichten.size() + 1;
-			tabellenspalten = new String[ coWochenuebersichten.size() + 2 ];
-			tabellenwerte = new Object[ maxZeilen ][ coWochenuebersichten.size() + 2 ];
-			tabellenspalten[0] = "Art\\Arbeitsgruppe";
-			tabellenspalten[sumcol] = "Summe";
+			//Definiere Tabelle
+			this.definiereTabelle(maxZeilen, coWochenuebersichten.size(), "Arbeitsgruppe");
 			
 			//Schleifenvars
 			int spalte = 1;
 			this.initiierePositionsArray(maxZeilen);	
 			
 			//alle Wochenuebersichten aus Collection durchlaufen
-			itWoche = coWochenuebersichten.iterator();
+			Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
 			while( itWoche.hasNext() ){
 				
 				//Schreibe Bereich in Tabellenkopf
