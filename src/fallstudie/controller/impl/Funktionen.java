@@ -44,7 +44,11 @@ public abstract class Funktionen {
 		} 
 		return sArbeitsgruppe;
 	}
-	
+	/**
+	 * Bereich Collection in String Array verwandeln
+	 * @param bereiche
+	 * @return
+	 */
 	public static String[] BereicheCollection2Array(Collection<Bereich> bereiche){
 		
 		Iterator<Bereich> i = bereiche.iterator();
@@ -58,7 +62,11 @@ public abstract class Funktionen {
 		
 		return sBereiche;
 	}
-	
+	/**
+	 * Rollen Collection in String Array verwandeln
+	 * @param rollen
+	 * @return
+	 */
 	public static String[] RollenCollection2Array(Collection<Rolle> rollen){
 		
 		Iterator<Rolle> i = rollen.iterator();
@@ -73,7 +81,11 @@ public abstract class Funktionen {
 		return sRollen;
 	}
 
-	
+	/**
+	 * Mitarbeter Collection in zweifachen Object Array verwandeln
+	 * @param m
+	 * @return
+	 */
 	public static Object[][] MitarbeiterCollection2ArraySuche(Collection<Mitarbeiter> m){
 		
 		Iterator<Mitarbeiter> i = m.iterator();
@@ -107,7 +119,11 @@ public abstract class Funktionen {
 		} 
 		return sMitarbeiter;
 	}
-	
+	/**
+	 * Arbeitsgruppencontroller Collection in zweifachen Object Array verwandeln
+	 * @param a
+	 * @return
+	 */
 	public static Object[][] ArbeitsgruppeCollection2ArraySuche(Collection<Arbeitsgruppe> a){
 		
 		Iterator<Arbeitsgruppe> i = a.iterator();
