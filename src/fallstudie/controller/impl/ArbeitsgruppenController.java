@@ -102,8 +102,11 @@ public class ArbeitsgruppenController implements Controller {
 					
 			//Leiter holen
 			if( !this.view.getAGLeiter().isEmpty() ){
+				//Leiter setzen, falls Leiter über SuchController gefunden wurde
 				oLeiter = this.gewaehlteMA;
+				//Falls Leiter nicht über SuchController gefunden wurde
 				if(oLeiter == null){
+					//Hole Mitarbeiter aus DB
 					oLeiter = new Mitarbeiter(this.view.getAGLeiter());
 				}
 			}
@@ -197,6 +200,10 @@ public class ArbeitsgruppenController implements Controller {
 				catch (Exception e1)
 				{
 					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+					//ist Mitarbeiter nicht in DB vorhanden
+					if(oLeiter.getBenutzername() == null){
+						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
+					}
 				}
 			}
 			
