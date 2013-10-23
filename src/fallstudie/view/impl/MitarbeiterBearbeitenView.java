@@ -38,13 +38,13 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		//C_Bereich
 		C_Bereich = new JComboBox<String>();
 		C_Bereich.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Bereich.setBounds(200, 230, 390, 30);
+		C_Bereich.setBounds(200, 280, 390, 30);
 		add(C_Bereich);
 				
 		//C_Rolle
 		C_Rolle = new JComboBox<String>();
 		C_Rolle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		C_Rolle.setBounds(200, 180, 390, 30);
+		C_Rolle.setBounds(200, 230, 390, 30);
 		add(C_Rolle);
 		C_Rolle.addActionListener(new ActionListener() {
 
@@ -88,14 +88,14 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		T_Arbeitsgruppe = new JTextField();
 		T_Arbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Arbeitsgruppe.setColumns(10);
-		T_Arbeitsgruppe.setBounds(200, 230, 200, 30);
+		T_Arbeitsgruppe.setBounds(200, 280, 220, 30);
 		add(T_Arbeitsgruppe);
 
 		//B_SucheArbeitsgruppe 
 		B_SucheArbeitsgruppe = new JButton("Suchen");
 		B_SucheArbeitsgruppe.setIcon(null);
 		B_SucheArbeitsgruppe.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		B_SucheArbeitsgruppe.setBounds(440, 230, 150, 30);
+		B_SucheArbeitsgruppe.setBounds(440, 280, 150, 30);
 		add(B_SucheArbeitsgruppe);
 
 		//B_Abbrechen
