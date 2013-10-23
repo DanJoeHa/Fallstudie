@@ -20,13 +20,12 @@ public class ArtController implements Controller {
 	private ArtLoeschenView viewLoeschen;
 	private String operation;
 	private Collection<Art> art;
-	public static BestaetigenPopup popup = new BestaetigenPopup();
+	public static BestaetigenPopup popup;
 	private View aktView;
 	private String button;
 	
-	static{
-		popup.setVisible(false);
-	}
+	
+	
 	
 	
 	public ArtController(){
@@ -96,27 +95,7 @@ public class ArtController implements Controller {
 				if(button.equals("Ja")){
 					
 					
-			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
-			
-				//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
-				
-				Iterator<Art> i = this.art.iterator();		
-				while( i.hasNext() ){
-					Art A = (Art) i.next();
-					String Name = A.getName();
-					if( Name.equals( this.viewLoeschen.getArt() ) ){
-						if(A.loeschen()){
-							HauptController.hauptfenster.setInfoBox("Art erfolgreich gelöscht.");
-						}
-						else{
-							HauptController.hauptfenster.setInfoBox("Art konnte nicht gelöscht.");
-						}
-						break;
-					}
-				}
-				
-				this.viewLoeschen.reset();
-				popup.setVisible(false);
+			artLoeschenPopup();
 			
 				
 			}
@@ -125,6 +104,30 @@ public class ArtController implements Controller {
 			}
 	}
 		}
+
+	private void artLoeschenPopup() {
+		//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
+		
+			//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
+			
+			Iterator<Art> i = this.art.iterator();		
+			while( i.hasNext() ){
+				Art A = (Art) i.next();
+				String Name = A.getName();
+				if( Name.equals( this.viewLoeschen.getArt() ) ){
+					if(A.loeschen()){
+						HauptController.hauptfenster.setInfoBox("Art erfolgreich gelöscht.");
+					}
+					else{
+						HauptController.hauptfenster.setInfoBox("Art konnte nicht gelöscht.");
+					}
+					break;
+				}
+			}
+			
+			this.viewLoeschen.reset();
+			popup.setVisible(false);
+	}
 
 	private void artAnlegenPopup() {
 		try{				
@@ -145,21 +148,25 @@ public class ArtController implements Controller {
 	}
 
 	private void artLoeschen() {
+		popup = new BestaetigenPopup();
 		popup.setController(this);
 		popup.setTitle("Löschen");
 		popup.setAusgabe(HilfeTexte.LoeschenPopup);
 		popup.setVisible(true);
+		this.operation = "popupNein";
 
 		aktView = this.viewLoeschen;
 	}
 
 	private void artAnlegen() {
-
+		popup = new BestaetigenPopup();
 		popup.setController(this);
 		popup.setTitle("Bestätigung");
 		popup.setAusgabe(HilfeTexte.SpeichernPopup);
 		popup.setVisible(true);
 		aktView = this.view;
+		this.operation = "popupJa";
+		
 	}
 
 
@@ -222,28 +229,37 @@ public class ArtController implements Controller {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen" && ArtController.popup.isVisible()==false)
+			if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen")
 			{
 				artAnlegen();
 				System.out.println("anlegen");
 			}
 			
-			if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen" && ArtController.popup.isVisible()==false)
+			if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen")
 			{
 			artLoeschen();
 			}
 		
-//			if (e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true )
-//			{
-//				
-//				System.out.println("Ja");
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && button.equals("Ja"))
-//			{
-//				this.view.reset();
-//				popup.setVisible(false);
-//				System.out.println("Nein");
-//			}
+			if ((e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && popup.isFocused() == true && this.operation=="popupJa" && popup.hatFocus()== "popupJa") ||(e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && popup.isFocused() == true && this.operation=="popupNein" && popup.hatFocus()== "popupJa"))
+			{
+				if(this.operation == "popupJa"){
+					artAnlegenPopup();
+					System.out.println("Ja");
+				}else{
+					artLoeschenPopup();
+				}
+			}
+			if ((e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && popup.isFocused() == true && this.operation =="popupJa" && popup.hatFocus() == "popupNein") || (e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && popup.isFocused() == true && this.operation =="popupNein" && popup.hatFocus() == "popupNein"))
+			{
+				if(this.operation =="popupJa"){
+					this.view.reset();
+					popup.setVisible(false);
+					System.out.println("Nein");
+				}else{
+					this.viewLoeschen.reset();
+					popup.setVisible(false);
+				}
+			}
 	}	
 
 	@Override
