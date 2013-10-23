@@ -40,7 +40,7 @@ public class Bereich {
 			Mitarbeiter leiter) throws Exception {
 		RemoteConnection Connection = new RemoteConnection();
 		String leiterBenutzername=null;
-		
+		System.out.println("hallo:");
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -58,10 +58,11 @@ public class Bereich {
 			
 		if(kurzbezeichnung.equals("")) throw new Exception("Kurzbezeichnung muss angegeben werden.");
 		if(leiter!=null)
-		{
-			ResultSet existiertMitarbeiter = Connection.executeQueryStatement("SELECT Benutzername FROM Mitarbeiter WHERE Benutzername='"+leiter.getBenutzername()+"'");
-			if(!existiertMitarbeiter.next()) throw new Exception("Bereichsleiter wurde nicht gefunden. Bitte jemanden anderen suchen.");
-		
+		{	
+			
+//			ResultSet existiertMitarbeiter = Connection.executeQueryStatement("SELECT Benutzername FROM Mitarbeiter WHERE Benutzername='"+leiter.getBenutzername()+"'");
+//			if(!existiertMitarbeiter.next()) throw new Exception("Bereichsleiter wurde nicht gefunden. Bitte jemanden anderen suchen.");
+//		
 		
 			leiterBenutzername = leiter.getBenutzername();
 		 	//System.out.println("SELECT Kurzbezeichnung From Arbeitsgruppe");

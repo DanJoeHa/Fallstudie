@@ -50,9 +50,10 @@ public class Mitarbeiter {
 	 * Konstruktor wenn sich Mitarbeiter einloggt
 	 * @param Benutzername
 	 * @return Objekt Mitarbeiter
+	 * @throws Exception 
 	 */
 	
-	public Mitarbeiter(String benutzername) {
+	public Mitarbeiter(String benutzername) throws Exception {
 		if(!benutzername.equals(""))
 	{
 		RemoteConnection Connection = new RemoteConnection();
@@ -133,7 +134,7 @@ public class Mitarbeiter {
 			else	
 			{
 				
-				this.benutzername= null;
+				throw new Exception("Mitarbeiter existiert nicht.");
 			}
 		}
 		catch (SQLException e)
