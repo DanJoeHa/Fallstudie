@@ -6,11 +6,11 @@ import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Jahresuebersicht;
+import fallstudie.model.impl.UebersichtSchnittstellenKlasse;
 import fallstudie.model.impl.Wochenuebersicht;
 import fallstudie.model.impl.Zeile;
 import fallstudie.view.impl.DatenAnzeigenAuswahlView;
@@ -94,10 +94,10 @@ public class DatenAnzeigenController implements Controller {
 					
 					//Jahresübersicht Bereichsleiter
 					if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs Jahr") ){
-						Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
+						UebersichtSchnittstellenKlasse uebersichtSST = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
 						this.headline += " für alle Arbeitsgruppen in Ihrem Bereich '" + HauptController.activeUser.getBereich().getKurzbezeichnung() + "'";
 							
-						this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
+						this.generiereJahresuebersichtenZuBereich(uebersichtSST);
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 					}
 					
@@ -123,10 +123,10 @@ public class DatenAnzeigenController implements Controller {
 					
 					//Kalenderwochenübersicht Bereichsleiter
 					if( HauptController.activeUser.checkRecht("Lesen alle Arbeitsgruppen eines Bereichs KW") ){
-						Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, HauptController.activeUser.getBereich() );
+						UebersichtSchnittstellenKlasse uebersichtSST = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, HauptController.activeUser.getBereich() );
 						
 						this.headline += " für alle Arbeitsgruppen in Ihrem Bereich '" + HauptController.activeUser.getBereich().getKurzbezeichnung() + "'";
-						this.generiereWochenuebersichtenZuBereich(coWochenuebersichten);
+						this.generiereWochenuebersichtenZuBereich(uebersichtSST);
 						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 		
 					}
@@ -180,20 +180,24 @@ public class DatenAnzeigenController implements Controller {
 	 */
 	private void uebersichtJahrZentralbereichsleiter(){
 		
-		Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZuAllenBereichen( jahr );
+		//hole Daten aus Model-Schicht
+		UebersichtSchnittstellenKlasse uebersichtSST = Jahresuebersicht.getAlleJahresuebersichtenZuAllenBereichen( jahr );
 		
 		try{
 			
-			if(coJahresuebersichten.size() == 0 ) throw new Exception();
+			//wenn keine Zeilen zur Ausgabe, Exception werfen
+			if(uebersichtSST.anzahlArten == 0) throw new Exception();
 			
-			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
+			//maximale Anzahl zeilen bestimmen
+			int maxZeilen = uebersichtSST.anzahlArten;
+			
+			//Jahresübersichten in COllection holen
+			Collection<Jahresuebersicht> coJahresuebersichten = uebersichtSST.Jahresuebersichten;
+			
+			//Bereiche-Collection für Combobox in View befüllen
 			Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
-			int maxZeilen = 0;
 			while( itJahre.hasNext() ){
 				Jahresuebersicht oJahr = itJahre.next();
-				
-				int anzZeilen = oJahr.getZeileBereich().size();
-				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
 				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
 				
 			}
@@ -202,6 +206,7 @@ public class DatenAnzeigenController implements Controller {
 			this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
 			if( this.bereiche.size() > 0 ) this.viewErg.setDrillDown(true);
 			
+			//Summenspalte festlegen und Array-Dimensionen bestimmen
 			sumcol = coJahresuebersichten.size() + 1;
 			tabellenspalten = new String[ coJahresuebersichten.size() + 2 ];
 			tabellenwerte = new Object[ maxZeilen ][ coJahresuebersichten.size() + 2 ];
@@ -228,7 +233,7 @@ public class DatenAnzeigenController implements Controller {
 				
 				//alle Zeilen durchlaufen
 				while( itZeile.hasNext() ){
-					
+
 					//Zeile hinzufügen
 					this.addZeile(itZeile, i, spalte, true);
 					i++;
@@ -301,20 +306,24 @@ public class DatenAnzeigenController implements Controller {
 	 */
 	private void uebersichtWocheZentralbereichsleiter(){
 		
-		Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZuAllenBereichen(jahr, kw);
+		//hole Uebersicht aus Model-Schicht
+		UebersichtSchnittstellenKlasse uebersichtSST = Wochenuebersicht.getAlleWochenuebersichtenZuAllenBereichen(jahr, kw);
 		
 		try{
 			
-			if(coWochenuebersichten.size() == 0 ) throw new Exception();
+			//Falls keine Einträge enthalten, Exception werfen
+			if(uebersichtSST.anzahlArten == 0 ) throw new Exception();
 			
-			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
+			//bestimme max. Anzahl an Zeilen der Tabelle
+			int maxZeilen = uebersichtSST.anzahlArten;
+			
+			//hole Wochenübersichten
+			Collection<Wochenuebersicht> coWochenuebersichten = uebersichtSST.Wochenuebersichten;
+			
+			//befülle Bereich-COllectoin (für Combobox in View-Schicht)
 			Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
-			int maxZeilen = 0;
 			while( itWoche.hasNext() ){
 				Wochenuebersicht oWoche = itWoche.next();
-				
-				int anzZeilen = oWoche.getZeileBereich().size();
-				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
 				if( oWoche.getBereich() != null ) this.bereiche.add(oWoche.getBereich());
 			}
 			
@@ -322,6 +331,7 @@ public class DatenAnzeigenController implements Controller {
 			this.viewErg.setBereiche(Funktionen.BereicheCollection2Array(this.bereiche));
 			this.viewErg.setDrillDown(true);
 			
+			//Summenspalte bestimmen und Array-Größen definieren
 			sumcol = coWochenuebersichten.size() + 1;
 			tabellenspalten = new String[ coWochenuebersichten.size() + 2 ];
 			tabellenwerte = new Object[ maxZeilen ][ coWochenuebersichten.size() + 2 ];
@@ -381,9 +391,8 @@ public class DatenAnzeigenController implements Controller {
 			tabellenspalten = new String[2];
 			tabellenspalten[0] = "Art";
 			tabellenspalten[1] = "Summe";
-			Collection<Zeile> values;
 			
-			values = oWochenuebersicht.getZeileArbeitsgruppe();
+			Collection<Zeile> values  = oWochenuebersicht.getZeileArbeitsgruppe();
 			
 			tabellenwerte = new String[ values.size() ][2];
 			int x = 0;
@@ -423,23 +432,25 @@ public class DatenAnzeigenController implements Controller {
 		//Headline anpassen
 		this.headline += " > Arbeitsgruppen des Bereich " + oBereich.getKurzbezeichnung();
 		
+		UebersichtSchnittstellenKlasse uebersichtSST;
+		
 		//Jahr
 		if( kw == 0){
 			
 			//Daten holen
-			Collection<Jahresuebersicht> coJahresuebersichten = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, oBereich );
+			uebersichtSST = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, oBereich );
 			
 			//Tabelle neu generieren
-			this.generiereJahresuebersichtenZuBereich(coJahresuebersichten);
+			this.generiereJahresuebersichtenZuBereich(uebersichtSST);
 
 		//Woche
 		}else{
 			
 			//Daten holen
-			Collection<Wochenuebersicht> coWochenuebersichten = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, oBereich );
+			uebersichtSST = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, oBereich );
 			
 			//Tabelle neu generieren
-			this.generiereWochenuebersichtenZuBereich(coWochenuebersichten);
+			this.generiereWochenuebersichtenZuBereich(uebersichtSST);
 
 		}
 		
@@ -485,20 +496,22 @@ public class DatenAnzeigenController implements Controller {
 		
 	}
 	
-	private void generiereJahresuebersichtenZuBereich(Collection<Jahresuebersicht> coJahresuebersichten){
+	private void generiereJahresuebersichtenZuBereich(UebersichtSchnittstellenKlasse uebersichtSST){
 		
 		try{
+			//Prüfe ob Zeilen zur Anzeige vorhanden
+			if(uebersichtSST.anzahlArten == 0) throw new Exception();
 			
-			if(coJahresuebersichten.size() == 0) throw new Exception();
+			//Bestimme anzahl Zeilen
+			int maxZeilen = uebersichtSST.anzahlArten;
+			
+			//hole Collection
+			Collection<Jahresuebersicht> coJahresuebersichten = uebersichtSST.Jahresuebersichten;
 			
 			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
 			Iterator<Jahresuebersicht> itJahre = coJahresuebersichten.iterator();
-			int maxZeilen = 0;
 			while( itJahre.hasNext() ){
 				Jahresuebersicht oJahr = itJahre.next();
-				
-				int anzZeilen = oJahr.getZeileBereich().size();
-				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
 				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
 				
 			}
@@ -547,20 +560,23 @@ public class DatenAnzeigenController implements Controller {
 		
 	}
 	
-	private void generiereWochenuebersichtenZuBereich(Collection<Wochenuebersicht> coWochenuebersichten){
+	private void generiereWochenuebersichtenZuBereich(UebersichtSchnittstellenKlasse uebersichtSST){
 		
 		try{
 			
-			if(coWochenuebersichten.size() == 0) throw new Exception();
+			//Falls nichts anzuzeigen, werfe Exception
+			if(uebersichtSST.anzahlArten == 0) throw new Exception();
+			
+			//bestimme max. Anzahl an Zeilen
+			int maxZeilen = uebersichtSST.anzahlArten;
+			
+			//hole Collection
+			Collection<Wochenuebersicht> coWochenuebersichten = uebersichtSST.Wochenuebersichten;
 			
 			//bestimme max. Anzahl an Zeilen anhand der gespeicherten Arten
 			Iterator<Wochenuebersicht> itWoche = coWochenuebersichten.iterator();
-			int maxZeilen = 0;
 			while( itWoche.hasNext() ){
 				Wochenuebersicht oJahr = itWoche.next();
-				
-				int anzZeilen = oJahr.getZeileBereich().size();
-				if( anzZeilen > maxZeilen ) maxZeilen = anzZeilen;
 				if( oJahr.getBereich() != null ) this.bereiche.add(oJahr.getBereich());
 			}
 			
@@ -640,6 +656,7 @@ public class DatenAnzeigenController implements Controller {
 		}else{
 			zeile = i;
 			tabellenwerte[zeile][0] = oZeile.getArt().getName();
+			System.out.println("i: " + i + " art in Zeile: " + artInZeile);
 			aArtPos[artInZeile][artName] = oZeile.getArt().getName();
 			aArtPos[artInZeile][artZeile] = Integer.toString(artInZeile);
 		}
