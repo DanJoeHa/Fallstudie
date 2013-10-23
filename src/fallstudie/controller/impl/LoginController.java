@@ -67,8 +67,6 @@ public class LoginController implements Controller, KeyListener
 
 	@Override
 	public void fortsetzen() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -89,38 +87,29 @@ public class LoginController implements Controller, KeyListener
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getClickCount()==1 && this.view.getBenutzername().isEmpty()==false && this.view.getPasswort().isEmpty()==false){
+		HauptController.hauptfenster.setInfoBox("Moment bitte, Loginvorgang!");
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

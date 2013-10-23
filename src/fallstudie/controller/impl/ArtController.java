@@ -31,7 +31,10 @@ public class ArtController implements Controller {
 	public ArtController(){
 		
 	}
-	
+	/**
+	 * Operation wird gesetzt.
+	 * @param operation
+	 */
 	public void setOperation(String operation){
 		this.operation = operation;
 		if( this.operation.equals("anlegen"))
@@ -63,7 +66,9 @@ public class ArtController implements Controller {
 			}
 		}
 	}
-	
+	/**
+	 * Methode die bei Mausklicks die Popups lädt und dann entsprechend bei Ja bzw. Nein den Code ausführt.
+	 */
 	public void actionPerformed(ActionEvent e)
 	{
 		button = e.getActionCommand();
@@ -104,7 +109,9 @@ public class ArtController implements Controller {
 			}
 	}
 		}
-
+	/**
+	 * hier wird die Art gelöscht.
+	 */
 	private void artLoeschenPopup() {
 		//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 		
@@ -128,7 +135,9 @@ public class ArtController implements Controller {
 			this.viewLoeschen.reset();
 			popup.setVisible(false);
 	}
-
+	/**
+	 * hier wird die Art angelegt.
+	 */
 	private void artAnlegenPopup() {
 		try{				
 		
@@ -146,7 +155,9 @@ public class ArtController implements Controller {
 			popup.setVisible(false);
 		}
 	}
-
+	/**
+	 * hier wird das Popup generiert zum löschen.
+	 */
 	private void artLoeschen() {
 		popup = new BestaetigenPopup();
 		popup.setController(this);
@@ -157,7 +168,9 @@ public class ArtController implements Controller {
 
 		aktView = this.viewLoeschen;
 	}
-
+	/**
+	 * hier wird das Popup generiert zum speichern.
+	 */
 	private void artAnlegen() {
 		popup = new BestaetigenPopup();
 		popup.setController(this);
@@ -226,7 +239,11 @@ public class ArtController implements Controller {
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * Nach Enter Taste wird Popup geladen und dann entsprechend bei Ja bzw. Nein der Code ausgeführt.
+	 * @param KeyEvent
+	 * @author Patrick Lachnit
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen")
@@ -244,6 +261,7 @@ public class ArtController implements Controller {
 			{
 				if(this.operation == "popupJa"){
 					artAnlegenPopup();
+					this.operation = "anlegen";
 				}else{
 					artLoeschenPopup();
 				}
@@ -253,9 +271,11 @@ public class ArtController implements Controller {
 				if(this.operation =="popupJa"){
 					this.view.reset();
 					popup.setVisible(false);
+					this.operation ="anlegen";
 				}else{
 					this.viewLoeschen.reset();
 					popup.setVisible(false);
+					this.operation = "loeschen";
 				}
 			}
 	}	

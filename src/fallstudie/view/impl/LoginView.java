@@ -1,23 +1,17 @@
 package fallstudie.view.impl;
 
-import javax.swing.JPanel;
-
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.SystemColor;
 
-import javax.swing.border.LineBorder;
-
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Font;
-
-import javax.swing.JLabel;
-
-import java.awt.Dimension;
-import java.awt.event.KeyListener;
-
-import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
@@ -115,10 +109,10 @@ public class LoginView extends JPanel implements View {
 	@Override
 	public void setController(Controller c) {
 		this.B_Login.addActionListener(c);
-		this.T_Benutzername.addKeyListener((KeyListener) c);
-		this.P_Passwort.addKeyListener((KeyListener) c);
-		this.B_Login.addKeyListener((KeyListener) c);
-		
+		this.T_Benutzername.addKeyListener(c);
+		this.P_Passwort.addKeyListener(c);
+		this.B_Login.addKeyListener(c);
+		this.B_Login.addMouseListener(c);
 	}
 	
 	/**

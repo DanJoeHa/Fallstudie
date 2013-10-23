@@ -40,6 +40,7 @@ public class ArtAnlegenView extends JPanel implements View{
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
+		grabFocus();
 		//B_Speichern
 		B_Speichern = new JButton("Speichern");
 		B_Speichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -69,14 +70,18 @@ public class ArtAnlegenView extends JPanel implements View{
 	public String getArt(){
 		return this.T_Art.getText();
 	}
-
+	/**
+	 * Controller werden gesetzt und die Listener.
+	 */
 	@Override
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
 		this.T_Art.addKeyListener((KeyListener)c);
 		this.B_Speichern.addKeyListener((KeyListener)c);
 	}
-
+	/**
+	 * View wird zurückgesetzt.
+	 */
 	@Override
 	public void reset() {
 		this.T_Art.setText("");
