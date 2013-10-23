@@ -407,7 +407,7 @@ public class Mitarbeiter {
 				this.nachname = nachname;
 				this.rolle = rolle;
 				this.arbeitsgruppe = arbeitsgruppe;
-
+/*
 				System.out.println("UPDATE Arbeitsgruppe SET Leiter='"
 						+ benutzername + "' WHERE ArbeitsgruppeID='"
 						+ arbeitsgruppe.getID() + "'");
@@ -415,7 +415,7 @@ public class Mitarbeiter {
 						.executeUpdate("UPDATE Arbeitsgruppe SET Leiter='"
 								+ benutzername + "' WHERE ArbeitsgruppeID='"
 								+ arbeitsgruppe.getID() + "'");
-
+*/
 				if (affectedRows == 1)
 					throw new Exception("Mitarbeiter wurde angelegt.");
 
