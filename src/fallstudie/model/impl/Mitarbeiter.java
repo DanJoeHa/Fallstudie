@@ -389,8 +389,8 @@ public class Mitarbeiter {
 							this.arbeitsgruppe=null;
 							this.bereich = null;
 							
-							System.out.println("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe=NULL, Bereich=NULL, PWChanged=0 WHERE Benutzername='"+benutzername+"'");
-							RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe=NULL, Bereich=NULL, PWChanged=0 WHERE Benutzername='"+benutzername+"'");
+							System.out.println("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe=NULL, Bereich=NULL, PWChanged=0 WHERE Benutzername='"+benutzername+"')");
+							RemoteConnection.sql.executeUpdate("UPDATE Mitarbeiter SET Rolle='"+rolle.getRollenbezeichnung()+"', Passwort='"+verschluesseltPasswort+"', Aktiv='1', Vorname='"+vorname+"', Nachname='"+nachname+"', LetzterLogin=NULL, Arbeitsgruppe=NULL, Bereich=NULL, PWChanged=0 WHERE Benutzername='"+benutzername+"')");
 							throw new Exception("Mitarbeiter wurde erfolgreich angelegt.");
 						}
 					}

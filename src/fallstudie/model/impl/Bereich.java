@@ -54,14 +54,14 @@ public class Bereich {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		try
+		{	
+			
+		if(kurzbezeichnung.equals("")) throw new Exception("Kurzbezeichnung muss angegeben werden.");
+		if(leiter!=null)
 		{
 			ResultSet existiertMitarbeiter = Connection.executeQueryStatement("SELECT Benutzername FROM Mitarbeiter WHERE Benutzername='"+leiter.getBenutzername()+"'");
 			if(!existiertMitarbeiter.next()) throw new Exception("Bereichsleiter wurde nicht gefunden. Bitte jemanden anderen suchen.");
 		
-		if(kurzbezeichnung.equals("")) throw new Exception("Kurzbezeichnung muss angegeben werden.");
-		if(leiter!=null)
-		{
-			
 		
 			leiterBenutzername = leiter.getBenutzername();
 		 	//System.out.println("SELECT Kurzbezeichnung From Arbeitsgruppe");
