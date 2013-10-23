@@ -44,43 +44,47 @@ public class ErfassenController implements Controller {
 		
 		if(button == "Speichern")
 		{	
-			Iterator<Art> i = this.art.iterator();		
-			while( i.hasNext() ){
-				tempArt = (Art) i.next();
-				String Name = tempArt.getName();
-				if(Name.equals( this.view.getArt())){
-					break;
-				}
-			}
-			int anzahl = view.getAnzahl();
-			int kalenderjahr = view.getKalenderjahr();
-			
-			//Prüfung, ob Kalenderjahr eine Zahl ist (GUI gibt 0 zurück, wenn parseInt Exception wirft bzw. ein String eingegeben wurde)
-			if(kalenderjahr == 0 )
-			{
-				HauptController.hauptfenster.setInfoBox("Kalenderjahr bitte in Ziffern angeben");
-			}
-			else{
-				//Prüfung, ob Anzahl korrekten Wert hat
-				if(anzahl <= 0)
-				{
-					HauptController.hauptfenster.setInfoBox("Anzahl darf nur Werte größer 0 und keine Buchstaben beinhalten");
-				}
-				else
-				{
-					new Eintrag(kalenderjahr,view.getKalenderwoche(), anzahl,HauptController.activeUser.getArbeitsgruppe(), tempArt);
-					Calendar cal = Calendar.getInstance();
-				    DateFormat df;
-				    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
-					HauptController.hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am "+ df.format(cal.getTime()) +" erfasst");
-					view.reset();
-				}
-			}
+			speichernAction();
 
 		}
 		if(button == "Zurücksetzen")
 		{	
 			this.view.reset();
+		}
+	}
+
+	private void speichernAction() {
+		Iterator<Art> i = this.art.iterator();		
+		while( i.hasNext() ){
+			tempArt = (Art) i.next();
+			String Name = tempArt.getName();
+			if(Name.equals( this.view.getArt())){
+				break;
+			}
+		}
+		int anzahl = view.getAnzahl();
+		int kalenderjahr = view.getKalenderjahr();
+		
+		//Prüfung, ob Kalenderjahr eine Zahl ist (GUI gibt 0 zurück, wenn parseInt Exception wirft bzw. ein String eingegeben wurde)
+		if(kalenderjahr == 0 )
+		{
+			HauptController.hauptfenster.setInfoBox("Kalenderjahr bitte in Ziffern angeben");
+		}
+		else{
+			//Prüfung, ob Anzahl korrekten Wert hat
+			if(anzahl <= 0)
+			{
+				HauptController.hauptfenster.setInfoBox("Anzahl darf nur Werte größer 0 und keine Buchstaben beinhalten");
+			}
+			else
+			{
+				new Eintrag(kalenderjahr,view.getKalenderwoche(), anzahl,HauptController.activeUser.getArbeitsgruppe(), tempArt);
+				Calendar cal = Calendar.getInstance();
+			    DateFormat df;
+			    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
+				HauptController.hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am "+ df.format(cal.getTime()) +" erfasst");
+				view.reset();
+			}
 		}
 	}
 
@@ -91,56 +95,41 @@ public class ErfassenController implements Controller {
 
 	@Override
 	public void fortsetzen() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getKeyCode()==KeyEvent.VK_ENTER){
+			speichernAction();
+		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

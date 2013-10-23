@@ -257,6 +257,7 @@ public class ErfassenView extends JPanel implements View {
 	public void setController(Controller c) {
 		this.B_Anlegen.addActionListener(c);
 		this.B_Zuruecksetzen.addActionListener(c);
+		this.T_AnzahlErfassen.addKeyListener(c);
 	}
 
 	@Override
