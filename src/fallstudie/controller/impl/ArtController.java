@@ -20,10 +20,13 @@ public class ArtController implements Controller {
 	private ArtLoeschenView viewLoeschen;
 	private String operation;
 	private Collection<Art> art;
-	public static BestaetigenPopup popup;
+	public static BestaetigenPopup popup = new BestaetigenPopup();
 	private View aktView;
 	private String button;
 	
+	static{
+		popup.setVisible(false);
+	}
 	
 	
 	public ArtController(){
@@ -73,7 +76,6 @@ public class ArtController implements Controller {
 		}	
 			if(aktView == this.view){
 			if(button.equals("Ja")){
-			
 				
 				artAnlegenPopup();
 			}
@@ -143,21 +145,20 @@ public class ArtController implements Controller {
 	}
 
 	private void artLoeschen() {
-		popup = new BestaetigenPopup();
 		popup.setController(this);
 		popup.setTitle("Löschen");
 		popup.setAusgabe(HilfeTexte.LoeschenPopup);
-		
+		popup.setVisible(true);
+
 		aktView = this.viewLoeschen;
 	}
 
 	private void artAnlegen() {
-		popup = new BestaetigenPopup();
-		
+
 		popup.setController(this);
 		popup.setTitle("Bestätigung");
 		popup.setAusgabe(HilfeTexte.SpeichernPopup);
-		
+		popup.setVisible(true);
 		aktView = this.view;
 	}
 
@@ -221,45 +222,29 @@ public class ArtController implements Controller {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER)
-		{
-			if(this.operation.equals("anlegen")){
+			if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen" && ArtController.popup.isVisible()==false)
+			{
 				artAnlegen();
 				System.out.println("anlegen");
 			}
-			if(this.operation.equals("loeschen")){
-				artLoeschen();
-			}
 			
-		}
-		if (e.getKeyCode() == KeyEvent.VK_ENTER)
-		{
-			if(this.view == aktView && button == "Ja"){
-				artAnlegenPopup();
-				System.out.println("Ja");
-				
+			if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen" && ArtController.popup.isVisible()==false)
+			{
+			artLoeschen();
 			}
-			if(this.view == aktView && button == "Nein"){
-				this.view.reset();
-				popup.setVisible(false);
-				System.out.println("Nein");
-			}
-		}
-//		if(button == "Ja"){
-//			if(e.getKeyCode() == KeyEvent.VK_ENTER){
+		
+//			if (e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true )
+//			{
 //				
-//				artAnlegenPopup();
-//				
+//				System.out.println("Ja");
 //			}
-//		}
-//		if(button == "Nein"){
-//			if(e.getKeyCode() == KeyEvent.VK_ENTER){
+//			if (e.getKeyCode() == KeyEvent.VK_ENTER && ArtController.popup.isVisible()==true && button.equals("Ja"))
+//			{
 //				this.view.reset();
 //				popup.setVisible(false);
+//				System.out.println("Nein");
 //			}
-//		}
-		
-	}
+	}	
 
 	@Override
 	public void keyTyped(KeyEvent e) {
