@@ -257,7 +257,7 @@ public class Wochenuebersicht {
 	{
 		RemoteConnection Connection = new RemoteConnection();
 		Collection<Wochenuebersicht> alleWochenuebersichten = new LinkedList<>();
-		UebersichtSchnittstellenKlasse uS = new UebersichtSchnittstellenKlasse("");
+		UebersichtSchnittstellenKlasse uS = new UebersichtSchnittstellenKlasse();
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -284,6 +284,11 @@ public class Wochenuebersicht {
 			
 		wochenUebersicht.close();
 		uS.Wochenuebersichten = alleWochenuebersichten;
+		ResultSet artenZahl = Connection.executeQueryStatement("SELECT Count(DISTINCT Art) AS Anzahl FROM Wochenuebersicht WHERE Kalenderjahr='"+jahr+"' AND Kalenderwoche='"+woche+"'");
+		artenZahl.next();
+		uS.anzahlArten = artenZahl.getInt("Anzahl");
+		artenZahl.close();
+		
 		
 		} 
 		catch (SQLException e) {
@@ -301,10 +306,11 @@ public class Wochenuebersicht {
 	 * @param bereich
 	 * @return
 	 */
-	public static Collection<Wochenuebersicht> getAlleWochenuebersichtenZumBereich(int jahr, int woche, Bereich bereich)
+	public static UebersichtSchnittstellenKlasse getAlleWochenuebersichtenZumBereich(int jahr, int woche, Bereich bereich)
 	{
 		RemoteConnection Connection = new RemoteConnection();
 		Collection<Wochenuebersicht> alleWochenuebersichten = new LinkedList<>();
+		UebersichtSchnittstellenKlasse us = new UebersichtSchnittstellenKlasse();
 		int bereichID = bereich.getID();
 		
 		try
@@ -332,12 +338,18 @@ public class Wochenuebersicht {
 			}
 			
 		wochenUebersicht.close();
+		us.Wochenuebersichten = alleWochenuebersichten;
+		ResultSet artenZahl = Connection.executeQueryStatement("SELECT Count(DISTINCT Art) AS Anzahl FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"' AND Bereich='"+bereichID+"' AND Kalenderwoche='"+woche+"'");
+		artenZahl.next();
+		us.anzahlArten = artenZahl.getInt("Anzahl");
+		artenZahl.close();
+		
 		} 
 		catch (SQLException e) {
 			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZumBereich(String) aufgetreten:");
 			System.err.println(e.getMessage());
 		}
-		return alleWochenuebersichten;
+		return us;
 		
 	}
 	

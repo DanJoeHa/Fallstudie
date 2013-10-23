@@ -152,6 +152,7 @@ public class Jahresuebersicht {
 		RemoteConnection Connection = new RemoteConnection();
 		Collection<Jahresuebersicht> alleJahresuebersichten = new LinkedList<>();
 		UebersichtSchnittstellenKlasse uS = new UebersichtSchnittstellenKlasse();
+		
 		try
 		{
 			if( RemoteConnection.connection == null || RemoteConnection.sql == null ){
@@ -177,6 +178,10 @@ public class Jahresuebersicht {
 			
 		jahresUebersicht.close();
 		uS.Jahresuebersichten = alleJahresuebersichten;
+		ResultSet artenZahl = Connection.executeQueryStatement("SELECT COUNT(DISTINCT Art) AS Anzahl FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
+		artenZahl.next();
+		uS.anzahlArten = artenZahl.getInt("Anzahl");
+		artenZahl.close();
 		} 
 		catch (SQLException e) {
 			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZuAllenbereichen(String) aufgetreten:");
@@ -192,10 +197,11 @@ public class Jahresuebersicht {
 	 * @param bereich
 	 * @return
 	 */
-	public static Collection<Jahresuebersicht> getAlleJahresuebersichtenZumBereich(int jahr, Bereich bereich)
+	public static UebersichtSchnittstellenKlasse getAlleJahresuebersichtenZumBereich(int jahr, Bereich bereich)
 	{
 		RemoteConnection Connection = new RemoteConnection();
 		Collection<Jahresuebersicht> alleJahresuebersichten = new LinkedList<>();
+		UebersichtSchnittstellenKlasse us = new UebersichtSchnittstellenKlasse();
 		int bereichID = bereich.getID();
 		
 		try
@@ -223,12 +229,18 @@ public class Jahresuebersicht {
 			}
 			
 		jahresUebersicht.close();
+		us.Jahresuebersichten = alleJahresuebersichten;
+		ResultSet artenZahl = Connection.executeQueryStatement("SELECT Count(DISTINCT Art) AS Anzahl FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"' AND Bereich='"+bereichID+"'");
+		artenZahl.next();
+		us.anzahlArten = artenZahl.getInt("Anzahl");
+		artenZahl.close();
+		
 		} 
 		catch (SQLException e) {
 			System.err.println("Dieser Fehler ist in getAlleJahresuebersichtenZumBereich(String) aufgetreten:");
 			System.err.println(e.getMessage());
 		}
-		return alleJahresuebersichten;
+		return us;
 		
 	}
 	//-----------------------------------------------------------
