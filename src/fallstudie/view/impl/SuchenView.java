@@ -72,6 +72,8 @@ public class SuchenView extends JPanel implements View {
 	@Override
 	public void setController(Controller c) {
 		this.B_Suchen.addActionListener(c);
+		this.T_Suchfeld.addKeyListener(c);
+		this.B_Suchen.addKeyListener(c);
 	}
 	
 	/**

@@ -65,6 +65,7 @@ public class SuchController implements Controller,MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
+		System.out.println(e.getID());
 		
 		//Abbrechen-Button
 		if( button.equals("Abbrechen") ){
@@ -78,42 +79,7 @@ public class SuchController implements Controller,MouseListener {
 		
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
 			if( button.equals( "Suchen" ) ){
-				try{
-						
-						//initiere Ergebnistabelle
-						this.viewErg = new TabelleView();
-						this.viewErg.setController( this );
-						
-						//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
-						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiterbearbearbeiten_Mitarbeiterloeschen_Arbeitsgruppeanlegen_Arbeitsgruppebearbeiten_Gruppenleiter_Bereichanlegen_Bereichsleiter_Bereichbearbeiten_Bereichsleiter);
-
-						this.viewErg.setButtonName("auswählen");
-						
-						String suche = "";
-						if(e.getID() == 1 ){
-							if( !this.suchbegriff.isEmpty() ) suche = this.suchbegriff;
-						}
-						else
-						{
-							suche = this.view.getSuchbegriff();	
-						}
-						
-						//hole passende Suchergebnisse
-						this.suchergebnisseMa = Mitarbeiter.suche( suche, this.suchdomain );
-						
-						//festgelegter String Array
-						String[] MAColumn = new String[]{ "Benutzername", "Vorname", "Nachname", "Arbeitsgruppe", "Bereich", "Rolle"};
-						
-						//Content auf Tabellen-Sicht wechseln
-						this.viewErg.setTabelle( MAColumn, Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ));
-						if(operation.equals("loeschen"))
-						{
-							this.viewErg.setButtonName("Löschen");
-						}
-						HauptController.hauptfenster.setContent( this.viewErg );
-				}catch(Exception ex){
-					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
-				}
+				suchenActionMitarbeiter(e.getID());
 			}
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
@@ -156,42 +122,7 @@ public class SuchController implements Controller,MouseListener {
 		
 		if( this.suchdomain.equals( "Arbeitsgruppe" )){ 
 			if( button.equals( "Suchen") ){
-				try{
-						//initiere Ergebnistabelle
-						this.viewErg = new TabelleView();
-						this.viewErg.setController( this );
-						
-						//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
-						HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiteranlegen_Mitarbeiterbearbeiten_Arbeitsgruppebearbeiten_AG);
-
-						this.viewErg.setButtonName("auswählen");
-						
-						//hole passende Suchergebnisse
-						String suche = "";
-						if(e.getID() == 1 ){
-							if( !this.suchbegriff.isEmpty() ) suche = this.suchbegriff;
-						}
-						else
-						{
-							suche = this.view.getSuchbegriff();	
-						}
-						
-						this.suchergebnisseAg = Arbeitsgruppe.suche( suche );
-										
-						//festgelegter String Array
-						String[] AGColumn = new String[]{ "Kurzbeschreibung", "Beschreibung", "Leiter", "Bereich"};
-						
-						//Content auf Tabellen-Sicht wechseln
-						this.viewErg.setTabelle( AGColumn, Funktionen.ArbeitsgruppeCollection2ArraySuche(this.suchergebnisseAg ) );
-						if(operation.equals("loeschen"))
-						{
-							this.viewErg.setButtonName("Löschen");
-						}
-						HauptController.hauptfenster.setContent( this.viewErg );
-						
-				}catch(Exception ex){
-					HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
-				}
+				suchenActionArbeitsgruppe(e.getID());
 			}
 		
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
@@ -232,6 +163,84 @@ public class SuchController implements Controller,MouseListener {
 		}
 	
 }
+
+	private void suchenActionArbeitsgruppe(int id) {
+		try{
+				//initiere Ergebnistabelle
+				this.viewErg = new TabelleView();
+				this.viewErg.setController( this );
+				
+				//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+				HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiteranlegen_Mitarbeiterbearbeiten_Arbeitsgruppebearbeiten_AG);
+
+				this.viewErg.setButtonName("auswählen");
+				
+				//hole passende Suchergebnisse
+				String suche = "";
+				if(id == 1 ){
+					if( !this.suchbegriff.isEmpty() ) suche = this.suchbegriff;
+				}
+				else
+				{
+					suche = this.view.getSuchbegriff();	
+				}
+				
+				this.suchergebnisseAg = Arbeitsgruppe.suche( suche );
+								
+				//festgelegter String Array
+				String[] AGColumn = new String[]{ "Kurzbeschreibung", "Beschreibung", "Leiter", "Bereich"};
+				
+				//Content auf Tabellen-Sicht wechseln
+				this.viewErg.setTabelle( AGColumn, Funktionen.ArbeitsgruppeCollection2ArraySuche(this.suchergebnisseAg ) );
+				if(operation.equals("loeschen"))
+				{
+					this.viewErg.setButtonName("Löschen");
+				}
+				HauptController.hauptfenster.setContent( this.viewErg );
+				
+		}catch(Exception ex){
+			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
+		}
+	}
+
+	private void suchenActionMitarbeiter(int id) {
+		try{
+				
+				//initiere Ergebnistabelle
+				this.viewErg = new TabelleView();
+				this.viewErg.setController( this );
+				
+				//Hilfe für Tabelle bei Mitarbeiter anlegen - AG suchen
+				HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Mitarbeiterbearbearbeiten_Mitarbeiterloeschen_Arbeitsgruppeanlegen_Arbeitsgruppebearbeiten_Gruppenleiter_Bereichanlegen_Bereichsleiter_Bereichbearbeiten_Bereichsleiter);
+
+				this.viewErg.setButtonName("auswählen");
+				
+				String suche = "";
+				if(id == 1 ){
+					if( !this.suchbegriff.isEmpty() ) suche = this.suchbegriff;
+				}
+				else
+				{
+					suche = this.view.getSuchbegriff();	
+				}
+				
+				//hole passende Suchergebnisse
+				this.suchergebnisseMa = Mitarbeiter.suche( suche, this.suchdomain );
+				
+				//festgelegter String Array
+				String[] MAColumn = new String[]{ "Benutzername", "Vorname", "Nachname", "Arbeitsgruppe", "Bereich", "Rolle"};
+				
+				//Content auf Tabellen-Sicht wechseln
+				this.viewErg.setTabelle( MAColumn, Funktionen.MitarbeiterCollection2ArraySuche(this.suchergebnisseMa ));
+				if(operation.equals("loeschen"))
+				{
+					this.viewErg.setButtonName("Löschen");
+				}
+				HauptController.hauptfenster.setContent( this.viewErg );
+		}catch(Exception ex){
+			HauptController.hauptfenster.setInfoBox("Keine Datensätze gefunden.");
+		}
+	}
 
 	private void auswahlLoeschen() {
 		popup = new BestaetigenPopup();
@@ -344,7 +353,18 @@ public class SuchController implements Controller,MouseListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println(e.getID());
+		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
+			if(e.getKeyCode()==KeyEvent.VK_ENTER){
+				suchenActionMitarbeiter(e.getID());
+			}
+		}
+		if( this.suchdomain.equals( "Arbeitsgruppe" )){ 
+			if(e.getKeyCode()==KeyEvent.VK_ENTER){
+				suchenActionArbeitsgruppe(e.getID());
+				
+			}			
+		}
 		
 	}
 
