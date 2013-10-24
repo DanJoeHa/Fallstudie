@@ -25,7 +25,7 @@ public class BereichController implements Controller {
 	private Bereich gewaehlterBereich;
 	public static BestaetigenPopup popup;
 	private boolean isPop=false;
-	private boolean istPop=false;
+	
 
 	private Collection<Bereich> bereich;
 	
@@ -417,6 +417,7 @@ public class BereichController implements Controller {
 				{
 					bearbeitenButton();
 					isPop = true;
+					popup.setVisible(false);
 				}
 			}
 			if(this.operation=="bearbeiten"){
