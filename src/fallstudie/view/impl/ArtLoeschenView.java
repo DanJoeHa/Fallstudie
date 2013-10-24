@@ -12,7 +12,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * View zum Löschen von Arten
+ * @author Marc
+ *
+ */
 public class ArtLoeschenView extends JPanel implements View{
 
 	private static final long serialVersionUID = -4927164539248244321L;

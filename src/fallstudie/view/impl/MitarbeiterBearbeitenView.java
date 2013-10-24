@@ -13,7 +13,12 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import fallstudie.controller.interfaces.Controller;
-
+/**
+ * View zum Bearbeiten von Mitarbeitern
+ * erbt von MitarbeiterLayout die GUI Elemente
+ * @author Marc
+ *
+ */
 public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 	
 	private static final long serialVersionUID = 2054079907794135044L;

@@ -21,7 +21,11 @@ import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * View zum Ändern von Passwörtern
+ * @author Marc
+ *
+ */
 public class PasswortAendernView extends JPanel implements View {
 
 

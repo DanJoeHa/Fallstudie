@@ -21,7 +21,11 @@ import javax.swing.JTextField;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * Stellt für Mitarbeiter bearbeiten und anlegen grafische GUI Elemente, die vererbt werden, zur Verfügung
+ * @author Marc
+ *
+ */
 public class LayoutMitarbeiter extends JPanel implements View{
 
 	private static final long serialVersionUID = -5374763696510559443L;

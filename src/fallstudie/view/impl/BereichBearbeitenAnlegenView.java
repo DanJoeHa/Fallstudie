@@ -17,7 +17,11 @@ import javax.swing.JTextField;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * View zum Berarbeiten und Anlegen von Bereichen
+ * @author Marc
+ *
+ */
 public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen implements View {
 
 	private static final long serialVersionUID = 1610717377071294522L;

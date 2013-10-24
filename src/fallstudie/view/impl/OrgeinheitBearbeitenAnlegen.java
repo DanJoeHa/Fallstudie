@@ -10,7 +10,11 @@ import javax.swing.JLabel;
 import java.awt.Dimension;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-
+/**
+ *  Stellt für Organisationseinheiten(Bereiche und Arbeitsgruppe) bearbeiten und anlegen grafische GUI Elemente, die vererbt werden, zur Verfügung
+ * @author Marc
+ *
+ */
 public abstract class OrgeinheitBearbeitenAnlegen extends JPanel{
 
 	private static final long serialVersionUID = -3209996671642895324L;

@@ -20,7 +20,11 @@ import javax.swing.JTextField;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * View zum Anlegen von Arten
+ * @author Marc
+ *
+ */
 public class ArtAnlegenView extends JPanel implements View{
 
 	private static final long serialVersionUID = 6359747625844571952L;

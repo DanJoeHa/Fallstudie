@@ -48,7 +48,9 @@ public class PasswortController implements Controller {
 		}
 		
 	}
-
+/**
+ * Speichert Passwort mit Prüfung
+ */
 	private void speichernAction() {
 		//Hole Daten aus View
 		String neuesPasswort = this.view.getNeuesPasswort();
@@ -94,40 +96,59 @@ public class PasswortController implements Controller {
 			HauptController.hauptfenster.setInfoBox("Altes Passwort falsch");
 		}
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public View getView() {
 		return this.view;
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void fortsetzen() {
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 	}
-
+/**
+ * setzt Keylistener auf Enter und führt Passwort speichern aus.
+ * @parm KeyEvent
+ */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER)
@@ -135,7 +156,9 @@ public class PasswortController implements Controller {
 			speichernAction();
 		}		
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
