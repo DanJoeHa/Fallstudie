@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import fallstudie.view.interfaces.View;
 
 /**
- * Verbindliche Schnittstellendefinition f�r alle Klassen des Package fallstudie.controller.impl
+ * Verbindliche Schnittstellendefinition für alle Klassen des Package fallstudie.controller.impl
  * 
  * @author Johannes Haag
  * @version 1.0
@@ -16,12 +16,15 @@ import fallstudie.view.interfaces.View;
 public interface Controller extends ActionListener, MouseListener, KeyListener {
 	
 	/**
-	 * Schnittstelle zur R�ckgabe der View des Controllers
+	 * Schnittstelle zur Rückgabe der View des Controllers
 	 * 
 	 * @return View
 	 */
 	public View getView();
 	
+	/**
+	 * Schnittstelle zwischen SuchController und aufrufenden Controllern zur Rückgabe des gewählten Objektes.
+	 */
 	public void fortsetzen();
 	
 }
