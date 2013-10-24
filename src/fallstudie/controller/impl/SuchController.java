@@ -83,7 +83,6 @@ public class SuchController implements Controller,MouseListener {
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button.equals( "auswählen" ) ){
-				
 				auswahlAction_allgemein();
 			}
 			
@@ -112,6 +111,7 @@ public class SuchController implements Controller,MouseListener {
 						}
 					}	
 					popup.setVisible(false);
+					suchenActionMitarbeiter(e.getID());
 				}
 			}
 			if(button.equals("Nein")){
@@ -154,6 +154,7 @@ public class SuchController implements Controller,MouseListener {
 						}
 					}
 					popup.setVisible(false);
+					auswahlAction_Arbeitsgruppe();
 				}
 			}
 			if(button.equals("Nein")){
@@ -314,7 +315,7 @@ public class SuchController implements Controller,MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount()==2){
-			if(this.suchdomain.equals( "Arbeitsgruppe" )){
+			if(this.suchdomain.equals("Arbeitsgruppe") && this.operation=="suchen"){
 				auswahlAction_Arbeitsgruppe();
 			}else if (this.operation=="loeschen"){
 				auswahlLoeschen();
@@ -346,8 +347,6 @@ public class SuchController implements Controller,MouseListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -369,7 +368,5 @@ public class SuchController implements Controller,MouseListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
