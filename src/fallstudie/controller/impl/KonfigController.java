@@ -11,18 +11,37 @@ import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.KonfigurationView;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Der Konfig-Controller ist für die Einstellung des Jobintervalls zur Löschung von alten Einträgen verantwortlich.
+ *
+ */
 public class KonfigController implements Controller {
 	
+	/**
+	 * Konfigurations View
+	 */
 	private KonfigurationView view;
+	/**
+	 * Bestätigungspopup
+	 */
 	public static BestaetigenPopup popup;
-	private boolean isPop=false;
+	/**
+	 * Popup bereits angezeigt
+	 */
+	private boolean isPop = false;
 	
+	/**
+	 * Erstellt ein neues Objekt und zeigt die KonfiView an.
+	 */
 	public KonfigController(){
 		this.view = new KonfigurationView();
 		this.view.setAnzahlMonate(Konfig.getJobIntervall());
 		this.view.setController( this );
 	}
 	
+	/**
+	 * ActionListener für die Buttons in der View.
+	 */
 	public void actionPerformed(ActionEvent e)
 	{
 		String button = e.getActionCommand();
@@ -40,6 +59,9 @@ public class KonfigController implements Controller {
 		}
 	}
 
+	/**
+	 * Speichern der Konfiguration.
+	 */
 	private void jaAction() {
 		String msg = "Neue Job-Konfiguration gespeichert.";
 		int monate = this.view.getAnzahlMonate();
@@ -61,6 +83,9 @@ public class KonfigController implements Controller {
 		HauptController.hauptfenster.setInfoBox(msg);
 	}
 
+	/**
+	 * Bestätigungspopup
+	 */
 	private void konfigPopup() {
 		popup = new BestaetigenPopup();
 		
@@ -80,34 +105,51 @@ public class KonfigController implements Controller {
 		return this.view;
 	}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void fortsetzen() {
-	}
+	public void fortsetzen() {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
+	public void mouseClicked(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mousePressed(MouseEvent e) {
-	}
+	public void mousePressed(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
+	public void mouseReleased(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void keyPressed(KeyEvent e) {
-	}
+	public void keyPressed(KeyEvent e) {}
 
+	/**
+	 * KeyListener auf Enter-Taste
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER && isPop==false){
@@ -125,7 +167,9 @@ public class KonfigController implements Controller {
 		}
 	}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+	public void keyTyped(KeyEvent e) {}
 }
