@@ -15,7 +15,11 @@ import javax.swing.border.LineBorder;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * View zum Anzeigen von Daten in einer Tabelle und zum anschließenden Auswählen eines Datensatzes
+ * @author Marc
+ *
+ */
 public class DatenAnzeigenAuswahlView extends JPanel implements View{
 
 	private static final long serialVersionUID = 8946261889602533900L;

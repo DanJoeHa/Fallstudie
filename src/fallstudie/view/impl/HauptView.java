@@ -15,7 +15,14 @@ import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * Hauptframe
+ * Innerhalb diesem Frame werden die Views geladen
+ * Stellt Navigationsbaum, Hilfe und Logout Button, InfoBox zur Verfügung
+ * Beinhaltet Überschrift
+ * @author Marc
+ *
+ */
 public class HauptView extends JFrame implements View{
 
 	private static final long serialVersionUID = 999907361524491947L;
