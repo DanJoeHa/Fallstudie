@@ -69,23 +69,39 @@ public abstract class OrgeinheitBearbeitenAnlegen extends JPanel{
 		add(B_Speichern);	
 
 	}
-	
+	/**
+	 * Gibt Kurzbezeichnung zurück
+	 * @return Kurzbezeichnung
+	 */
 	public String getKurzbezeichnung(){
 		return this.T_Kurzbezeichnung.getText();
 	}
 	
+	/**
+	 * Kurzbezeichnung in Textfeld setzen
+	 * @param kurzbezeichnung
+	 */
 	public void setKurzbezeichnung(String kurzbezeichnung){
 		this.T_Kurzbezeichnung.setText(kurzbezeichnung);
 	}
-	
+	/**
+	 * Gibt Bezeichnung zurück
+	 * @return Bezeichnung
+	 */
 	public String getBezeichnung(){
 		return this.T_Bezeichnung.getText();
 	}
-	
+	/**
+	 * Bezeichnung in Textfeld setzen
+	 * @param bezeichnung
+	 */
 	public void setBezeichnung(String bezeichnung){
 		this.T_Bezeichnung.setText(bezeichnung);
 	}
-	
+	/**
+	 * Name des Abbrechen Button setzen
+	 * @param name
+	 */
 	public void setButtonAbbrechenName(String name){
 		this.B_Zuruecksetzen.setText(name);
 		this.B_Zuruecksetzen.setActionCommand(name);

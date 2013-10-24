@@ -111,7 +111,11 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		add(B_Speichern);
 
 	}
-	
+	/**
+	 * AuswahlBox mit Rollen füllen und vorausgewählte Rolle festlegen
+	 * @param rollen
+	 * @param aktuelleRolle
+	 */
 	public void setRolle(String[] rollen, String aktuelleRolle)
 	{
 		for( int i = 0; i < rollen.length; i++){
@@ -129,19 +133,29 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 			this.C_Bereich.setVisible(false);
 		}
 	}
-	
+	/**
+	 * Auswahlbox mit Rollen füllen
+	 * @param rollen
+	 */
 	public void setRolle( String[] rollen )
 	{
 		for( int i = 0; i < rollen.length; i++){
 			this.C_Rolle.addItem( rollen[i] );
 		}
 	}
-	
+	/**
+	 * Arbeitsgruppe in Textfeld setzen
+	 * @param arbeitsgruppe
+	 */
 	public void setArbeitsgruppe(String arbeitsgruppe)
 	{
 		T_Arbeitsgruppe.setText(arbeitsgruppe);
 	}
-	
+	/**
+	 * AuswahlBox mit Bereichen füllen und vorausgewählter Bereich festlegen
+	 * @param bereiche
+	 * @param aktuellerBereich
+	 */
 	public void setBereich(String[] bereiche, String aktuellerBereich)
 	{
 		for( int i = 0; i < bereiche.length; i++){
@@ -151,30 +165,45 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 			}
 		}
 	}
-	
+	/**
+	 * AuswahlBox mit Bereichen füllen
+	 * @param bereiche
+	 */
 	public void setBereich(String[] bereiche)
 	{
 		for( int i = 0; i < bereiche.length; i++){
 			this.C_Bereich.addItem( bereiche[i] );
 		}
 	}
-	
+	/**
+	 * Gibt ausgewählte Rolle zurück
+	 * @return ausgewählte Rolle
+	 */
 	public String getRolle()
 	{
 		return C_Rolle.getSelectedItem().toString();
 	}
-	
+	/**
+	 * Gibt ausgewählten Bereich zurück
+	 * @return ausgewählter Bereich
+	 */
 	public String getBereich()
 	{
 		return C_Bereich.getSelectedItem().toString();
 	}
 	
+	/**
+	 * Setzt Controller
+	 */
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
 		this.B_Abbrechen.addActionListener(c);
 		this.B_SucheArbeitsgruppe.addActionListener(c);
 	}
-	
+	/**
+	 * Gibt Arbeitsgruppe aus Textfeld zurück
+	 * @return Arbeitsgruppe
+	 */
 	public String getArbeitsgruppe(){
 		return T_Arbeitsgruppe.getText();
 	}
