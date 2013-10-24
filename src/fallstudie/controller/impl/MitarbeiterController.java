@@ -19,8 +19,6 @@ import fallstudie.view.interfaces.View;
 
 /**
  * MitarbeiterController, steuert alle Abläufe zu einem Mitarbeiter (außer Löschen eines Mitarbeiters)
- * @author Johannes
- * @version 0.1
  *
  */
 public class MitarbeiterController implements Controller {
@@ -193,12 +191,11 @@ public class MitarbeiterController implements Controller {
 						//Fachbereichsorganisation oder Zentralbereichsleiter anlegen
 						if( rollenbez.equals("Fachbereichsorganisation") || rollenbez.equals("Zentralbereichsleiter") ){
 							new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle);
-						}
-						
-						this.viewAnlegen.reset();
+						}						
 						
 					}catch(Exception ex){
 						HauptController.hauptfenster.setInfoBox(ex.getMessage());
+						this.viewAnlegen.reset();
 					}
 				}
 				else
@@ -350,7 +347,6 @@ public class MitarbeiterController implements Controller {
 	}
 	
 	
-	
 	/**
 	 * Liefert aktive View des Controllers
 	 * 
@@ -366,10 +362,26 @@ public class MitarbeiterController implements Controller {
 		return null;
 	}
 
+	/**
+	 * Methode wird vom SuchController aufgerufen, wenn nach Mitarbeiter/Arbeitsgruppe gesucht wurde.
+	 */
 	@Override
 	public void fortsetzen() {
 		
-		try{ //if(this.operation.equals("bearbeiten"))
+		if(this.operation.equals("anlegen")){ //}catch(Exception ex){
+			
+			//ausgewählte Arbeitsgruppe holen
+			this.gewaehlteAG = (Arbeitsgruppe) this.suche.getAuswahl();
+			this.viewAnlegen.setRolle( Funktionen.RollenCollection2Array(this.rollen) );
+			this.viewAnlegen.setBereich(Funktionen.BereicheCollection2Array(this.bereiche));
+			this.viewAnlegen.setArbeitsgruppe(gewaehlteAG.getKurzbezeichnung());
+			
+			HauptController.hauptfenster.setUeberschrift("Mitarbeiter anlegen");
+			HauptController.hauptfenster.setContent( this.viewAnlegen );
+			this.view.repaint();
+		}
+		
+		if(this.operation.equals("bearbeiten")){ //try{
 			
 			//Mitarbeiter zur Bearbeitung ausgewählt
 			if(!suchag){
@@ -399,7 +411,14 @@ public class MitarbeiterController implements Controller {
 				}
 				
 				if( rolle.equals("Gruppenleiter")|| rolle.equals("Sachbearbeiter") ){
-					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich().getKurzbezeichnung() );
+					if( this.gewaehlterMitarbeiter.getArbeitsgruppe() != null ){
+						if( this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich() != null ){
+							this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich().getKurzbezeichnung() );
+						}
+					}else{
+						this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche));
+					}
+					
 				}
 				
 				if( rolle.equals("Fachbereichsorganisation") || rolle.equals("Zentralbereichsleiter") ){
@@ -419,70 +438,33 @@ public class MitarbeiterController implements Controller {
 				HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
 				HauptController.hauptfenster.setContent( this.view );
 				this.view.repaint();
-				
 			}
 				
-		}catch(Exception ex){ //if(this.operation.equals("anlegen"))
-			
-			//ausgewählte Arbeitsgruppe holen
-			this.gewaehlteAG = (Arbeitsgruppe) this.suche.getAuswahl();
-			this.viewAnlegen.setRolle( Funktionen.RollenCollection2Array(this.rollen) );
-			this.viewAnlegen.setBereich(Funktionen.BereicheCollection2Array(this.bereiche));
-			this.viewAnlegen.setArbeitsgruppe(gewaehlteAG.getKurzbezeichnung());
-			
-			HauptController.hauptfenster.setUeberschrift("Mitarbeiter anlegen");
-			HauptController.hauptfenster.setContent( this.viewAnlegen );
-			this.view.repaint();
-		}
-		
+		}	
 		
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyPressed(KeyEvent e) {}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent e) {}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 }
