@@ -195,12 +195,14 @@ public class BereichController implements Controller {
 			Bereich neuerBereich = new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oLeiter);
 			this.gewaehlterBereich = neuerBereich;
 			this.moveLeiter();
+			this.view.reset();
 		}
 		catch (Exception ex)
 		{
 			HauptController.hauptfenster.setInfoBox(ex.getMessage());
 			if(oLeiter == null){
 				HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Bereich wurde ohne Leiter angelegt.");
+				this.view.reset();
 			}
 		}finally{
 			popup.setVisible(false);
