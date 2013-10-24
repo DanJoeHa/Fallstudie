@@ -111,6 +111,15 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		add(B_Speichern);
 
 	}
+	public String hatFocus(){
+		String ausgabe;
+		if(this.B_Speichern.isFocusOwner()){
+			ausgabe = "buttonSpeichern";
+		}else{
+			ausgabe = "nichts";
+		}
+		return ausgabe;
+	}
 	/**
 	 * AuswahlBox mit Rollen füllen und vorausgewählte Rolle festlegen
 	 * @param rollen
@@ -199,6 +208,7 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		this.B_Speichern.addActionListener(c);
 		this.B_Abbrechen.addActionListener(c);
 		this.B_SucheArbeitsgruppe.addActionListener(c);
+		this.B_Speichern.addKeyListener(c);
 	}
 	/**
 	 * Gibt Arbeitsgruppe aus Textfeld zurück

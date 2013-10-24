@@ -1,16 +1,23 @@
 package fallstudie.view.impl;
 
 import javax.swing.JPanel;
+
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Dimension;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
+
 import javax.swing.JLabel;
 
 public class SuchenView extends JPanel implements View {

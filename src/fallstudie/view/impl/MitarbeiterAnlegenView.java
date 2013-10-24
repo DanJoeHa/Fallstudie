@@ -121,7 +121,15 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		add(B_Speichern);
 		
 	}
-
+	public String hatFocus(){
+		String ausgabe;
+		if(this.B_Speichern.isFocusOwner()){
+			ausgabe = "buttonSpeichern";
+		}else{
+			ausgabe = "nichts";
+		}
+		return ausgabe;
+	}
 	/**
 	 * Setzt Controller
 	 */
@@ -129,6 +137,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		this.B_Speichern.addActionListener(c);
 		this.B_SucheArbeitsgruppe.addActionListener(c);
 		this.B_Zuruecksetzen.addActionListener(c);
+		this.B_Speichern.addKeyListener(c);
 	}
 
 	/**
