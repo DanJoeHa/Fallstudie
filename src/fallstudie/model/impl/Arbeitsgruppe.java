@@ -558,8 +558,8 @@ public class Arbeitsgruppe {
 				if (checkLeiter.next()) {
 					darfDeleteLeiter = false;
 				}
-				
-				// System.out.println("SELECT * FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
+
+				// Sycstem.out.println("SELECT * FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
 
 				ResultSet mitarbeiterdrancheck = Connection
 						.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Arbeitsgruppe='"
