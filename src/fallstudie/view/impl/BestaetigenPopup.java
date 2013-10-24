@@ -10,7 +10,11 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * Popup zum Bestätigen
+ * @author Marc
+ *
+ */
 public class BestaetigenPopup extends JDialog implements View{
 
 	private static final long serialVersionUID = -8630370870519774622L;

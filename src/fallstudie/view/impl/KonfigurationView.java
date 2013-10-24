@@ -12,7 +12,12 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * View zum Konfigurieren der Anzahl der Monate bis zum Löschen der Einträge in der Datenbank
+ * 
+ * @author Marc
+ *
+ */
 public class KonfigurationView extends JPanel implements View {
 
 	private static final long serialVersionUID = -8966052424552014399L;

@@ -22,7 +22,11 @@ import javax.swing.border.LineBorder;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * View zum Erfassen von Einträgen
+ * @author Marc
+ *
+ */
 public class ErfassenView extends JPanel implements View {
 
 	private static final long serialVersionUID = -4191603780481912694L;

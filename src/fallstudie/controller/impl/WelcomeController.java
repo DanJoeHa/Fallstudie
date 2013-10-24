@@ -8,10 +8,20 @@ import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.impl.WelcomeView;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Der Welcome-Controller ist für die Anzeige der Welcome-View verantwortlich.
+ *
+ */
 public class WelcomeController implements Controller {
 	
+	/**
+	 * Welcome View
+	 */
 	private WelcomeView view;
 	
+	/**
+	 * Erstellt ein neues Objekt und läd die Welcome-View mit personalisierter Nachricht.
+	 */
 	public WelcomeController(){
 		this.view = new WelcomeView();
 		
@@ -21,67 +31,74 @@ public class WelcomeController implements Controller {
 		String msg = headline + ", \n \n bitte wählen Sie eine Aktion im Menübaum.";
 		this.view.setHinweis(msg);
 	}
-
+	
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {}
-
+	
+	/**
+	 * Gibt View zurück
+	 */
 	@Override
 	public View getView() {
 		return this.view;
 	}
-
+	
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void fortsetzen() {
-		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void mouseClicked(MouseEvent e) {}
+	
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void mouseEntered(MouseEvent e) {}
+	
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void mouseExited(MouseEvent e) {}
+	
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void mousePressed(MouseEvent e) {}
+	
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void mouseReleased(MouseEvent e) {}
+	
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void keyPressed(KeyEvent e) {}
+	
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 
 }

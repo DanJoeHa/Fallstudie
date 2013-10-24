@@ -12,7 +12,11 @@ import javax.swing.JButton;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 import javax.swing.JLabel;
-
+/**
+ * View zum Suchen nach verschiedenen Suchbegriffen (z.B. Mitarbeiter, Arbeitsgruppen)
+ * @author Marc
+ *
+ */
 public class SuchenView extends JPanel implements View {
 
 	private static final long serialVersionUID = -931416725537402397L;

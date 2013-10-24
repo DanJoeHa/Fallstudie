@@ -19,21 +19,62 @@ import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.TabelleView;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Der Daten Anzeigen Controller ist verantwortlich für die Anzeige der Statistiken.
+ *
+ */
 public class DatenAnzeigenController implements Controller {
 	
-	private DatenAnzeigenAuswahlView view;					//View zur Eingabe von Jahr und KW
-	private TabelleView viewErg;							//Ergebnisdarstellung in Tabelle
+	/**
+	 * View zur Eingabe von Jahr und KW
+	 */
+	private DatenAnzeigenAuswahlView view;
+	/**
+	 * Ergebnisdarstellung in Tabelle
+	 */
+	private TabelleView viewErg;
 	
-	private String headline;								//Überschrift für View und Druck
-	private String[] tabellenspalten = new String[1];		//Tabellenheader
-	private Object[][] tabellenwerte = new Object[1][1];	//Tabellendimension
-	private String[][] aArtPos;								//Array zur Speicherung der Positionen von Postarten
-	private int artName = 0;								//der Name der Art steht immer in Spalte 0
-	private int artZeile = 1;								//die Zeile der Art steht immer in Spalte 1
-	private int kw, jahr, sumcol;							//Kalenderwoche, Jahr und Summenspalte
-	private Collection<Bereich> bereiche;					//Bereiche für DrillDown-Operation
-	private String noDS = "Keine Datensätze gefunden!";		//Fehlermeldung, wenn keine Datensätze vorhanden
-	private boolean drilldown = false;						//Flag ob in DrillDown
+	/**
+	 * Überschrift für View und Druck
+	 */
+	private String headline;
+	/**
+	 * Tabellenheader
+	 */
+	private String[] tabellenspalten = new String[1];
+	/**
+	 * Tabellendimension
+	 */
+	private Object[][] tabellenwerte = new Object[1][1];
+	/**
+	 * Array zur Speicherung der Positionen von Postarten
+	 */
+	private String[][] aArtPos;
+	/**
+	 * der Name der Art steht immer in Spalte 0
+	 */
+	private int artName = 0;
+	/**
+	 * die Zeile der Art steht immer in Spalte 1
+	 */
+	private int artZeile = 1;
+	/**
+	 * Kalenderwoche, Jahr und Summenspalte
+	 */
+	private int kw, jahr, sumcol;
+	/**
+	 * Bereiche für DrillDown-Operation
+	 */
+	private Collection<Bereich> bereiche;
+	/**
+	 * Fehlermeldung, wenn keine Datensätze vorhanden
+	 */
+	private String noDS = "Keine Datensätze gefunden!";
+	/**
+	 * Flag ob in DrillDown
+	 */
+	private boolean drilldown = false;
+	
 	
 	/**
 	 * Maske zur Eingabe der Rahmendaten KW und Jahr anzeigen
@@ -79,6 +120,9 @@ public class DatenAnzeigenController implements Controller {
 
 	}
 
+	/**
+	 * Ruft die Ergebnistabelle auf.
+	 */
 	private void weiterAction() {
 		//InfoBox leeren
 		HauptController.hauptfenster.setInfoBox("");
@@ -572,6 +616,10 @@ public class DatenAnzeigenController implements Controller {
 		
 	}
 	
+	/**
+	 * Generiert die Jahresübersicht zu einem Bereich, d.h. gibt alle Arbeitsgruppen desselben aus.
+	 * @param uebersichtSST
+	 */
 	private void generiereJahresuebersichtenZuBereich(UebersichtSchnittstellenKlasse uebersichtSST){
 		
 		try{
@@ -622,6 +670,10 @@ public class DatenAnzeigenController implements Controller {
 		
 	}
 	
+	/**
+	 * Generiert die Wochenübersicht zu einem Bereich, d.h. die Arbeitsgruppen zu einem Bereich.
+	 * @param uebersichtSST
+	 */
 	private void generiereWochenuebersichtenZuBereich(UebersichtSchnittstellenKlasse uebersichtSST){
 		
 		try{
@@ -726,29 +778,53 @@ public class DatenAnzeigenController implements Controller {
 		
 	}
 	
+	/**
+	 * Liefert die aktuelle View.
+	 */
 	@Override
 	public View getView() {
 		return this.view;
 	}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void fortsetzen() {}
-
+	
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {}
 
+	/**
+	 * Setzt Messsage in der InfoBox.
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode()==KeyEvent.VK_ENTER){
@@ -756,6 +832,9 @@ public class DatenAnzeigenController implements Controller {
 		}
 	}
 
+	/**
+	 * Führt die WeiterAction aus.
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode()==KeyEvent.VK_ENTER){
@@ -763,6 +842,9 @@ public class DatenAnzeigenController implements Controller {
 		}
 	}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {}
 }
