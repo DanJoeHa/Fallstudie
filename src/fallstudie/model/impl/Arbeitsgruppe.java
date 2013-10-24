@@ -8,12 +8,8 @@ import java.util.LinkedList;
 import fallstudie.model.mysql.connector.RemoteConnection;
 
 /**
- * CHANGELOG
- * 
- * @author Phil, 09.10.2013 generiert + implements (Interface) wurde entfernt,
- *         da Konstruktor nicht m�glich ist im Interface
- * @author Phil 11.10.2013
- * @author Phil, 12.10.2013
+ * @author Phil, 
+ * @date 12.10.2013
  * @version 1.1
  * @change Alle Methoden implementiert.
  */
@@ -34,8 +30,8 @@ public class Arbeitsgruppe {
 	// -----------------------------------------------------------
 
 	/**
-	 * Neue Arbeitsgruppe anlegen Konstruktor mit allen Parametern
-	 * 
+	 * @author Phil
+	 * Neue Arbeitsgruppe wird in der Datenbank angelegt.
 	 * @param kurzbezeichnung
 	 * @param beschreibung
 	 * @param bereich
@@ -169,9 +165,9 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Durch überreichen des Resultsets werden die Objekte vom Typ Arbeitsgruppe erzeugt
-	 * 
-	 * @param resultSet
+	 * @author Phil
+	 * Anhand eines ResultSets aus einer SELECT- Abfrage wird das Arbeitsgruppenobjekt befüllt. 
+	 * @param ResultSet resultSet
 	 */
 	public Arbeitsgruppe(ResultSet resultSet){
 		//DB Connection abfragen
@@ -219,8 +215,8 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * ArbeitsgruppeObjekt per ID (Primärschlüssel) erzeugen
-	 * 
+	 * @author Phil
+	 * Aus der Datenbank die Attribute der Arbeitsgruppe erhalten, zu der mitgegebenen ArbeitsgruppenID (Primärschlüssel in Datenbank).
 	 * @param arbeitsgruppeid
 	 */
 
@@ -277,9 +273,10 @@ public class Arbeitsgruppe {
 	// -----------------------------------------------------------
 
 	/**
-	 * Mehode ändert die Beschreibung einer Arbeitsgruppe.
-	 * @param String
-	 * @return boolean
+	 * @author Phil
+	 * Methoden zum ändern der Beschreibung einer Arbeitsgruppe.
+	 * @param beschreibung
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setBeschreibung(String beschreibung) {
 		boolean erfolgreich = false;
@@ -309,9 +306,9 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert Beschreibung des Arbeitsgruppenobjekts
-	 * 
-	 * @return String
+	 * @author Phil
+	 * Methode liefert Beschreibung der Arbeitsgruppe.
+	 * @return String beschreibung
 	 */
 	public String getBeschreibung() {
 
@@ -319,10 +316,10 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode ändert Kurzbezeichnung der Arbeitsgruppe
-	 * 
+	 * @author Phil
+	 * Methode zum ändern der Kurzbezeichnung der gewählten Arbeitsgruppe.
 	 * @param kurzbezeichnung
-	 * @return
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 * @throws Exception
 	 */
 	public boolean setKurzbezeichnung(String kurzbezeichnung) throws Exception {
@@ -380,9 +377,9 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert Kurzbezeichnung der Arbeitsgruppe
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert Kurzbezeichnung der gewählten Arbeitsgruppe.
+	 * @return String kurzbezeichnung
 	 */
 
 	public String getKurzbezeichnung() {
@@ -391,10 +388,10 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode ändert Bereich der Arbeitsgruppe
-	 * 
+	 * @author Phil
+	 * Methode zum ändern des Bereichs einer gewählten Arbeitsgruppe.
 	 * @param bereich
-	 * @return
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 
 	public boolean setBereich(Bereich bereich) {
@@ -421,9 +418,9 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert Bereich der Arbeitsgruppe als Objekt zurück
-	 * 
-	 * @return Bereich
+	 * @author Phil
+	 * Methode liefert Bereich der ausgewählten Arbeitsgruppe
+	 * @return Bereich bereich(Objekt)
 	 */
 
 	public Bereich getBereich() {
@@ -444,10 +441,10 @@ public class Arbeitsgruppe {
 	}
 
 	/**
+	 * @author Phil
 	 * Methode ändert den Leiter einer Arbeitsgruppe.
-	 * @param leiter
-	 * @return boolean ob erfolgreich
-	 * @throws Exception
+	 * @param Mitarbeiter leiter(Objekt)
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setLeiter(Mitarbeiter leiter) {
 		boolean erfolgreich = false;
@@ -495,8 +492,9 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert gibt Leiter der Arbeitsgruppe zurück
-	 * @return Mitarbeiter
+	 * @author Phil
+	 * Methode liefert Leiter der ausgewählten Arbeitsgruppe.
+	 * @return Mitarbeiter leiter(Objekt)
 	 */
 	public Mitarbeiter getLeiter() {
 
@@ -531,9 +529,10 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode zum löschen einer Arbeitsgruppe
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode zum löschen einer Arbeitsgruppe.
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
+	 * @throws Exception, falls die Arbeitsgruppe noch Mitarbeiter zugeordnet hat/ein Leiter gesetzt ist.
 	 */
 	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
@@ -604,9 +603,9 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert den Status der Arbeitsgruppe 1: aktiv, 0: gel�scht
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert den Status der Arbeitsgruppe in der Datenbank.
+	 * @return boolean (true bedeutet Arbeitsgruppe ist aktiv, false bedeutet Arbeitsgruppe wird als gelöscht angezeigt).
 	 */
 	public boolean getAktiv() {
 		// TODO Auto-generated method stub
@@ -614,11 +613,11 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert zur Kurzbezeichnung die dazugeh�rige ID der Arbeitsgruppe
-	 * 
-	 * @param kurzbezeichnung
-	 * @return
-	 * @throws Exception 
+	 * @author Phil
+	 * Methode liefert zur Kurzbezeichnung die dazugehörige ID der Arbeitsgruppe
+	 * @param String kurzbezeichnung
+	 * @return int ArbeitsgruppeID
+	 * @throws Exception, wenn die angegebene Kurzbezeichnung nicht in der Datenbank gefunden wurde.
 	 */
 	public static int getIDbyKurzbezeichnung(String kurzbezeichnung) throws Exception {
 		int id = 0;
@@ -653,19 +652,18 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert ID zur Arbeitsgruppe
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert ArbeitsgruppeID zur Arbeitsgruppe (ArbeitsgruppeID ist der Primärschlüssel in der Datenbank).
+	 * @return int ArbeitsgruppeID
 	 */
 	public int getID() {
 		return this.arbeitsgruppeID;
 	}
 
 	/**
-	 * Wird gebraucht um die Comboboxen zu bef�llen wo ein Mitarbeiter einer
-	 * Arbeitsgruppe hinzugef�gt wird oder ge�ndert wird
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert alle Arbeitsgruppen, welche in der Datenbank existieren und aktiv sind, als Collection von Arbeitsgruppenobjekten.
+	 * @return Collection<Arbeitsgruppe> alleArbeitsgruppen
 	 */
 	public static Collection<Arbeitsgruppe> getAlleArbeitsgruppen() {
 
@@ -699,12 +697,11 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert anhand des Suchbegriffs eine Collection von
-	 * �bereinstimmungen zur�ck (In Tabellenform in der Gui auszugeben)
-	 * 
-	 * @param suchbegriff
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode ist eine Volltextsuche durch alle Arbeitsgruppen, welche als aktiv in der Datenbank existieren.
+	 * @param String suchbegriff
+	 * @return Collection<Arbeitsgruppe> alleArbeitsgruppenNachSuchbegriff
+	 * @throws Exception, falls keine Datensätze gefunden werden die dem Suchbegriff entsprechen.
 	 */
 	public static Collection<Arbeitsgruppe> suche(String suchbegriff)
 			throws Exception {

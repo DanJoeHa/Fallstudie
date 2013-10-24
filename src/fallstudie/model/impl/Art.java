@@ -7,19 +7,21 @@ import java.util.LinkedList;
 
 import fallstudie.model.mysql.connector.RemoteConnection;
 /**
- * 11.10.13 Klasse erstellt
+ * @date 11.10.13 
  * @author Phil
- *@version 1.0
+ * @version 1.0
+ * @change Klasse erstellt
  */
+
 public class Art {
 
 	private String name;
 	private boolean aktiv;
 	
 	/**
-	 * Konstruktor beim Anlegen einer neuen Art 
-	 * @param name
-	 * @throws Exception 
+	 * Methode zum Anlegen einer neuen Art in der Datenbank.
+	 * @param String artName
+	 * @throws Exception, falls Datensatz erfolgreich gespeichert wurde, oder eine selbe Art schon in der Datenbank existiert.
 	 */
 	public Art(String name) throws Exception
 	{
@@ -75,7 +77,7 @@ public class Art {
 				
 		}
 		
-		System.out.println("INSERT INTO Art (Name) VALUES ('"+this.name+"')");
+		//System.out.println("INSERT INTO Art (Name) VALUES ('"+this.name+"')");
 		int rowsAffected = RemoteConnection.sql.executeUpdate("INSERT INTO Art (Name) VALUES ('"+this.name+"')");
 	
 		if (rowsAffected==1)
@@ -85,11 +87,13 @@ public class Art {
 		checkObVorhanden.close();
 	}
 	catch (SQLException e) {
+		System.err.println("Fehler in Art Anlegen:");
 		System.err.println(e.getMessage());
-		System.err.println("SQL Statement ist fehlerhaft!");
 	}
 	/**
-	 * Liefert Art nach dem Namen
+	 * @author Phil
+	 * Liefert anhand des Namens der Art das befüllte Artobjekt mit Informationen aus der Datenbank.
+	 * @return Art art
 	 */
 	}
 	public static Art getArtByName(String name)
@@ -129,8 +133,9 @@ public class Art {
 	}
 	
 	/**
-	 * Methode liefert aus resultset ein ArtObjekt
-	 * @param resultSet
+	 * @author Phil
+	 * Anhand eines ResultSets aus einer SELECT- Abfrage wird das Artobjekt befüllt. 
+	 * @param ResultSet resultSet
 	 */
 	public Art(ResultSet resultSet)
 	{
@@ -158,8 +163,9 @@ public class Art {
 	}
 	}
 	/**
-	 * Liefert alle Arten zur�ck, die es gibt
-	 * @return
+	 * @author Phil
+	 * Liefert alle Arten zurück, die in der Datenbank aktiv existieren.
+	 * @return Collection<Art> alleArtenausDatenbank
 	 */
 	public static Collection<Art> getAlleArten()
 	{
@@ -195,10 +201,8 @@ public class Art {
 	}
 	
 	/**
-	 * 
-	 * @param aktiv
-	 * @return
-	 * @throws Exception 
+	 * @author Phil
+	 * @return boolean  (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean loeschen()
 	{
@@ -223,17 +227,15 @@ public class Art {
 			
 		}
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
+			System.err.println("Fehler in löschen in Art:");
 			System.err.println(e.getMessage());
 		}
 		return erfolgreich;
 		}
 	/**
-	 * Liefert Status der Art
-	 * @return
+	 * @author Phil
+	 * Liefert Status der Art aus der Datenbank
+	 * @return boolean ( true= aktiv, false=gelöscht)
 	 */
 	public boolean getAktiv()
 	{
@@ -241,8 +243,9 @@ public class Art {
 		
 	}
 	/**
+	 * @author Phil
 	 * Liefert Name der Art
-	 * @return
+	 * @return String artName
 	 */
 	public String getName()
 	{
