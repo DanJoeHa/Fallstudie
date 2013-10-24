@@ -51,11 +51,18 @@ public class KonfigurationView extends JPanel implements View {
 		T_AnzahlMonate.setColumns(10);
 
 	}
-	
+	/**
+	 * Anzahl Monate setzen
+	 * @param monate
+	 */
 	public void setAnzahlMonate(String monate){
 		this.T_AnzahlMonate.setText(monate);
 	}
 	
+	/**
+	 * Anzahl Monate auslesen, gibt 0 zurück, wenn Text eingegeben wurde
+	 * @return Anzahl Monate 
+	 */
 	public int getAnzahlMonate(){
 		try
 		{

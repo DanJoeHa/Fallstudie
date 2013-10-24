@@ -24,10 +24,7 @@ public class LoginView extends JPanel implements View {
 	private JButton B_Login;
 
 	/**
-	 * Sicht erstellen.
-	 * 
-	 * @author Natalja
-	 * @version 1.0
+	 * Login View
 	 */
 	public LoginView() {
 		setPreferredSize(new Dimension(620, 655));
