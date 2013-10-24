@@ -411,7 +411,14 @@ public class MitarbeiterController implements Controller {
 				}
 				
 				if( rolle.equals("Gruppenleiter")|| rolle.equals("Sachbearbeiter") ){
-					this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich().getKurzbezeichnung() );
+					if( this.gewaehlterMitarbeiter.getArbeitsgruppe() != null ){
+						if( this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich() != null ){
+							this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche), this.gewaehlterMitarbeiter.getArbeitsgruppe().getBereich().getKurzbezeichnung() );
+						}
+					}else{
+						this.view.setBereich(Funktionen.BereicheCollection2Array(this.bereiche));
+					}
+					
 				}
 				
 				if( rolle.equals("Fachbereichsorganisation") || rolle.equals("Zentralbereichsleiter") ){
