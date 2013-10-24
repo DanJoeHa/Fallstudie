@@ -15,7 +15,11 @@ import javax.swing.border.LineBorder;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * View zum Einloggen
+ * @author Marc
+ *
+ */
 public class LoginView extends JPanel implements View {
 
 	private static final long serialVersionUID = 6556759367243768953L;
