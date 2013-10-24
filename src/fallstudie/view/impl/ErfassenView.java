@@ -242,17 +242,25 @@ public class ErfassenView extends JPanel implements View {
 				return 0;
 		}
 	}
-	
+	/**
+	 * Gibt ausgewählte Art aus AuswahlBox zurück
+	 * @return Art
+	 */
 	public String getArt(){
 		return this.C_Art.getSelectedItem().toString();
 	}
-	
+	/**
+	 * Füllt AuswahlBox mit Arten
+	 * @param arten
+	 */
 	public void setArten(String[] arten){
 		for( int i = 0; i < arten.length; i++){
 			this.C_Art.addItem( arten[i] );
 		}
 	}
-	
+	/**
+	 * Setzt Controller
+	 */
 	@Override
 	public void setController(Controller c) {
 		this.B_Anlegen.addActionListener(c);
@@ -261,6 +269,9 @@ public class ErfassenView extends JPanel implements View {
 		this.B_Anlegen.addKeyListener(c);
 	}
 
+	/**
+	 * Setzt Textfeld Anzahl auf 0 zruück
+	 */
 	@Override
 	public void reset() {
 		this.T_AnzahlErfassen.setText("0");

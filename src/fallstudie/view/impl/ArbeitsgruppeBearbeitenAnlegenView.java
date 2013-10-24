@@ -123,14 +123,18 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 	public String getAGLeiter(){
 		return this.T_AGLeiterSuchbegriff.getText();
 	}
-	
+	/**
+	 * Setzt Controller
+	 */
 	@Override
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
 		this.B_Zuruecksetzen.addActionListener(c);
 		this.B_AGLeiterSuche.addActionListener(c);
 	}
-
+/**
+ * Setzt Textfelder zurück
+ */
 	@Override
 	public void reset() {
 		this.T_AGLeiterSuchbegriff.setText("");

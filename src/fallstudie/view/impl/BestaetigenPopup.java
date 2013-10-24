@@ -77,6 +77,11 @@ public class BestaetigenPopup extends JDialog implements View{
 			return "popupJa";
 		}
 	}
+	/**
+	 * Button Namen setzen
+	 * @param ButtonJa
+	 * @param ButtonNein
+	 */
 	public void setButtonName(String ButtonJa, String ButtonNein ){
 		this.B_speichern.setText(ButtonJa);
 		this.B_speichern.setActionCommand(ButtonJa);
@@ -84,9 +89,16 @@ public class BestaetigenPopup extends JDialog implements View{
 		this.B_abbrechen.setActionCommand(ButtonNein);
 		
 	}
+	/**
+	 * Text setzen
+	 * @param text
+	 */
 	public void setAusgabe(String text){
 		txtrWollenSieWirklich.setText(text);
 	}
+	/**
+	 * Setzt Controller
+	 */
 	@Override
 	public void setController(Controller c) {
 		this.B_speichern.addActionListener(c);
