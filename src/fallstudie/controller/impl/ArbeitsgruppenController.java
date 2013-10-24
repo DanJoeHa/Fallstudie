@@ -138,112 +138,12 @@ public class ArbeitsgruppenController implements Controller {
 		
 		//Änderungen speichern
 		if( button.equals("Speichern") ){
-					
-			//Leiter holen
-			if( !this.view.getAGLeiter().isEmpty() ){
-				//Leiter setzen, falls Leiter über SuchController gefunden wurde
-				oLeiter = this.gewaehlteMA;
-				//Falls Leiter nicht über SuchController gefunden wurde
-				if(oLeiter == null){
-					//Hole Mitarbeiter aus DB
-					try {
-						oLeiter = new Mitarbeiter(this.view.getAGLeiter());
-					} catch (Exception e1) 
-					{
-						oLeiter = null;
-					}
-				}
-			}
-			
-			//Prüfung ob Leiter ersetzt wird
-			boolean replace = false;
-			
-			//Arbeitsgruppenleiter bei Bearbeiten ersetzen, wenn ein Leiter gesetzt war
-			if( this.operation == "bearbeiten" && this.gewaehlteAG.getLeiter() != null ){
-					
-				//Arbeitsgruppe soll keinen Leiter mehr haben
-				if( oLeiter == null ){
-					replace = true;
-				}else{
-					//neuer Leiter != neuem Leiter
-					if( !this.gewaehlteAG.getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ) replace = true;
-				}
-
-			}
-			
-			//Ersetzen-Popup anzeigen
-			if(replace){
-				//Ersetzen-PopUp
-				popup = new BestaetigenPopup();
-				popup.setController(this);
-				popup.setTitle("Arbeitsgruppenleiter ersetzen?");
-				popup.setAusgabe("Wollen Sie den aktuellen Arbeitsgruppenleiter ersetzen und speichern?");
-				popup.setButtonName( "Ersetzen", "Nicht ersetzen" );
-				
-			//Wirklich speichern Popup anzeigen
-			}else{
-				popup = new BestaetigenPopup();
-				
-				popup.setController(this);
-				popup.setTitle("Bestätigung");
-				popup.setAusgabe(HilfeTexte.SpeichernPopup);
-			}
-			
+			popupAufruf();
 		}
 		
 		//Speichern der Angaben
 		if(button.equals("Ja") ||  button.equals("Ersetzen")){
-			
-			//Bereichsobjekt zur Auswahl finden
-			Iterator<Bereich> i = this.bereiche.iterator();
-			
-			while( i.hasNext() ){
-				oBereich = i.next();
-				if(oBereich.getKurzbezeichnung().equals( this.view.getBereich() ) ) break;
-			}
-			
-			//Arbeitsgruppe bearbeiten
-			if(operation.equals("bearbeiten"))
-			{
-				try {
-
-						this.moveLeiter();
-						boolean erfolgreich1 = false;
-						boolean erfolgreich2 = false;
-						boolean erfolgreich3 = false;
-						boolean erfolgreich4 = false;
-						erfolgreich1 = this.gewaehlteAG.setBereich(oBereich);
-						erfolgreich2 = this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
-						erfolgreich3 = this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
-						erfolgreich4 = this.gewaehlteAG.setLeiter(oLeiter);
-	
-						//Abfrage ob erfolgreich, weil in DB Ebene nicht möglich
-						if(erfolgreich1 && erfolgreich2 && erfolgreich3 && erfolgreich4)
-						{
-							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde erfolgreich bearbeitet.");
-							if(oLeiter == null){
-								HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter gespeichert.");
-							}
-						}
-						else
-						{
-							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde nicht geändert.");
-						}						
-					
-				} catch (Exception e1) {
-					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
-				}
-			}
-			
-			//neue Arbeitsgruppe anlegen
-			if(operation.equals("anlegen"))
-			{
-				arbeitsgruppeAnlegenAction();
-			}
-			
-			//Popup ausblenden
-			popup.setVisible(false);	
-			
+			arbeitsgruppeSpeichernAnlegenAction();	
 		}
 		
 		//Nicht speichern
@@ -270,6 +170,111 @@ public class ArbeitsgruppenController implements Controller {
 
 			this.suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(this.suche.getView());
+		}
+	}
+
+	private void arbeitsgruppeSpeichernAnlegenAction() {
+		//Bereichsobjekt zur Auswahl finden
+		Iterator<Bereich> i = this.bereiche.iterator();
+		
+		while( i.hasNext() ){
+			oBereich = i.next();
+			if(oBereich.getKurzbezeichnung().equals( this.view.getBereich() ) ) break;
+		}
+		
+		//Arbeitsgruppe bearbeiten
+		if(operation.equals("bearbeiten"))
+		{
+			try {
+
+					this.moveLeiter();
+					boolean erfolgreich1 = false;
+					boolean erfolgreich2 = false;
+					boolean erfolgreich3 = false;
+					boolean erfolgreich4 = false;
+					erfolgreich1 = this.gewaehlteAG.setBereich(oBereich);
+					erfolgreich2 = this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
+					erfolgreich3 = this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
+					erfolgreich4 = this.gewaehlteAG.setLeiter(oLeiter);
+
+					//Abfrage ob erfolgreich, weil in DB Ebene nicht möglich
+					if(erfolgreich1 && erfolgreich2 && erfolgreich3 && erfolgreich4)
+					{
+						HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde erfolgreich bearbeitet.");
+						if(oLeiter == null){
+							HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter gespeichert.");
+						}
+					}
+					else
+					{
+						HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde nicht geändert.");
+					}						
+				
+			} catch (Exception e1) {
+				HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+			}
+		}
+		
+		//neue Arbeitsgruppe anlegen
+		if(operation.equals("anlegen"))
+		{
+			arbeitsgruppeAnlegenAction();
+		}
+		
+		//Popup ausblenden
+		popup.setVisible(false);
+		popup=null;
+	}
+
+	private void popupAufruf() {
+		//Leiter holen
+		if( !this.view.getAGLeiter().isEmpty() ){
+			//Leiter setzen, falls Leiter über SuchController gefunden wurde
+			oLeiter = this.gewaehlteMA;
+			//Falls Leiter nicht über SuchController gefunden wurde
+			if(oLeiter == null){
+				//Hole Mitarbeiter aus DB
+				try {
+					oLeiter = new Mitarbeiter(this.view.getAGLeiter());
+				} catch (Exception e1) 
+				{
+					oLeiter = null;
+				}
+			}
+		}
+		
+		//Prüfung ob Leiter ersetzt wird
+		boolean replace = false;
+		
+		//Arbeitsgruppenleiter bei Bearbeiten ersetzen, wenn ein Leiter gesetzt war
+		if( this.operation == "bearbeiten" && this.gewaehlteAG.getLeiter() != null ){
+				
+			//Arbeitsgruppe soll keinen Leiter mehr haben
+			if( oLeiter == null ){
+				replace = true;
+			}else{
+				//neuer Leiter != neuem Leiter
+				if( !this.gewaehlteAG.getLeiter().getBenutzername().equals( oLeiter.getBenutzername() ) ) replace = true;
+			}
+
+		}
+		
+		//Ersetzen-Popup anzeigen
+		if(replace){
+			//Ersetzen-PopUp
+			popup = new BestaetigenPopup();
+			popup.setController(this);
+			popup.setTitle("Arbeitsgruppenleiter ersetzen?");
+			popup.setAusgabe("Wollen Sie den aktuellen Arbeitsgruppenleiter ersetzen und speichern?");
+			popup.setButtonName( "Ersetzen", "Nicht ersetzen" );
+			
+		//Wirklich speichern Popup anzeigen
+		}else{
+			popup = new BestaetigenPopup();
+			
+			popup.setController(this);
+			popup.setTitle("Bestätigung");
+			popup.setAusgabe(HilfeTexte.SpeichernPopup);
 		}
 	}
 
@@ -391,12 +396,48 @@ public class ArbeitsgruppenController implements Controller {
 	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void keyPressed(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			if(this.operation == "anlegen" && popup==null){
+				this.view.setzeFocus();
+			}
+			if(this.operation =="bearbeiten" && popup==null){
+				this.view.setzeFocus();
+			}
+		}
+	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode()==KeyEvent.VK_ENTER){
-			arbeitsgruppeAnlegenAction();
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			if(this.operation == "anlegen"){
+				if (this.view.hatFocus()=="buttonSpeichern")
+				{
+					popupAufruf();
+				}
+				else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
+					arbeitsgruppeSpeichernAnlegenAction();
+				}
+				else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
+					popup.setVisible(false);
+					popup=null;
+					HauptController.hauptfenster.setInfoBox("");
+				}
+			}
+			if(this.operation == "bearbeiten"){
+				if (this.view.hatFocus() == "buttonSpeichern")
+				{
+					popupAufruf();
+				}
+				else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
+					arbeitsgruppeSpeichernAnlegenAction();
+				}
+				else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
+					popup.setVisible(false);
+					popup=null;
+					HauptController.hauptfenster.setInfoBox("");
+				}
+			}
 		}
 	}
 

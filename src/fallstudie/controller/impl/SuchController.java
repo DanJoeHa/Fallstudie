@@ -77,7 +77,7 @@ public class SuchController implements Controller,MouseListener {
 		}
 		
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
-			if( button.equals( "Suchen" ) ){
+			if( button.equals( "Suchen" )){
 				suchenActionMitarbeiter(e.getID());
 			}
 			
@@ -316,7 +316,7 @@ public class SuchController implements Controller,MouseListener {
 		if(e.getClickCount()==2){
 			if (this.operation=="loeschen"){
 				auswahlLoeschen();
-			}else if(this.suchdomain.equals("Arbeitsgruppe") && this.operation=="suchen"){
+			}else if(this.suchdomain.equals("Arbeitsgruppe") && (this.operation.equals("auswahl")||this.operation.equals("suchen"))){
 				auswahlAction_Arbeitsgruppe();
 			}else{
 				auswahlAction_allgemein();

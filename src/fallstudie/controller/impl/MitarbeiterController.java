@@ -391,7 +391,7 @@ public class MitarbeiterController implements Controller {
 			
 			HauptController.hauptfenster.setUeberschrift("Mitarbeiter anlegen");
 			HauptController.hauptfenster.setContent( this.viewAnlegen );
-			this.view.repaint();
+			this.viewAnlegen.repaint();
 		}
 		
 		if(this.operation.equals("bearbeiten")){ //try{
