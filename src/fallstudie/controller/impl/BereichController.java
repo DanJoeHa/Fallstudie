@@ -25,7 +25,7 @@ public class BereichController implements Controller {
 	private Bereich gewaehlterBereich;
 	public static BestaetigenPopup popup;
 	private boolean isPop=false;
-	private boolean istPop=false;
+	
 
 	private Collection<Bereich> bereich;
 	
@@ -195,12 +195,14 @@ public class BereichController implements Controller {
 			Bereich neuerBereich = new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oLeiter);
 			this.gewaehlterBereich = neuerBereich;
 			this.moveLeiter();
+			this.view.reset();
 		}
 		catch (Exception ex)
 		{
 			HauptController.hauptfenster.setInfoBox(ex.getMessage());
 			if(oLeiter == null){
 				HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Bereich wurde ohne Leiter angelegt.");
+				this.view.reset();
 			}
 		}finally{
 			popup.setVisible(false);
@@ -361,9 +363,10 @@ public class BereichController implements Controller {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		
 		//Operation löschen & anlegen & bearbeiten	
 			if(this.operation=="loeschen"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen" && isPop == false)
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && isPop == false)
 				{
 					bereichLoeschenPopup();
 					isPop = true;
@@ -371,7 +374,7 @@ public class BereichController implements Controller {
 				}
 			}
 			if(this.operation=="anlegen"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen" && isPop == false)
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && isPop == false)
 				{
 					anlegenBearbeitenPopup();
 					isPop = true;
@@ -413,14 +416,14 @@ public class BereichController implements Controller {
 				}
 			}
 			if(this.operation=="bearbeiten"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="bearbeiten" && isPop == false)
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && isPop == false)
 				{
 					bearbeitenButton();
 					isPop = true;
+					//popup.setVisible(false);
 				}
-			}
-			if(this.operation=="bearbeiten"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="bearbeiten")
+			
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
 					anlegenBearbeitenPopup();
 					isPop = true;
