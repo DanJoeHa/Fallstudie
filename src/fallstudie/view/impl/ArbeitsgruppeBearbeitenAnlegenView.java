@@ -18,7 +18,11 @@ import javax.swing.JButton;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * View zum Anlegen und Bearbeiten von Arbeitsgruppen
+ * @author Marc
+ *
+ */
 public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen implements View{
 
 	private static final long serialVersionUID = -2078487615780247796L;

@@ -19,7 +19,11 @@ import javax.swing.JComboBox;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
+/**
+ * View zum Löschen von Bereichen
+ * @author Marc
+ *
+ */
 public class BereichLoeschenView extends JPanel implements View{
 
 	private static final long serialVersionUID = 5718285763271323948L;
