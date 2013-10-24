@@ -65,7 +65,6 @@ public class SuchController implements Controller,MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
-		System.out.println(e.getID());
 		
 		//Abbrechen-Button
 		if( button.equals("Abbrechen") ){
