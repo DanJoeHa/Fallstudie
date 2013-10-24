@@ -58,6 +58,10 @@ public class LoginController implements Controller, KeyListener
 			//Navigations-Baum entsprechend Rechten von User aufbauen
 			HauptController.hauptfenster.createNavTree(HauptController.activeUser.checkRecht("Daten erfassen"), HauptController.activeUser.checkRecht("Lesen"), HauptController.activeUser.checkRecht("Arbeitsgruppe anlegen"), HauptController.activeUser.checkRecht("Eintragsart anlegen"), HauptController.activeUser.checkRecht("Bereich anlegen"), HauptController.activeUser.checkRecht("Mitarbeiter anlegen"), HauptController.activeUser.checkRecht("Jobintervall festlegen"));
 			
+			//LoginInfo setzen
+			HauptController.hauptfenster.setLoginInfo("Eingeloggt als: " + HauptController.activeUser.getBenutzername() + " (" + HauptController.activeUser.getRolle().getRollenbezeichnung() + ")");
+			
+			//Initial-Passwort muss noch geändert werden 
 			if( !HauptController.activeUser.passwortIsChanged() ){
 				PasswortController pc = new PasswortController();
 				HauptController.hauptfenster.setContent( pc.getView() );

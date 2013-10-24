@@ -85,6 +85,7 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 				hauptfenster.setUeberschrift("Login");
 				hauptfenster.setLoggedOut();
 				hauptfenster.setInfoBox("Sie haben sich erfolgreich ausgeloggt.");
+				hauptfenster.setLoginInfo("");
 				hauptfenster.setContent(activeController.getView());
 				
 				hilfefenster.setHinweis( HilfeTexte.LoginView);

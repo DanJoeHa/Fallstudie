@@ -29,7 +29,7 @@ public class HauptView extends JFrame implements View{
 	private JPanel Content, NavigationBackground;
 	private View activeView, lastView, lastlastView;
 	private JButton B_Logout, B_Hilfe;
-	private JTextPane InfoBox;
+	private JTextPane InfoBox, LoginInfo;
 	private JTree Navigation;
 	private JLabel L_Ueberschrift;
 	private TreeSelectionListener tl;
@@ -79,7 +79,7 @@ public class HauptView extends JFrame implements View{
 		InfoBox = new JTextPane();
 		InfoBox.setText("");
 		InfoBox.setBackground(SystemColor.menu);
-		InfoBox.setBounds(840, 92, 150, 620);
+		InfoBox.setBounds(840, 164, 150, 548);
 		InfoBox.setEditable(false);
 		Panel.add(InfoBox);
 		
@@ -94,6 +94,13 @@ public class HauptView extends JFrame implements View{
 		Content.setAutoscrolls(true);
 		Content.setBounds(210, 51, 620, 660);
 		Panel.add(Content);
+		
+		LoginInfo = new JTextPane();
+		LoginInfo.setBackground(SystemColor.menu);
+		LoginInfo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		LoginInfo.setEditable(false);
+		LoginInfo.setBounds(839, 93, 150, 60);
+		Panel.add(LoginInfo);
 		
 		//Fenster anzeigen
 		this.setVisible(true);
@@ -205,6 +212,15 @@ public class HauptView extends JFrame implements View{
 	public void setInfoBox(String message){
 		this.InfoBox.setText( message );
 	}
+	
+	/**
+	 * Login Info schreiben
+	 * 
+	 */
+	public void setLoginInfo(String info){
+		this.LoginInfo.setText(info);
+	}
+	
 	/**
 	 * View setzen
 	 * @param vi
