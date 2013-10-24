@@ -11,18 +11,17 @@ import java.util.regex.Pattern;
 
 import fallstudie.model.mysql.connector.RemoteConnection;
 
-/** CHANGELOG
+/** 
  * @author Phil
- * @version 1.0
  * @date 09.10.2013
- * @change generiert + implements (Interface) wurde entfernt, da Konstruktor nicht m�glich ist im Interface
- * 
- * 
+ * @change Klasse erstellt und Attribute ergänzt
+ * @version 1.0
  * @author Phil
- * @version 1.1
  * @date 14.10.2013
+ * @version 1.1
  * @change Methoden implementiert
  */
+
 public class Rolle  {
 
 	private String rollenbezeichnung;
@@ -30,10 +29,9 @@ public class Rolle  {
 	//--------------------KONSTRUKTOR--------------------
 	
 	/**
-	 * Rolleninstanz aus einer Rollenbezeichnung kriegen
-	 * @param rollenbezeichnung
-	 * @return 
-	 * @return
+	 * @author Phil
+	 * Methode liefert zur Rollenbezeichnung ein Rollenobjekt welches anhand der Informationen aus der Datenbank befüllt wird.
+	 * @param String rollenbezeichnung
 	 */
 	public Rolle(String rollenbezeichnung) {
 	RemoteConnection Connection = new RemoteConnection();
@@ -67,9 +65,11 @@ public class Rolle  {
 	}
 	
 	//--------------------KONSTRUKTOR--------------------
+	
 	/**
-	 * Erh�lt alle Rollen als Collection
-	 * @return
+	 * @author Phil
+	 * Methode liefert alle Rollen, welche in der Datenbank existieren.
+	 * @return Collection<Rolle> alleRollenAusDatenbank
 	 */
 	public static Collection<Rolle> getAlleRollen() {
 		Collection<Rolle> result = new LinkedList<>();
@@ -108,8 +108,9 @@ public class Rolle  {
 		return result;
 	}
 	/**
-	 * Erh�lt alle Rechte der Rolle
-	 * @return
+	 * @author Phil
+	 * Methode liefert alle Berechtigungen welche eine Rolle hat.
+	 * @return Collection<Rechte> rechteZuRolle
 	 */
 	public Collection<Rechte> getBerechtigungenzuRolle() {
 		//COllection von Rechten zur ROlle
@@ -152,7 +153,10 @@ public class Rolle  {
 		}
 		return result;
 	}
-
+	/**
+	 * Methode liefert Rollenbezeichnung der aktuellen Rolle.
+	 * @return String Rollenbezeichnung
+	 */
 	public String getRollenbezeichnung() {
 		return this.rollenbezeichnung;
 	}

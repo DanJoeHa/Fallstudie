@@ -7,14 +7,12 @@ import java.util.Date;
 import fallstudie.model.mysql.connector.RemoteConnection;
 
 /**
- * CHANGELOG
- * 
- * @author Phil, 09.10.2013 generiert + implements (Interface) wurde entfernt,
- *         da Konstruktor nicht m�glich ist im Interface
  * @author Phil
- * @date 11.10.2013
+ * @date 09.10.2013 Klasse erstellt
  * @author Jenny
- * @version 1.1 - Aktualisiert
+ * @date 11.10.2013
+ * @version 1.1
+ * @change Methoden implementiert und aktualisiert
  */
 
 public class Eintrag {
@@ -24,13 +22,13 @@ public class Eintrag {
 	// ---------------------KONSTRUKTOR--------------------------
 	// -----------------------------------------------------------
 	/**
-	 * Eintrag wird INSERTERT in die Datenbank
-	 * 
-	 * @param kalenderjahr
-	 * @param kalenderwoche
-	 * @param anzahl
-	 * @param arbeitsgruppe
-	 * @param art
+	 * @author Jenny
+	 * Eintrag wird auf der Datenbank angelegt in die Datenbank
+	 * @param int kalenderjahr
+	 * @param int kalenderwoche
+	 * @param int anzahl
+	 * @param Arbeitsgruppe arbeitsgruppe
+	 * @param Art art
 	 */
 	public Eintrag(int kalenderjahr, int kalenderwoche, int anzahl,
 			Arbeitsgruppe arbeitsgruppe, Art art) {
@@ -56,11 +54,11 @@ public class Eintrag {
 		String datum = simpleFormat.format(date);
 
 		try {
-			System.out
+			/*System.out
 					.println("INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum)"
 							+ "VALUES ('" + kalenderjahr + "','" + kalenderwoche + "','" + anzahl
 							+ "','" + arbeitsgruppeID + "','" + art.getName() + "','" + datum + "')");
-
+			 */
 			RemoteConnection.sql
 					.executeUpdate("INSERT INTO Eintrag (Kalenderjahr, Kalenderwoche, Summe, Arbeitsgruppe, Art, Datum) VALUES ('"
 							+ kalenderjahr + "','" + kalenderwoche + "','" + anzahl + "','" + arbeitsgruppeID

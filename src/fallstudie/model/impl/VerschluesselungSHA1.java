@@ -5,14 +5,18 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Dient zur SHA1 Verschl�sselung des Passworts
- * -> Geht schneller und bequemer als immer ResultSets vom MYSQL
- * 
  * @author Phil
- *
+ * @date 15.10.2013
+ * Klasse dient zur SHA1-Verschlüsselung des Passworts
  */
 public class VerschluesselungSHA1 {
-
+	/**
+	 * @author Phil
+	 * Methode verschlüsselt den mitgegeben String mit dem SHA1 Algorythmus.
+	 * @param String key
+	 * @return String verschlüsselterKey
+	 * @throws NoSuchAlgorithmException
+	 */
 	public static String getEncodedSha1Sum( String key ) throws NoSuchAlgorithmException
 	{
 

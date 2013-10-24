@@ -5,18 +5,16 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import com.sun.jmx.snmp.daemon.CommunicationException;
-
 import fallstudie.model.mysql.connector.RemoteConnection;
 
 /**
- * CHANGELOG
- * 
- * @author Phil, 09.10.2013 generiert + implements (Interface) wurde entfernt,
- *         da Konstruktor nicht m�glich ist im Interface
- * @version 1.0 Attribute aktualisiert
- * @author Phil, 11.10.2013, aktualisiert
- * @version 1.1
+ * @author Phil
+ * @date 09.10.2013 
+ * @version 1.0 
+ * @change Attribute aktualisiert
+ * @author Phil, 11.10.2013
+ * @version 1.1 
+ * @change Methoden implementiert
  */
 public class Bereich {
 
@@ -31,20 +29,17 @@ public class Bereich {
 	// ---------------------KONSTRUKTOREN-------------------------
 	// -----------------------------------------------------------
 	/**
-	 * Konstruktor beim Anlegen eines neuen Bereichs (fehlende Parameter werden
-	 * NULL gesetzt) abfangen im programm selber
-	 * 
-	 * @param BereichID
-	 * @return
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Neuer Bereich wird mit Leiter in der Datenbank angelegt.
+	 * @param String kurzbezeichnung
+	 * @param String beschreibung
+	 * @param Mitarbeiter leiter
+	 * @throws Exception, wenn keine Kurzbezeichnung angegeben wird oder der Bereich schon existiert.
 	 */
 
 	public Bereich(String kurzbezeichnung, String beschreibung,
 			Mitarbeiter leiter) throws Exception {
-		RemoteConnection Connection = new RemoteConnection();
 		String leiterBenutzername = null;
-		System.out.println("hallo:");
 		try {
 			if (RemoteConnection.connection == null
 					|| RemoteConnection.sql == null) {
@@ -83,7 +78,7 @@ public class Bereich {
 								"Bereich mit selber Kurzbezeichnung existiert schon.");
 
 				}
-
+				/*
 				System.out
 						.println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)"
 								+ "VALUES ('"
@@ -93,7 +88,7 @@ public class Bereich {
 								+ "', '"
 								+ leiterBenutzername
 								+ "')");
-
+				 */
 				int RowsAffected = RemoteConnection.sql
 						.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)"
 								+ "VALUES ('"
@@ -122,14 +117,14 @@ public class Bereich {
 								"Bereich mit selber Kurzbezeichnung existiert schon.");
 
 				}
-
+				/*
 				System.out
 						.println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)"
 								+ " VALUES ('"
 								+ kurzbezeichnung
 								+ "', '"
 								+ beschreibung + "')");
-
+				*/
 				int RowsAffected = RemoteConnection.sql
 						.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung) "
 								+ "VALUES ('"
@@ -155,11 +150,11 @@ public class Bereich {
 	}
 
 	/**
-	 * Alle bereiche mit dem Suchbegriff werden zur�ckgegeben
-	 * 
-	 * @param suchbegriff
-	 * @return
-	 * @return
+	 * @author Phil
+	 * Methode ist eine Volltextsuche durch alle Bereiche, welche als aktiv in der Datenbank existieren.
+	 * @param String suchbegriff
+	 * @return Collection<Bereich> alleBereicheNachSuchbegriff
+	 * @throws Exception, falls keine Datensätze gefunden werden die dem Suchbegriff entsprechen.
 	 */
 
 	public static Collection<Bereich> suche(String suchbegriff) {
@@ -207,10 +202,10 @@ public class Bereich {
 	}
 
 	/**
-	 * Findet Bereich anhand der Kurzbezeichnung.
-	 * 
-	 * @param kurzbezeichnung
-	 * @return
+	 * @author Phil
+	 * Methode liefert anhand der Kurzbezeichnung eines Bereichs ein gefülltes Bereichsobjekt mit Informationen aus der Datenbank.
+	 * @param String kurzbezeichnung
+	 * @return Bereich bereich
 	 */
 	public static Bereich getBereichByName(String kurzbezeichnung) {
 
@@ -242,23 +237,17 @@ public class Bereich {
 			resultSet.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.err.println("------SQL ERROR-------");
-			System.err.println(e.getErrorCode());
-			System.err.println(e.getCause());
+			System.err.println("Fehler in Bereich getBereichbyName");
 			System.err.println(e.getMessage());
-		} catch (NullPointerException e) {
-			System.err
-					.println("Konnte kein Ergebnis mit der Kurzbezeichnung finden.");
 		}
 
 		return bereich;
 	}
 
 	/**
-	 * findet anhand der BereichsID den Bereich
-	 * 
-	 * @param bereichID
-	 * @throws SQLException
+	 * @author Phil
+	 * Methode liefert ein befülltes Bereichsobjekt anhand der BereichsID(Primärschlüssel in der Datenbank).
+	 * @param int bereichID
 	 */
 
 	public Bereich(int bereichID) {
@@ -299,12 +288,11 @@ public class Bereich {
 	}
 
 	/**
-	 * Bereich wird anhand eines Resultsets erstellt
-	 * 
-	 * @param resultSet
-	 * @throws SQLException
+	 * @author Phil
+	 * Anhand eines ResultSets aus einer SELECT- Abfrage wird das Bereichsobjekt befüllt. 
+	 * @param ResultSet resultSet
 	 */
-	public Bereich(ResultSet resultSet) throws SQLException {
+	public Bereich(ResultSet resultSet){
 
 		try {
 			if (RemoteConnection.connection == null
@@ -322,7 +310,7 @@ public class Bereich {
 
 			// Mitarbeiter Resultset holen
 
-			// Bereichobjekt aus der BereichsID
+			// Bereichsobjekt aus der BereichsID
 			this.bereichID = resultSet.getInt("BereichID");
 			// Beschreibung der Arbeitsgruppe
 			this.beschreibung = resultSet.getString("Beschreibung");
@@ -343,20 +331,19 @@ public class Bereich {
 	// ---------------------KONSTRUKTOREN-------------------------
 	// -----------------------------------------------------------
 	/**
-	 * Beschreibung eines bereichs �ndern
-	 * 
-	 * @param beschreibung
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode zum ändern der Beschreibung des gewählten Bereichs.
+	 * @param String beschreibung
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 
-	public boolean setBeschreibung(String beschreibung) throws Exception {
+	public boolean setBeschreibung(String beschreibung){
 		boolean erfolgreich = false;
 		int RowsAffected;
 		try {
-			System.out.println("UPDATE Bereich SET Beschreibung='"
-					+ beschreibung + "' WHERE BereichID='" + this.bereichID
-					+ "'");
+			//System.out.println("UPDATE Bereich SET Beschreibung='"
+				//	+ beschreibung + "' WHERE BereichID='" + this.bereichID
+					//+ "'");
 			RowsAffected = RemoteConnection.sql
 					.executeUpdate("UPDATE Bereich SET Beschreibung='"
 							+ beschreibung + "' WHERE BereichID='"
@@ -374,9 +361,9 @@ public class Bereich {
 	}
 
 	/**
-	 * Beschreibung eines Bereichs erhalten
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert die Beschreibung zum aktuell gewählten Bereich
+	 * @return String beschreibung
 	 */
 	public String getBeschreibung() {
 
@@ -384,41 +371,66 @@ public class Bereich {
 	}
 
 	/**
-	 * Kurzbezeichnung wird ge�ndert
-	 * 
+	 * @author Phil
+	 * Methode zum ändern der Kurzbezeichnung des gewählten Bereiches.
 	 * @param kurzbezeichnung
-	 * @return
-	 * @throws Exception
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
-	public boolean setKurzbezeichnung(String kurzbezeichnung) throws Exception {
-		boolean erfolgreich = false;
-
+	public boolean setKurzbezeichnung(String kurzbezeichnung){
+		boolean erfolgreich = true;
+		RemoteConnection Connection = new RemoteConnection();
 		try {
+			if(kurzbezeichnung.equals(""))
+			{
+				erfolgreich=false;
+			}
+			//System.out.println("UPDATE Bereich SET Kurzbezeichnung='"
+				//	+ kurzbezeichnung + "' WHERE BereichID='" + this.bereichID
+					//+ "'");
+			
+			
+			ResultSet checkObVorhanden = Connection
+					.executeQueryStatement("SELECT BereichID From Bereich WHERE Aktiv=1 AND Kurzbezeichnung='"+kurzbezeichnung+"'");
 
-			System.out.println("UPDATE Bereich SET Kurzbezeichnung='"
-					+ kurzbezeichnung + "' WHERE BereichID='" + this.bereichID
-					+ "'");
+			
+			while (checkObVorhanden.next()) 
+			{	
+				//Bekommt die Kurzbezeichnung aus dem Resultset
+				int ID = checkObVorhanden.getInt("BereichID");
+				//System.out.println("ID: "+ID+"Aktuelle: "+this.bereichID);
+				//Prüfung auf gleichheit
+				if (this.bereichID==ID)
+				{
+					erfolgreich=true;
+				}
+				else
+				{
+					erfolgreich=false;
+				}
+			}
+			
+			if(erfolgreich==true)
+			{
+			
 			RemoteConnection.sql
 					.executeUpdate("UPDATE Bereich SET Kurzbezeichnung='"
 							+ kurzbezeichnung + "' WHERE BereichID='"
 							+ this.bereichID + "'");
-
-			erfolgreich = true;
-
+			this.kurzbezeichnung=kurzbezeichnung;
+			}
 		}
 
 		catch (SQLException e) {
 			System.err.println("Fehler in setKurzbezeichnung: ");
 			System.err.println(e.getMessage());
 		}
-		this.kurzbezeichnung = kurzbezeichnung;
 		return erfolgreich;
 	}
 
 	/**
-	 * Kurzbezeichnung wird erhalten von Bereich
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert Kurzbezeichnung des gewählten Bereichs.
+	 * @return String kurzbezeichnung
 	 */
 	public String getKurzbezeichnung() {
 
@@ -426,12 +438,12 @@ public class Bereich {
 	}
 
 	/**
-	 * L�schen von einem Bereich, mus abgefangen werden ob irgendwo in einer
-	 * Arbeitsgruppe noch ein Bereich zugeordnet ist
-	 * 
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode zum löschen eines Bereichs.
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
+	 * @throws Exception, falls der Bereich noch Mitarbeiter zugeordnet hat/ein Leiter gesetzt ist.
 	 */
+	
 	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
@@ -508,9 +520,9 @@ public class Bereich {
 	}
 
 	/**
-	 * Status erhalten
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert den Status des Bereichs in der Datenbank.
+	 * @return boolean (true bedeutet Arbeitsgruppe ist aktiv, false bedeutet Arbeitsgruppe wird als gelöscht angezeigt).
 	 */
 	public boolean getAktiv() {
 
@@ -518,10 +530,11 @@ public class Bereich {
 	}
 
 	/**
-	 * Id anhand von Kurzbezeichnung kriegen (PK)
-	 * 
-	 * @param kurzbezeichnung
-	 * @return
+	 * @author Phil
+	 * Methode liefert zur Kurzbezeichnung die dazugehörige ID des Bereichs
+	 * @param String kurzbezeichnung
+	 * @return int bereichID
+	 * @throws Exception, wenn die angegebene Kurzbezeichnung nicht in der Datenbank gefunden wurde.
 	 */
 	public static int getIDByKurzbezeichnung(String kurzbezeichnung) {
 		int id = 0;
@@ -546,31 +559,24 @@ public class Bereich {
 			System.err
 					.println("Fehler ist in Methode getIDByKurzbezeichnung(String) aufgetreten:");
 			System.err.println(e.getMessage());
-		} catch (NullPointerException e1) {
-			System.err
-					.println("Konnte keinen Bereich mit dieser Kurzbezeichnung finden.");
-		} catch (CommunicationException e) {
-			System.err.println("keine Connection zur Db");
-		}
-
+		} 
 		return id;
 	}
 
 	/**
-	 * Liefert ID des Bereichs ohne parameter.
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert BereichID zum Bereich (BereichID ist der Primärschlüssel in der Datenbank).
+	 * @return int bereichID
 	 */
 	public int getID() {
 		return this.bereichID;
 	}
 
 	/**
-	 * Alle Bereiche werden ausgegeben wird gebraucht bei Combobox
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert alle Bereiche, welche in der Datenbank existieren und aktiv sind, als Collection von Bereichsobjekten.
+	 * @return Collection<Bereich> alleBereiche
 	 */
-
 	public static Collection<Bereich> getAlleBereiche() {
 
 		Collection<Bereich> result = new LinkedList<>();
@@ -601,13 +607,11 @@ public class Bereich {
 	}
 
 	/**
-	 * Leiter eines Bereichs setzen
-	 * 
-	 * @param Mitarbeiter
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode ändert den Leiter eines Bereichs.
+	 * @param Mitarbeiter leiter(Objekt)
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
-
 	public boolean setLeiter(Mitarbeiter mitarbeiter) throws Exception {
 
 		boolean erfolgreich = false;
@@ -615,11 +619,11 @@ public class Bereich {
 		try {
 			if (!(mitarbeiter == null)) {
 				String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
-
+/*
 				System.out.println("UPDATE Bereich SET Leiter ='"
 						+ neuerLeiterBenutzername + "' WHERE BereichID='"
 						+ this.bereichID + "'");
-
+*/
 				int RowsAffect = RemoteConnection.sql
 						.executeUpdate("UPDATE Bereich SET Leiter ='"
 								+ neuerLeiterBenutzername
@@ -632,12 +636,12 @@ public class Bereich {
 				erfolgreich = true;
 				this.leiter = mitarbeiter;
 				if (RowsAffect == 1)
-					throw new Exception("Datensatz geändert.");
+					throw new Exception("Bereich wurde erfolgreich bearbeitet.");
 
 			} else if (mitarbeiter == null) {
-				System.out
-						.println("UPDATE Bereich SET Leiter =NULL WHERE BereichID='"
-								+ this.bereichID + "'");
+				//System.out
+					//	.println("UPDATE Bereich SET Leiter =NULL WHERE BereichID='"
+						//		+ this.bereichID + "'");
 
 				int RowsAffect = RemoteConnection.sql
 						.executeUpdate("UPDATE Bereich SET Leiter =NULL WHERE BereichID='"
@@ -646,7 +650,7 @@ public class Bereich {
 				erfolgreich = true;
 				this.leiter = null;
 				if (RowsAffect == 1)
-					throw new Exception("Datensatz geändert.");
+					throw new Exception("Bereich wurde erfolgreich bearbeitet.");
 
 			}
 
@@ -660,10 +664,9 @@ public class Bereich {
 	}
 
 	/**
-	 * Leiter eines Bereichs bekommen
-	 * 
-	 * @return
-	 * @throws SQLException
+	 * @author Phil
+	 * Methode liefert den Leiter des gewählten Bereichs als Mitarbeiterobjekt.
+	 * @return Mitarbeiter leiter
 	 */
 	public Mitarbeiter getLeiter() {
 		try {

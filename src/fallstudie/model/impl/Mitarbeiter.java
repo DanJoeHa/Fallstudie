@@ -12,22 +12,21 @@ import java.util.LinkedList;
 import fallstudie.model.mysql.connector.RemoteConnection;
 
 /**
- * CHANGELOG
- * 
- * @author Phil, 09.10.2013 generiert + implements (Interface) wurde entfernt,
- *         da Konstruktor nicht m�glich ist im Interface
- * @version 1.0 Attribute erg�nzt
+ * @author Phil
+ * @date 09.10.2013
+ * @change erstellt und Attribute ergänzt
+ * @version 1.0 
  * @author Phil
  * @date 11.10.2013
  * @version 1.1
- * @change checkPasswort() eingef�gt und ausloggen kommentiert
+ * @change checkPasswort() eingefügt und Kommentare aktualisiert
  * @author Phil
  * @date 13.10.2013
  * @version 1.2
  * @change alle Methoden implementiert
- * @author Patrick
  * @author Phil
  * @change getFullName() hinzugefügt.
+ * @version 1.3
  * 
  */
 
@@ -50,13 +49,11 @@ public class Mitarbeiter {
 	private String rollenName;
 
 	/**
-	 * Konstruktor wenn sich Mitarbeiter einloggt
-	 * 
-	 * @param Benutzername
-	 * @return Objekt Mitarbeiter
-	 * @throws Exception
+	 * @author Phil
+	 * Methode liefert zum Benutzernamen ein befülltes Mitarbeiterobjekt befüllt aus der Datenbank.
+	 * @param String benutzername
+	 * @throws Exception, falls es den Benutzernamen in der Datenbank nicht gibt.
 	 */
-
 	public Mitarbeiter(String benutzername) throws Exception {
 		if (!benutzername.equals("")) {
 			RemoteConnection Connection = new RemoteConnection();
@@ -141,18 +138,16 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * �berladener Konstruktor #2, wird verwendet wenn ein Mitarbeiter neu
-	 * angelegt wird
-	 * 
-	 * @param benutzername
-	 * @param passwort
-	 * @param vorname
-	 * @param nachname
-	 * @param rolle
-	 * @param bereich
-	 * @throws Exception
+	 * @author Phil
+	 * Methode legt neuen Mitarbeiter in der Datenbank an, mit Bereichszuordnung.
+	 * @param String benutzername
+	 * @param String passwort
+	 * @param String vorname
+	 * @param String nachname
+	 * @param Rolle rolle
+	 * @param Bereich bereich
+	 * @throws Exception, falls der angegebe Benutzername bereis existiert.
 	 */
-
 	public Mitarbeiter(String benutzername, String passwort, String vorname,
 			String nachname, Rolle rolle, Bereich bereich) throws Exception {
 		try {
@@ -170,7 +165,7 @@ public class Mitarbeiter {
 			String rollenName = rolle.getRollenbezeichnung();
 			int bereichID = bereich.getID();
 
-			System.out.println("SELECT * From Mitarbeiter");
+			//System.out.println("SELECT * From Mitarbeiter");
 			// Checken obs den Mitarbeiter schon gibt.
 			ResultSet checkObVorhanden = RemoteConnection.sql
 					.executeQuery("SELECT * From Mitarbeiter");
@@ -197,7 +192,7 @@ public class Mitarbeiter {
 							this.nachname = nachname;
 							this.rolle = rolle;
 							this.bereich = bereich;
-
+/*
 							System.out.println("UPDATE Mitarbeiter SET Rolle='"
 									+ rolle.getRollenbezeichnung()
 									+ "', Passwort='" + verschluesseltPasswort
@@ -207,6 +202,7 @@ public class Mitarbeiter {
 									+ bereich.getID()
 									+ "', PWChanged=0 WHERE Benutzername='"
 									+ benutzername + "'");
+	*/
 							RemoteConnection.sql
 									.executeUpdate("UPDATE Mitarbeiter SET Rolle='"
 											+ rolle.getRollenbezeichnung()
@@ -228,7 +224,7 @@ public class Mitarbeiter {
 				checkObVorhanden.close();
 
 				// passwort wird verschl�sselt in die DB geschrieben
-
+/*
 				System.out
 						.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)"
 								+ " VALUES ('"
@@ -243,7 +239,7 @@ public class Mitarbeiter {
 								+ rollenName
 								+ "','"
 								+ bereichID + "')");
-
+*/
 				int affectedRows = RemoteConnection.sql
 						.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Bereich)"
 								+ "	VALUES ('"
@@ -258,8 +254,8 @@ public class Mitarbeiter {
 								+ rollenName
 								+ "','"
 								+ bereichID + "')");
-				System.out.println("UPDATE Bereich SET Leiter='" + benutzername
-						+ "' WHERE BereichID='" + bereich.getID() + "'");
+				//System.out.println("UPDATE Bereich SET Leiter='" + benutzername
+					//	+ "' WHERE BereichID='" + bereich.getID() + "'");
 				RemoteConnection.sql
 						.executeUpdate("UPDATE Bereich SET Leiter='"
 								+ benutzername + "' WHERE BereichID='"
@@ -286,16 +282,15 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * �berladener Konstruktor #3, wird verwendet wenn ein Mitarbeiter neu
-	 * angelegt wird
-	 * 
-	 * @param benutzername
-	 * @param passwort
-	 * @param vorname
-	 * @param nachname
-	 * @param rolle
-	 * @param arbeitsgruppe
-	 * @throws Exception
+	 * @author Phil
+	 * Methode legt neuen Mitarbeiter in der Datenbank an, mit Arbeitsgruppenzuordnung.
+	 * @param String benutzername
+	 * @param String passwort
+	 * @param String vorname
+	 * @param String nachname
+	 * @param Rolle rolle
+	 * @param Arbeitsgruppe arbeitsgruppe
+	 * @throws Exception, falls der angegebe Benutzername bereis existiert.
 	 */
 	public Mitarbeiter(String benutzername, String passwort, String vorname,
 			String nachname, Rolle rolle, Arbeitsgruppe arbeitsgruppe)
@@ -341,7 +336,7 @@ public class Mitarbeiter {
 							this.nachname = nachname;
 							this.rolle = rolle;
 							this.arbeitsgruppe = arbeitsgruppe;
-
+/*
 							System.out.println("UPDATE Mitarbeiter SET Rolle='"
 									+ rolle.getRollenbezeichnung()
 									+ "', Passwort='" + verschluesseltPasswort
@@ -351,6 +346,7 @@ public class Mitarbeiter {
 									+ arbeitsgruppe.getID()
 									+ "', PWChanged=0 WHERE Benutzername='"
 									+ benutzername + "'");
+	*/
 							RemoteConnection.sql
 									.executeUpdate("UPDATE Mitarbeiter SET Rolle='"
 											+ rolle.getRollenbezeichnung()
@@ -370,7 +366,7 @@ public class Mitarbeiter {
 					}
 				}
 				checkObVorhanden.close();
-
+/*
 				System.out
 						.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)"
 								+ "	VALUES ('"
@@ -385,7 +381,7 @@ public class Mitarbeiter {
 								+ rollenName
 								+ "','"
 								+ arbeitsgruppeID + "')");
-
+*/
 				int affectedRows = RemoteConnection.sql
 						.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle, Arbeitsgruppe)"
 								+ "	VALUES ('"
@@ -428,22 +424,14 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * �berladener Konstruktor #4, wird verwendet wenn ein Mitarbeiter neu
-	 * angelegt wird
-	 * 
-	 * @param resultSet
-	 */
-	/**
-	 * �berladener Konstruktor #3, wird verwendet wenn ein Mitarbeiter neu
-	 * angelegt wird
-	 * 
-	 * @param benutzername
-	 * @param passwort
-	 * @param vorname
-	 * @param nachname
-	 * @param rolle
-	 * @param arbeitsgruppe
-	 * @throws Exception
+	 * @author Phil
+	 * Methode legt neuen Mitarbeiter in der Datenbank an, ohne zuordnung zu Bereich oder Arbeitsgruppe.
+	 * @param String benutzername
+	 * @param String passwort
+	 * @param String vorname
+	 * @param String nachname
+	 * @param Rolle rolle
+	 * @throws Exception, falls der angegebe Benutzername bereis existiert.
 	 */
 	public Mitarbeiter(String benutzername, String passwort, String vorname,
 			String nachname, Rolle rolle) throws Exception {
@@ -489,8 +477,7 @@ public class Mitarbeiter {
 							this.rolle = rolle;
 							this.arbeitsgruppe = null;
 							this.bereich = null;
-
-							System.out
+/*							System.out
 									.println("UPDATE Mitarbeiter SET Rolle='"
 											+ rolle.getRollenbezeichnung()
 											+ "', Passwort='"
@@ -501,6 +488,7 @@ public class Mitarbeiter {
 											+ nachname
 											+ "', LetzterLogin=NULL, Arbeitsgruppe=NULL, Bereich=NULL, PWChanged=0 WHERE Benutzername='"
 											+ benutzername + "')");
+	*/
 							RemoteConnection.sql
 									.executeUpdate("UPDATE Mitarbeiter SET Rolle='"
 											+ rolle.getRollenbezeichnung()
@@ -518,7 +506,7 @@ public class Mitarbeiter {
 					}
 				}
 				checkObVorhanden.close();
-
+/*
 				System.out
 						.println("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)"
 								+ "	VALUES ('"
@@ -528,7 +516,7 @@ public class Mitarbeiter {
 								+ "','"
 								+ vorname
 								+ "','" + nachname + "','" + rollenName + "')");
-
+*/
 				int affectedRows = RemoteConnection.sql
 						.executeUpdate("INSERT INTO Mitarbeiter (Benutzername, Passwort, Vorname, Nachname, Rolle)"
 								+ "	VALUES ('"
@@ -540,8 +528,8 @@ public class Mitarbeiter {
 								+ "','" + nachname + "','" + rollenName + "')");
 
 				if (affectedRows == 1)
-					System.out.println("Es wurde " + affectedRows
-							+ " Datensatz eingef�gt.");
+					//System.out.println("Es wurde " + affectedRows
+						//	+ " Datensatz eingef�gt.");
 
 				this.benutzername = benutzername;
 				this.passwort = verschluesseltPasswort;
@@ -563,8 +551,9 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * 
-	 * @param resultSet
+	 * @author Phil
+	 * Anhand eines ResultSets aus einer SELECT- Abfrage wird das Mitarbeiterobjekt befüllt. 
+	 * @param ResultSet resultSet
 	 */
 	public Mitarbeiter(ResultSet resultSet) {
 		try {
@@ -601,10 +590,7 @@ public class Mitarbeiter {
 		catch (SQLException e) {
 			System.err.println("Fehler in Mitarbeiter(ResultSet)");
 			System.err.println(e.getMessage());
-		} catch (NullPointerException e) {
-			System.err.println(e.getMessage());
-			System.err.println("Konnte keine Datenbankverbindung herstellen!");
-		}
+		} 
 	}
 
 	// -----------------------------------------------------------
@@ -612,12 +598,12 @@ public class Mitarbeiter {
 	// -----------------------------------------------------------
 
 	/**
-	 * Mitarbeiter einloggen und pr�fen ob er schon mal angemeldet war
-	 * 
-	 * @param benutzername
-	 * @param passwort
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode zum einloggen in das Programm.
+	 * @param String benutzername
+	 * @param String passwort
+	 * @return Mitarbeiter mitarbeiter (befülltes Objekt)
+	 * @throws Exception, falls die eingegeben Daten nicht stimmen.
 	 */
 	public static Mitarbeiter einloggen(String benutzername, String passwort)
 			throws Exception {
@@ -672,7 +658,7 @@ public class Mitarbeiter {
 				// System.out.println(verschluesseltesPW);
 				// System.out.println(passwortInDatabase);
 			} else {
-				throw new Exception("Benutzer existiert nicht.");
+				throw new Exception("Benutzername existiert nicht.");
 			}
 
 		}
@@ -686,9 +672,9 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * loggt den Benutzer aus LastLogin wird gesetzt
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode zum ausloggen eines Mitarbeiters.
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean ausloggen() {
 		// Heutiges Datum generieren
@@ -718,11 +704,12 @@ public class Mitarbeiter {
 
 	}
 
+
 	/**
-	 * wei�t den Mitarbeiter einem Bereich zu
-	 * 
-	 * @param bereich
-	 * @return
+	 * @author Phil
+	 * Methode ändert den Bereich des gewählten Mitarbeiters.
+	 * @param Bereich bereich
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setBereich(Bereich bereich) {
 		boolean erfolgreich = false;
@@ -751,10 +738,10 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * wei�t Mitarbeiter Rolle zu
-	 * 
-	 * @param rolle
-	 * @return
+	 * @author Phil
+	 * Methode ändert Rolle des gewählten Mitarbeiters.
+	 * @param Rolle rolle
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setRolle(Rolle rolle) {
 		boolean erfolgreich = false;
@@ -795,9 +782,9 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * bekommt die Rolle des Mitarbeiters
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert die aktuelle Rolle des gewählten Mitarbeiters.
+	 * @return Rolle rolle
 	 */
 	public Rolle getRolle() {
 		if (this.rolle != null) {
@@ -813,13 +800,7 @@ public class Mitarbeiter {
 
 	}
 
-	/**
-	 * wei�t dem Mitarbeiter Benutzername zu
-	 * 
-	 * @param newBenutzername
-	 * @return
-	 * @throws Exception
-	 */
+	/*
 	public boolean setBenutzername(String benutzername) throws Exception {
 		boolean erfolgreich = false;
 		try {
@@ -862,23 +843,21 @@ public class Mitarbeiter {
 		}
 		return erfolgreich;
 	}
-
+	*/
 	/**
-	 * bekommt den Benutzername des Mitarbeiters
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert den Benutzernamen des gewählten Mitarbeiters.
+	 * @return String benutzername
 	 */
 	public String getBenutzername() {
 		return this.benutzername;
 	}
 
 	/**
-	 * Methode pr�ft ob eingegebenes Passwort bei Passwort vergessen View, das
-	 * ist welches in der Datenbank abgelegt ist. Dient zur Identifizierung des
-	 * Mitarbeiters
-	 * 
-	 * @param altesPasswort
-	 * @return boolean
+	 * @author Phil
+	 * Methode prüft beim Passwort ändern ob das eingegeben Passwort mit dem aktuellen übereinstimmt.
+	 * @param String altesPasswort
+	 * @return boolean (wenn Passwort stimmt =true , wenn nicht =false)
 	 */
 	public boolean checkPasswort(String altesPasswort) {
 		boolean erfolgreich = false;
@@ -914,29 +893,30 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * bekommt das Passwort des Mitarbeiters VERSCHL�SSELT
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert verschlüsseltes Passwort zum gewählten Mitarbeiter
+	 * @return String passwort
 	 */
 	public String getPasswort() {
 
 		return this.passwort;
 	}
 
+
 	/**
-	 * ver�ndert Passwort des Mitarbeiters
-	 * 
-	 * @param newPasswort
-	 * @return
+	 * @author Phil
+	 * Methode zum ändern des Passworts des gewählten Mitarbeiters.
+	 * @param String newPasswort
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setPasswort(String newPasswort) {
 		boolean erfolgreich = false;
 		try {
 			String newPasswortVerschluesselt = VerschluesselungSHA1
 					.getEncodedSha1Sum(newPasswort);
-			System.out.println("UPDATE Mitarbeiter SET Passwort ='"
-					+ newPasswortVerschluesselt + "' WHERE Benutzername='"
-					+ this.benutzername + "'");
+			//System.out.println("UPDATE Mitarbeiter SET Passwort ='"
+			//		+ newPasswortVerschluesselt + "' WHERE Benutzername='"
+			//		+ this.benutzername + "'");
 
 			int rowsAffect = RemoteConnection.sql
 					.executeUpdate("UPDATE Mitarbeiter SET Passwort ='"
@@ -964,12 +944,12 @@ public class Mitarbeiter {
 		return erfolgreich;
 
 	}
-
+	
 	/**
-	 * wei�t Arbeitsgruppe zu
-	 * 
-	 * @param arbeitsgruppe
-	 * @return
+	 * @author Phil
+	 * Methode ändert die aktuelle Arbeitsgruppe des gewählten Mitarbeiters.
+	 * @param Arbeitsgruppe arbeitsgruppe
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setArbeitsgruppe(Arbeitsgruppe arbeitsgruppe) {
 		boolean erfolgreich = false;
@@ -1014,8 +994,8 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * bekommt die Arbeitsgruppe
-	 * 
+	 * @author Phil
+	 * Methode liefert die aktuelle Arbeitsgruppe zum gewählten Mitarbeiter.
 	 * @return
 	 */
 	public Arbeitsgruppe getArbeitsgruppe() {
@@ -1032,11 +1012,10 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * l�scht Mitarbeiter
-	 * 
-	 * @param aktiv
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode zum löschen des gewählten Mitarbeiters.
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
+	 * @throws Exception, wenn der Mitarbeiter noch Leiter eines Bereichs oder einer Arbeitsgruppe ist.
 	 */
 	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
@@ -1047,8 +1026,8 @@ public class Mitarbeiter {
 		RemoteConnection Connection = new RemoteConnection();
 
 		try { // IN Bereich pr�fen
-			System.out.println("SELECT * FROM Bereich WHERE Leiter='"
-					+ this.benutzername + "'");
+			//System.out.println("SELECT * FROM Bereich WHERE Leiter='"
+			//		+ this.benutzername + "'");
 
 			ResultSet checkMitarbeiterInBereich = Connection
 					.executeQueryStatement("SELECT * FROM Bereich WHERE Leiter='"
@@ -1062,8 +1041,8 @@ public class Mitarbeiter {
 
 			// IN Arbeitsgruppe pr�fen!
 
-			System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"
-					+ this.benutzername + "'");
+		//	System.out.println("SELECT * FROM Arbeitsgruppe WHERE Leiter='"
+			//		+ this.benutzername + "'");
 
 			ResultSet checkMitarbeiterInArbeitsgruppe = Connection
 					.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE Leiter='"
@@ -1080,9 +1059,9 @@ public class Mitarbeiter {
 					&& darfdeletedWerdenArbeitsgruppe == true) {
 				if (aktuellerStatus == true) {
 
-					System.out
-							.println("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"
-									+ this.benutzername + "'");
+				//	System.out
+				//			.println("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"
+				//					+ this.benutzername + "'");
 
 					int rowsAffect = RemoteConnection.sql
 							.executeUpdate("UPDATE Mitarbeiter SET Aktiv ='0' WHERE Benutzername='"
@@ -1112,9 +1091,9 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * schaut ob der Mitarbeiter aktiv ist, im Sinne von nicht gel�scht
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert den aktuellen Status des Mitarbeiters.
+	 * @return boolean (true = aktiv, false= wird als gelöscht angezeigt)
 	 */
 	public boolean getAktiv() {
 
@@ -1122,9 +1101,9 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * holt den Nachnamen
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert den Nachnamen des gewählten Mitarbeiters
+	 * @return String nachname
 	 */
 	public String getNachname() {
 
@@ -1132,7 +1111,9 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * Gibt kompletten Namen aus
+	 * @author Phil
+	 * Methode liefert den Vornamen und Nachnamen des gewählten Mitarbeiters in einem String.
+	 * @return String vollerName
 	 */
 	public String getFullName() {
 		String fullname = this.vorname + " " + this.nachname;
@@ -1140,10 +1121,10 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * wei�t Nachnamen zu
-	 * 
+	 * @author Phil
+	 * Methode ändert den Nachnamen des gewählten Mitarbeiters.
 	 * @param nachname
-	 * @return
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setNachname(String nachname) {
 		boolean erfolgreich = false;
@@ -1174,9 +1155,9 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * holt den Vornamen
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert den Vornamen des gewählten Mitarbeiters.
+	 * @return String vorname
 	 */
 	public String getVorname() {
 
@@ -1184,10 +1165,10 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * wei�t den Vornamen zu
-	 * 
-	 * @param vorname
-	 * @return
+	 * @author Phil
+	 * Methode ändert den Vornamen des gewählten Mitarbeiters
+	 * @param String vorname
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setVorname(String vorname) {
 		boolean erfolgreich = false;
@@ -1218,19 +1199,19 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * holt den letzten Login
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert den letzten Login des gewählten Mitarbeiters.
+	 * @return String letzterLogin
 	 */
 	public String getLogin() {
 		return this.letzterLogin;
 	}
 
 	/**
-	 * schaut ob der Mitarbeiter das ben�tigte Recht hat
-	 * 
-	 * @param recht
-	 * @return
+	 * @author Phil
+	 * Methode prüft ob Mitarbeiter das nötige Recht hat, auf etwas zuzugreifen.
+	 * @param String recht
+	 * @return boolean (hat das Recht=true, sonst =false)
 	 */
 	public boolean checkRecht(String recht) {
 		boolean erfolgreich = false;
@@ -1252,6 +1233,13 @@ public class Mitarbeiter {
 
 	}
 
+	/**
+	 * @author Phil
+	 * Methode ist eine Volltextsuche durch alle Mitarbeiter in der Datenbank, bei denen der Suchbegriff enthalten ist.
+	 * @param String suchbegriff
+	 * @param String suchdomain (zusätzlich mit Einschränkung der Rolle [Gruppenleiter oder Bereichsleiter])
+	 * @return Collection<Mitarbeiter> alleMitarbeiterMitSuchbegriff
+	 */
 	public static Collection<Mitarbeiter> suche(String suchbegriff,
 			String suchdomain) {
 
@@ -1300,11 +1288,10 @@ public class Mitarbeiter {
 		}
 		return result;
 	}
-
 	/**
-	 * Gibt alle mitarbeiter zur�ck
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert alle Mitarbeiter aus der Datenbank.
+	 * @return Collection<Mitarbeiter> alleMitarbeiterAusDatenbank
 	 */
 	public static Collection<Mitarbeiter> getAlleMitarbeiter() {
 		Collection<Mitarbeiter> result = new LinkedList<>();
@@ -1337,9 +1324,9 @@ public class Mitarbeiter {
 	}
 
 	/**
-	 * Liefert ergebnis ob Passwort schon geändert wurde
-	 * 
-	 * @return
+	 * @author Phil
+	 * Methode liefert boolean ob das Initialpasswort schon geändert wurde.
+	 * @return boolean (true wenn Passwort bereits geändert wurde, sonst false)
 	 */
 	public boolean passwortIsChanged() {
 		boolean erfolgreich = false;
@@ -1359,7 +1346,11 @@ public class Mitarbeiter {
 		}
 		return erfolgreich;
 	}
-
+	/**
+	 * @author Phil
+	 * Methode liefert den Bereich des gewählten Mitarbeiters.
+	 * @return Bereich bereich
+	 */
 	public Bereich getBereich() {
 		if (this.bereich != null)
 			return this.bereich;

@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package fallstudie.model.impl;
 
 import java.sql.ResultSet;
@@ -8,11 +6,11 @@ import java.sql.SQLException;
 
 import fallstudie.model.mysql.connector.RemoteConnection;
 
-/** CHANGELOG
- * @author Phil, 09.10.2013
- * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht möglich ist im Interface
- * @version 1.0 Attribute erg�nzt
- * 
+/** 
+ * @author Phil
+ * @date 09.10.2013
+ * @change Klasse erstellt und Attribute ergänzt
+ * @version 1.0
  * @author Phil
  * @date 14.10.2013
  * @version 1.1
@@ -28,9 +26,9 @@ public class Rechte {
 	//-----------------------------------------------------------
 	
 	/**
-	 * Konstruktor durch �bergabe vom Recht
-	 * @param Name
-	 * @return
+	 * @author Phil
+	 * Methode liefert ein Rechtsobjekt anhand des Namens aus der Datenbank.
+	 * @param String name
 	 */
 	public Rechte(String name) {
 		RemoteConnection Connection = new RemoteConnection();
@@ -62,7 +60,12 @@ public class Rechte {
 
 			
 		}
-	
+	/**
+	 * @author Phil
+	 * Methode erzeugt ein Rechteobjekt anhand der Übergabeparameter
+	 * @param String name
+	 * @param String beschreibung
+	 */
 	public Rechte(String name, String beschreibung){
 		this.name = name;
 		this.beschreibung = beschreibung;
@@ -71,11 +74,20 @@ public class Rechte {
 	//-----------------------------------------------------------
 	//---------------------KONSTRUKTOR-------------------------
 	//-----------------------------------------------------------
+	/**
+	 * @author Phil
+	 * Methode liefert den Namen des Rechts
+	 * @return String name
+	 */
 	public String getName() {
 		return this.name;
 	}
 
-	
+	/**
+	 * @author Phil
+	 * Methode liefert die Beschreibung des Rechts
+	 * @return
+	 */
 	public String getBeschreibung() {
 		return this.beschreibung;
 	}

@@ -7,16 +7,14 @@ import java.util.LinkedList;
 
 import fallstudie.model.mysql.connector.RemoteConnection;
 
-/** CHANGELOG
+/** 
  * @author Phil, 09.10.2013
- * generiert + implements (Interface) wurde entfernt, da Konstruktor nicht m�glich ist im Interface
- * @author variablen eingef�gt
- * @autor Phil
- * @date 11.10.2013
+ * @change Klasse erstellt und Variablen erstellt.
+ * @version 1.0
  * @author Jenny
  * @date 14.10.13
  * @change Methoden implementiert
- * @version 1.1 - aktualisiert mit technisches Db modell
+ * @version 1.1
  */
 public class Jahresuebersicht {
 	
@@ -28,11 +26,10 @@ public class Jahresuebersicht {
 	//---------------------KONSTRUKTOREN-------------------------
 	//-----------------------------------------------------------
 	/**
-	 * Konstruktor beim auslesen von Jahres�bersichten einer bestimmten arbeitsgruppe
-	 * @param kalenderjahr
-	 * @param Arbeitsgruppe
-	 * @return 
-	 * @return
+	 * @author Jenny
+	 * Methode liefert zum Kalenderjahr und einer Arbeitsgruppe die Jahresübersicht aus der Datenbank.
+	 * @param int kalenderjahr
+	 * @param Arbeitsgruppe arbeitsgruppe
 	 */
 	public Jahresuebersicht(int kalenderjahr,
 			Arbeitsgruppe arbeitsgruppe) {
@@ -85,11 +82,10 @@ public class Jahresuebersicht {
 	}
 
 	/**
-	 * Konstruktor beim auslesen von Jahres�bersichten eines ganzen Bereichs	
-	 * @param kalenderjahr
-	 * @param Bereich
-	 * @return 
-	 * @return
+	 * @author Jenny
+	 * Methode liefert zum Kalenderjahr und einem Bereich die Jahresübersicht aus der Datenbank. 
+	 * @param int kalenderjahr
+	 * @param Bereich bereich
 	 */
 	public Jahresuebersicht(int kalenderjahr, Bereich bereich) {
 		
@@ -142,10 +138,10 @@ public class Jahresuebersicht {
 		
 	}
 	/**
-	 * Gibt eine Collection von Jahresübersichten zu Bereichen
-	 * Für den Zentralbereichsleiter+ Fachbereichsorganisation komplette Übersicht zu allen Bereichen
-	 * @param jahr
-	 * @return
+	 * @author Phil
+	 * Methode liefert zu einem Kalenderjahr alle Jahresübersichten zu allen Bereichen.
+	 * @param int jahr
+	 * @return UebersichtSchnittstellenKlasse (enthält Collection<Jahresuebersicht> alleJahresuebersichten und andere Attribute)
 	 */
 	public static UebersichtSchnittstellenKlasse getAlleJahresuebersichtenZuAllenBereichen(int jahr)
 	{
@@ -164,7 +160,7 @@ public class Jahresuebersicht {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		
-		System.out.println("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
+		//System.out.println("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
 		
 		try {
 			ResultSet jahresUebersicht = Connection.executeQueryStatement("SELECT DISTINCT Bereich FROM Jahresuebersicht WHERE Kalenderjahr='"+jahr+"'");
@@ -192,13 +188,12 @@ public class Jahresuebersicht {
 		
 	}
 	/**
-	 * Liefert für den Bereichsleiter eine Übersicht des Bereichs mit allen Arbeitsgruppen
-	 * @param jahr
-	 * @param bereich
-	 * @return
+	 * @author Phil
+	 * Methode liefert zu einem Kalenderjahr alle Jahresübersichten zu einem Bereichen.
+	 * @param int jahr
+	 * @return UebersichtSchnittstellenKlasse (enthält Collection<Jahresuebersicht> alleArbeitsgruppenZumBereich und andere Attribute)
 	 */
-	public static UebersichtSchnittstellenKlasse getAlleJahresuebersichtenZumBereich(int jahr, Bereich bereich)
-	{
+	public static UebersichtSchnittstellenKlasse getAlleJahresuebersichtenZumBereich(int jahr, Bereich bereich) {
 		RemoteConnection Connection = new RemoteConnection();
 		Collection<Jahresuebersicht> alleJahresuebersichten = new LinkedList<>();
 		UebersichtSchnittstellenKlasse us = new UebersichtSchnittstellenKlasse();
@@ -249,30 +244,37 @@ public class Jahresuebersicht {
 	
 	
 	/**
-	 * Kalenderjahr erhalten
-	 * @return
+	 * @author Jenny
+	 * Methode liefert Kalenderjahr der gewählten Jahresübersicht.
+	 * @return int kalenderjahr
 	 */
 	public int getKalenderjahr() {
 		return this.kalenderjahr;
 	}
 
 	/**
-	 * Bereich der Jahresuebersicht
-	 * @return
+	 * @author Jenny
+	 * Methode liefert den Bereich zur Jahresübersicht.
+	 * @return Bereich bereich
 	 */
 	public Bereich getBereich() {
 		return this.bereich;
 	}
 
 	/**
-	 * Arbeitsgruppe der Jahresuebersicht
-	 * @return
+	 * @author Jenny
+	 * Methode liefert die Arbeitsgruppe zur Jahresübersicht.
+	 * @return Arbeitsgruppe arbeitsgruppe
 	 */
 	public Arbeitsgruppe getArbeitsgruppe() {
 		return this.arbeitsgruppe;
 	}
-	
-	public Collection<Zeile> getZeileArbeitsgruppe() throws Exception
+	/**
+	 * @author Phil
+	 * Methode liefert alle Zeilen aus der Tabelle in der Datenbank, für die es Jahresübersichten zu Arbeitsgruppen gibt.
+	 * @return Collection<Zeile> alleZeilenzurArbeitsgruppe
+	 */
+	public Collection<Zeile> getZeileArbeitsgruppe()
 	{
 		
 		//Collection Zeile zu Uebersicht
@@ -317,9 +319,9 @@ public class Jahresuebersicht {
 		
 	}
 	/**
-	 * Alle Zeilen einer Jahresuebersicht wenn man nach einem Bereich sucht Jahresuebersicht(bereich)
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode liefert alle Zeilen aus der Tabelle in der Datenbank, für die es Jahresübersichten zu Bereichen gibt.
+	 * @return Collection<Zeile> alleZeilenzuBereichen
 	 */
 	public Collection<Zeile> getZeileBereich() throws Exception
 	{

@@ -61,7 +61,7 @@ public class Art {
 						
 					if (inaktiv == false) 
 					{
-						System.out.println("UPDATE Art SET Aktiv ='1' WHERE Name='"+this.name+"'");
+						//System.out.println("UPDATE Art SET Aktiv ='1' WHERE Name='"+this.name+"'");
 						int RowsAffect = RemoteConnection.sql.executeUpdate(
 								"UPDATE Art SET Aktiv ='1' WHERE Name='"+this.name+"'");
 									
@@ -218,7 +218,7 @@ public class Art {
 				int RowsAffect = RemoteConnection.sql.executeUpdate(
 				"UPDATE Art SET Aktiv ='0' WHERE Name='"+this.name+"'");
 				
-				if (RowsAffect==1)System.out.println("Es wurde "+RowsAffect+" Datensatz gelöscht.");erfolgreich=true;
+				if (RowsAffect==1) erfolgreich=true;
 			}
 			if(aktuellerStatus==false)
 			{

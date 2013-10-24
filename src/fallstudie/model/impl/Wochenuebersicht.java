@@ -7,16 +7,17 @@ import java.util.LinkedList;
 
 import fallstudie.model.mysql.connector.RemoteConnection;
 
-/**
- * CHANGELOG
- * 
- * @author Phil, 09.10.2013 generiert + implements (Interface) wurde entfernt,
- *         da Konstruktor nicht m�glich ist im Interface
+/** 
+ * @author Phil
+ * @date 09.10.2013
+ * @change Klasse erstellt und Attribute ergänzt
+ * @version 1.0
  * @author Jenny
- * @date 14.10.13
+ * @date 14.10.2013
+ * @version 1.1
  * @change Methoden implementiert
- * @version 1.1 - aktualisiert mit technisches Db modell
  */
+
 public class Wochenuebersicht {
 
 	private int kalenderjahr;
@@ -28,13 +29,11 @@ public class Wochenuebersicht {
 	// ---------------------KONSTRUKTOREN-------------------------
 	// -----------------------------------------------------------
 	/**
-	 * Konstruktor beim auslesen von Wochenuebersichten einer arbeitsgruppe
-	 * 
-	 * @param kalenderjahr
-	 * @param kalenderwoche
-	 * @param arbeitsgruppe
-	 * @return
-	 * @return
+	 * @author Jenny
+	 * Methode liefert zum Kalenderjahr und einer Kalenderwoche und einer Arbeitsgruppe die Wochenübersicht aus der Datenbank.
+	 * @param int kalenderjahr
+	 * @param int kalenderwoche
+	 * @param Arbeitsgruppe arbeitsgruppe
 	 */
 	public Wochenuebersicht(int kalenderjahr, int kalenderwoche,
 			Arbeitsgruppe arbeitsgruppe) {
@@ -80,17 +79,14 @@ public class Wochenuebersicht {
 		}
 
 	}
-
 	/**
-	 * Konstruktor beim auslesen von Wochenuebersichten eines Bereichs
-	 * 
-	 * @param kalenderjahr
-	 * @param kalenderwoche
-	 * @param Bereich
-	 * @return
+	 * @author Jenny
+	 * Methode liefert zum Kalenderjahr und der Kalenderwoche und einem Bereich die Wochenübersicht aus der Datenbank. 
+	 * @param int kalenderjahr
+	 * @param int kalenderwoche
+	 * @param Bereich bereich
 	 */
 	public Wochenuebersicht(int kalenderjahr, int kalenderwoche, Bereich bereich) {
-		// TODO Auto-generated method stub
 		RemoteConnection Connection = new RemoteConnection();
 
 		try {
@@ -136,23 +132,43 @@ public class Wochenuebersicht {
 	// -----------------------------------------------------------
 	// ---------------------KONSTRUKTOREN-------------------------
 	// -----------------------------------------------------------
-
+	/**
+	 * @author Jenny
+	 * Methode liefert Kalenderjahr der gewählten Übersicht.
+	 * @return int kalenderjahr
+	 */
 	public int getKalenderjahr() {
 		return this.kalenderjahr;
 	}
-
+	/**
+	 * @author Jenny
+	 * Methode liefert Kalendewoche der gewählten Übersicht.
+	 * @return int kalenderwoche
+	 */
 	public int getKalenderwoche() {
 		return this.kalenderwoche;
 	}
-
+	/**
+	 * @author Jenny
+	 * Methode liefert Bereich der gewählten Übersicht
+	 * @return Bereich bereich
+	 */
 	public Bereich getBereich() {
 		return this.bereich;
 	}
-
+	/**
+	 * @author Jenny
+	 * Methode liefert Arbeitsgruppe der gewählten Übersicht.
+	 * @return Arbeitsgruppe arbeitsgruppe
+	 */
 	public Arbeitsgruppe getArbeitsgruppe() {
 		return this.arbeitsgruppe;
 	}
-
+	/**
+	 * @author Phil
+	 * Methode liefert alle Zeilen aus der Tabelle in der Datenbank, für die es Wochenübersichten zur Arbeitsgruppe gibt.
+	 * @return Collection<Zeile> alleZeilenzurArbeitsgruppe
+	 */
 	public Collection<Zeile> getZeileArbeitsgruppe() throws Exception {
 
 		// Collection Zeile zu Uebersicht
@@ -202,11 +218,9 @@ public class Wochenuebersicht {
 	}
 
 	/**
-	 * Alle Zeilen einer Jahresuebersicht wenn man nach einem Bereich sucht
-	 * Jahresuebersicht(bereich)
-	 * 
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode liefert alle Zeilen aus der Tabelle in der Datenbank, für die es Jahresübersichten zum Bereich gibt.
+	 * @return Collection<Zeile> alleZeilenzumBereich
 	 */
 	public Collection<Zeile> getZeileBereich() throws Exception {
 
@@ -257,12 +271,11 @@ public class Wochenuebersicht {
 	}
 
 	/**
-	 * Liefert alle Wochenuebersichten zu allen Bereichen,
-	 * 
-	 * @param jahr
-	 * @param woche
-	 * @return Collection von Wochenuebersichten welche einem Bereich zugeordnet
-	 *         sind
+	 * @author Phil
+	 * Methode liefert zu einem Kalenderjahr und einer Kalenderwoche alle Wochenübersichten zu allen Bereichen.
+	 * @param int jahr
+	 * @param int woche
+	 * @return UebersichtSchnittstellenKlasse (enthält Collection<Wochenübersicht> alleWochenübersichtens und andere Attribute)
 	 */
 	public static UebersichtSchnittstellenKlasse getAlleWochenuebersichtenZuAllenBereichen(
 			int jahr, int woche) {
@@ -314,13 +327,12 @@ public class Wochenuebersicht {
 	}
 
 	/**
-	 * Liefert für den Bereichsleiter eine Übersicht aller Wochenübersichten
-	 * eines Bereichs(ale Arbitsgruppen)
-	 * 
-	 * @param jahr
-	 * @param woche
-	 * @param bereich
-	 * @return
+	 * @author Phil
+	 * Methode liefert zu einem Kalenderjahr und einer Kalenderwoche alle Wochenübersichten zu einem bestimmten Bereichen.
+	 * @param int jahr
+	 * @param int woche
+	 * @param Bereich bereich
+	 * @return UebersichtSchnittstellenKlasse (enthält Collection<Wochenübersicht> alleWochenübersichtens und andere Attribute)
 	 */
 	public static UebersichtSchnittstellenKlasse getAlleWochenuebersichtenZumBereich(
 			int jahr, int woche, Bereich bereich) {

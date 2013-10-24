@@ -6,17 +6,19 @@ import java.sql.SQLException;
 
 import fallstudie.model.mysql.connector.RemoteConnection;
 /**
- * @date 14.10.2013 - Erstellt und IMplementiert
  * @author Phil
- *
+ * @date 14.10.2013 -
+ * @change Erstellt und Implementiert
+ * @version 1.0
  */
 public class Konfig {
 	
 	/**
-	 * Ändert das Jobintervall, Standard ist 3= 3 Monate
-	 * @param intervall MONATSANGABE
-	 * @return
-	 * @throws Exception
+	 * @author Phil
+	 * Methode ändert das Zeitintervall für das Löschen von Einträgen von Sachbearbeitern aus der Datenbank.
+	 * @param int intervall (als Monatsangabe)
+	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
+	 * @throws Exception, falls das UPDATE in der Datenbak nicht erfolgreich war.
 	 */
 	public static boolean setJobIntervall(int intervall) throws Exception
 	{	
@@ -37,15 +39,15 @@ public class Konfig {
 		int rowsAffect = RemoteConnection.sql.executeUpdate("UPDATE Config SET Jobintervall='"+intervall+"'");
 		
 		if (rowsAffect==1)erfolgreich =true;
-		if (rowsAffect==0)throw new Exception("Datensatz konnte nicht gespeichert werden!");
+		if (rowsAffect==0)throw new Exception("Datensatz konnte nicht gespeichert werden.");
 		return erfolgreich;
 		
 		
 	}
 	/**
-	 * Returnt das JobIntervall
-	 * @return
-	 * @throws SQLException
+	 * @author Phil
+	 * Methode liefert das aktuelle Jobintervall aus der Datenbank
+	 * @return String jobIntervall
 	 */
 	public static String getJobIntervall()
 	{	RemoteConnection Connection = new RemoteConnection();

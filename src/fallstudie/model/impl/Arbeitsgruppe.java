@@ -36,7 +36,7 @@ public class Arbeitsgruppe {
 	 * @param beschreibung
 	 * @param bereich
 	 * @param leiter
-	 * @throws Exception
+	 * @throws Exception, wenn keine Kurzbezeichnung angegeben wurde oder die Arbeitsgruppe schon existiert.
 	 */
 	public Arbeitsgruppe(String kurzbezeichnung, String beschreibung,
 			Bereich bereich, Mitarbeiter leiter) throws Exception {
@@ -320,9 +320,8 @@ public class Arbeitsgruppe {
 	 * Methode zum ändern der Kurzbezeichnung der gewählten Arbeitsgruppe.
 	 * @param kurzbezeichnung
 	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
-	 * @throws Exception
 	 */
-	public boolean setKurzbezeichnung(String kurzbezeichnung) throws Exception {
+	public boolean setKurzbezeichnung(String kurzbezeichnung){
 		RemoteConnection Connection = new RemoteConnection();
 		
 		boolean erfolgreich = true;
@@ -332,15 +331,16 @@ public class Arbeitsgruppe {
 				{
 					erfolgreich=false;
 				}
-				
+				//System.out.println("SELECT ArbeitsgruppeID From Arbeitsgruppe WHERE Aktiv=1 AND Kurzbezeichnung='"+kurzbezeichnung+"'");
 				//Prüfung auf Redundanz der Kurzbezeichnung der Arbeitsgruppe
 				ResultSet checkObVorhanden = Connection
-						.executeQueryStatement("SELECT ArbeitsgruppeID From Arbeitsgruppe WHERE Aktiv=1 AND Kurzbezeichnung='"+this.kurzbezeichnung+"'");
+						.executeQueryStatement("SELECT ArbeitsgruppeID From Arbeitsgruppe WHERE Aktiv=1 AND Kurzbezeichnung='"+kurzbezeichnung+"'");
 	
 				while (checkObVorhanden.next()) 
 				{	
 					//Bekommt die Kurzbezeichnung aus dem Resultset
 					int ID = checkObVorhanden.getInt("ArbeitsgruppeID");
+					//System.out.println("ID: "+ID+"Aktuelle: "+this.arbeitsgruppeID);
 					//Prüfung auf gleichheit
 					if (this.arbeitsgruppeID==ID)
 					{
@@ -364,6 +364,7 @@ public class Arbeitsgruppe {
 									+ kurzbezeichnung
 									+ "' WHERE ArbeitsgruppeID='"
 									+ this.arbeitsgruppeID + "'");
+					this.kurzbezeichnung=kurzbezeichnung;
 				}
 
 		
@@ -461,9 +462,9 @@ public class Arbeitsgruppe {
 								+ leiter.getBenutzername()
 								+ "' WHERE ArbeitsgruppeID='"
 								+ this.arbeitsgruppeID + "'");
-				System.out.println("UPDATE Mitarbeiter SET Arbeitsgruppe='"
-						+ this.arbeitsgruppeID + "' WHERE Benutzername='"
-						+ leiter.getBenutzername() + "'");
+				//System.out.println("UPDATE Mitarbeiter SET Arbeitsgruppe='"
+					//	+ this.arbeitsgruppeID + "' WHERE Benutzername='"
+						//+ leiter.getBenutzername() + "'");
 				RemoteConnection.sql
 						.executeUpdate("UPDATE Mitarbeiter SET Arbeitsgruppe='"
 								+ this.arbeitsgruppeID
@@ -473,9 +474,9 @@ public class Arbeitsgruppe {
 				this.leiter = leiter;
 
 			} else if (leiter == null) {
-				System.out
-						.println("UPDATE Arbeitsgruppe SET Leiter=NULL WHERE ArbeitsgruppeID='"
-								+ this.arbeitsgruppeID + "'");
+				//System.out
+					//	.println("UPDATE Arbeitsgruppe SET Leiter=NULL WHERE ArbeitsgruppeID='"
+						//		+ this.arbeitsgruppeID + "'");
 
 				RemoteConnection.sql
 						.executeUpdate("UPDATE Arbeitsgruppe SET Leiter=NULL WHERE ArbeitsgruppeID='"
@@ -580,9 +581,9 @@ public class Arbeitsgruppe {
 				// Erst fragen ob kein Leiter mehr da ist.
 				if (darfDeleteLeiter == true && darfDeleteMitarbeiter == true) {
 
-					System.out
-							.println("UPDATE Arbeitsgruppe SET Aktiv='0' WHERE ArbeitsgruppeID='"
-									+ this.arbeitsgruppeID + "'");
+				//	System.out
+					//		.println("UPDATE Arbeitsgruppe SET Aktiv='0' WHERE ArbeitsgruppeID='"
+						//			+ this.arbeitsgruppeID + "'");
 
 					int RowsAffect = RemoteConnection.sql
 							.executeUpdate("UPDATE Arbeitsgruppe SET Aktiv ='0' WHERE ArbeitsgruppeID='"

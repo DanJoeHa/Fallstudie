@@ -16,7 +16,8 @@ public class Zeile {
 	
 	
 	/**
-	 * Konstruktor f�r die Zeile einer Woche/Jahresuebersicht
+	 * @author Jenny
+	 * Methode instanziiert Zeilenobjekt durch übergabe einer Summe und einer Art einer Übersichtszeile aus der Datenbank.
 	 * @param summe
 	 * @param art
 	 */
@@ -25,12 +26,20 @@ public class Zeile {
 		this.art = art;
 		this.summe = summe;
 	}
-	
+	/**
+	 * @author Jenny
+	 * Methode liefert Art der gewählten Zeile.
+	 * @return Art art
+	 */
 	public Art getArt() {
 		
 		return this.art;
 	}
-	
+	/**
+	 * @author Jenny
+	 * Methode liefert Summe der gewählten Zeile
+	 * @return int summe
+	 */
 	public int getSumme() {
 		
 		return this.summe;
