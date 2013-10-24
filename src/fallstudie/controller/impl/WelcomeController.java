@@ -21,66 +21,76 @@ public class WelcomeController implements Controller {
 		String msg = headline + ", \n \n bitte wählen Sie eine Aktion im Menübaum.";
 		this.view.setHinweis(msg);
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {}
-
+	/**
+	 * Gibt View zurück
+	 */
 	@Override
 	public View getView() {
 		return this.view;
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void fortsetzen() {
-		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
