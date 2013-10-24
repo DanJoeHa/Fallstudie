@@ -122,14 +122,18 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		
 	}
 
-	@Override
+	/**
+	 * Setzt Controller
+	 */
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);
 		this.B_SucheArbeitsgruppe.addActionListener(c);
 		this.B_Zuruecksetzen.addActionListener(c);
 	}
 
-	@Override
+	/**
+	 * Setzt Textfelder zurück
+	 */
 	public void reset() {
 		this.T_Arbeitsgruppe.setText("");
 		this.T_Passwort1.setText("");
@@ -138,30 +142,51 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		this.T_Vorname.setText("");
 	}
 	
+	/**
+	 * Füllt AuswahlBox mit Rollen
+	 * @param rollen
+	 */
 	public void setRolle(String[] rollen){
 		for( int i = 0; i < rollen.length; i++){
 			this.C_Rolle.addItem( rollen[i] );
 		}
 	}
-	
+	/**
+	 * Füllt AuswahlBox mit Bereichen
+	 * @param bereiche
+	 */
 	public void setBereich(String[] bereiche){
 		for( int i = 0; i < bereiche.length; i++){
 			this.C_Bereich.addItem( bereiche[i] );
 		}
 	}
 	
+	/**
+	 * Gibt ausgewählte Rolle aus der AuswahlBox zurück
+	 * @return Rolle
+	 */
 	public String getRolle(){
 		return C_Rolle.getSelectedItem().toString();
 	}
 	
-	
+	/**
+	 * Gibt ausgewählten Bereich aus der AuswahlBox zurück
+	 * @return Bereich
+	 */
 	public String getBereich(){
 		return C_Bereich.getSelectedItem().toString();
 	}
-	
+	/**
+	 * Gibt Arbeitsgruppe zurück
+	 * @return Arbeitsgruppe
+	 */
 	public String getArbeitsgruppe(){
 		return T_Arbeitsgruppe.getText();
 	}
+	/**
+	 * Füllt Textfeld der Arbeitsgruppe
+	 * @param arbeitsgruppe
+	 */
 	public void setArbeitsgruppe(String arbeitsgruppe)
 	{
 		T_Arbeitsgruppe.setText(arbeitsgruppe);
