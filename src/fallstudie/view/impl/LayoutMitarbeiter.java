@@ -140,31 +140,55 @@ public class LayoutMitarbeiter extends JPanel implements View{
 	    });
 		
 	}
-	
+	/**
+	 * Textfeld Vorname füllen
+	 * @param vorname
+	 */
 	public void setVorname(String vorname)
 	{
 		T_Vorname.setText(vorname);
 	}
-	
+	/**
+	 * Textfeld Nachname füllen
+	 * @param nachname
+	 */
 	public void setNachname(String nachname)
 	{
 		T_Nachname.setText(nachname);
 	}
+	/**
+	 * Textfeld Benutzername füllen
+	 * @param benutzername
+	 */
 	public void setBenutzername(String benutzername)
 	{
 		T_Benutzername.setText(benutzername);
 	}
-	
+	/**
+	 * Gibt Inhalt des Textfeld Vorname zurück
+	 * @return Vorname
+	 */
 	public String getVorname(){
 		return T_Vorname.getText();
 	}
+	/**
+	 * Gibt Inhalt des Textfeld Nachname zurück
+	 * @return Nachname
+	 */
 	public String getNachname(){
 		return T_Nachname.getText();
 	}
+	/**
+	 * Gibt Inhalt des Textfeld Benutzername zurück
+	 * @return Benutzername
+	 */
 	public String getBenutzername(){
 		return T_Benutzername.getText();
 	}
-
+	/**
+	 * Gibt Inhalt des Textfeld Passwort zurück
+	 * @return Passwort
+	 */
 	public String getPasswort(){
 		return T_Passwort1.getText();
 	}
