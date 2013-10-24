@@ -24,7 +24,7 @@ public class BereichController implements Controller {
 	private Mitarbeiter gewaehlterMA, oLeiter;
 	private Bereich gewaehlterBereich;
 	public static BestaetigenPopup popup;
-	private boolean isPop=false;
+
 	
 
 	private Collection<Bereich> bereich;
