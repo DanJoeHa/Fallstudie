@@ -39,9 +39,7 @@ public class Arbeitsgruppe {
 	 * @param kurzbezeichnung
 	 * @param beschreibung
 	 * @param bereich
-	 * @param mitarbeiter
-	 * @return
-	 * @return
+	 * @param leiter
 	 * @throws Exception
 	 */
 	public Arbeitsgruppe(String kurzbezeichnung, String beschreibung,
@@ -393,7 +391,7 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode �ndert Bereich der arbeitsgruppe
+	 * Methode ändert Bereich der Arbeitsgruppe
 	 * 
 	 * @param bereich
 	 * @return
@@ -446,9 +444,7 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode �ndert Leiter der ARbeitsgruppe, �bergeben wird ein
-	 * Mitarbeiterobjekt
-	 * 
+	 * Methode ändert den Leiter einer Arbeitsgruppe.
 	 * @param leiter
 	 * @return boolean ob erfolgreich
 	 * @throws Exception
@@ -457,26 +453,25 @@ public class Arbeitsgruppe {
 		boolean erfolgreich = false;
 
 		try {
-
+			//Falls der Übergebene Leiter nicht 
 			if (!(leiter == null)) {
 
-				String neuerLeiterBenutzername = leiter.getBenutzername();
-				System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"
-						+ neuerLeiterBenutzername + "' WHERE ArbeitsgruppeID='"
-						+ this.arbeitsgruppeID + "'");
+				//System.out.println("UPDATE Arbeitsgruppe SET Leiter ='"
+					//	+ leiter.getBenutzername() + "' WHERE ArbeitsgruppeID='"
+					//	+ this.arbeitsgruppeID + "'");
 				RemoteConnection.sql
 						.executeUpdate("UPDATE Arbeitsgruppe SET Leiter ='"
-								+ neuerLeiterBenutzername
+								+ leiter.getBenutzername()
 								+ "' WHERE ArbeitsgruppeID='"
 								+ this.arbeitsgruppeID + "'");
 				System.out.println("UPDATE Mitarbeiter SET Arbeitsgruppe='"
 						+ this.arbeitsgruppeID + "' WHERE Benutzername='"
-						+ neuerLeiterBenutzername + "'");
+						+ leiter.getBenutzername() + "'");
 				RemoteConnection.sql
 						.executeUpdate("UPDATE Mitarbeiter SET Arbeitsgruppe='"
 								+ this.arbeitsgruppeID
 								+ "' WHERE Benutzername='"
-								+ neuerLeiterBenutzername + "'");
+								+ leiter.getBenutzername() + "'");
 				erfolgreich = true;
 				this.leiter = leiter;
 
@@ -492,7 +487,7 @@ public class Arbeitsgruppe {
 				this.leiter = null;
 			}
 		} catch (SQLException e) {
-			System.err.println("fehler in setLeiter");
+			System.err.println("fehler in setLeiter Arbeitsgruppe");
 			System.err.println(e.getMessage());
 		}
 
@@ -500,17 +495,17 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode liefert Leiter der Arbeitsgruppe anhand des Benutzernamens der in
-	 * der Tabelle Mitarbeiter generiert wird
-	 * 
-	 * @return
+	 * Methode liefert gibt Leiter der Arbeitsgruppe zurück
+	 * @return Mitarbeiter
 	 */
 	public Mitarbeiter getLeiter() {
 
 		try {
+			//Wenn der aktuelle Leiter schon gesetzt ist, wird dieser zurückgegeben
 			if (this.leiter != null) {
 				return this.leiter;
 			}
+			//Wenn der aktuelle Leitername nicht leer ist (wird beim Instanziieren gesetzt)
 			if (this.leiterBenutzername != null) {
 				// System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername ='"+this.leiterBenutzername+"'");
 				ResultSet mitarbeiterResult = RemoteConnection.sql
@@ -520,8 +515,11 @@ public class Arbeitsgruppe {
 				mitarbeiterResult.next();
 
 				this.leiter = new Mitarbeiter(mitarbeiterResult);
-				;
-			} else {
+				
+			} 
+			//Wenn der aktuelle Leiter leer ist, wird NULL geliefert
+			else 
+			{
 				this.leiter = null;
 			}
 		} catch (SQLException e) {
@@ -533,23 +531,23 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * Methode l�scht die Arbeitsgruppe -> wird auf Inaktiv gesetzt in der DB
-	 * 
+	 * Methode zum löschen einer Arbeitsgruppe
 	 * @return
 	 * @throws Exception
 	 */
 	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
+		//Boolean zum Abfragen ob in der DB noch zusammenhänge bestehen
 		boolean aktuellerStatus = this.aktiv;
-
 		boolean darfDeleteLeiter = false;
 		boolean darfDeleteMitarbeiter = false;
+		
 		RemoteConnection Connection = new RemoteConnection();
-
+		//Wenn der aktuelle Status = 1
 		if (aktuellerStatus == true) {
 			try {
 				// System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"+this.arbeitsgruppeID+"'");
-
+				
 				ResultSet checkLeiter = Connection
 						.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID='"
 								+ this.arbeitsgruppeID + "'");
@@ -560,6 +558,7 @@ public class Arbeitsgruppe {
 				if (checkLeiter.next()) {
 					darfDeleteLeiter = false;
 				}
+				
 				// System.out.println("SELECT * FROM Mitarbeiter WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
 
 				ResultSet mitarbeiterdrancheck = Connection
