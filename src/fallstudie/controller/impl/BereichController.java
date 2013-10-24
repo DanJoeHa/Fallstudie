@@ -415,37 +415,20 @@ public class BereichController implements Controller {
 					this.operation = "anlegen";
 				}
 			}
-			if(this.operation=="bearbeiten"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER && isPop == false)
+			if(e.getKeyCode() == KeyEvent.VK_ENTER){
+				if (this.viewLoesch.hatFocus() == "buttonLoeschen")
 				{
 					bearbeitenButton();
-					isPop = true;
-					this.operation = "buttonBearbeiten";
-					popup.setVisible(false);
 				}
-			}
-			if(this.operation=="buttonBearbeiten"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER)
-				{
+				else if(this.view.hatFocus() == "buttonSpeichern"){
 					anlegenBearbeitenPopup();
-					isPop = true;
-					this.operation = "popupBearbeiten";
 				}
-			}
-			if(this.operation == "popupBearbeiten"){
-				if ((e.getKeyCode() == KeyEvent.VK_ENTER  && popup.isFocused() == true && popup.hatFocus()== "popupJa" ))
-				{
+				else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
 					bearbeitenBereich();
-					isPop = false;
-					this.operation = "bearbeiten";
 				}
-			}
-			if(this.operation=="popupBearbeiten"){
-				if ((e.getKeyCode() == KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein"))
-				{
+				else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 					popup.setVisible(false);
-					isPop = false;
-					this.operation = "bearbeiten";
+					HauptController.hauptfenster.setInfoBox("");
 				}
 			}
 	}

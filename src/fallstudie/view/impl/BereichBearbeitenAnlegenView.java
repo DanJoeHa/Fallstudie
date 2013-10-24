@@ -1,14 +1,20 @@
 package fallstudie.view.impl;
 
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Font;
+
 import javax.swing.JLabel;
+
 import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
@@ -51,6 +57,21 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		add(B_BereichsleiterSuche);
 		
 	}
+	public String hatFocus(){
+		String ausgabe;
+		if(this.B_Speichern.isFocusOwner()){
+			ausgabe = "buttonSpeichern";
+		}
+		else if(this.T_Kurzbezeichnung.isFocusOwner()){
+			ausgabe =  "kurzbezeichnung";
+		}
+		else if(this.T_Bezeichnung.isFocusOwner()){
+			ausgabe = "bezeichnung";
+		}else{
+			ausgabe = "nichts";
+		}
+		return ausgabe;
+	}
 	
 	public void setLeiter(String benutzerid){
 		this.T_BereichsleiterSuchbegriff.setText(benutzerid);
@@ -68,7 +89,6 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		this.B_Speichern.addKeyListener(c);
 		this.T_Bezeichnung.addKeyListener(c);
 		this.T_Kurzbezeichnung.addKeyListener(c);
-		this.B_Zuruecksetzen.addKeyListener(c);
 	}
 
 	@Override
