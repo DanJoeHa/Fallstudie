@@ -59,7 +59,9 @@ public class LoginController implements Controller, KeyListener
 			HauptController.hauptfenster.createNavTree(HauptController.activeUser.checkRecht("Daten erfassen"), HauptController.activeUser.checkRecht("Lesen"), HauptController.activeUser.checkRecht("Arbeitsgruppe anlegen"), HauptController.activeUser.checkRecht("Eintragsart anlegen"), HauptController.activeUser.checkRecht("Bereich anlegen"), HauptController.activeUser.checkRecht("Mitarbeiter anlegen"), HauptController.activeUser.checkRecht("Jobintervall festlegen"));
 			
 			//LoginInfo setzen
-			HauptController.hauptfenster.setLoginInfo("Eingeloggt als: " + HauptController.activeUser.getBenutzername() + " (" + HauptController.activeUser.getRolle().getRollenbezeichnung() + ")");
+			String rollenbez = HauptController.activeUser.getRolle().getRollenbezeichnung();
+			if( rollenbez.length() > 16 ) rollenbez = rollenbez.substring(0, 16) + ".";
+			HauptController.hauptfenster.setLoginInfo("Eingeloggt als: " + HauptController.activeUser.getBenutzername() + " (" + rollenbez + ")");
 			
 			//Initial-Passwort muss noch geändert werden 
 			if( !HauptController.activeUser.passwortIsChanged() ){
