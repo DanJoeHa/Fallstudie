@@ -238,20 +238,7 @@ public class ArbeitsgruppenController implements Controller {
 			//neue Arbeitsgruppe anlegen
 			if(operation.equals("anlegen"))
 			{
-				try{
-					
-					Arbeitsgruppe neueAG = new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
-					this.gewaehlteAG = neueAG;
-					this.moveLeiter();
-				}
-				catch (Exception e1)
-				{
-					HauptController.hauptfenster.setInfoBox( e1.getMessage() );
-					//ist Mitarbeiter nicht in DB vorhanden
-					if(oLeiter == null){
-						HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
-					}
-				}
+				arbeitsgruppeAnlegenAction();
 			}
 			
 			//Popup ausblenden
@@ -283,6 +270,23 @@ public class ArbeitsgruppenController implements Controller {
 
 			this.suche.setOperation("auswahl");
 			HauptController.hauptfenster.setContent(this.suche.getView());
+		}
+	}
+
+	private void arbeitsgruppeAnlegenAction() {
+		try{
+			
+			Arbeitsgruppe neueAG = new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
+			this.gewaehlteAG = neueAG;
+			this.moveLeiter();
+		}
+		catch (Exception e1)
+		{
+			HauptController.hauptfenster.setInfoBox( e1.getMessage() );
+			//ist Mitarbeiter nicht in DB vorhanden
+			if(oLeiter == null){
+				HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
+			}
 		}
 	}
 	
@@ -390,7 +394,11 @@ public class ArbeitsgruppenController implements Controller {
 	public void keyPressed(KeyEvent e) {}
 
 	@Override
-	public void keyReleased(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode()==KeyEvent.VK_ENTER){
+			arbeitsgruppeAnlegenAction();
+		}
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {}
