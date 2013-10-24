@@ -177,20 +177,31 @@ public class HauptView extends JFrame implements View{
 		this.Navigation.addTreeSelectionListener( this.tl );
 		NavigationBackground.add(this.Navigation);
 	}
-	
+	/**
+	 * Navigationsmenü und Logout Button ausblenden
+	 */
 	public void setLoggedOut(){
 		this.B_Logout.setVisible( false );
 		this.Navigation.setVisible(false);
 	}
-	
+	/**
+	 * aktuelle Überschrift setzen
+	 * @param ueberschrift
+	 */
 	public void setUeberschrift(String ueberschrift){
 		this.L_Ueberschrift.setText( ueberschrift );
 	}
-	
+	/**
+	 * aktuelle Info in die InfoBox schreiben
+	 * @param message
+	 */
 	public void setInfoBox(String message){
 		this.InfoBox.setText( message );
 	}
-	
+	/**
+	 * View setzen
+	 * @param vi
+	 */
 	public void setContent(View vi){
 		
 		JPanel v = (JPanel) vi;
@@ -209,7 +220,10 @@ public class HauptView extends JFrame implements View{
 		this.revalidate();
 		
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public View zurueck(){
 		if( this.lastView.equals(this.activeView) ){
 			return this.zurueck(2);
@@ -217,7 +231,11 @@ public class HauptView extends JFrame implements View{
 			return this.zurueck(1);
 		}
 	}
-	
+	/**
+	 * 
+	 * @param anz
+	 * @return
+	 */
 	public View zurueck(int anz){
 		if(anz <= 2 && anz > 0){
 			if( anz == 1){
