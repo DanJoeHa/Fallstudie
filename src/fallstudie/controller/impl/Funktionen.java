@@ -7,12 +7,16 @@ import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Mitarbeiter;
 import fallstudie.model.impl.Rolle;
 
+/**
+ * Stellt Programmweit Funktionen zur Verfügung.
+ *
+ */
 public abstract class Funktionen {
 	
 	/**
 	 * Mitarbeiter Collection in String Array verwandeln
 	 * @param m
-	 * @return
+	 * @return String[]
 	 */
 	public static String[] MitarbeiterCollection2Array(Collection<Mitarbeiter> m){
 				
@@ -30,7 +34,7 @@ public abstract class Funktionen {
 	/**
 	 * Arbeitsgruppen Collection in String Array verwandeln
 	 * @param a
-	 * @return
+	 * @return String[]
 	 */
 	public static String[] ArbeitsgruppeCollection2Array(Collection<Arbeitsgruppe> a){
 				
@@ -47,7 +51,7 @@ public abstract class Funktionen {
 	/**
 	 * Bereich Collection in String Array verwandeln
 	 * @param bereiche
-	 * @return
+	 * @return String[]
 	 */
 	public static String[] BereicheCollection2Array(Collection<Bereich> bereiche){
 		
@@ -65,7 +69,7 @@ public abstract class Funktionen {
 	/**
 	 * Rollen Collection in String Array verwandeln
 	 * @param rollen
-	 * @return
+	 * @return String[]
 	 */
 	public static String[] RollenCollection2Array(Collection<Rolle> rollen){
 		
@@ -84,7 +88,7 @@ public abstract class Funktionen {
 	/**
 	 * Mitarbeter Collection in zweifachen Object Array verwandeln
 	 * @param m
-	 * @return
+	 * @return Object[][]
 	 */
 	public static Object[][] MitarbeiterCollection2ArraySuche(Collection<Mitarbeiter> m){
 		
@@ -122,7 +126,7 @@ public abstract class Funktionen {
 	/**
 	 * Arbeitsgruppencontroller Collection in zweifachen Object Array verwandeln
 	 * @param a
-	 * @return
+	 * @return Object[][]
 	 */
 	public static Object[][] ArbeitsgruppeCollection2ArraySuche(Collection<Arbeitsgruppe> a){
 		
