@@ -16,27 +16,65 @@ import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.SuchenView;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Der Arbeitsgruppen-Controller ist für die Anlage und das Bearbeiten von Arbeitsgruppen zuständig.
+ * 
+ *
+ */
 public class ArbeitsgruppenController implements Controller {
 	
+	/**
+	 * View für das Anlegen und Bearbeiten von Arbeitsgruppen
+	 */
 	private ArbeitsgruppeBearbeitenAnlegenView view;
+	/**
+	 * View für das Suchen von Arbeitsgruppen/Mitarbeitern
+	 */
 	private SuchenView viewSuche;
+	/**
+	 * String für die Steuerung der durchzuführenden Operation (bearbeiten, anlegen) 
+	 */
 	private String operation;
+	/**
+	 * Collection zur Speicherung aller Bereiche aus der Model-Schicht
+	 */
 	private Collection<Bereich> bereiche;
+	/**
+	 * Speichert ein Objekt des Suchcontrollers
+	 */
 	private SuchController suche;
+	/**
+	 * String-Array für die Befüllung der ComboBox in der View
+	 */
 	private String[] sBereiche;
+	/**
+	 * Speichert die gewählte Arbeitsgruppe aus dem Suchcontroller
+	 */
 	private Arbeitsgruppe gewaehlteAG;
+	/**
+	 * Speichert den gewählten Mitarbeiter aus dem Suchcontroller
+	 */
 	private Mitarbeiter gewaehlteMA;
+	/**
+	 * Popup zur Speichern-Bestätigung
+	 */
 	public static BestaetigenPopup popup;
 	
 	//ActionPerformed
+	/**
+	 * Bereichs-Objekt zur Bestimmung ob Bereich existiert
+	 */
 	private Bereich oBereich = null;
+	/**
+	 * Mitarbeiter-Objekt zur Bestimmung ob Mitarbeiter existiert
+	 */
 	private Mitarbeiter oLeiter = null;
 	
+	
+	
 	/**
-	 * Zeigt  die View zur Arbeitsgruppenbearbeiten/-anlage abhängig von der Operation an
+	 * Erstellt ein neues Objekt, befüllt mit allen Bereichen.
 	 * 
-	 * @author Johannes
-	 * @version 0.1
 	 */
 	public ArbeitsgruppenController(){
 		//alle Bereiche holen
@@ -45,11 +83,9 @@ public class ArbeitsgruppenController implements Controller {
 	}
 	
 	/**
-	 * Erwartet einen der Strings "anlegen" oder "bearbeiten"
+	 * Erwartet einen der Strings "anlegen" oder "bearbeiten", zeigt  die entsprechende View abhängig von der Operation an.
 	 * 
-	 * @author Johannes
-	 * @version 1.0
-	 * @param operation
+	 * @param (String) operation
 	 */
 	public void setOperation(String operation){
 		
@@ -80,7 +116,10 @@ public class ArbeitsgruppenController implements Controller {
 	
 		}
 	}
-
+	
+	/**
+	 * ActionListener für die Views, horcht auf die Buttons.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -112,7 +151,6 @@ public class ArbeitsgruppenController implements Controller {
 					} catch (Exception e1) 
 					{
 						oLeiter = null;
-						//HauptController.hauptfenster.setInfoBox(e1.getMessage());
 					}
 				}
 			}
@@ -248,9 +286,11 @@ public class ArbeitsgruppenController implements Controller {
 		}
 	}
 	
+	/**
+	 * Methode die nach der Suche nach Arbeitsgruppe/Mitarbeiter aus dem Suchcontroller aufgerufen wird.
+	 * 
+	 */
 	public void fortsetzen (){
-
-		
 
 		try//if(operation.equals("bearbeiten"))
 		{
@@ -332,50 +372,26 @@ public class ArbeitsgruppenController implements Controller {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyPressed(KeyEvent e) {}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent e) {}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 }

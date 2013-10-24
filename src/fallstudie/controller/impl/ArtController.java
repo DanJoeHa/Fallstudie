@@ -14,26 +14,48 @@ import fallstudie.view.impl.BestaetigenPopup;
 import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Der Art-Controller ist für die Anlage und das Löschen von "Strich-Arten" zuständig.
+ *
+ */
 public class ArtController implements Controller {
 	
+	/**
+	 * View für das Anlegen einer Art.
+	 */
 	private ArtAnlegenView view;
+	/**
+	 * View für das Löschen einer Art.
+	 */
 	private ArtLoeschenView viewLoeschen;
+	/**
+	 * String für die interne Steuerung, der durchzuführenden Operation (anlegen, loeschen).
+	 */
 	private String operation;
+	/**
+	 * Collection aller angelegten Arten.
+	 */
 	private Collection<Art> art;
+	/**
+	 * Popup zur Bestätigung von Löschen und Speichern.
+	 */
 	public static BestaetigenPopup popup;
-	private View aktView;
-	private String button;
+	/**
+	 * Speichert die aktuelle View.
+	 */
+	private View aktView;	
 	
 	
-	
-	
-	
+	/**
+	 * Standard-Konstruktor
+	 */
 	public ArtController(){
 		
 	}
+	
 	/**
 	 * Operation wird gesetzt.
-	 * @param operation
+	 * @param (String) operation (anlegen, loeschen)
 	 */
 	public void setOperation(String operation){
 		this.operation = operation;
@@ -66,12 +88,13 @@ public class ArtController implements Controller {
 			}
 		}
 	}
+	
 	/**
 	 * Methode die bei Mausklicks die Popups lädt und dann entsprechend bei Ja bzw. Nein den Code ausführt.
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
-		button = e.getActionCommand();
+		String button = e.getActionCommand();
 		
 		//Popup-Bestaetigung abfragen + Ausgaben in Infobox hinzuf�gen
 		if(button.equals("Speichern") )
@@ -109,6 +132,7 @@ public class ArtController implements Controller {
 			}
 	}
 		}
+	
 	/**
 	 * hier wird die Art gelöscht.
 	 */
@@ -199,46 +223,26 @@ public class ArtController implements Controller {
 	}
 
 	@Override
-	public void fortsetzen() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void fortsetzen() {}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyPressed(KeyEvent e) {}
+	
 	/**
 	 * Nach Enter Taste wird Popup geladen und dann entsprechend bei Ja bzw. Nein der Code ausgeführt.
 	 * @param KeyEvent
@@ -281,9 +285,6 @@ public class ArtController implements Controller {
 	}	
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 
 }
