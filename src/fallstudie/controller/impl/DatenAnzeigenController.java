@@ -170,7 +170,7 @@ public class DatenAnzeigenController implements Controller {
 		}
 		catch(Exception ex)
 		{
-			HauptController.hauptfenster.setInfoBox("Bitte mindestens das Kalenderjahr ausfüllen (ausschließlich Ziffern > 0!).");
+			HauptController.hauptfenster.setInfoBox("Bitte mindestens das Kalenderjahr ausfüllen (nur Ziffern > 0!).");
 			this.view.reset();
 		}
 	}
