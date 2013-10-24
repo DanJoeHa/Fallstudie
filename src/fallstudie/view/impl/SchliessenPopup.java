@@ -16,7 +16,11 @@ import fallstudie.view.interfaces.View;
 
 import java.awt.SystemColor;
 import java.awt.event.KeyListener;
-
+/**
+ * Popup für die Hilfe
+ * @author Marc
+ *
+ */
 public class SchliessenPopup extends JDialog implements View{
 
 	private static final long serialVersionUID = 8389558871657416016L;

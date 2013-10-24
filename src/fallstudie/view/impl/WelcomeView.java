@@ -10,7 +10,11 @@ import java.awt.Font;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 import java.awt.Dimension;
-
+/**
+ * View nach erfolgreichen Login
+ * @author Marc
+ *
+ */
 public class WelcomeView extends JPanel implements View{
 
 	private static final long serialVersionUID = 6282583046506172098L;

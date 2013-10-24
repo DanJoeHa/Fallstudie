@@ -21,7 +21,11 @@ import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 
 import javax.swing.JComboBox;
-
+/**
+ * View zum Anzeigen von Daten in einer Tabelle und zum anschließenden Auswählen eines Datensatzes
+ * @author Marc
+ *
+ */
 public class TabelleView extends JPanel implements View {
 
 	private static final long serialVersionUID = 1L;

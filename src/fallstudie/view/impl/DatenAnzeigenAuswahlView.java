@@ -16,7 +16,7 @@ import javax.swing.border.LineBorder;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 /**
- * View zum Anzeigen von Daten in einer Tabelle und zum anschließenden Auswählen eines Datensatzes
+ * View zum Auswählen der Jahres-/Monatsübersicht
  * @author Marc
  *
  */
