@@ -11,10 +11,20 @@ import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.impl.LoginView;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Der Login-Controller ist für das überprüfen von Passwörtern und Benutzer verantwortlich.
+ *
+ */
 public class LoginController implements Controller, KeyListener
 {
+	/**
+	 * die Login-View
+	 */
 	private LoginView view;
 	
+	/**
+	 * Erstellt ein neues Objekt und erstellt die Login-View.
+	 */
 	public LoginController()
 	{
 		//View laden
@@ -22,6 +32,9 @@ public class LoginController implements Controller, KeyListener
 		this.view.setController( this );
 	}
 	
+	/**
+	 * Horcht auf den Button Login
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 		if(button == "Login")
@@ -32,6 +45,9 @@ public class LoginController implements Controller, KeyListener
 		
 	}
 
+	/**
+	 * Prüft die Userangaben Benutzername und Passwort. Ggf. wird der Bentuzer eingeloggt oder erhält die Rückmeldung über fehlerhafte Daten. Der User wird anschließend weitergeleitet.
+	 */
 	private void loginAction() {
 		//InfoBox leeren, wenn andere Navigation ausgewählt wird
 		HauptController.hauptfenster.setInfoBox(" ");
@@ -60,15 +76,23 @@ public class LoginController implements Controller, KeyListener
 		}
 	}
 
+	/**
+	 * Gibt die View zurück
+	 */
 	@Override
 	public View getView() {
 		return this.view;
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void fortsetzen() {
-	}
+	public void fortsetzen() {}
 
+	/**
+	 * Horcht auf Key "Enter", setzt Message in der InfoBox.
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER)
@@ -77,6 +101,9 @@ public class LoginController implements Controller, KeyListener
 		}
 	}
 
+	/**
+	 * Wenn Key "Enter" losgelassen wurde, login durchführen.
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER)
@@ -85,22 +112,33 @@ public class LoginController implements Controller, KeyListener
 		}		
 	}
 
+	/**
+	 * keine Action
+	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+	public void keyTyped(KeyEvent e) {}
 
+	/**
+	 * keine Action
+	 */
 	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
+	public void mouseClicked(MouseEvent e) {}
 
+	/**
+	 * keine Action
+	 */
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
 
+	/**
+	 * keine Action
+	 */
 	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * Wenn Mausklick auf Button "login" Info in InfoBox ausgeben.
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(e.getClickCount()==1 && this.view.getBenutzername().isEmpty()==false && this.view.getPasswort().isEmpty()==false){
@@ -108,8 +146,10 @@ public class LoginController implements Controller, KeyListener
 		}
 	}
 
+	/**
+	 * keine Action
+	 */
 	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
+	public void mouseReleased(MouseEvent e) {}
 	
 }
