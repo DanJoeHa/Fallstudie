@@ -57,7 +57,16 @@ public class BereichLoeschenView extends JPanel implements View{
 		add(L_Hinweis);
 
 	}
-
+	public String hatFocus(){
+		String ausgabe;
+		if(this.B_BearbeitenLoeschen.isFocusOwner()){
+			ausgabe = "buttonLoeschen";
+		}
+		else{
+			ausgabe = "nichts";
+		}
+		return ausgabe;
+	}
 	@Override
 	public void setController(Controller c) {
 		this.B_BearbeitenLoeschen.addActionListener(c);
