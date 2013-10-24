@@ -420,9 +420,11 @@ public class BereichController implements Controller {
 				{
 					bearbeitenButton();
 					isPop = true;
-					//popup.setVisible(false);
+					this.operation = "buttonBearbeiten";
+					popup.setVisible(false);
 				}
-			
+			}
+			if(this.operation=="buttonBearbeiten"){
 				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
 					anlegenBearbeitenPopup();
