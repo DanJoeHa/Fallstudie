@@ -363,9 +363,10 @@ public class BereichController implements Controller {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		
 		//Operation löschen & anlegen & bearbeiten	
 			if(this.operation=="loeschen"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="loeschen" && isPop == false)
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && isPop == false)
 				{
 					bereichLoeschenPopup();
 					isPop = true;
@@ -373,7 +374,7 @@ public class BereichController implements Controller {
 				}
 			}
 			if(this.operation=="anlegen"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="anlegen" && isPop == false)
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && isPop == false)
 				{
 					anlegenBearbeitenPopup();
 					isPop = true;
@@ -415,15 +416,14 @@ public class BereichController implements Controller {
 				}
 			}
 			if(this.operation=="bearbeiten"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="bearbeiten" && isPop == false)
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && isPop == false)
 				{
 					bearbeitenButton();
 					isPop = true;
-					popup.setVisible(false);
+					//popup.setVisible(false);
 				}
-			}
-			if(this.operation=="bearbeiten"){
-				if (e.getKeyCode() == KeyEvent.VK_ENTER && this.operation=="bearbeiten")
+			
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
 					anlegenBearbeitenPopup();
 					isPop = true;
