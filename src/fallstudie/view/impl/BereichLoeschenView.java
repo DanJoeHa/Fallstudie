@@ -71,7 +71,6 @@ public class BereichLoeschenView extends JPanel implements View{
 	public void setController(Controller c) {
 		this.B_BearbeitenLoeschen.addActionListener(c);
 		this.B_BearbeitenLoeschen.addKeyListener(c);
-		this.C_Bereich.addKeyListener(c);
 	}
 
 	@Override
