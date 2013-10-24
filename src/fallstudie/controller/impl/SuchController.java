@@ -154,7 +154,6 @@ public class SuchController implements Controller,MouseListener {
 						}
 					}
 					popup.setVisible(false);
-					auswahlAction_Arbeitsgruppe();
 				}
 			}
 			if(button.equals("Nein")){
@@ -315,10 +314,10 @@ public class SuchController implements Controller,MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount()==2){
-			if(this.suchdomain.equals("Arbeitsgruppe") && this.operation=="suchen"){
-				auswahlAction_Arbeitsgruppe();
-			}else if (this.operation=="loeschen"){
+			if (this.operation=="loeschen"){
 				auswahlLoeschen();
+			}else if(this.suchdomain.equals("Arbeitsgruppe") && this.operation=="suchen"){
+				auswahlAction_Arbeitsgruppe();
 			}else{
 				auswahlAction_allgemein();
 			}
