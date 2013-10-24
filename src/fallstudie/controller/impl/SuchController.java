@@ -352,7 +352,7 @@ public class SuchController implements Controller,MouseListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println(e.getID());
+
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
 			if(e.getKeyCode()==KeyEvent.VK_ENTER){
 				suchenActionMitarbeiter(e.getID());
