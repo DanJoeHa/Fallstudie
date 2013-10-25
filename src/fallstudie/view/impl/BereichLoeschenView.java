@@ -27,8 +27,17 @@ import fallstudie.view.interfaces.View;
 public class BereichLoeschenView extends JPanel implements View{
 
 	private static final long serialVersionUID = 5718285763271323948L;
+	/**
+	 * Bearbeiten und Löschen Button
+	 */
 	private JButton B_BearbeitenLoeschen;
+	/**
+	 * Bereich AuswahlBox
+	 */
 	private JComboBox<String> C_Bereich;
+	/**
+	 * Hinsweis Label
+	 */
 	private JLabel L_Hinweis;
 	/**
 	 * Create the panel.
