@@ -169,6 +169,7 @@ public class BereichController implements Controller {
 			}
 		}finally{
 			popup.setVisible(false);
+			popup = null;
 		}
 	}
 
@@ -292,6 +293,7 @@ public class BereichController implements Controller {
 		
 		//Popup wieder ausblenden
 		popup.setVisible(false);
+		popup = null;
 	}
 
 	private void bereichLoeschenPopup() {
@@ -373,7 +375,8 @@ public class BereichController implements Controller {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {		
+	public void keyPressed(KeyEvent e) {	
+		this.viewLoesch.setzeFocus();
 	}
 
 	@Override
@@ -385,7 +388,7 @@ public class BereichController implements Controller {
 					{
 						bearbeitenButton();
 					}
-					else if(this.view.hatFocus() == "buttonSpeichern"){
+					else if(this.view.hatFocus() == "buttonSpeichern" && popup==null){
 						anlegenBearbeitenPopup();
 					}
 					else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
@@ -393,28 +396,31 @@ public class BereichController implements Controller {
 					}
 					else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 						popup.setVisible(false);
+						popup=null;
 						HauptController.hauptfenster.setInfoBox("");
 					}
 				}
 				if(this.operation == "anlegen"){
-					if(this.view.hatFocus() == "buttonSpeichern"){
+					if(this.view.hatFocus() == "buttonSpeichern" && popup==null){
 						anlegenBearbeitenPopup();
 					}else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
 						bereichAnlegen();
 					}
 					else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 						popup.setVisible(false);
+						popup=null;
 						HauptController.hauptfenster.setInfoBox("");
 					}
 				}
 				if(this.operation == "loeschen"){
-					if(this.viewLoesch.hatFocus() == "buttonLoeschen"){
+					if(this.viewLoesch.hatFocus() == "buttonLoeschen" && popup==null){
 						bereichLoeschenPopup();
 					}else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
 						bereichLoeschen();
 					}
 					else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 						popup.setVisible(false);
+						popup=null;
 						HauptController.hauptfenster.setInfoBox("");
 					}
 				}
