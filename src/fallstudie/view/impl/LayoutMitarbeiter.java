@@ -29,11 +29,29 @@ import fallstudie.view.interfaces.View;
 public class LayoutMitarbeiter extends JPanel implements View{
 
 	private static final long serialVersionUID = -5374763696510559443L;
+	/**
+	 * Vorname Textfeld
+	 */
 	protected JTextField T_Vorname;
+	/**
+	 * Nachname Textfeld
+	 */
 	protected JTextField T_Nachname;
+	/**
+	 * Benutzername Textfeld
+	 */
 	protected JTextField T_Benutzername;
+	/**
+	 * Passwort Textfeld
+	 */
 	protected JTextField T_Passwort1;
+	/**
+	 * Bereich Label
+	 */
 	protected static JLabel L_Bereich;
+	/**
+	 * Arbeitsgruppe Label
+	 */
 	protected static JLabel L_Arbeitsgruppe;
 
 	/**
@@ -196,12 +214,16 @@ public class LayoutMitarbeiter extends JPanel implements View{
 	public String getPasswort(){
 		return T_Passwort1.getText();
 	}
-	
+	/**
+	 * Keine Aktion
+	 */
 	@Override
 	public void reset() {
 		
 	}
-
+	/**
+	 * Keine Aktion
+	 */
 	@Override
 	public void setController(Controller c) {
 		

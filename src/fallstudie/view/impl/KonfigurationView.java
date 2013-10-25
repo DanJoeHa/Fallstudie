@@ -21,7 +21,13 @@ import fallstudie.view.interfaces.View;
 public class KonfigurationView extends JPanel implements View {
 
 	private static final long serialVersionUID = -8966052424552014399L;
+	/**
+	 * Anzahl Monate bis zum Löschen Textfeld
+	 */
 	private JTextField T_AnzahlMonate;
+	/**
+	 * Speichern Button
+	 */
 	private JButton B_Speichern;
 	/**
 	 * Create the panel.
@@ -79,12 +85,17 @@ public class KonfigurationView extends JPanel implements View {
 		}
 		
 	}
-	
+	/**
+	 * Setzt Controller
+	 */
 	@Override
 	public void setController(Controller c) {
 		this.B_Speichern.addActionListener(c);		
 		this.T_AnzahlMonate.addKeyListener(c);
 	}
+	/**
+	 * Setzt Textfeld zurück
+	 */
 	@Override
 	public void reset() {
 		this.T_AnzahlMonate.setText("");

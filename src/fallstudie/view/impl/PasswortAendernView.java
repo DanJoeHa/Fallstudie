@@ -30,9 +30,21 @@ public class PasswortAendernView extends JPanel implements View {
 
 
 	private static final long serialVersionUID = -5269473857849047666L;
+	/**
+	 * Altes Passwort Passwortfeld
+	 */
 	private JPasswordField P_AltesPasswort;
+	/**
+	 * Wiederholtes Passwort Passwortfeld
+	 */
 	private JPasswordField P_WdhPasswort;
+	/**
+	 * Neues Passwort Passwortfeld
+	 */
 	private JPasswordField P_NeuesPasswort;
+	/**
+	 * Speichern Button
+	 */
 	private JButton B_Speichern;
 
 	/**

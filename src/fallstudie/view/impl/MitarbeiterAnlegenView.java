@@ -22,11 +22,25 @@ import fallstudie.controller.interfaces.Controller;
 public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 
 	private static final long serialVersionUID = 1947090676451323070L;
+	/**
+	 * Arbeitsgruppe Textfeld
+	 */
 	private JTextField T_Arbeitsgruppe;
-	
+	/**
+	 * Speichern Button
+	 */
 	private JButton B_Speichern;
+	/**
+	 * Rolle AuswahlBox
+	 */
 	private JComboBox<String> C_Rolle;
+	/**
+	 * Bereich AuswahlBox
+	 */
 	private JComboBox<String> C_Bereich;
+	/**
+	 * Suchen und Zurücksetzten Button
+	 */
 	private JButton B_SucheArbeitsgruppe, B_Zuruecksetzen;
 
 	/**

@@ -18,6 +18,9 @@ import java.awt.Dimension;
 public class WelcomeView extends JPanel implements View{
 
 	private static final long serialVersionUID = 6282583046506172098L;
+	/**
+	 * Hinsweis Text
+	 */
 	private JTextPane Hinweis;
 
 	/**

@@ -27,7 +27,13 @@ import javax.swing.JLabel;
 public class SuchenView extends JPanel implements View {
 
 	private static final long serialVersionUID = -931416725537402397L;
+	/**
+	 * Suchen Textfeld
+	 */
 	private JTextField T_Suchfeld;
+	/**
+	 * Suchen Button
+	 */
 	private JButton B_Suchen;
 
 	/**

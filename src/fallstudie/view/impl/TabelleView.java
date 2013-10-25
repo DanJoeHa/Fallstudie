@@ -29,10 +29,25 @@ import javax.swing.JComboBox;
 public class TabelleView extends JPanel implements View {
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Tabelle
+	 */
 	private JTable TA_Tabelle;
+	/**
+	 * Auswahl und Löschen Button
+	 */
 	private JButton B_AuswaehlenLoeschen;
+	/**
+	 * Abbrechen Button
+	 */
 	private JButton B_Abbrechen;
+	/**
+	 * DrillDown AuswahlBox
+	 */
 	private JComboBox<String> C_DrillDown;
+	/**
+	 * DrillDown Button
+	 */
 	private JButton B_DrillDown;
 	
 	
@@ -151,7 +166,9 @@ public class TabelleView extends JPanel implements View {
 	public String getDrillDownBereich(){
 		return this.C_DrillDown.getSelectedItem().toString();
 	}
-	
+	/**
+	 * Controller setzen
+	 */
 	@Override
 	public void setController(Controller c) {
 		this.B_Abbrechen.addActionListener(c);
@@ -159,7 +176,9 @@ public class TabelleView extends JPanel implements View {
 		this.B_DrillDown.addActionListener(c);
 		this.TA_Tabelle.addMouseListener((MouseListener) c);
 	}
-
+/**
+ * Tabelle leeren
+ */
 	@Override
 	public void reset() {
 		this.TA_Tabelle.removeAll();
