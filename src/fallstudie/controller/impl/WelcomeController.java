@@ -28,7 +28,8 @@ public class WelcomeController implements Controller {
 		String headline = "Herzlich Willkommen " + HauptController.activeUser.getFullName();
 		HauptController.hauptfenster.setUeberschrift(headline);
 		
-		String msg = headline + ", \n \n bitte wählen Sie eine Aktion im Menübaum.";
+		String msg = headline + ", \n \n \n \n Ihr letzter Login erfolgte am " + HauptController.activeUser.getLogin();
+		msg += ". \n \n Bitte wählen Sie eine Aktion im Menübaum.";
 		this.view.setHinweis(msg);
 	}
 	
