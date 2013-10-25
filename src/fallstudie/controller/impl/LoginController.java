@@ -111,9 +111,6 @@ public class LoginController implements Controller, KeyListener
 		{
 			loginAction();
 		}
-		if(e.getKeyCode() == KeyEvent.VK_F1){
-			HauptController.hilfefenster.setVisible(true);
-		}
 	}
 
 	/**
