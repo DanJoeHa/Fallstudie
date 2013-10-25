@@ -70,23 +70,25 @@ public class ArtController implements Controller {
 			{
 				this.viewLoeschen = new ArtLoeschenView();
 				this.viewLoeschen.setController( this );
-				//this.viewLoeschen.setArt(Art.getAlleArten().toArray()); //Collection in String Array umwandeln
 				
-				
-
-				this.art = Art.getAlleArten();
-				Iterator<Art> i = art.iterator();
-				
-				String[] sArt = new String[ art.size() ];
-				int x = 0;
-				while( i.hasNext() ){
-					sArt[x] = i.next().getName();
-					x++;
-				} 
-				this.viewLoeschen.setArt( sArt );
+				//Arten in View setzen
+				this.getArtenFromModelToView();
 				
 			}
 		}
+	}
+
+	private void getArtenFromModelToView() {
+		this.art = Art.getAlleArten();
+		Iterator<Art> i = art.iterator();
+		
+		String[] sArt = new String[ art.size() ];
+		int x = 0;
+		while( i.hasNext() ){
+			sArt[x] = i.next().getName();
+			x++;
+		} 
+		this.viewLoeschen.setArt( sArt );
 	}
 	
 	/**
@@ -122,15 +124,14 @@ public class ArtController implements Controller {
 			if(aktView == this.viewLoeschen){
 				if(button.equals("Ja")){
 					
-					
-			artLoeschenPopup();
-			
+					artLoeschenPopup();
+
+					}
 				
+					if(button.equals("Nein")){
+						popup.setVisible(false);
+					}
 			}
-			if(button.equals("Nein")){
-				popup.setVisible(false);
-			}
-	}
 		}
 	
 	/**
@@ -147,7 +148,19 @@ public class ArtController implements Controller {
 				String Name = A.getName();
 				if( Name.equals( this.viewLoeschen.getArt() ) ){
 					if(A.loeschen()){
+						
+						//Art aus Collection entfernen
+						this.art.remove(A);
+						
+						//ComboBox in View aktualisieren
+						this.getArtenFromModelToView();
+						
+						//View aktualisieren
+						//this.viewLoesch.revalidate();
+						
+						//Rückmeldung an User
 						HauptController.hauptfenster.setInfoBox("Art erfolgreich gelöscht.");
+						
 					}
 					else{
 						HauptController.hauptfenster.setInfoBox("Art konnte nicht gelöscht.");

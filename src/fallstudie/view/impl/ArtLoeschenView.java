@@ -76,6 +76,7 @@ public class ArtLoeschenView extends JPanel implements View{
 	 * @param Arten
 	 */
 	public void setArt(String[] Arten){
+		this.C_Art.removeAllItems();
 		for( int i = 0; i < Arten.length; i++){
 			this.C_Art.addItem( Arten[i] );
 		}
