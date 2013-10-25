@@ -7,20 +7,20 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.TreeSelectionListener;
 
 import java.awt.Color;
-
+import java.awt.Image;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import java.awt.Font;
+import java.io.File;
 
-
-
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
-
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
@@ -75,6 +75,14 @@ public class HauptView extends JFrame implements View{
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Stippler");
+		
+		//Icon
+		try{
+			ImageIcon img = new ImageIcon("src/fallstudie/images/Stippler.jpg");
+			this.setIconImage(img.getImage());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 		//Panel für allen Inhalt des Frames
 		JPanel Panel = new JPanel();
