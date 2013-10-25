@@ -56,6 +56,7 @@ public class Mitarbeiter {
 	 */
 	public Mitarbeiter(String benutzername) throws Exception {
 		if (!benutzername.equals("")) {
+			benutzername = benutzername.replace('\'',' ');
 			RemoteConnection Connection = new RemoteConnection();
 			try {
 				if (RemoteConnection.connection == null
@@ -164,7 +165,11 @@ public class Mitarbeiter {
 			// IDs und Namen herauskriegen
 			String rollenName = rolle.getRollenbezeichnung();
 			int bereichID = bereich.getID();
-
+			benutzername = benutzername.replace('\'',' ');
+			passwort = benutzername.replace('\'',' ');
+			vorname = benutzername.replace('\'',' ');
+			nachname = benutzername.replace('\'',' ');
+			
 			//System.out.println("SELECT * From Mitarbeiter");
 			// Checken obs den Mitarbeiter schon gibt.
 			ResultSet checkObVorhanden = RemoteConnection.sql
@@ -308,7 +313,11 @@ public class Mitarbeiter {
 			// IDs und Namen herauskriegen
 			String rollenName = rolle.getRollenbezeichnung();
 			int arbeitsgruppeID = arbeitsgruppe.getID();
-
+			benutzername = benutzername.replace('\'',' ');
+			passwort = benutzername.replace('\'',' ');
+			vorname = benutzername.replace('\'',' ');
+			nachname = benutzername.replace('\'',' ');
+			
 			// System.out.println("SELECT Benutzername From Mitarbeiter");
 			// Checken obs den Mitarbeiter schon gibt.
 
@@ -448,7 +457,10 @@ public class Mitarbeiter {
 
 			// IDs und Namen herauskriegen
 			String rollenName = rolle.getRollenbezeichnung();
-
+			benutzername = benutzername.replace('\'',' ');
+			passwort = benutzername.replace('\'',' ');
+			vorname = benutzername.replace('\'',' ');
+			nachname = benutzername.replace('\'',' ');
 			// System.out.println("SELECT Benutzername From Mitarbeiter");
 			// Checken obs den Mitarbeiter schon gibt.
 
@@ -912,6 +924,7 @@ public class Mitarbeiter {
 	public boolean setPasswort(String newPasswort) {
 		boolean erfolgreich = false;
 		try {
+			newPasswort = newPasswort.replace('\'',' ');
 			String newPasswortVerschluesselt = VerschluesselungSHA1
 					.getEncodedSha1Sum(newPasswort);
 			//System.out.println("UPDATE Mitarbeiter SET Passwort ='"
@@ -1129,7 +1142,7 @@ public class Mitarbeiter {
 	public boolean setNachname(String nachname) {
 		boolean erfolgreich = false;
 		try {
-
+			nachname = nachname.replace('\'',' ');
 			// System.out.println("UPDATE Mitarbeiter SET Nachname ='"+nachname+"' WHERE Benutzername='"+this.benutzername+"'");
 
 			int rowsAffect = RemoteConnection.sql
@@ -1175,7 +1188,7 @@ public class Mitarbeiter {
 		try {
 
 			// System.out.println("UPDATE Mitarbeiter SET Vorname ='"+vorname+"' WHERE Benutzername='"+this.benutzername+"'");
-
+			vorname = vorname.replace('\'',' ');
 			int rowsAffect = RemoteConnection.sql
 					.executeUpdate("UPDATE Mitarbeiter SET Vorname ='"
 							+ vorname + "' WHERE Benutzername='"
@@ -1251,6 +1264,7 @@ public class Mitarbeiter {
 		;
 		ResultSet resultSet = null;
 		try {
+			suchbegriff = suchbegriff.replace('\'',' ');
 			// System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR"
 			// +
 			// " Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");

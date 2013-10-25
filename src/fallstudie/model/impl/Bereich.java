@@ -52,9 +52,11 @@ public class Bereich {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		try {
-
+		
 			if (kurzbezeichnung.equals(""))
 				throw new Exception("Kurzbezeichnung muss angegeben werden.");
+			kurzbezeichnung = kurzbezeichnung.replace('\'',' ');
+			beschreibung = beschreibung.replace('\'',' ');
 			if (leiter != null) {
 
 				// ResultSet existiertMitarbeiter =
@@ -166,6 +168,7 @@ public class Bereich {
 		;
 		ResultSet resultSet = null;
 		try {
+			suchbegriff = suchbegriff.replace('\'',' ');
 			// System.out.println("SELECT * FROM Bereich WHERE BereichID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR"
 			// +
 			// " Beschreibung LIKE '%"+suchbegriff+"' OR Kurzbezeichnung LIKE '%"+suchbegriff+"'");
@@ -236,7 +239,6 @@ public class Bereich {
 
 			resultSet.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			System.err.println("Fehler in Bereich getBereichbyName");
 			System.err.println(e.getMessage());
 		}
@@ -341,6 +343,7 @@ public class Bereich {
 		boolean erfolgreich = false;
 		int RowsAffected;
 		try {
+			beschreibung = beschreibung.replace('\'',' ');
 			//System.out.println("UPDATE Bereich SET Beschreibung='"
 				//	+ beschreibung + "' WHERE BereichID='" + this.bereichID
 					//+ "'");
@@ -383,6 +386,10 @@ public class Bereich {
 			if(kurzbezeichnung.equals(""))
 			{
 				erfolgreich=false;
+			}
+			else
+			{
+			kurzbezeichnung = kurzbezeichnung.replace('\'',' ');
 			}
 			//System.out.println("UPDATE Bereich SET Kurzbezeichnung='"
 				//	+ kurzbezeichnung + "' WHERE BereichID='" + this.bereichID
