@@ -21,7 +21,6 @@ public class Arbeitsgruppe {
 	private Bereich bereich;
 	private boolean aktiv;
 	private Mitarbeiter leiter;
-	public ResultSet resultSet;
 	private String leiterBenutzername;
 	private int bereichID;
 
