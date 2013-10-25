@@ -84,7 +84,6 @@ public class HauptView extends JFrame implements View{
 		setContentPane(Panel);
 		Panel.setLayout(null);
 		
-		
 		//Hintergrundpanel Navigation
 		NavigationBackground = new JPanel();
 		NavigationBackground.setFont(new Font("Tahoma", Font.PLAIN, 14));
