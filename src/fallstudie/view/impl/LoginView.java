@@ -114,6 +114,7 @@ public class LoginView extends JPanel implements View {
 		this.P_Passwort.addKeyListener(c);
 		this.B_Login.addKeyListener(c);
 		this.B_Login.addMouseListener(c);
+		this.addKeyListener(c);
 	}
 	
 	/**

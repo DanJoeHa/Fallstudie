@@ -5,14 +5,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.TreeSelectionListener;
+
 import java.awt.Color;
+
 import java.awt.SystemColor;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import java.awt.Font;
+
+
+
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+
+
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 /**
@@ -33,6 +42,7 @@ public class HauptView extends JFrame implements View{
 	private JTree Navigation;
 	private JLabel L_Ueberschrift;
 	private TreeSelectionListener tl;
+	private JPanel Panel;
 
 	/**
 	 * Create the frame.
@@ -48,11 +58,13 @@ public class HauptView extends JFrame implements View{
 		this.setTitle("Stippler");
 		
 		//Panel für allen Inhalt des Frames
-		JPanel Panel = new JPanel();
+		Panel = new JPanel();
+		Panel.setFocusable(true);
 		Panel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(Panel);
 		Panel.setLayout(null);
+		
 		
 		//Hintergrundpanel Navigation
 		NavigationBackground = new JPanel();
@@ -279,7 +291,9 @@ public class HauptView extends JFrame implements View{
 		this.B_Logout.addActionListener(c);
 		this.B_Hilfe.addActionListener(c);
 		this.tl = (TreeSelectionListener) c;
-		
+		this.Content.addKeyListener(c);
+		this.InfoBox.addKeyListener(c);
+		this.Panel.addKeyListener(c);
 	}
 
 	@Override

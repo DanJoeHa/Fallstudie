@@ -405,6 +405,9 @@ public class ArbeitsgruppenController implements Controller {
 				this.view.setzeFocus();
 			}
 		}
+		if(e.getKeyCode() == KeyEvent.VK_F1){
+			HauptController.hilfefenster.setVisible(true);
+		}
 	}
 
 	@Override
@@ -415,13 +418,17 @@ public class ArbeitsgruppenController implements Controller {
 				{
 					popupAufruf();
 				}
-				else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
-					arbeitsgruppeSpeichernAnlegenAction();
+				else if(popup != null){
+					if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
+						arbeitsgruppeSpeichernAnlegenAction();
+					}
 				}
-				else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
+				else if(popup != null){
+					if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 					popup.setVisible(false);
 					popup=null;
 					HauptController.hauptfenster.setInfoBox("");
+					}
 				}
 			}
 			if(this.operation == "bearbeiten"){
