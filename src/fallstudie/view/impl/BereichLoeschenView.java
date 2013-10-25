@@ -92,6 +92,7 @@ public class BereichLoeschenView extends JPanel implements View{
 	}
 	
 	public void setBereiche(String[] Bereiche){
+		this.C_Bereich.removeAllItems();
 		for( int i = 0; i < Bereiche.length; i++){
 			this.C_Bereich.addItem( Bereiche[i] );
 		}

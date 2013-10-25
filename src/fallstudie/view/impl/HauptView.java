@@ -315,9 +315,8 @@ public class HauptView extends JFrame implements View{
 		this.B_Logout.addActionListener(c);
 		this.B_Hilfe.addActionListener(c);
 		this.tl = (TreeSelectionListener) c;
-		this.Content.addKeyListener(c);
-		this.InfoBox.addKeyListener(c);
-		this.Panel.addKeyListener(c);
+		//this.Content.addKeyListener(c);
+		//this.InfoBox.addKeyListener(c);
 	}
 
 	@Override
