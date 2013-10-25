@@ -1,26 +1,20 @@
 package fallstudie.view.impl;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.event.TreeSelectionListener;
-
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.SystemColor;
-import java.awt.Toolkit;
-
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import java.awt.Font;
-import java.io.File;
+import java.awt.SystemColor;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.JTree;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
