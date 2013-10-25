@@ -87,32 +87,7 @@ public class SuchController implements Controller,MouseListener {
 			}
 			
 			if(button.equals("Ja")){
-				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
-				Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
-				String auswahl =  this.viewErg.getAuswahl();
-				if(auswahl.equals(""))
-				{
-					popup.setVisible(false);
-					HauptController.hauptfenster.setInfoBox("Bitte den zu löschenden Mitarbeiter mit Klick in die Tabelle auswählen.");
-				}
-				else
-				{
-					while( i.hasNext() ){
-						Mitarbeiter MA = (Mitarbeiter) i.next();
-						String benutzername = MA.getBenutzername();
-						if( benutzername.equals(auswahl ) ){
-							try{
-								MA.loeschen();
-							}catch (Exception ex)
-							{
-								HauptController.hauptfenster.setInfoBox(ex.getMessage());
-							}
-							break;
-						}
-					}	
-					popup.setVisible(false);
-					suchenActionMitarbeiter(e.getID());
-				}
+				mitarbeiterLoeschen(e.getID());
 			}
 			if(button.equals("Nein")){
 				popup.setVisible(false);
@@ -130,32 +105,7 @@ public class SuchController implements Controller,MouseListener {
 			}
 			
 			if(button.equals("Ja")){
-				//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
-				Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
-				
-				String auswahl = this.viewErg.getAuswahl();
-				if(auswahl.equals(""))
-				{
-					popup.setVisible(false);
-					HauptController.hauptfenster.setInfoBox("Bitte die zu löschende Arbeitsgruppe mit Klick in die Tabelle auswählen.");
-				}
-				else
-				{
-					while( i.hasNext() ){
-						Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
-						String kurzbez = AG.getKurzbezeichnung();
-						if( kurzbez.equals( auswahl) ){
-							try{
-								AG.loeschen();
-							}catch(Exception ex){
-								HauptController.hauptfenster.setInfoBox(ex.getMessage());
-							}
-							break;
-						}
-					}
-					popup.setVisible(false);
-					suchenActionArbeitsgruppe(e.getID());
-				}
+				arbeitsgruppeLoeschen(e.getID());
 			}
 			if(button.equals("Nein")){
 				popup.setVisible(false);
@@ -163,6 +113,66 @@ public class SuchController implements Controller,MouseListener {
 		}
 	
 }
+
+	private void mitarbeiterLoeschen(int id) {
+		//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
+		Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
+		String auswahl =  this.viewErg.getAuswahl();
+		if(auswahl.equals(""))
+		{
+			popup.setVisible(false);
+			HauptController.hauptfenster.setInfoBox("Bitte den zu löschenden Mitarbeiter mit Klick in die Tabelle auswählen.");
+		}
+		else
+		{
+			while( i.hasNext() ){
+				Mitarbeiter MA = (Mitarbeiter) i.next();
+				String benutzername = MA.getBenutzername();
+				if( benutzername.equals(auswahl ) ){
+					try{
+						MA.loeschen();
+					}catch (Exception ex)
+					{
+						HauptController.hauptfenster.setInfoBox(ex.getMessage());
+					}
+					break;
+				}
+			}	
+			popup.setVisible(false);
+			popup=null;
+			suchenActionMitarbeiter(id);
+		}
+	}
+
+	private void arbeitsgruppeLoeschen(int id) {
+		//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
+		Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
+		
+		String auswahl = this.viewErg.getAuswahl();
+		if(auswahl.equals(""))
+		{
+			popup.setVisible(false);
+			HauptController.hauptfenster.setInfoBox("Bitte die zu löschende Arbeitsgruppe mit Klick in die Tabelle auswählen.");
+		}
+		else
+		{
+			while( i.hasNext() ){
+				Arbeitsgruppe AG = (Arbeitsgruppe) i.next();
+				String kurzbez = AG.getKurzbezeichnung();
+				if( kurzbez.equals( auswahl) ){
+					try{
+						AG.loeschen();
+					}catch(Exception ex){
+						HauptController.hauptfenster.setInfoBox(ex.getMessage());
+					}
+					break;
+				}
+			}
+			popup.setVisible(false);
+			popup=null;
+			suchenActionArbeitsgruppe(id);
+		}
+	}
 
 	private void suchenActionArbeitsgruppe(int id) {
 		try{
@@ -353,14 +363,27 @@ public class SuchController implements Controller,MouseListener {
 	public void keyReleased(KeyEvent e) {
 
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
-			if(e.getKeyCode()==KeyEvent.VK_ENTER){
+			if(e.getKeyCode()==KeyEvent.VK_ENTER && popup==null){
 				suchenActionMitarbeiter(e.getID());
+			}
+			else if(e.getKeyCode()==KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus()== "popupJa"){
+				mitarbeiterLoeschen(e.getID());
+			}
+			else if(e.getKeyCode()==KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein"){
+				popup.setVisible(false);
+				HauptController.hauptfenster.setInfoBox("");
 			}
 		}
 		if( this.suchdomain.equals( "Arbeitsgruppe" )){ 
-			if(e.getKeyCode()==KeyEvent.VK_ENTER){
+			if(e.getKeyCode()==KeyEvent.VK_ENTER && popup==null){
 				suchenActionArbeitsgruppe(e.getID());
 				
+			}else if(e.getKeyCode()==KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus()== "popupJa"){
+				arbeitsgruppeLoeschen(e.getID());
+			}
+			else if(e.getKeyCode()==KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein"){
+				popup.setVisible(false);
+				HauptController.hauptfenster.setInfoBox("");
 			}			
 		}
 		
