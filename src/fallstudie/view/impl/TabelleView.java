@@ -68,7 +68,7 @@ public class TabelleView extends JPanel implements View {
 		B_AuswaehlenLoeschen.setBounds(440, 600, 150, 30);
 		add(B_AuswaehlenLoeschen);
 		
-		B_CSV_Drucken = new JButton("CSV Drucken");
+		B_CSV_Drucken = new JButton("CSV");
 		B_CSV_Drucken.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_CSV_Drucken.setBounds(280, 600, 150, 30);
 		B_CSV_Drucken.setVisible(false);

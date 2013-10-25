@@ -111,10 +111,10 @@ public class DatenAnzeigenController implements Controller {
 		}
 		
 		//Daten ausdrucken PDF
-		if( button.equals("PDF Drucken") ) this.drucken(true);
+		if( button.equals("PDF") ) this.drucken(true);
 		
 		//Daten ausdrucken CSV
-		if(button.equals("CSV Drucken")) this.drucken(false);
+		if(button.equals("CSV")) this.drucken(false);
 		
 		//Drill-Down in einen Bereich
 		if( button.equals("DrillDown") ) this.drilldown();
@@ -211,7 +211,7 @@ public class DatenAnzeigenController implements Controller {
 			
 			//an TabelleView übergeben
 			this.viewErg.setTabelle(tabellenspalten, tabellenwerte);
-			this.viewErg.setButtonName("PDF Drucken");
+			this.viewErg.setButtonName("PDF");
 			this.viewErg.setSichtbarkeit();
 			HauptController.hauptfenster.setUeberschrift(headline);
 			HauptController.hauptfenster.setContent( this.viewErg );
@@ -582,7 +582,8 @@ public class DatenAnzeigenController implements Controller {
 		//neue View erstellen
 		this.viewErg = new TabelleView();
 		this.viewErg.setController(this);
-		this.viewErg.setButtonName("Drucken");
+		this.viewErg.setButtonName("PDF");
+		this.viewErg.setSichtbarkeit();
 		
 		//DrillDown ausblenden
 		this.viewErg.setDrillDown(false);
