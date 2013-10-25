@@ -3,8 +3,6 @@ package fallstudie.view.impl;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +16,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
+import java.awt.Toolkit;
 /**
  * Hauptframe
  * Innerhalb diesem Frame werden die Views geladen
@@ -72,8 +71,7 @@ public class HauptView extends JFrame implements View{
 		
 		//Icon
 		try{
-			ImageIcon img = new ImageIcon("src/fallstudie/images/Stippler.jpg");
-			this.setIconImage(img.getImage());
+			this.setIconImage(Toolkit.getDefaultToolkit().getImage(HauptView.class.getResource("/fallstudie/images/Stippler.jpg")));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
