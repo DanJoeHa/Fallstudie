@@ -9,11 +9,11 @@ import fallstudie.model.mysql.connector.RemoteConnection;
 
 /**
  * @author Phil
- * @date 09.10.2013 
- * @version 1.0 
+ * @date 09.10.2013
+ * @version 1.0
  * @change Attribute aktualisiert
  * @author Phil, 11.10.2013
- * @version 1.1 
+ * @version 1.1
  * @change Methoden implementiert
  */
 public class Bereich {
@@ -29,12 +29,16 @@ public class Bereich {
 	// ---------------------KONSTRUKTOREN-------------------------
 	// -----------------------------------------------------------
 	/**
-	 * @author Phil
-	 * Neuer Bereich wird mit Leiter in der Datenbank angelegt.
-	 * @param String kurzbezeichnung
-	 * @param String beschreibung
-	 * @param Mitarbeiter leiter
-	 * @throws Exception, wenn keine Kurzbezeichnung angegeben wird oder der Bereich schon existiert.
+	 * @author Phil Neuer Bereich wird mit Leiter in der Datenbank angelegt.
+	 * @param String
+	 *            kurzbezeichnung
+	 * @param String
+	 *            beschreibung
+	 * @param Mitarbeiter
+	 *            leiter
+	 * @throws Exception
+	 *             , wenn keine Kurzbezeichnung angegeben wird oder der Bereich
+	 *             schon existiert.
 	 */
 
 	public Bereich(String kurzbezeichnung, String beschreibung,
@@ -52,11 +56,11 @@ public class Bereich {
 			System.err.println("Konnte keine Datenbankverbindung herstellen!");
 		}
 		try {
-		
+
 			if (kurzbezeichnung.equals(""))
 				throw new Exception("Kurzbezeichnung muss angegeben werden.");
-			kurzbezeichnung = kurzbezeichnung.replace('\'',' ');
-			beschreibung = beschreibung.replace('\'',' ');
+			kurzbezeichnung = kurzbezeichnung.replace('\'', ' ');
+			beschreibung = beschreibung.replace('\'', ' ');
 			if (leiter != null) {
 
 				// ResultSet existiertMitarbeiter =
@@ -81,15 +85,10 @@ public class Bereich {
 
 				}
 				/*
-				System.out
-						.println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)"
-								+ "VALUES ('"
-								+ kurzbezeichnung
-								+ "', '"
-								+ beschreibung
-								+ "', '"
-								+ leiterBenutzername
-								+ "')");
+				 * System.out .println(
+				 * "INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)"
+				 * + "VALUES ('" + kurzbezeichnung + "', '" + beschreibung +
+				 * "', '" + leiterBenutzername + "')");
 				 */
 				int RowsAffected = RemoteConnection.sql
 						.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung, Leiter)"
@@ -120,13 +119,11 @@ public class Bereich {
 
 				}
 				/*
-				System.out
-						.println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)"
-								+ " VALUES ('"
-								+ kurzbezeichnung
-								+ "', '"
-								+ beschreibung + "')");
-				*/
+				 * System.out
+				 * .println("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung)"
+				 * + " VALUES ('" + kurzbezeichnung + "', '" + beschreibung +
+				 * "')");
+				 */
 				int RowsAffected = RemoteConnection.sql
 						.executeUpdate("INSERT INTO Bereich (Kurzbezeichnung, Beschreibung) "
 								+ "VALUES ('"
@@ -152,11 +149,14 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode ist eine Volltextsuche durch alle Bereiche, welche als aktiv in der Datenbank existieren.
-	 * @param String suchbegriff
+	 * @author Phil Methode ist eine Volltextsuche durch alle Bereiche, welche
+	 *         als aktiv in der Datenbank existieren.
+	 * @param String
+	 *            suchbegriff
 	 * @return Collection<Bereich> alleBereicheNachSuchbegriff
-	 * @throws Exception, falls keine Datensätze gefunden werden die dem Suchbegriff entsprechen.
+	 * @throws Exception
+	 *             , falls keine Datensätze gefunden werden die dem Suchbegriff
+	 *             entsprechen.
 	 */
 
 	public static Collection<Bereich> suche(String suchbegriff) {
@@ -168,7 +168,7 @@ public class Bereich {
 		;
 		ResultSet resultSet = null;
 		try {
-			suchbegriff = suchbegriff.replace('\'',' ');
+			suchbegriff = suchbegriff.replace('\'', ' ');
 			// System.out.println("SELECT * FROM Bereich WHERE BereichID LIKE '%"+suchbegriff+"' OR Leiter LIKE '%"+suchbegriff+"' OR"
 			// +
 			// " Beschreibung LIKE '%"+suchbegriff+"' OR Kurzbezeichnung LIKE '%"+suchbegriff+"'");
@@ -205,9 +205,10 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode liefert anhand der Kurzbezeichnung eines Bereichs ein gefülltes Bereichsobjekt mit Informationen aus der Datenbank.
-	 * @param String kurzbezeichnung
+	 * @author Phil Methode liefert anhand der Kurzbezeichnung eines Bereichs
+	 *         ein gefülltes Bereichsobjekt mit Informationen aus der Datenbank.
+	 * @param String
+	 *            kurzbezeichnung
 	 * @return Bereich bereich
 	 */
 	public static Bereich getBereichByName(String kurzbezeichnung) {
@@ -247,8 +248,8 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode liefert ein befülltes Bereichsobjekt anhand der BereichsID(Primärschlüssel in der Datenbank).
+	 * @author Phil Methode liefert ein befülltes Bereichsobjekt anhand der
+	 *         BereichsID(Primärschlüssel in der Datenbank).
 	 * @param int bereichID
 	 */
 
@@ -290,11 +291,12 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Anhand eines ResultSets aus einer SELECT- Abfrage wird das Bereichsobjekt befüllt. 
-	 * @param ResultSet resultSet
+	 * @author Phil Anhand eines ResultSets aus einer SELECT- Abfrage wird das
+	 *         Bereichsobjekt befüllt.
+	 * @param ResultSet
+	 *            resultSet
 	 */
-	public Bereich(ResultSet resultSet){
+	public Bereich(ResultSet resultSet) {
 
 		try {
 			if (RemoteConnection.connection == null
@@ -333,20 +335,20 @@ public class Bereich {
 	// ---------------------KONSTRUKTOREN-------------------------
 	// -----------------------------------------------------------
 	/**
-	 * @author Phil
-	 * Methode zum ändern der Beschreibung des gewählten Bereichs.
-	 * @param String beschreibung
+	 * @author Phil Methode zum ändern der Beschreibung des gewählten Bereichs.
+	 * @param String
+	 *            beschreibung
 	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 
-	public boolean setBeschreibung(String beschreibung){
+	public boolean setBeschreibung(String beschreibung) {
 		boolean erfolgreich = false;
 		int RowsAffected;
 		try {
-			beschreibung = beschreibung.replace('\'',' ');
-			//System.out.println("UPDATE Bereich SET Beschreibung='"
-				//	+ beschreibung + "' WHERE BereichID='" + this.bereichID
-					//+ "'");
+			beschreibung = beschreibung.replace('\'', ' ');
+			// System.out.println("UPDATE Bereich SET Beschreibung='"
+			// + beschreibung + "' WHERE BereichID='" + this.bereichID
+			// + "'");
 			RowsAffected = RemoteConnection.sql
 					.executeUpdate("UPDATE Bereich SET Beschreibung='"
 							+ beschreibung + "' WHERE BereichID='"
@@ -364,8 +366,8 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode liefert die Beschreibung zum aktuell gewählten Bereich
+	 * @author Phil Methode liefert die Beschreibung zum aktuell gewählten
+	 *         Bereich
 	 * @return String beschreibung
 	 */
 	public String getBeschreibung() {
@@ -374,56 +376,47 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode zum ändern der Kurzbezeichnung des gewählten Bereiches.
+	 * @author Phil Methode zum ändern der Kurzbezeichnung des gewählten
+	 *         Bereiches.
 	 * @param kurzbezeichnung
 	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
-	public boolean setKurzbezeichnung(String kurzbezeichnung){
+	public boolean setKurzbezeichnung(String kurzbezeichnung) {
 		boolean erfolgreich = true;
 		RemoteConnection Connection = new RemoteConnection();
 		try {
-			if(kurzbezeichnung.equals(""))
-			{
-				erfolgreich=false;
+			if (kurzbezeichnung.equals("")) {
+				erfolgreich = false;
+			} else {
+				kurzbezeichnung = kurzbezeichnung.replace('\'', ' ');
 			}
-			else
-			{
-			kurzbezeichnung = kurzbezeichnung.replace('\'',' ');
-			}
-			//System.out.println("UPDATE Bereich SET Kurzbezeichnung='"
-				//	+ kurzbezeichnung + "' WHERE BereichID='" + this.bereichID
-					//+ "'");
-			
-			
-			ResultSet checkObVorhanden = Connection
-					.executeQueryStatement("SELECT BereichID From Bereich WHERE Aktiv=1 AND Kurzbezeichnung='"+kurzbezeichnung+"'");
+			// System.out.println("UPDATE Bereich SET Kurzbezeichnung='"
+			// + kurzbezeichnung + "' WHERE BereichID='" + this.bereichID
+			// + "'");
 
-			
-			while (checkObVorhanden.next()) 
-			{	
-				//Bekommt die Kurzbezeichnung aus dem Resultset
+			ResultSet checkObVorhanden = Connection
+					.executeQueryStatement("SELECT BereichID From Bereich WHERE Aktiv=1 AND Kurzbezeichnung='"
+							+ kurzbezeichnung + "'");
+
+			while (checkObVorhanden.next()) {
+				// Bekommt die Kurzbezeichnung aus dem Resultset
 				int ID = checkObVorhanden.getInt("BereichID");
-				//System.out.println("ID: "+ID+"Aktuelle: "+this.bereichID);
-				//Prüfung auf gleichheit
-				if (this.bereichID==ID)
-				{
-					erfolgreich=true;
-				}
-				else
-				{
-					erfolgreich=false;
+				// System.out.println("ID: "+ID+"Aktuelle: "+this.bereichID);
+				// Prüfung auf gleichheit
+				if (this.bereichID == ID) {
+					erfolgreich = true;
+				} else {
+					erfolgreich = false;
 				}
 			}
-			
-			if(erfolgreich==true)
-			{
-			
-			RemoteConnection.sql
-					.executeUpdate("UPDATE Bereich SET Kurzbezeichnung='"
-							+ kurzbezeichnung + "' WHERE BereichID='"
-							+ this.bereichID + "'");
-			this.kurzbezeichnung=kurzbezeichnung;
+
+			if (erfolgreich == true) {
+
+				RemoteConnection.sql
+						.executeUpdate("UPDATE Bereich SET Kurzbezeichnung='"
+								+ kurzbezeichnung + "' WHERE BereichID='"
+								+ this.bereichID + "'");
+				this.kurzbezeichnung = kurzbezeichnung;
 			}
 		}
 
@@ -435,8 +428,7 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode liefert Kurzbezeichnung des gewählten Bereichs.
+	 * @author Phil Methode liefert Kurzbezeichnung des gewählten Bereichs.
 	 * @return String kurzbezeichnung
 	 */
 	public String getKurzbezeichnung() {
@@ -445,12 +437,13 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode zum löschen eines Bereichs.
+	 * @author Phil Methode zum löschen eines Bereichs.
 	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
-	 * @throws Exception, falls der Bereich noch Mitarbeiter zugeordnet hat/ein Leiter gesetzt ist.
+	 * @throws Exception
+	 *             , falls der Bereich noch Mitarbeiter zugeordnet hat/ein
+	 *             Leiter gesetzt ist.
 	 */
-	
+
 	public boolean loeschen() throws Exception {
 		boolean erfolgreich = false;
 		boolean aktuellerStatus = this.getAktiv();
@@ -496,7 +489,8 @@ public class Bereich {
 					erfolgreich = true;
 
 					if (RowsAffect != 1)
-						throw new Exception("Bereich konnte nicht gelöscht werden.");
+						throw new Exception(
+								"Bereich konnte nicht gelöscht werden.");
 				} else if (aktuellerStatus == false) {
 					erfolgreich = false;
 				}
@@ -516,9 +510,9 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode liefert den Status des Bereichs in der Datenbank.
-	 * @return boolean (true bedeutet Arbeitsgruppe ist aktiv, false bedeutet Arbeitsgruppe wird als gelöscht angezeigt).
+	 * @author Phil Methode liefert den Status des Bereichs in der Datenbank.
+	 * @return boolean (true bedeutet Arbeitsgruppe ist aktiv, false bedeutet
+	 *         Arbeitsgruppe wird als gelöscht angezeigt).
 	 */
 	public boolean getAktiv() {
 
@@ -526,11 +520,14 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode liefert zur Kurzbezeichnung die dazugehörige ID des Bereichs
-	 * @param String kurzbezeichnung
+	 * @author Phil Methode liefert zur Kurzbezeichnung die dazugehörige ID des
+	 *         Bereichs
+	 * @param String
+	 *            kurzbezeichnung
 	 * @return int bereichID
-	 * @throws Exception, wenn die angegebene Kurzbezeichnung nicht in der Datenbank gefunden wurde.
+	 * @throws Exception
+	 *             , wenn die angegebene Kurzbezeichnung nicht in der Datenbank
+	 *             gefunden wurde.
 	 */
 	public static int getIDByKurzbezeichnung(String kurzbezeichnung) {
 		int id = 0;
@@ -555,13 +552,13 @@ public class Bereich {
 			System.err
 					.println("Fehler ist in Methode getIDByKurzbezeichnung(String) aufgetreten:");
 			System.err.println(e.getMessage());
-		} 
+		}
 		return id;
 	}
 
 	/**
-	 * @author Phil
-	 * Methode liefert BereichID zum Bereich (BereichID ist der Primärschlüssel in der Datenbank).
+	 * @author Phil Methode liefert BereichID zum Bereich (BereichID ist der
+	 *         Primärschlüssel in der Datenbank).
 	 * @return int bereichID
 	 */
 	public int getID() {
@@ -569,8 +566,8 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode liefert alle Bereiche, welche in der Datenbank existieren und aktiv sind, als Collection von Bereichsobjekten.
+	 * @author Phil Methode liefert alle Bereiche, welche in der Datenbank
+	 *         existieren und aktiv sind, als Collection von Bereichsobjekten.
 	 * @return Collection<Bereich> alleBereiche
 	 */
 	public static Collection<Bereich> getAlleBereiche() {
@@ -603,9 +600,9 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode ändert den Leiter eines Bereichs.
-	 * @param Mitarbeiter leiter(Objekt)
+	 * @author Phil Methode ändert den Leiter eines Bereichs.
+	 * @param Mitarbeiter
+	 *            leiter(Objekt)
 	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setLeiter(Mitarbeiter mitarbeiter) throws Exception {
@@ -615,11 +612,11 @@ public class Bereich {
 		try {
 			if (!(mitarbeiter == null)) {
 				String neuerLeiterBenutzername = mitarbeiter.getBenutzername();
-/*
-				System.out.println("UPDATE Bereich SET Leiter ='"
-						+ neuerLeiterBenutzername + "' WHERE BereichID='"
-						+ this.bereichID + "'");
-*/
+				/*
+				 * System.out.println("UPDATE Bereich SET Leiter ='" +
+				 * neuerLeiterBenutzername + "' WHERE BereichID='" +
+				 * this.bereichID + "'");
+				 */
 				int RowsAffect = RemoteConnection.sql
 						.executeUpdate("UPDATE Bereich SET Leiter ='"
 								+ neuerLeiterBenutzername
@@ -635,9 +632,9 @@ public class Bereich {
 					throw new Exception("Bereich wurde erfolgreich bearbeitet.");
 
 			} else if (mitarbeiter == null) {
-				//System.out
-					//	.println("UPDATE Bereich SET Leiter =NULL WHERE BereichID='"
-						//		+ this.bereichID + "'");
+				// System.out
+				// .println("UPDATE Bereich SET Leiter =NULL WHERE BereichID='"
+				// + this.bereichID + "'");
 
 				int RowsAffect = RemoteConnection.sql
 						.executeUpdate("UPDATE Bereich SET Leiter =NULL WHERE BereichID='"
@@ -660,8 +657,8 @@ public class Bereich {
 	}
 
 	/**
-	 * @author Phil
-	 * Methode liefert den Leiter des gewählten Bereichs als Mitarbeiterobjekt.
+	 * @author Phil Methode liefert den Leiter des gewählten Bereichs als
+	 *         Mitarbeiterobjekt.
 	 * @return Mitarbeiter leiter
 	 */
 	public Mitarbeiter getLeiter() {
