@@ -347,8 +347,6 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
