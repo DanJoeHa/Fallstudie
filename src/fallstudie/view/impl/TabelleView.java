@@ -1,26 +1,21 @@
 package fallstudie.view.impl;
 
-import javax.swing.JPanel;
-
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.SystemColor;
 
-import javax.swing.border.LineBorder;
-
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Font;
-import java.awt.Dimension;
-import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
-
-import javax.swing.JComboBox;
 /**
  * View zum Anzeigen von Daten in einer Tabelle und zum anschließenden Auswählen eines Datensatzes
  * @author Marc
@@ -37,6 +32,10 @@ public class TabelleView extends JPanel implements View {
 	 * Auswahl und Löschen Button
 	 */
 	private JButton B_AuswaehlenLoeschen;
+	/**
+	 * CSV Drucken Button
+	 */
+	private JButton B_CSV_Drucken;
 	/**
 	 * Abbrechen Button
 	 */
@@ -68,6 +67,12 @@ public class TabelleView extends JPanel implements View {
 		B_AuswaehlenLoeschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		B_AuswaehlenLoeschen.setBounds(440, 600, 150, 30);
 		add(B_AuswaehlenLoeschen);
+		
+		B_CSV_Drucken = new JButton("CSV Drucken");
+		B_CSV_Drucken.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		B_CSV_Drucken.setBounds(280, 600, 150, 30);
+		B_CSV_Drucken.setVisible(false);
+		add(B_CSV_Drucken);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(30, 50, 560, 540);
@@ -123,7 +128,6 @@ public class TabelleView extends JPanel implements View {
 		}
 	}
 	
-	//Tabelle befüllen
 	/**
 	 * Tabelle befüllen
 	 * @param tabellenheadline
@@ -174,7 +178,8 @@ public class TabelleView extends JPanel implements View {
 		this.B_Abbrechen.addActionListener(c);
 		this.B_AuswaehlenLoeschen.addActionListener(c);
 		this.B_DrillDown.addActionListener(c);
-		this.TA_Tabelle.addMouseListener((MouseListener) c);
+		this.TA_Tabelle.addMouseListener(c);
+		this.B_CSV_Drucken.addActionListener(c);
 	}
 /**
  * Tabelle leeren
@@ -182,5 +187,9 @@ public class TabelleView extends JPanel implements View {
 	@Override
 	public void reset() {
 		this.TA_Tabelle.removeAll();
+	}
+	
+	public void setSichtbarkeit(){
+		this.B_CSV_Drucken.setVisible(true);
 	}
 }
