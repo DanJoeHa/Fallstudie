@@ -1268,13 +1268,11 @@ public class Mitarbeiter {
 			// System.out.println("SELECT * FROM Mitarbeiter WHERE Benutzername LIKE '%"+suchbegriff+"%' OR Arbeitsgruppe LIKE '%"+suchbegriff+"%' OR"
 			// +
 			// " Rolle LIKE '%"+suchbegriff+"%' OR Vorname LIKE '%"+suchbegriff+"%' OR Nachname LIKE '%"+suchbegriff+"%'");
-			int ArbeitsgruppeIDVonSuchbegriff=0;
-			
 			String query = "SELECT * FROM Mitarbeiter WHERE (Benutzername LIKE '%"
 					+ suchbegriff
 					+ "%' OR Vorname LIKE '%"
 					+ suchbegriff
-					+ "%' OR Nachname LIKE '%" + suchbegriff + "%')";
+					+ "%' OR Nachname LIKE '%" + suchbegriff + "%' OR Arbeitsgruppe LIKE (SELECT ArbeitsgruppeID FROM Arbeitsgruppe WHERE Kurzbezeichnung='"+suchbegriff+"'))";
 			// System.out.println("Suchdomain: "+suchdomain);
 			if (suchdomain.equals("Bereichsleiter")
 					|| suchdomain.equals("Gruppenleiter"))
