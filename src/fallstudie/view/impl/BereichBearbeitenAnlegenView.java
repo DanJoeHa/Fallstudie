@@ -25,7 +25,13 @@ import fallstudie.view.interfaces.View;
 public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen implements View {
 
 	private static final long serialVersionUID = 1610717377071294522L;
+	/**
+	 * Suchbegriff Textfeld
+	 */
 	private JTextField T_BereichsleiterSuchbegriff;
+	/**
+	 * Suchen Button
+	 */
 	private JButton B_BereichsleiterSuche;
 	/**
 	 * Create the panel.
@@ -77,14 +83,23 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		return ausgabe;
 	}
 	
+	/**
+	 * Leiter in Textfeld setzen
+	 * @param benutzerid
+	 */
 	public void setLeiter(String benutzerid){
 		this.T_BereichsleiterSuchbegriff.setText(benutzerid);
 	}
-	
+	/**
+	 * Leiter Textfeld auslesen
+	 * @return Leiter
+	 */
 	public String getLeiter(){
 		return this.T_BereichsleiterSuchbegriff.getText();
 	}
-	
+	/**
+	 * Setze Controller
+	 */
 	@Override
 	public void setController(Controller c) {
 		this.B_BereichsleiterSuche.addActionListener(c);
@@ -94,7 +109,9 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 //		this.T_Bezeichnung.addKeyListener(c);
 //		this.T_Kurzbezeichnung.addKeyListener(c);
 	}
-
+/**
+ * Textfelder zurücksetzen
+ */
 	@Override
 	public void reset() {
 		this.T_BereichsleiterSuchbegriff.setText("");

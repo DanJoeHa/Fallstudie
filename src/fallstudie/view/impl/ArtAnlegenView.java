@@ -28,7 +28,13 @@ import fallstudie.view.interfaces.View;
 public class ArtAnlegenView extends JPanel implements View{
 
 	private static final long serialVersionUID = 6359747625844571952L;
+	/**
+	 * Art Textfeld
+	 */
 	private JTextField T_Art;
+	/**
+	 * Speichern BUtton
+	 */
 	private JButton B_Speichern;
 
 	/**

@@ -140,6 +140,7 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 		this.T_Bezeichnung.addKeyListener(c);
 		this.T_Kurzbezeichnung.addKeyListener(c);
 		this.C_Bereich.addKeyListener(c);
+		this.addKeyListener(c);
 	}
 /**
  * Setzt Textfelder zurück

@@ -20,7 +20,13 @@ import fallstudie.view.interfaces.View;
 public class ArtLoeschenView extends JPanel implements View{
 
 	private static final long serialVersionUID = -4927164539248244321L;
+	/**
+	 * Löschen Button
+	 */
 	private JButton B_Loeschen;
+	/**
+	 * AuswahlBox Art
+	 */
 	private JComboBox<String> C_Art;
 	/**
 	 * Create the panel.
@@ -85,6 +91,9 @@ public class ArtLoeschenView extends JPanel implements View{
 		this.C_Art.addKeyListener(c);
 	}
 
+	/**
+	 * Keine Funktion
+	 */
 	@Override
 	public void reset() {
 		
