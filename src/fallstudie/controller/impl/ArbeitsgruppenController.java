@@ -405,9 +405,6 @@ public class ArbeitsgruppenController implements Controller {
 				this.view.setzeFocus();
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_F1){
-			HauptController.hilfefenster.setVisible(true);
-		}
 	}
 
 	@Override
