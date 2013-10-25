@@ -128,7 +128,7 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 	}
 	public String hatFocus(){
 		String ausgabe;
-		if(this.B_Speichern.isFocusOwner()){
+		if(this.B_Speichern.isFocusOwner()||this.T_Passwort1.isFocusOwner()||this.C_Bereich.isFocusOwner()||this.T_Arbeitsgruppe.isFocusOwner()){
 			ausgabe = "buttonSpeichern";
 		}else{
 			ausgabe = "nichts";
@@ -143,6 +143,9 @@ public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
 		this.B_SucheArbeitsgruppe.addActionListener(c);
 		this.B_Zuruecksetzen.addActionListener(c);
 		this.B_Speichern.addKeyListener(c);
+		this.C_Bereich.addKeyListener(c);
+		this.T_Passwort1.addKeyListener(c);
+		this.T_Arbeitsgruppe.addKeyListener(c);
 	}
 
 	/**

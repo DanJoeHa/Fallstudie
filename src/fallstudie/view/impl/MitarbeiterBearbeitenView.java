@@ -118,7 +118,7 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 	}
 	public String hatFocus(){
 		String ausgabe;
-		if(this.B_Speichern.isFocusOwner()){
+		if(this.B_Speichern.isFocusOwner()||this.T_Passwort1.isFocusOwner()||this.C_Bereich.isFocusOwner()||this.T_Arbeitsgruppe.isFocusOwner()){
 			ausgabe = "buttonSpeichern";
 		}else{
 			ausgabe = "nichts";
@@ -132,13 +132,14 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 	 */
 	public void setRolle(String[] rollen, String aktuelleRolle)
 	{
-		for( int i = 0; i < rollen.length; i++){
-			this.C_Rolle.addItem( rollen[i] );
-			if( rollen[i].equals(aktuelleRolle) ) {
-				this.C_Rolle.setSelectedIndex(i);
+		if(C_Rolle.getItemCount()==0){
+			for( int i = 0; i < rollen.length; i++){
+				this.C_Rolle.addItem( rollen[i] );
+				if( rollen[i].equals(aktuelleRolle) ) {
+					this.C_Rolle.setSelectedIndex(i);
+				}
 			}
 		}
-		
 		if( aktuelleRolle.equals("Fachbereichsorganisation") || aktuelleRolle.equals("Zentralbereichsleiter") ){
 			this.B_SucheArbeitsgruppe.setVisible(false);
 			this.T_Arbeitsgruppe.setVisible(false);
@@ -214,6 +215,9 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		this.B_Abbrechen.addActionListener(c);
 		this.B_SucheArbeitsgruppe.addActionListener(c);
 		this.B_Speichern.addKeyListener(c);
+		this.T_Arbeitsgruppe.addKeyListener(c);
+		this.T_Passwort1.addKeyListener(c);
+		this.C_Rolle.addKeyListener(c);
 	}
 	/**
 	 * Gibt Arbeitsgruppe aus Textfeld zurück

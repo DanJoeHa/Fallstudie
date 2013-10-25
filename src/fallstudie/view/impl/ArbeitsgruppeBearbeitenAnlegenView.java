@@ -135,6 +135,11 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 		this.B_Speichern.addActionListener(c);
 		this.B_Zuruecksetzen.addActionListener(c);
 		this.B_AGLeiterSuche.addActionListener(c);
+		this.B_Speichern.addKeyListener(c);
+		this.T_AGLeiterSuchbegriff.addKeyListener(c);
+		this.T_Bezeichnung.addKeyListener(c);
+		this.T_Kurzbezeichnung.addKeyListener(c);
+		this.C_Bereich.addKeyListener(c);
 	}
 /**
  * Setzt Textfelder zurück
@@ -145,5 +150,19 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 		this.T_Bezeichnung.setText("");
 		this.T_Kurzbezeichnung.setText("");
 		
+	}
+	
+	//Check auf welchem Button der Focus liegt
+	public String hatFocus(){
+		String ausgabe;
+		if(this.B_Speichern.isFocusOwner()){
+			ausgabe = "buttonSpeichern";
+		}else{
+			ausgabe = "nichts";
+		}
+		return ausgabe;
+	}
+	public void setzeFocus(){
+		this.B_Speichern.requestFocusInWindow();
 	}
 }
