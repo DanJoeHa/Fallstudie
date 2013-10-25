@@ -352,6 +352,10 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode()== KeyEvent.VK_ENTER) hilfefenster.setVisible(false);
+	
+		if(e.getKeyCode() == KeyEvent.VK_F1){
+			hilfefenster.setVisible(true);
+		}
 	}
 
 	@Override
