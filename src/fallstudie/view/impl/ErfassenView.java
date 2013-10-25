@@ -30,10 +30,25 @@ import fallstudie.view.interfaces.View;
 public class ErfassenView extends JPanel implements View {
 
 	private static final long serialVersionUID = -4191603780481912694L;
+	/**
+	 * Kalenderjahr Textfeld
+	 */
 	private JTextField T_Kalenderjahr;
+	/**
+	 * Anzahl Textfeld
+	 */
 	private JTextField T_AnzahlErfassen;
+	/**
+	 * Zurücksetzen und Anlegen Button
+	 */
 	private JButton B_Zuruecksetzen, B_Anlegen;
+	/**
+	 * Kalenderwochen RadioBox zur Auswahl
+	 */
 	private JRadioButton R_KalenderwocheDavor, R_KalenderwocheAktuell;
+	/**
+	 * Art AuswahlBox
+	 */
 	private JComboBox<String> C_Art;
 
 	/**

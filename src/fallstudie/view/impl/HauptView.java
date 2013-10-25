@@ -35,13 +35,37 @@ import fallstudie.view.interfaces.View;
 public class HauptView extends JFrame implements View{
 
 	private static final long serialVersionUID = 999907361524491947L;
+	/**
+	 * Panel, in dem die Views geladen werden
+	 */
 	private JPanel Content, NavigationBackground;
+	/**
+	 * aktuelle, letzte und vorletzte View
+	 */
 	private View activeView, lastView, lastlastView;
+	/**
+	 * Logout und Hilfe Button
+	 */
 	private JButton B_Logout, B_Hilfe;
+	/**
+	 * InfoBox Text
+	 */
 	private JTextPane InfoBox, LoginInfo;
+	/**
+	 * Navigationsbaum
+	 */
 	private JTree Navigation;
+	/**
+	 * Überschriften Label
+	 */
 	private JLabel L_Ueberschrift;
+	/**
+	 * Listener auf Navigationsbaum
+	 */
 	private TreeSelectionListener tl;
+	/**
+	 * Inhalt Panel
+	 */
 	private JPanel Panel;
 
 	/**
