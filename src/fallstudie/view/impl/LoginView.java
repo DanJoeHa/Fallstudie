@@ -23,8 +23,17 @@ import fallstudie.view.interfaces.View;
 public class LoginView extends JPanel implements View {
 
 	private static final long serialVersionUID = 6556759367243768953L;
+	/**
+	 * Passwort Passwortfeld (Eingaben nicht erkennbar)
+	 */
 	private JPasswordField P_Passwort;
+	/**
+	 * Benutzername Textfeld
+	 */
 	private JTextField T_Benutzername;
+	/**
+	 * Login Button
+	 */
 	private JButton B_Login;
 
 	/**
@@ -114,7 +123,6 @@ public class LoginView extends JPanel implements View {
 		this.P_Passwort.addKeyListener(c);
 		this.B_Login.addKeyListener(c);
 		this.B_Login.addMouseListener(c);
-		this.addKeyListener(c);
 	}
 	
 	/**

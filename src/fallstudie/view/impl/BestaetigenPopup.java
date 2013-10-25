@@ -18,9 +18,21 @@ import fallstudie.view.interfaces.View;
 public class BestaetigenPopup extends JDialog implements View{
 
 	private static final long serialVersionUID = -8630370870519774622L;
+	/**
+	 * Panel für Inhalt
+	 */
 	private final JPanel contentPanel = new JPanel();
+	/**
+	 * Speichern Button
+	 */
 	private JButton B_speichern;
+	/**
+	 * Abbrechen Button
+	 */
 	private JButton B_abbrechen;
+	/**
+	 * Hinweis Text
+	 */
 	private JTextArea txtrWollenSieWirklich;
 	
 	
@@ -110,7 +122,9 @@ public class BestaetigenPopup extends JDialog implements View{
 		this.B_speichern.addKeyListener(c);
 		this.B_abbrechen.addKeyListener(c);
 	}
-
+/**
+ * Setzt Titel des Popups zurück
+ */
 	@Override
 	public void reset() {
 		setTitle("");

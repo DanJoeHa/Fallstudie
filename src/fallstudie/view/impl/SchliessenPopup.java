@@ -24,8 +24,18 @@ import java.awt.event.KeyListener;
 public class SchliessenPopup extends JDialog implements View{
 
 	private static final long serialVersionUID = 8389558871657416016L;
+	
+	/**
+	 * Inhalt Panel
+	 */
 	private final JPanel contentPanel = new JPanel();
+	/**
+	 * Ok Button
+	 */
 	private JButton B_ok;
+	/**
+	 * Hinweis Text
+	 */
 	private JTextPane T_Hinweis;
 
 	/**

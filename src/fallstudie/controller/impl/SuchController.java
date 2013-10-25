@@ -154,6 +154,7 @@ public class SuchController implements Controller,MouseListener {
 						}
 					}
 					popup.setVisible(false);
+					suchenActionArbeitsgruppe(e.getID());
 				}
 			}
 			if(button.equals("Nein")){

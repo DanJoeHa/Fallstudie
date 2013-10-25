@@ -23,9 +23,21 @@ import fallstudie.view.interfaces.View;
 public class DatenAnzeigenAuswahlView extends JPanel implements View{
 
 	private static final long serialVersionUID = 8946261889602533900L;
+	/**
+	 * Jahr Textfeld
+	 */
 	private JTextField T_Jahr;
+	/**
+	 * Wochen Textfeld
+	 */
 	private JTextField T_Woche;
+	/**
+	 * Weiter Button
+	 */
 	private JButton B_Weiter;
+	/**
+	 * Hinweis Text
+	 */
 	private JTextArea L_Hinweis;
 
 	/**

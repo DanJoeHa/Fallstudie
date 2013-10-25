@@ -18,8 +18,17 @@ import javax.swing.JButton;
 public abstract class OrgeinheitBearbeitenAnlegen extends JPanel{
 
 	private static final long serialVersionUID = -3209996671642895324L;
+	/**
+	 * Kurzbezeichnung Textfeld
+	 */
 	protected JTextField T_Kurzbezeichnung;
+	/**
+	 * Bezeichnung Textfeld
+	 */
 	protected JTextField T_Bezeichnung;
+	/**
+	 * Zurücksetzen und Speichern Button
+	 */
 	protected JButton B_Zuruecksetzen, B_Speichern;
 	/**
 	 * Create the panel.
