@@ -267,7 +267,22 @@ public class BereichController implements Controller {
 			String Bezeichnung = B.getKurzbezeichnung();
 			if( Bezeichnung.equals( this.viewLoesch.getBereich() ) ){
 				try{
-					B.loeschen();
+					
+					//Bereich löschen
+					if( B.loeschen() ){
+						
+						//Bereich aus Collection entfernen
+						this.bereich.remove(B);
+						
+						//ComboBox in View aktualisieren
+						this.viewLoesch.setBereiche(Funktionen.BereicheCollection2Array(this.bereich));
+						
+						//View aktualisieren
+						this.viewLoesch.revalidate();
+						
+						//Rückmeldung an User
+						HauptController.hauptfenster.setInfoBox("Bereich gelöscht.");
+					}
 				}catch(Exception ex){
 					HauptController.hauptfenster.setInfoBox(ex.getMessage());
 				}

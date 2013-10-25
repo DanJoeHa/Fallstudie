@@ -506,8 +506,8 @@ public class Bereich {
 
 					erfolgreich = true;
 
-					if (RowsAffect == 1)
-						throw new Exception("Es wurde 1 Datensatz gelöscht.");
+					if (RowsAffect != 1)
+						throw new Exception("Bereich konnte nicht gelöscht werden.");
 				} else if (aktuellerStatus == false) {
 					erfolgreich = false;
 				}
