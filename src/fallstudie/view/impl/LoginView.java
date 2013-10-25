@@ -77,6 +77,7 @@ public class LoginView extends JPanel implements View {
 		T_Benutzername.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Benutzername.setColumns(10);
 		T_Benutzername.setBounds(200, 100, 390, 30);
+		T_Benutzername.requestFocusInWindow();
 		add(T_Benutzername);
 
 		//B_Login
