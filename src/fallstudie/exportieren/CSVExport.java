@@ -25,14 +25,13 @@ public class CSVExport {
 		if(!dir.exists())dir.mkdir();
 		FileOutputStream output = new FileOutputStream(
 			System.getProperty("user.home")+ "\\Desktop\\DatenExport\\CSVExport"+sdf.format(resultdate)+".csv");
-		
 		output.write(239);
 		output.write(187);
 		output.write(191);
 		String outputEncoding = "UTF-8";
-		
 		Charset charsetOutput = Charset.forName(outputEncoding);
 		CharsetEncoder encoder = charsetOutput.newEncoder();
+		
 		OutputStreamWriter writer1 = new OutputStreamWriter(output,encoder);
 		BufferedWriter writer = new BufferedWriter(writer1);
 		
