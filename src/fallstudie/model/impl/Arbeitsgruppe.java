@@ -23,7 +23,6 @@ public class Arbeitsgruppe {
 	private Mitarbeiter leiter;
 	private String leiterBenutzername;
 	private int bereichID;
-
 	// -----------------------------------------------------------
 	// ---------------------KONSTRUKTOREN-------------------------
 	// -----------------------------------------------------------
@@ -54,6 +53,10 @@ public class Arbeitsgruppe {
 		}
 		
 		try {	
+			
+				kurzbezeichnung = kurzbezeichnung.replace('\'',' ');
+				beschreibung = beschreibung.replace('\'',' ');
+				
 				//Abfangen auf Kurzbezeichnung ist leer
 				if (kurzbezeichnung.equals(""))
 				{
@@ -152,7 +155,6 @@ public class Arbeitsgruppe {
 					//END-IF
 
 			}//END IF Leiter abfrage
-
 		}//END TRY
 
 		catch (SQLException e) {
@@ -279,9 +281,11 @@ public class Arbeitsgruppe {
 	 */
 	public boolean setBeschreibung(String beschreibung) {
 		boolean erfolgreich = false;
-		
+		beschreibung = beschreibung.replace('\'',' ');
 		try 
-		{	/*
+		{	if(beschreibung.contains("'"))
+		{
+			/*
 			System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"
 					+ beschreibung + "' WHERE ArbeitsgruppeID='"
 					+ this.arbeitsgruppeID + "'");
@@ -294,7 +298,7 @@ public class Arbeitsgruppe {
 							+ this.arbeitsgruppeID + "'");
 
 			erfolgreich = true;
-
+		}
 		}	//END TRY 
 		catch (SQLException e)
 		{
@@ -322,7 +326,7 @@ public class Arbeitsgruppe {
 	 */
 	public boolean setKurzbezeichnung(String kurzbezeichnung){
 		RemoteConnection Connection = new RemoteConnection();
-		
+		kurzbezeichnung = kurzbezeichnung.replace('\'',' ');
 		boolean erfolgreich = true;
 		try{			
 				//Abfangen auf Kurzbezeichnung ist leer
@@ -713,6 +717,7 @@ public class Arbeitsgruppe {
 		;
 		ResultSet resultSet = null;
 		try {
+			suchbegriff = suchbegriff.replace('\'',' ');
 			// System.out.println("SELECT * FROM Arbeitsgruppe WHERE ArbeitsgruppeID LIKE '%"+suchbegriff+"%' OR Leiter LIKE '%"+suchbegriff+"%' OR"
 			// +
 			// " Bereich LIKE '%"+suchbegriff+"%' OR Beschreibung LIKE '%"+suchbegriff+"%' OR"

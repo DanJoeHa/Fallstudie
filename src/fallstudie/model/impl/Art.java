@@ -38,7 +38,7 @@ public class Art {
 		System.err.println(e.getMessage());
 		System.err.println("Konnte keine Datenbankverbindung herstellen!");
 	}
-	
+	name = name.replace('\'',' ');
 	this.name=name;
 	try
 	{	
@@ -82,7 +82,7 @@ public class Art {
 	
 		if (rowsAffected==1)
 			{
-			throw new Exception("Datensatz erfolgreich gespeichert");
+			throw new Exception("Art erfolgreich angelegt.");
 			}
 		checkObVorhanden.close();
 	}
