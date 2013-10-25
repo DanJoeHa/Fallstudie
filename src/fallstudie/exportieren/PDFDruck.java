@@ -105,7 +105,6 @@ public static void generateTablePDF(String[][] TabellenContent, String PDFUebers
 		PDPageContentStream contentStream = new PDPageContentStream(doc, page);
 		String[][] part = new String[35][spalten]; 
 		
-		System.out.println("i: "+i+" a: "+a);
 		part = Arrays.copyOfRange(TabellenContent, i, a);
 		String [][] komplettArray = new String[36][spalten];
 		

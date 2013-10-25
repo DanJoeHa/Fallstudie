@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import fallstudie.controller.interfaces.Controller;
+import fallstudie.exportieren.CSVExport;
 import fallstudie.exportieren.PDFDruck;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Jahresuebersicht;
@@ -109,8 +110,11 @@ public class DatenAnzeigenController implements Controller {
 			weiterAction();
 		}
 		
-		//Daten ausdrucken
-		if( button.equals("Drucken") ) this.drucken();
+		//Daten ausdrucken PDF
+		if( button.equals("PDF") ) this.drucken(true);
+		
+		//Daten ausdrucken CSV
+		if(button.equals("CSV")) this.drucken(false);
 		
 		//Drill-Down in einen Bereich
 		if( button.equals("DrillDown") ) this.drilldown();
@@ -207,7 +211,8 @@ public class DatenAnzeigenController implements Controller {
 			
 			//an TabelleView übergeben
 			this.viewErg.setTabelle(tabellenspalten, tabellenwerte);
-			this.viewErg.setButtonName("Drucken");
+			this.viewErg.setButtonName("PDF");
+			this.viewErg.setSichtbarkeit();
 			HauptController.hauptfenster.setUeberschrift(headline);
 			HauptController.hauptfenster.setContent( this.viewErg );
 			
@@ -577,7 +582,8 @@ public class DatenAnzeigenController implements Controller {
 		//neue View erstellen
 		this.viewErg = new TabelleView();
 		this.viewErg.setController(this);
-		this.viewErg.setButtonName("Drucken");
+		this.viewErg.setButtonName("PDF");
+		this.viewErg.setSichtbarkeit();
 		
 		//DrillDown ausblenden
 		this.viewErg.setDrillDown(false);
@@ -591,11 +597,11 @@ public class DatenAnzeigenController implements Controller {
 	
 	/**
 	 * Ausdrucken
-	 * 
+	 * boolean, true = PDF, false = CSV
 	 * @author Johannes
 	 * @version 1.0
 	 */
-	private void drucken(){
+	private void drucken(boolean art){
 		
 		String[][] tabwerte = new String[this.tabellenwerte.length][this.tabellenwerte[0].length];
 		
@@ -608,8 +614,8 @@ public class DatenAnzeigenController implements Controller {
 		}
 
 		try {
-			//CSVExport.exportCSV(tabwerte, this.tabellenspalten);
-			PDFDruck.generateTablePDF(tabwerte, this.headline, this.tabellenspalten);
+			if(!art)CSVExport.exportCSV(tabwerte, this.tabellenspalten);
+			if(art)PDFDruck.generateTablePDF(tabwerte, this.headline, this.tabellenspalten);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

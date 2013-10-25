@@ -457,13 +457,13 @@ public class Bereich {
 		RemoteConnection Connection = new RemoteConnection();
 		boolean darfdeleteArbeitsgruppe = false;
 		boolean darfdeleteMitarbeiter = false;
-		boolean darfdelteLeiter = false;
 		try { // Check ob mitarbeiter noch bereich zugeordnet sind
 
-			// System.out.println("SELECT * FROM Mitarbeiter WHERE Bereich='"+this.bereichID+"'");
+			System.out.println("SELECT * FROM Mitarbeiter WHERE (Bereich='"
+					+ this.bereichID + "') AND (Aktiv='1')");
 			ResultSet mitarbeiterdrancheck = Connection
-					.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE Bereich='"
-							+ this.bereichID + "'");
+					.executeQueryStatement("SELECT * FROM Mitarbeiter WHERE (Bereich='"
+							+ this.bereichID + "') AND (Aktiv='1')");
 			if (mitarbeiterdrancheck.next()) {
 				darfdeleteMitarbeiter = false;
 
@@ -471,22 +471,11 @@ public class Bereich {
 				darfdeleteMitarbeiter = true;
 
 			}
-			// check ob Leiter noch dran ist
-			// System.out.println("SELECT * FROM Bereich WHERE BereichID='"+this.bereichID+"'");
-			ResultSet leiterdranCheck = Connection
-					.executeQueryStatement("SELECT * FROM Bereich WHERE BereichID='"
-							+ this.bereichID + "'");
-			leiterdranCheck.next();
-			if (!leiterdranCheck.next())
-				darfdelteLeiter = true;
-			if (leiterdranCheck.next())
-				darfdelteLeiter = false;
-
 			// Check ob Arbeitsgruppe dran ist
 			// System.out.println("SELECT * FROM Arbeitsgruppe WHERE Bereich='"+this.bereichID+"'");
 			ResultSet arbeitsgruppeCheck = Connection
-					.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE Bereich='"
-							+ this.bereichID + "'");
+					.executeQueryStatement("SELECT * FROM Arbeitsgruppe WHERE (Bereich='"
+							+ this.bereichID + "') AND (Aktiv='1')");
 
 			if (arbeitsgruppeCheck.next()) {
 				darfdeleteArbeitsgruppe = false;
@@ -494,7 +483,7 @@ public class Bereich {
 				darfdeleteArbeitsgruppe = true;
 			}
 
-			if (darfdeleteArbeitsgruppe == true && darfdelteLeiter == true
+			if (darfdeleteArbeitsgruppe == true
 					&& darfdeleteMitarbeiter == true) {
 
 				if (aktuellerStatus == true) {

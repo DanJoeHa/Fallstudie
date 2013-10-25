@@ -1,8 +1,13 @@
 package fallstudie.exportieren;
 import java.awt.Desktop;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,9 +23,19 @@ public class CSVExport {
 		Date resultdate = new Date(milliseconds);
 		File dir = new File(System.getProperty("user.home")+ "\\Desktop\\DatenExport");
 		if(!dir.exists())dir.mkdir();
-		PrintWriter writer = new PrintWriter(
+		FileOutputStream output = new FileOutputStream(
 			System.getProperty("user.home")+ "\\Desktop\\DatenExport\\CSVExport"+sdf.format(resultdate)+".csv");
-	int zeilen = contentTable.length;
+		output.write(239);
+		output.write(187);
+		output.write(191);
+		String outputEncoding = "UTF-8";
+		Charset charsetOutput = Charset.forName(outputEncoding);
+		CharsetEncoder encoder = charsetOutput.newEncoder();
+		
+		OutputStreamWriter writer1 = new OutputStreamWriter(output,encoder);
+		BufferedWriter writer = new BufferedWriter(writer1);
+		
+		int zeilen = contentTable.length;
 	int spalten = contentTable[0].length;
 	
 	String[][] ueber2D = new String[1][ueberschriften.length];
@@ -34,7 +49,7 @@ public class CSVExport {
 		    	 String s = komplettArray[k][l]+";";
 		        writer.write(s);
 		         }
-		     writer.println();
+		     writer.newLine();
 		 }
 		 writer.close();
 		 File CSV = new File(System.getProperty("user.home")+ "\\Desktop\\DatenExport\\CSVExport"+sdf.format(resultdate)+".csv");
