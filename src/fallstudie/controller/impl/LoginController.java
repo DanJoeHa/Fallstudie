@@ -100,12 +100,7 @@ public class LoginController implements Controller, KeyListener
 	 * Horcht auf Key "Enter", setzt Message in der InfoBox.
 	 */
 	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER)
-		{
-			HauptController.hauptfenster.setInfoBox("Moment bitte, Loginvorgang!");
-		}
-	}
+	public void keyPressed(KeyEvent e) {}
 
 	/**
 	 * Wenn Key "Enter" losgelassen wurde, login durchführen.
