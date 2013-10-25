@@ -1272,7 +1272,7 @@ public class Mitarbeiter {
 					+ suchbegriff
 					+ "%' OR Vorname LIKE '%"
 					+ suchbegriff
-					+ "%' OR Nachname LIKE '%" + suchbegriff + "%' OR Arbeitsgruppe LIKE (SELECT ArbeitsgruppeID FROM Arbeitsgruppe WHERE Kurzbezeichnung='"+suchbegriff+"'))";
+					+ "%' OR Nachname LIKE '%" + suchbegriff + "%' OR Arbeitsgruppe LIKE (SELECT ArbeitsgruppeID FROM Arbeitsgruppe WHERE Kurzbezeichnung='"+suchbegriff+"') OR Bereich LIKE (SELECT BereichID FROM Bereich WHERE Kurzbezeichnung='"+suchbegriff+"') )";
 			// System.out.println("Suchdomain: "+suchdomain);
 			if (suchdomain.equals("Bereichsleiter")
 					|| suchdomain.equals("Gruppenleiter"))
