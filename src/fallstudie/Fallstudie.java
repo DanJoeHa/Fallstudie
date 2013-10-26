@@ -4,10 +4,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
@@ -30,7 +33,7 @@ public class Fallstudie extends JFrame {
      * @param y
      * @param millis
      */
-    public Fallstudie(File pic, int x, int y, long millis) {
+    public Fallstudie(InputStream pic, int x, int y, long millis) {
  
         this.x = x;
         this.y = y;
@@ -44,7 +47,7 @@ public class Fallstudie extends JFrame {
  
         MediaTracker mt = new MediaTracker(this);
         try {
- 
+   
             img = ImageIO.read(pic).getScaledInstance(x, y, Image.SCALE_SMOOTH);
  
         } catch (IOException e) {
@@ -74,11 +77,14 @@ public class Fallstudie extends JFrame {
  /**
   * zeigt mir das Bild in der Größe 240, 180 und 2 Sekunden an
   * @param args
+ * @throws URISyntaxException 
+ * @throws UnsupportedEncodingException 
   */
-    public static void main(String[] args) {
-        String path= "src/fallstudie/images/StipplerSplash.jpg";
-        Fallstudie screen =
-            new Fallstudie(new File(path), 640, 480, 2000);
+    public static void main(String[] args) throws URISyntaxException {
+    
+    	InputStream url = Fallstudie.class.getResourceAsStream("images/StipplerSplash.jpg");
+    	Fallstudie screen =
+            new Fallstudie(url, 640, 480, 2000);
     }
  /**
   * falls das Bild nicht gefunden wird kommt ein beiges Quadrat
