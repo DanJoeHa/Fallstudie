@@ -50,7 +50,7 @@ public abstract class OrgeinheitBearbeitenAnlegen extends JPanel{
 		add(L_Kurzbezeichnung);
 				
 		//L_Bezeichnung
-		JLabel L_Bezeichnung = new JLabel("Bezeichnung:");
+		JLabel L_Bezeichnung = new JLabel("Beschreibung:");
 		L_Bezeichnung.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		L_Bezeichnung.setBounds(30, 80, 150, 30);
 		add(L_Bezeichnung);
