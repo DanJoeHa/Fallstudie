@@ -78,7 +78,6 @@ public class HauptView extends JFrame implements View{
 		
 		//Panel für allen Inhalt des Frames
 		JPanel Panel = new JPanel();
-		Panel.setFocusable(true);
 		Panel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		Panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(Panel);
