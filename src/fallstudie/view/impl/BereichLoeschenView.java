@@ -25,7 +25,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class BereichLoeschenView extends JPanel implements View{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 5718285763271323948L;
 	/**
 	 * Bearbeiten und Löschen Button
@@ -70,6 +72,10 @@ public class BereichLoeschenView extends JPanel implements View{
 		add(L_Hinweis);
 
 	}
+	/**
+	 * Check auf welchem Button der Focus liegt
+	 * @return
+	 */
 	public String hatFocus(){
 		String ausgabe;
 		if(this.B_BearbeitenLoeschen.isFocusOwner()){
@@ -80,38 +86,58 @@ public class BereichLoeschenView extends JPanel implements View{
 		}
 		return ausgabe;
 	}
-	
+	/**
+	 * setzt Focus auf Button
+	 */
 	public void setzeFocus(){
 		this.B_BearbeitenLoeschen.requestFocusInWindow();
 	}
 	
 	@Override
+	/**
+	 * setzt Controller
+	 */
 	public void setController(Controller c) {
 		this.B_BearbeitenLoeschen.addActionListener(c);
 		this.B_BearbeitenLoeschen.addKeyListener(c);
 		this.C_Bereich.addKeyListener(c);
 	}
-
+	/**
+	 * Keine Funktion
+	 */
 	@Override
 	public void reset() {
 		
 	}
-	
+	/**
+	 * befüllt Combobox mit den Bereichen
+	 * @param Bereiche
+	 */
 	public void setBereiche(String[] Bereiche){
 		this.C_Bereich.removeAllItems();
 		for( int i = 0; i < Bereiche.length; i++){
 			this.C_Bereich.addItem( Bereiche[i] );
 		}
 	}
-	
+	/**
+	 * holt den ausgewählten Bereich
+	 * @return
+	 */
 	public String getBereich(){
 		return this.C_Bereich.getSelectedItem().toString();
 	}
-	
+	/**
+	 * setzt Buttonname
+	 * @param ButtonName
+	 */
 	public void setButtonName(String ButtonName)
 	{
 		B_BearbeitenLoeschen.setText(ButtonName);
 	}
+	/**
+	 * setzt den Text
+	 * @param Hinweis
+	 */
 	public void setHinweis(String Hinweis)
 	{
 		L_Hinweis.setText(Hinweis);

@@ -27,7 +27,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class LayoutMitarbeiter extends JPanel implements View{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -5374763696510559443L;
 	/**
 	 * Vorname Textfeld

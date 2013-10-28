@@ -16,7 +16,9 @@ import javax.swing.JButton;
  *
  */
 public abstract class OrgeinheitBearbeitenAnlegen extends JPanel{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -3209996671642895324L;
 	/**
 	 * Kurzbezeichnung Textfeld

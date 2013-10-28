@@ -21,7 +21,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class DatenAnzeigenAuswahlView extends JPanel implements View{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 8946261889602533900L;
 	/**
 	 * Jahr Textfeld

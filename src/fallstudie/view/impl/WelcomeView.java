@@ -16,7 +16,9 @@ import java.awt.Dimension;
  *
  */
 public class WelcomeView extends JPanel implements View{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 6282583046506172098L;
 	/**
 	 * Hinsweis Text

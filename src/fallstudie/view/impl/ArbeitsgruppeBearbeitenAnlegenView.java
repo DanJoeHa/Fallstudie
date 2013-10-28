@@ -24,10 +24,21 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen implements View{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -2078487615780247796L;
+	/**
+	 * TextFeld AGLeiter suchen
+	 */
 	private JTextField T_AGLeiterSuchbegriff;
+	/**
+	 * Combobox der Bereiche
+	 */
 	private JComboBox<String> C_Bereich;
+	/**
+	 * Button Suche
+	 */
 	private JButton B_AGLeiterSuche;
 
 	/**
@@ -152,7 +163,10 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 		
 	}
 	
-	//Check auf welchem Button der Focus liegt
+	/**
+	 * Check auf welchem Button der Focus liegt
+	 * @return
+	 */
 	public String hatFocus(){
 		String ausgabe;
 		if(this.B_Speichern.isFocusOwner()){
@@ -162,6 +176,9 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 		}
 		return ausgabe;
 	}
+	/**
+	 * setzt Focus auf Button
+	 */
 	public void setzeFocus(){
 		this.B_Speichern.requestFocusInWindow();
 	}

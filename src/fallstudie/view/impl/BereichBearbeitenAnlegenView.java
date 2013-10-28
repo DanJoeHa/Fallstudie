@@ -23,7 +23,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen implements View {
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 1610717377071294522L;
 	/**
 	 * Suchbegriff Textfeld
@@ -67,6 +69,10 @@ public class BereichBearbeitenAnlegenView extends OrgeinheitBearbeitenAnlegen im
 		add(B_BereichsleiterSuche);
 		
 	}
+	/**
+	 * Check auf welchem Button der Focus liegt
+	 * @return
+	 */
 	public String hatFocus(){
 		String ausgabe;
 		if(this.B_Speichern.isFocusOwner()){
