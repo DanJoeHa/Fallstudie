@@ -14,14 +14,36 @@ import fallstudie.model.impl.Eintrag;
 import fallstudie.view.impl.ErfassenView;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Der Erfassen-Controller ist für das Erfassen von neuen Einträgen verantwortlich.
+ *
+ */
 public class ErfassenController implements Controller {
 	
+	/**
+	 * Marc?!
+	 */
 	private static final int FULL = 0;
+	/**
+	 * Marc?!
+	 */
 	private static final int MEDIUM = 0;
+	/**
+	 * View zum Erfassen von neuen Einträgen
+	 */
 	private ErfassenView view;
+	/**
+	 * Collection an Arten aus Model-Schicht
+	 */
 	private Collection<Art> art;
+	/**
+	 * Zwischenspeicher
+	 */
 	private Art tempArt;
 	
+	/**
+	 * Erstellt ein neues Objekt und befüllt die View zur Erfassung von neuen Einträgen.
+	 */
 	public ErfassenController(){
 		this.view = new ErfassenView();
 		this.view.setController( this );
@@ -39,6 +61,9 @@ public class ErfassenController implements Controller {
 		this.view.setArten(sArt);
 	}
 	
+	/**
+	 * ActionListener auf Buttons "Speichern" und "Zurücksetzen"
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 		
@@ -53,6 +78,9 @@ public class ErfassenController implements Controller {
 		}
 	}
 
+	/**
+	 * Speichert einen neuen Eintrag.
+	 */
 	private void speichernAction() {
 		Iterator<Art> i = this.art.iterator();		
 		while( i.hasNext() ){
@@ -88,39 +116,59 @@ public class ErfassenController implements Controller {
 		}
 	}
 
+	/**
+	 * Liefert die Erfassen View zurück
+	 */
 	@Override
 	public View getView() {
 		return this.view;
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void fortsetzen() {
-	}
+	public void fortsetzen() {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
+	public void mouseClicked(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mousePressed(MouseEvent e) {
-	}
+	public void mousePressed(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
+	public void mouseReleased(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void keyPressed(KeyEvent e) {
-	}
+	public void keyPressed(KeyEvent e) {}
 
+	/**
+	 * Enter-Taste löst Speichern-Popup zur Bestätigung aus 
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode()==KeyEvent.VK_ENTER){
@@ -128,8 +176,10 @@ public class ErfassenController implements Controller {
 		}
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+	public void keyTyped(KeyEvent e) {}
 	
 }
