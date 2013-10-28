@@ -24,16 +24,49 @@ import fallstudie.view.interfaces.View;
  */
 public class MitarbeiterController implements Controller {
 
+	/**
+	 * View zum Mitarbeiter bearbeiten
+	 */
 	private MitarbeiterBearbeitenView view;
+	/**
+	 * View zum Mitarbeiten anlegen
+	 */
 	private MitarbeiterAnlegenView viewAnlegen;
+	/**
+	 * View zum Suchen
+	 */
 	private SuchenView viewSuche;
+	/**
+	 * Art der Operation
+	 */
 	private String operation;
+	/**
+	 * Rollen
+	 */
 	private Collection<Rolle> rollen;
+	/**
+	 * Bereiche
+	 */
 	private Collection<Bereich> bereiche;
+	/**
+	 * Ausgewählter Mitarbeiter
+	 */
 	private Mitarbeiter gewaehlterMitarbeiter;
+	/**
+	 * Ausgewählte Arbeitsgruppe
+	 */
 	private Arbeitsgruppe gewaehlteAG = null;
+	/**
+	 * Controller zum Suchen
+	 */
 	private SuchController suche;
+	/**
+	 * Wenn true, dann wird nach einer Arbeitsgruppe gesucht, ansonsten nach Mitarbeiter
+	 */
 	private boolean suchag = false;
+	/**
+	 * Popup zur Betätigung
+	 */
 	public static BestaetigenPopup popup;
 	
 	
@@ -155,7 +188,9 @@ public class MitarbeiterController implements Controller {
 			}
 		}
 	}
-
+	/**
+	 * Attribute aus View holen um Mitarbeiter zu bearbeiten
+	 */
 	private void bearbeitenMitarbeiter() {
 		try{
 			//Daten aus View holen
@@ -456,25 +491,39 @@ public class MitarbeiterController implements Controller {
 		}	
 		
 	}
-
+	/**
+	 * Keine Aktion
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {}
-
+	/**
+	 * Keine Aktion
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {}
-
+	/**
+	 * Keine Aktion
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {}
-
+	/**
+	 * Keine Aktion
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {}
-
+	/**
+	 * Keine Aktion
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {}
-
+	/**
+	 * Keine Aktion
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {}
-
+	/**
+	 * ??Patrick
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -506,7 +555,9 @@ public class MitarbeiterController implements Controller {
 			}
 		}
 	}
-		
+	/**
+	 * Keine Aktion
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {}
 }

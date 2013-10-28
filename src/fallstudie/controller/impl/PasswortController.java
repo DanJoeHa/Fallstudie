@@ -49,7 +49,7 @@ public class PasswortController implements Controller {
 		
 	}
 /**
- * Speichert Passwort mit Prüfung
+ * Speichert Passwort mit Prüfungen
  */
 	private void speichernAction() {
 		//Hole Daten aus View
