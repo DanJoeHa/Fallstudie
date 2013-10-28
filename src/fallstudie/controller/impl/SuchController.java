@@ -30,6 +30,9 @@ public class SuchController implements Controller,MouseListener {
 	
 	private Controller aufrufenderController;
 
+	/**
+	 * Konstruktor ohne Funktionalität
+	 */
 	public SuchController(){
 		
 	}
