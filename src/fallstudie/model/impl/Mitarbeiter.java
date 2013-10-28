@@ -419,8 +419,8 @@ public class Mitarbeiter {
 				 * benutzername + "' WHERE ArbeitsgruppeID='" +
 				 * arbeitsgruppe.getID() + "'");
 				 */
-				if (affectedRows == 1)
-					throw new Exception("Mitarbeiter wurde angelegt.");
+				if (affectedRows != 1)
+					throw new Exception("Mitarbeiter konnte nicht angelegt werden.");
 
 			}
 		} catch (SQLException e) {
@@ -549,8 +549,8 @@ public class Mitarbeiter {
 				this.arbeitsgruppe = null;
 				this.bereich = null;
 				checkObVorhanden.close();
-				if (affectedRows == 1)
-					throw new Exception("Mitarbeiter wurde angelegt.");
+				if (affectedRows != 1)
+					throw new Exception("Mitarbeiter konnte nicht angelegt werden.");
 
 			}
 		} catch (SQLException e) {
