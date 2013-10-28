@@ -125,6 +125,7 @@ public class DatenAnzeigenController implements Controller {
 	 * Ruft die Ergebnistabelle auf.
 	 */
 	private void weiterAction() {
+		
 		//InfoBox leeren
 		HauptController.hauptfenster.setInfoBox("");
 		
@@ -143,7 +144,7 @@ public class DatenAnzeigenController implements Controller {
 			jahr = this.view.getJahr();
 		
 			//Angaben prüfen
-			if( kw < 0 || jahr < 0 ) throw new Exception();
+			if( kw < 0 || jahr < 0 ) throw new Exception("Bitte mindestens das Kalenderjahr ausfüllen (nur Ziffern > 0!).");
 			
 			//Jahresübersicht
 			if( kw == 0 ){
@@ -156,7 +157,7 @@ public class DatenAnzeigenController implements Controller {
 					
 					this.headline += " für alle Bereiche";
 					
-					this.uebersichtJahrZentralbereichsleiter();
+					if( !this.uebersichtJahrZentralbereichsleiter() ) throw new Exception(this.noDS);
 					HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich);
 				}
 				
@@ -165,7 +166,7 @@ public class DatenAnzeigenController implements Controller {
 					UebersichtSchnittstellenKlasse uebersichtSST = Jahresuebersicht.getAlleJahresuebersichtenZumBereich( jahr, HauptController.activeUser.getBereich() );
 					this.headline += " für alle Arbeitsgruppen in Ihrem Bereich '" + HauptController.activeUser.getBereich().getKurzbezeichnung() + "'";
 						
-					this.generiereJahresuebersichtenZuBereich(uebersichtSST);
+					if( !this.generiereJahresuebersichtenZuBereich(uebersichtSST) ) throw new Exception(this.noDS);
 					HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 				}
 				
@@ -173,7 +174,7 @@ public class DatenAnzeigenController implements Controller {
 				if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe Jahr") ){
 					
 					this.headline += " für Ihre Arbeitsgruppe '" + HauptController.activeUser.getArbeitsgruppe().getKurzbezeichnung() + "'";
-					this.uebersichtJahrGruppenleiter();
+					if( !this.uebersichtJahrGruppenleiter() ) throw new Exception(this.noDS);
 					HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Arbeitsgruppeeinsehen_Gruppenleiter);
 				}
 				
@@ -185,7 +186,7 @@ public class DatenAnzeigenController implements Controller {
 				//Kalenderwochenübersicht Zentralbereichsleiter/Fachbereichsorganisation
 				if( HauptController.activeUser.checkRecht("Lesen alle Bereiche KW") ){
 					this.headline += " für alle Bereiche";
-					this.uebersichtWocheZentralbereichsleiter();
+					if( !this.uebersichtWocheZentralbereichsleiter() ) throw new Exception(this.noDS);
 					HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich);
 				}
 				
@@ -194,7 +195,7 @@ public class DatenAnzeigenController implements Controller {
 					UebersichtSchnittstellenKlasse uebersichtSST = Wochenuebersicht.getAlleWochenuebersichtenZumBereich( jahr, kw, HauptController.activeUser.getBereich() );
 					
 					this.headline += " für alle Arbeitsgruppen in Ihrem Bereich '" + HauptController.activeUser.getBereich().getKurzbezeichnung() + "'";
-					this.generiereWochenuebersichtenZuBereich(uebersichtSST);
+					if( !this.generiereWochenuebersichtenZuBereich(uebersichtSST) ) throw new Exception(this.noDS);
 					HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_SummierteErgebnisseGesamtbereich_AG);
 
 				}
@@ -202,7 +203,7 @@ public class DatenAnzeigenController implements Controller {
 				//Kalenderwochenübersicht Gruppenleiter
 				if( HauptController.activeUser.checkRecht("Lesen eigene Arbeitsgruppe KW") ){
 					this.headline += " für Ihre Arbeitsgruppe '" + HauptController.activeUser.getArbeitsgruppe().getKurzbezeichnung() + "'";
-					this.uebersichtWocheGruppenleiter();
+					if( !this.uebersichtWocheGruppenleiter() ) throw new Exception(this.noDS);
 					HauptController.hilfefenster.setHinweis(HilfeTexte.Tabelle_Arbeitsgruppeeinsehen_Gruppenleiter);
 				}
 			}
@@ -217,7 +218,7 @@ public class DatenAnzeigenController implements Controller {
 		}
 		catch(Exception ex)
 		{
-			HauptController.hauptfenster.setInfoBox("Bitte mindestens das Kalenderjahr ausfüllen (nur Ziffern > 0!).");
+			HauptController.hauptfenster.setInfoBox(ex.getMessage());
 			this.view.reset();
 		}
 	}
@@ -256,7 +257,7 @@ public class DatenAnzeigenController implements Controller {
 	 * @author Johannes
 	 * @version 1.0
 	 */
-	private void uebersichtJahrZentralbereichsleiter(){
+	private boolean uebersichtJahrZentralbereichsleiter(){
 		
 		//hole Daten aus Model-Schicht
 		UebersichtSchnittstellenKlasse uebersichtSST = Jahresuebersicht.getAlleJahresuebersichtenZuAllenBereichen( jahr );
@@ -265,8 +266,9 @@ public class DatenAnzeigenController implements Controller {
 			
 			//Maximale Anzahl an Zeilen bestimmen
 			int maxZeilen = this.bestimmeMaxZeilen(uebersichtSST);
+			if( maxZeilen == 0 ) return false;
 			
-			//Jahresübersichten in COllection holen
+			//Jahresübersichten in Collection holen
 			Collection<Jahresuebersicht> coJahresuebersichten = uebersichtSST.Jahresuebersichten;
 			
 			//Bereiche-Collection für Combobox in View befüllen
@@ -313,6 +315,9 @@ public class DatenAnzeigenController implements Controller {
 			HauptController.hauptfenster.setInfoBox(noDS);
 			ex.printStackTrace();
 		}
+		
+		//Rückgabe
+		return true;
 		
 	}
 	
@@ -370,7 +375,7 @@ public class DatenAnzeigenController implements Controller {
 	 * @author Johannes
 	 * @version 1.0
 	 */
-	private void uebersichtJahrGruppenleiter(){
+	private boolean uebersichtJahrGruppenleiter(){
 		
 		Jahresuebersicht oJahresuebersicht = new Jahresuebersicht( jahr, HauptController.activeUser.getArbeitsgruppe() );
 		
@@ -394,10 +399,16 @@ public class DatenAnzeigenController implements Controller {
 				x++;
 			}
 			
+			//wenn keine Zeilen enthalten
+			if( x == 0 ) return false;
+			
 		} catch (Exception e1) {
 			HauptController.hauptfenster.setInfoBox(noDS);
 			tabellenwerte[0][0] = "#";
 		}
+		
+		//Rückgabe
+		return true;
 		
 	}
 	
@@ -408,7 +419,7 @@ public class DatenAnzeigenController implements Controller {
 	 * @version 1.0
 	 * 
 	 */
-	private void uebersichtWocheZentralbereichsleiter(){
+	private boolean uebersichtWocheZentralbereichsleiter(){
 		
 		//hole Uebersicht aus Model-Schicht
 		UebersichtSchnittstellenKlasse uebersichtSST = Wochenuebersicht.getAlleWochenuebersichtenZuAllenBereichen(jahr, kw);
@@ -417,6 +428,7 @@ public class DatenAnzeigenController implements Controller {
 			
 			//Maximale Anzahl an Zeilen bestimmen
 			int maxZeilen = bestimmeMaxZeilen(uebersichtSST);
+			if( maxZeilen == 0 ) return false;
 			
 			//hole Wochenübersichten
 			Collection<Wochenuebersicht> coWochenuebersichten = uebersichtSST.Wochenuebersichten;
@@ -464,6 +476,9 @@ public class DatenAnzeigenController implements Controller {
 			ex.printStackTrace();
 		}
 		
+		//Rückgabe
+		return true;
+		
 	}
 	
 	/**
@@ -504,7 +519,7 @@ public class DatenAnzeigenController implements Controller {
 	 * @author Johannes
 	 * @version 1.0
 	 */
-	private void uebersichtWocheGruppenleiter(){
+	private boolean uebersichtWocheGruppenleiter(){
 		
 		Wochenuebersicht oWochenuebersicht = new Wochenuebersicht( jahr, kw, HauptController.activeUser.getArbeitsgruppe() );
 		
@@ -527,11 +542,16 @@ public class DatenAnzeigenController implements Controller {
 				x++;
 			}
 			
+			//wenn leer
+			if( x == 0 ) return false;
+			
 		} catch (Exception e1) {
 			HauptController.hauptfenster.setInfoBox(noDS);
 			tabellenwerte[0][0] = "#";
 		}
 		
+		//Rückgabe
+		return true;
 	}
 	
 	/**
@@ -624,11 +644,12 @@ public class DatenAnzeigenController implements Controller {
 	 * Generiert die Jahresübersicht zu einem Bereich, d.h. gibt alle Arbeitsgruppen desselben aus.
 	 * @param uebersichtSST
 	 */
-	private void generiereJahresuebersichtenZuBereich(UebersichtSchnittstellenKlasse uebersichtSST){
+	private boolean generiereJahresuebersichtenZuBereich(UebersichtSchnittstellenKlasse uebersichtSST){
 		
 		try{
 			//Maximale Anzahl an Zeilen bestimmen
 			int maxZeilen = bestimmeMaxZeilen(uebersichtSST);
+			if( maxZeilen == 0 ) return false;
 			
 			//hole Collection
 			Collection<Jahresuebersicht> coJahresuebersichten = uebersichtSST.Jahresuebersichten;
@@ -672,18 +693,22 @@ public class DatenAnzeigenController implements Controller {
 			ex.printStackTrace();
 		}
 		
+		//Rückgabe
+		return true;
+		
 	}
 	
 	/**
 	 * Generiert die Wochenübersicht zu einem Bereich, d.h. die Arbeitsgruppen zu einem Bereich.
 	 * @param uebersichtSST
 	 */
-	private void generiereWochenuebersichtenZuBereich(UebersichtSchnittstellenKlasse uebersichtSST){
+	private boolean generiereWochenuebersichtenZuBereich(UebersichtSchnittstellenKlasse uebersichtSST){
 		
 		try{
 			
 			//Maximale Anzahl an Zeilen bestimmen
 			int maxZeilen = bestimmeMaxZeilen(uebersichtSST);
+			if( maxZeilen == 0 ) return false;
 			
 			//hole Collection
 			Collection<Wochenuebersicht> coWochenuebersichten = uebersichtSST.Wochenuebersichten;
@@ -726,6 +751,9 @@ public class DatenAnzeigenController implements Controller {
 			HauptController.hauptfenster.setInfoBox(noDS);
 			ex.printStackTrace();
 		}
+		
+		//Rückgabe
+		return false;
 		
 	}
 	
