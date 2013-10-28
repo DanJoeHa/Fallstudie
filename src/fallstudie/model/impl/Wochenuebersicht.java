@@ -54,12 +54,13 @@ public class Wochenuebersicht {
 		int arbeitsgruppeID = arbeitsgruppe.getID();
 
 		try {
-			System.out.println("SELECT * FROM Wochenuebersicht WHERE Kalenderjahr='"
+			/*System.out.println("SELECT * FROM Wochenuebersicht WHERE Kalenderjahr='"
 							+ kalenderjahr
 							+ "' AND Kalenderwoche='"
 							+ kalenderwoche
 							+ "' AND Arbeitsgruppe='"
 							+ arbeitsgruppeID + "'");
+			*/
 			ResultSet jahresuebersichtResult = Connection
 					.executeQueryStatement("SELECT * FROM Wochenuebersicht WHERE Kalenderjahr='"
 							+ kalenderjahr
