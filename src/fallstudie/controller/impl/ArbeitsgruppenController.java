@@ -143,7 +143,7 @@ public class ArbeitsgruppenController implements Controller {
 		
 		//Speichern der Angaben
 		if(button.equals("Ja") ||  button.equals("Ersetzen")){
-			arbeitsgruppeSpeichernAnlegenAction();	
+			speichernAction();	
 		}
 		
 		//Nicht speichern
@@ -176,7 +176,7 @@ public class ArbeitsgruppenController implements Controller {
 	/**
 	 * Speichert Änderungen an einer Arbeitsgruppe
 	 */
-	private void arbeitsgruppeSpeichernAnlegenAction() {
+	private void speichernAction() {
 		//Bereichsobjekt zur Auswahl finden
 		Iterator<Bereich> i = this.bereiche.iterator();
 		
@@ -221,7 +221,7 @@ public class ArbeitsgruppenController implements Controller {
 		//neue Arbeitsgruppe anlegen
 		if(operation.equals("anlegen"))
 		{
-			arbeitsgruppeAnlegenAction();
+			anlegenAction();
 		}
 		
 		//Popup ausblenden
@@ -287,7 +287,7 @@ public class ArbeitsgruppenController implements Controller {
 	/**
 	 * Neue Arbeitsgruppe speichern
 	 */
-	private void arbeitsgruppeAnlegenAction() {
+	private void anlegenAction() {
 		try{
 			
 			Arbeitsgruppe neueAG = new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
@@ -447,7 +447,7 @@ public class ArbeitsgruppenController implements Controller {
 				}
 				else if(popup != null){
 					if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
-						arbeitsgruppeSpeichernAnlegenAction();
+						speichernAction();
 					}
 				}
 				else if(popup != null){
@@ -464,7 +464,7 @@ public class ArbeitsgruppenController implements Controller {
 					popupAufruf();
 				}
 				else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
-					arbeitsgruppeSpeichernAnlegenAction();
+					speichernAction();
 				}
 				else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 					popup.setVisible(false);

@@ -128,7 +128,7 @@ public class BereichController implements Controller {
 		//Bereich löschen durchführen
 		if( this.operation.equals("loeschen") && button.equals("Ja") ){
 			
-			bereichLoeschen();
+			loescheBereich();
 		}
 			
 		//Abbrechen Lösch-Aktion
@@ -139,7 +139,7 @@ public class BereichController implements Controller {
 		//Bereich zur Bearbeitung ausgewählt
 		if(button.equals("Bearbeiten") ){
 			
-			bearbeitenButton();
+			bearbeiteBereich();
 			
 		}
 		
@@ -166,13 +166,13 @@ public class BereichController implements Controller {
 			//Bereich anlegen
 			if(this.operation.equals("anlegen")){
 				
-				bereichAnlegen();
+				anlegenBereich();
 			}
 			
 			//Bereich bearbeiten
 			if(this.operation.equals("bearbeiten"))	{
 				
-				bearbeitenBereich();
+				speicherAenderungen();
 			}					
 		}
 		
@@ -181,7 +181,7 @@ public class BereichController implements Controller {
 	/**
 	 * Änderungen am zu bearbeitenden Bereich speichern.
 	 */
-	private void bearbeitenBereich() {
+	private void speicherAenderungen() {
 		try
 		{
 			this.moveLeiter();
@@ -204,7 +204,7 @@ public class BereichController implements Controller {
 	/**
 	 * Bereich zur Bearbeitung anzeigen
 	 */
-	private void bearbeitenButton() {
+	private void bearbeiteBereich() {
 		String tempBereich = this.viewLoesch.getBereich();
 		this.view = new BereichBearbeitenAnlegenView();
 		HauptController.hauptfenster.setContent(view);
@@ -225,7 +225,7 @@ public class BereichController implements Controller {
 	/**
 	 * neuen Bereich speichern
 	 */
-	private void bereichAnlegen() {
+	private void anlegenBereich() {
 		try{
 			Bereich neuerBereich = new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oLeiter);
 			this.gewaehlterBereich = neuerBereich;
@@ -300,7 +300,7 @@ public class BereichController implements Controller {
 	/**
 	 * ausgewählten Bereich löschen und ComboBox in View aktualisieren.
 	 */
-	private void bereichLoeschen() {
+	private void loescheBereich() {
 		//Bereich zum löschen finden und löschen
 		Iterator<Bereich> i = this.bereich.iterator();		
 		while( i.hasNext() ){
@@ -451,13 +451,13 @@ public class BereichController implements Controller {
 				if(this.operation == "bearbeiten"){
 					if (this.viewLoesch.hatFocus() == "buttonLoeschen")
 					{
-						bearbeitenButton();
+						bearbeiteBereich();
 					}
 					else if(this.view.hatFocus() == "buttonSpeichern" && popup==null){
 						anlegenBearbeitenPopup();
 					}
 					else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
-						bearbeitenBereich();
+						speicherAenderungen();
 					}
 					else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 						popup.setVisible(false);
@@ -469,7 +469,7 @@ public class BereichController implements Controller {
 					if(this.view.hatFocus() == "buttonSpeichern" && popup==null){
 						anlegenBearbeitenPopup();
 					}else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
-						bereichAnlegen();
+						anlegenBereich();
 					}
 					else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 						popup.setVisible(false);
@@ -481,7 +481,7 @@ public class BereichController implements Controller {
 					if(this.viewLoesch.hatFocus() == "buttonLoeschen" && popup==null){
 						bereichLoeschenPopup();
 					}else if(popup.isFocused() == true && popup.hatFocus()== "popupJa"){
-						bereichLoeschen();
+						loescheBereich();
 					}
 					else if(popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 						popup.setVisible(false);

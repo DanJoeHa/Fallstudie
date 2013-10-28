@@ -130,7 +130,7 @@ public class SuchController implements Controller,MouseListener {
 		if( button.equals("Abbrechen") ) HauptController.hauptfenster.zurueck();
 		
 		//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
-		if( button == "Löschen" ) auswahlLoeschen();
+		if( button == "Löschen" ) loescheAuswahl();
 		
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
 			if( button.equals( "Suchen" )){
@@ -139,11 +139,11 @@ public class SuchController implements Controller,MouseListener {
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button.equals( "auswählen" ) ){
-				auswahlAction_Mitarbeiter();
+				auswahlActionMitarbeiter();
 			}
 			
 			if(button.equals("Ja")){
-				mitarbeiterLoeschen(e.getID());
+				loescheMitarbeiter(e.getID());
 			}
 			if(button.equals("Nein")){
 				popup.setVisible(false);
@@ -157,11 +157,11 @@ public class SuchController implements Controller,MouseListener {
 		
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button.equals( "auswählen" ) ){
-				auswahlAction_Arbeitsgruppe();
+				auswahlActionArbeitsgruppe();
 			}
 			
 			if(button.equals("Ja")){
-				arbeitsgruppeLoeschen(e.getID());
+				loescheArbeitsgruppe(e.getID());
 			}
 			if(button.equals("Nein")){
 				popup.setVisible(false);
@@ -175,7 +175,7 @@ public class SuchController implements Controller,MouseListener {
 	 * 
 	 * @param (int) id des Suchen-Button
 	 */
-	private void mitarbeiterLoeschen(int id) {
+	private void loescheMitarbeiter(int id) {
 		//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 		Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 		String auswahl =  this.viewErg.getAuswahl();
@@ -210,7 +210,7 @@ public class SuchController implements Controller,MouseListener {
 	 * 
 	 * @param (int) id des Suchen-Button
 	 */
-	private void arbeitsgruppeLoeschen(int id) {
+	private void loescheArbeitsgruppe(int id) {
 		//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 		Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
 		
@@ -331,7 +331,7 @@ public class SuchController implements Controller,MouseListener {
 	/**
 	 * Bestätigungspopup bei Löschen 
 	 */
-	private void auswahlLoeschen() {
+	private void loescheAuswahl() {
 		popup = new BestaetigenPopup();
 		popup.setController(this);
 		popup.setTitle("Löschen");
@@ -341,7 +341,7 @@ public class SuchController implements Controller,MouseListener {
 	/**
 	 * Speichert den gewählten Mitarbeiter zur Rückgabe an aufrufenden Controller.
 	 */
-	private void auswahlAction_Mitarbeiter() {
+	private void auswahlActionMitarbeiter() {
 		//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
 		Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 		String name = this.viewErg.getAuswahl();
@@ -366,7 +366,7 @@ public class SuchController implements Controller,MouseListener {
 	/**
 	 * Speichert die gewählte Arbeitsgruppe zur Rückgabe an aufrufenden Controller.
 	 */
-	private void auswahlAction_Arbeitsgruppe() {
+	private void auswahlActionArbeitsgruppe() {
 		//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
 		Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
 		String AGname = this.viewErg.getAuswahl();
@@ -424,11 +424,11 @@ public class SuchController implements Controller,MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount()==2){
 			if (this.operation=="loeschen"){
-				auswahlLoeschen();
+				loescheAuswahl();
 			}else if(this.suchdomain.equals("Arbeitsgruppe") && (this.operation.equals("auswahl")||this.operation.equals("suchen"))){
-				auswahlAction_Arbeitsgruppe();
+				auswahlActionArbeitsgruppe();
 			}else{
-				auswahlAction_Mitarbeiter();
+				auswahlActionMitarbeiter();
 			}
 		} 
 	}
@@ -474,7 +474,7 @@ public class SuchController implements Controller,MouseListener {
 				suchenActionMitarbeiter(e.getID());
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus()== "popupJa"){
-				mitarbeiterLoeschen(e.getID());
+				loescheMitarbeiter(e.getID());
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 				popup.setVisible(false);
@@ -486,7 +486,7 @@ public class SuchController implements Controller,MouseListener {
 				suchenActionArbeitsgruppe(e.getID());
 				
 			}else if(e.getKeyCode()==KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus()== "popupJa"){
-				arbeitsgruppeLoeschen(e.getID());
+				loescheArbeitsgruppe(e.getID());
 			}
 			else if(e.getKeyCode()==KeyEvent.VK_ENTER && popup.isFocused() == true && popup.hatFocus() == "popupNein"){
 				popup.setVisible(false);
