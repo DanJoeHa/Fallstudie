@@ -26,11 +26,29 @@ import fallstudie.view.interfaces.View;
  */
 public class HauptController implements Controller, TreeSelectionListener, KeyListener {
 
+	/**
+	 * aktiver Controller
+	 */
 	private Controller activeController;
+	/**
+	 * aktive View
+	 */
 	protected View view;
+	/**
+	 * HauptFrame der Applikation
+	 */
 	public static HauptView hauptfenster;
+	/**
+	 * Angemeldeter User
+	 */
 	public static Mitarbeiter activeUser;
+	/**
+	 * Popup mit Hilfetexte
+	 */
 	public static SchliessenPopup hilfefenster;
+	/**
+	 * Speichert die Instanz der Klasse
+	 */
 	private static HauptController hc;
 	
 	/**
@@ -298,10 +316,14 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 		return this.view;
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void fortsetzen() {}
+	
 	/**
-	 * Startet Daten Anzeigen neu
+	 * Startet Daten Anzeigen
 	 * 
 	 * @author Johannes
 	 * @version 1.0
@@ -315,7 +337,7 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 	}
 	
 	/**
-	 * Startet Arbeitsgruppe bearbeiten neu
+	 * Startet Arbeitsgruppe bearbeiten
 	 * 
 	 * @autor Johannes
 	 * @version 1.0
@@ -331,7 +353,7 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 	
 	
 	/**
-	 * Startet Mitarbeiter bearbeiten neu
+	 * Startet Mitarbeiter bearbeiten
 	 * 
 	 * @author Johannes
 	 * @version 1.0
@@ -345,48 +367,53 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 		hilfefenster.setTitle("Hilfe - Mitarbeiter bearbeiten");
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void keyPressed(KeyEvent e) {
-	}
+	public void keyPressed(KeyEvent e) {}
 
+	/**
+	 * Enter-Taste schließt Hilfe-Fenster
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode()== KeyEvent.VK_ENTER) hilfefenster.setVisible(false);
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 }
