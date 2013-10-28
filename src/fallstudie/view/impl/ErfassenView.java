@@ -7,6 +7,8 @@ import java.awt.Rectangle;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,6 +22,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import fallstudie.controller.impl.HauptController;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 /**
@@ -39,6 +42,7 @@ public class ErfassenView extends JPanel implements View {
 	/**
 	 * Anzahl Textfeld
 	 */
+	
 	private JTextField T_AnzahlErfassen;
 	/**
 	 * Zurücksetzen und Anlegen Button
@@ -159,7 +163,48 @@ public class ErfassenView extends JPanel implements View {
 	    add(T_AnzahlErfassen);
 		//Intialwert Erfassen 0
 		T_AnzahlErfassen.setText("0");
-	    
+		//Abfangen das nur positive Zahlen und keine anderen Zeichen eingetragen werden.
+		T_AnzahlErfassen.addKeyListener(new KeyListener() {
+			int zahl=0;
+			@Override
+			public void keyTyped(KeyEvent e) {}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				zahl=0;
+				//Liest nur Wert aus, wenn auch etwas drin steht.
+				if(T_AnzahlErfassen.getText().isEmpty()==false){
+					try{
+						zahl = Integer.parseInt( T_AnzahlErfassen.getText() );
+					}catch(NumberFormatException exp){
+						T_AnzahlErfassen.setText("");
+					}
+				}
+				//Ausgelesene Zahl kleiner gleich 0 und Feeld nicht leer.
+				if(zahl<=0 && T_AnzahlErfassen.getText().isEmpty()==false){
+					T_AnzahlErfassen.setText("");
+					HauptController.hauptfenster.setInfoBox("Es sind nur Zahlen größer als 0 zulässig!");
+				}
+				//Feld leer bzw. es steht nichts drin.
+				if(T_AnzahlErfassen.getText().isEmpty() || T_AnzahlErfassen.equals("")){
+					HauptController.hauptfenster.setInfoBox("Es sind nur Zahlen größer als 0 bzw. kleiner als 1000 zulässig!");
+				}
+				//Zahl größer als 1000
+				if(zahl>1000){
+					T_AnzahlErfassen.setText("");
+					HauptController.hauptfenster.setInfoBox("Eingegebene Zahl darf nicht größer als 1000 sein!");
+				}
+				//Eingabe passt, Zahl zwischen 1 und 1000.
+				if(zahl>=1 && zahl<=1000){
+					HauptController.hauptfenster.setInfoBox("");
+				}
+				revalidate();
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {}
+		});
+		
 	    //B_Plus
 	    JButton B_Plus = new JButton("+");
 	    B_Plus.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -182,6 +227,7 @@ public class ErfassenView extends JPanel implements View {
 				}
 				int neuerWert = derzeitigerWert + 1;
 				T_AnzahlErfassen.setText(""+neuerWert);
+				HauptController.hauptfenster.setInfoBox("");
 			}
 	    	
 	    });
@@ -216,7 +262,7 @@ public class ErfassenView extends JPanel implements View {
 				int derzeitigerWert;
 				try
 				{
-					derzeitigerWert =  Integer.parseInt( T_AnzahlErfassen.getText() );
+					derzeitigerWert =  Integer.parseInt(T_AnzahlErfassen.getText());
 				}
 				catch (Exception ex)
 				{
@@ -224,12 +270,17 @@ public class ErfassenView extends JPanel implements View {
 				}
 				int neuerWert = 0;
 				if( derzeitigerWert > 0 ) neuerWert = derzeitigerWert - 1;
+				if(derzeitigerWert<=0){
+					neuerWert=0;
+					HauptController.hauptfenster.setInfoBox("Nur Zahlen größer als 0 zulässig!");
+				}
 				T_AnzahlErfassen.setText(""+neuerWert);
 			}
 	    	
 	    });
 		
 	}
+	
 	
 	/**
 	 * Liefert die gewählte Kalenderwoche zurück.
