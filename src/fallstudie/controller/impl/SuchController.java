@@ -16,35 +16,84 @@ import fallstudie.view.impl.SuchenView;
 import fallstudie.view.impl.TabelleView;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Der Such-Controller ist Veranwortlich für das Finden von Arbeitsgruppen und Mitarbeitern. Er wird von anderen Controllern aufgerufen und kommuniziert mit diesen mittels der Schnittstellen-Methode "fortsetzen()." 
+ * 
+ * @author Johannes
+ * @version 1.0
+ */
 public class SuchController implements Controller,MouseListener {
 	
+	/**
+	 * Suchmaske
+	 */
 	private SuchenView view;
+	/**
+	 * Ergebnismaske zur Auswahl
+	 */
 	private TabelleView viewErg;
+	/**
+	 * Suchdomain ("Arbeitsgruppe", "Mitarbeiter")
+	 */
 	private String suchdomain;
+	/**
+	 * Collection an gefundenen Mitarbeitern
+	 */
 	private Collection<Mitarbeiter> suchergebnisseMa;
+	/**
+	 * Collection an gefundenen Arbeitsgruppen
+	 */
 	private Collection<Arbeitsgruppe> suchergebnisseAg;
+	/**
+	 * Operation zur Ausführung ("suchen", "loeschen", "auswahl")
+	 */
 	private String operation;
+	/**
+	 * gewähltes Objekt
+	 */
 	private Object auswahl = null;
+	/**
+	 * Suchbegriff (bei Aufruf aus anderem Controller)
+	 */
 	private String suchbegriff = "";
+	/**
+	 * Popup zur Lösch-Bestätigung
+	 */
 	public static BestaetigenPopup popup;
-	
+	/**
+	 * Objekt des aufrufenden Controllers
+	 */
 	private Controller aufrufenderController;
 
 	/**
-	 * Konstruktor ohne Funktionalität
+	 * Standard-Konstruktor
 	 */
 	public SuchController(){
 		
 	}
 	
+	/**
+	 * Suchdomain setzen ("Arbeitsgruppe" oder "Mitarbeiter")
+	 *
+	 * @param (String)suchdomain
+	 */
 	public void setSuchdomain (String suchdomain){
 		this.suchdomain = suchdomain;
 	}
 	
+	/**
+	 * Liefert das gewählte Objekt zurück
+	 * @return (Object) Auswahl
+	 */
 	public Object getAuswahl(){
 		return this.auswahl;
 	}
 
+	/**
+	 * Setzt die Operation ("suchen", "loeschen", "auswahl") und zeigt anhand dieser die betreffende View an.
+	 * 
+	 * @param (String) operation
+	 */
 	public void setOperation(String operation){
 		this.operation = operation;
 		
@@ -61,23 +110,27 @@ public class SuchController implements Controller,MouseListener {
 		}
 	}
 	
+	/**
+	 * Ermöglicht das Setzen eines Suchbegriffs in einem aufrufenden Controller.
+	 * 
+	 * @param (String) Suchbegriff
+	 */
 	public void setSuchbegriff(String Suchbegriff){
 		this.suchbegriff = Suchbegriff;
 	}
 	
+	/**
+	 * ActionListener auf Buttons "Abbrechen", "Löschen", "Suchen" und die Popup-Optionen "Ja" und "Nein"
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 		
 		//Abbrechen-Button
-		if( button.equals("Abbrechen") ){
-			HauptController.hauptfenster.zurueck();
-		}
+		if( button.equals("Abbrechen") ) HauptController.hauptfenster.zurueck();
 		
 		//Wenn in Ergebnistabelle ein Eintrag zum löschen gewählt wurde
-		if( button == "Löschen" ){
-			auswahlLoeschen();	
-		}
+		if( button == "Löschen" ) auswahlLoeschen();
 		
 		if( this.suchdomain == "Mitarbeiter"|| this.suchdomain == "Sachbearbeiter" || this.suchdomain == "Gruppenleiter" || this.suchdomain == "Bereichsleiter" ){
 			if( button.equals( "Suchen" )){
@@ -86,7 +139,7 @@ public class SuchController implements Controller,MouseListener {
 			
 			//Wenn in Ergebnistabelle ein Eintrag gewählt wurde
 			if( button.equals( "auswählen" ) ){
-				auswahlAction_allgemein();
+				auswahlAction_Mitarbeiter();
 			}
 			
 			if(button.equals("Ja")){
@@ -117,6 +170,11 @@ public class SuchController implements Controller,MouseListener {
 	
 }
 
+	/**
+	 * Löscht den in der Tabelle gewählten Mitarbeiter
+	 * 
+	 * @param (int) id des Suchen-Button
+	 */
 	private void mitarbeiterLoeschen(int id) {
 		//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 		Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
@@ -147,6 +205,11 @@ public class SuchController implements Controller,MouseListener {
 		}
 	}
 
+	/**
+	 * Löscht die in der Tabelle gewählte Arbeitsgruppe
+	 * 
+	 * @param (int) id des Suchen-Button
+	 */
 	private void arbeitsgruppeLoeschen(int id) {
 		//durch Suchergebnisse iterien und zur auswahl passendes Object finden, 
 		Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
@@ -177,6 +240,11 @@ public class SuchController implements Controller,MouseListener {
 		}
 	}
 
+	/**
+	 * Zeigt die Ergebnistabelle zur Auswahl/Löschen von Arbeitsgruppen an.
+	 * 
+	 * @param (int) id des Suchen-Button
+	 */
 	private void suchenActionArbeitsgruppe(int id) {
 		try{
 				//initiere Ergebnistabelle
@@ -216,6 +284,11 @@ public class SuchController implements Controller,MouseListener {
 		}
 	}
 
+	/**
+	 * Zeigt die Ergebnistabelle zur Auswahl/Löschen von Mitarbeitern an
+	 * 
+	 * @param (int) id des Suchen-Button
+	 */
 	private void suchenActionMitarbeiter(int id) {
 		try{
 				
@@ -255,6 +328,9 @@ public class SuchController implements Controller,MouseListener {
 		}
 	}
 
+	/**
+	 * Bestätigungspopup bei Löschen 
+	 */
 	private void auswahlLoeschen() {
 		popup = new BestaetigenPopup();
 		popup.setController(this);
@@ -262,7 +338,10 @@ public class SuchController implements Controller,MouseListener {
 		popup.setAusgabe(HilfeTexte.LoeschenPopup);
 	}
 
-	private void auswahlAction_allgemein() {
+	/**
+	 * Speichert den gewählten Mitarbeiter zur Rückgabe an aufrufenden Controller.
+	 */
+	private void auswahlAction_Mitarbeiter() {
 		//durch suchergebnisse iterieren und zur auswahl passendes ERgebnis finden und in auswahl speichern 
 		Iterator<Mitarbeiter> i = this.suchergebnisseMa.iterator();
 		String name = this.viewErg.getAuswahl();
@@ -284,6 +363,9 @@ public class SuchController implements Controller,MouseListener {
 		}
 	}
 
+	/**
+	 * Speichert die gewählte Arbeitsgruppe zur Rückgabe an aufrufenden Controller.
+	 */
 	private void auswahlAction_Arbeitsgruppe() {
 		//durch suchergebnisse iterieren und zur auswahl passendes Ergebnis finden und in auswahl speichern 			
 		Iterator<Arbeitsgruppe> i = this.suchergebnisseAg.iterator();
@@ -306,11 +388,18 @@ public class SuchController implements Controller,MouseListener {
 		}
 	}	
 
+	/**
+	 * Aufrufenden Controller speichern um Programmfluss wieder zurückgeben zu können.
+	 * @param (Controller) aufrufendes Controller-Objekt
+	 */
 	public void setAufrufenderController(Controller c)
 	{
 		this.aufrufenderController = c;
 	}
 
+	/**
+	 * Liefert die aktive View
+	 */
 	@Override
 	public View getView() {
 		if( this.operation.equals("suchen") || this.operation.equals("loeschen") ){
@@ -322,9 +411,15 @@ public class SuchController implements Controller,MouseListener {
 		}
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void fortsetzen() {}
 
+	/**
+	 * Löscht bzw. wählt bei Doppelklick in der Tabelle das betreffende Element.
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount()==2){
@@ -333,35 +428,44 @@ public class SuchController implements Controller,MouseListener {
 			}else if(this.suchdomain.equals("Arbeitsgruppe") && (this.operation.equals("auswahl")||this.operation.equals("suchen"))){
 				auswahlAction_Arbeitsgruppe();
 			}else{
-				auswahlAction_allgemein();
+				auswahlAction_Mitarbeiter();
 			}
 		} 
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseExited(MouseEvent e) {
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mousePressed(MouseEvent e) {
-		
-	}
+	public void mousePressed(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void keyPressed(KeyEvent e) {
-	}
+	public void keyPressed(KeyEvent e) {}
 
+	/**
+	 * Zeigt Popup zur Bestätigung abhängig von Suchdomain und Operation an.
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 
@@ -392,7 +496,9 @@ public class SuchController implements Controller,MouseListener {
 		
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+	public void keyTyped(KeyEvent e) {}
 }
