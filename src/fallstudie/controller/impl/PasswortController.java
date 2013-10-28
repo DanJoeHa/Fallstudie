@@ -16,6 +16,9 @@ import fallstudie.view.interfaces.View;
  */
 public class PasswortController implements Controller {
 	
+	/**
+	 * View zur Passwort-Änderung
+	 */
 	private PasswortAendernView view;
 	
 	/**
@@ -48,9 +51,10 @@ public class PasswortController implements Controller {
 		}
 		
 	}
-/**
- * Speichert Passwort mit Prüfungen
- */
+	
+	/**
+	 * Speichert Passwort mit Prüfungen
+	 */
 	private void speichernAction() {
 		//Hole Daten aus View
 		String neuesPasswort = this.view.getNeuesPasswort();
@@ -96,59 +100,61 @@ public class PasswortController implements Controller {
 			HauptController.hauptfenster.setInfoBox("Altes Passwort falsch");
 		}
 	}
+	
 	/**
-	 * keine Aktion
+	 * Liefert die View zur Passwortänderung.
 	 */
 	@Override
 	public View getView() {
 		return this.view;
 	}
+	
 	/**
 	 * keine Aktion
 	 */
 	@Override
-	public void fortsetzen() {
-	}
+	public void fortsetzen() {}
+	
 	/**
 	 * keine Aktion
 	 */
 	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
+	public void mouseClicked(MouseEvent e) {}
+	
 	/**
 	 * keine Aktion
 	 */
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
+	
 	/**
 	 * keine Aktion
 	 */
 	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mouseExited(MouseEvent e) {}
+	
 	/**
 	 * keine Aktion
 	 */
 	@Override
-	public void mousePressed(MouseEvent e) {
-	}
+	public void mousePressed(MouseEvent e) {}
+	
 	/**
 	 * keine Aktion
 	 */
 	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
+	public void mouseReleased(MouseEvent e) {}
+	
 	/**
 	 * keine Aktion
 	 */
 	@Override
-	public void keyPressed(KeyEvent e) {
-	}
-/**
- * setzt Keylistener auf Enter und führt Passwort speichern aus.
- * @parm KeyEvent
- */
+	public void keyPressed(KeyEvent e) {}
+	
+	/**
+	 * setzt Keylistener auf Enter und und ruft Bestätigungspopup auf.
+	 * @parm KeyEvent
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER)
@@ -156,10 +162,10 @@ public class PasswortController implements Controller {
 			speichernAction();
 		}		
 	}
+	
 	/**
 	 * keine Aktion
 	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+	public void keyTyped(KeyEvent e) {}
 }
