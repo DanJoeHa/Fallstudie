@@ -105,10 +105,7 @@ public class DatenAnzeigenController implements Controller {
 		String button = e.getActionCommand();
 		
 		//Rahmendaten eingegeben
-		if( button.equals("Weiter") ){
-			
-			weiterAction();
-		}
+		if( button.equals("Weiter") ) this.weiterAction();
 		
 		//Daten ausdrucken PDF
 		if( button.equals("PDF") ) this.drucken(true);
@@ -130,6 +127,7 @@ public class DatenAnzeigenController implements Controller {
 	private void weiterAction() {
 		//InfoBox leeren
 		HauptController.hauptfenster.setInfoBox("");
+		
 		//View laden
 		this.viewErg = new TabelleView();
 		this.viewErg.setController( this );

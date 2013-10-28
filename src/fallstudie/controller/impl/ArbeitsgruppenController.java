@@ -173,6 +173,9 @@ public class ArbeitsgruppenController implements Controller {
 		}
 	}
 
+	/**
+	 * Speichert Änderungen an einer Arbeitsgruppe
+	 */
 	private void arbeitsgruppeSpeichernAnlegenAction() {
 		//Bereichsobjekt zur Auswahl finden
 		Iterator<Bereich> i = this.bereiche.iterator();
@@ -225,7 +228,10 @@ public class ArbeitsgruppenController implements Controller {
 		popup.setVisible(false);
 		popup=null;
 	}
-
+	
+	/**
+	 * Popup zum Speichern/Ersetzen 
+	 */
 	private void popupAufruf() {
 		//Leiter holen
 		if( !this.view.getAGLeiter().isEmpty() ){
@@ -278,6 +284,9 @@ public class ArbeitsgruppenController implements Controller {
 		}
 	}
 
+	/**
+	 * Neue Arbeitsgruppe speichern
+	 */
 	private void arbeitsgruppeAnlegenAction() {
 		try{
 			
@@ -380,21 +389,39 @@ public class ArbeitsgruppenController implements Controller {
 		}
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {}
 
+	/**
+	 * Angelos?!
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -407,6 +434,9 @@ public class ArbeitsgruppenController implements Controller {
 		}
 	}
 
+	/**
+	 * Enter ruft Popup gemäß der gewählten Operation auf
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -445,6 +475,9 @@ public class ArbeitsgruppenController implements Controller {
 		}
 	}
 
+	/**
+	 * keine Aktion
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {}
 }
