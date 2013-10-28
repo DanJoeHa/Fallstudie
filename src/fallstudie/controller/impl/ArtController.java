@@ -78,6 +78,9 @@ public class ArtController implements Controller {
 		}
 	}
 
+	/**
+	 * Holt alle verfügbaren Arten aus der Model-Schicht und befüllt die ComboBox in der View.
+	 */
 	private void getArtenFromModelToView() {
 		this.art = Art.getAlleArten();
 		Iterator<Art> i = art.iterator();
@@ -235,24 +238,45 @@ public class ArtController implements Controller {
 		return null;
 	}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void fortsetzen() {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {}
 	
@@ -297,6 +321,9 @@ public class ArtController implements Controller {
 			}
 	}	
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
