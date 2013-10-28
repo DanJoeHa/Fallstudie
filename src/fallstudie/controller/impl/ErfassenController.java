@@ -21,14 +21,6 @@ import fallstudie.view.interfaces.View;
 public class ErfassenController implements Controller {
 	
 	/**
-	 * Marc?!
-	 */
-	private static final int FULL = 0;
-	/**
-	 * Marc?!
-	 */
-	private static final int MEDIUM = 0;
-	/**
 	 * View zum Erfassen von neuen Einträgen
 	 */
 	private ErfassenView view;
@@ -37,7 +29,7 @@ public class ErfassenController implements Controller {
 	 */
 	private Collection<Art> art;
 	/**
-	 * Zwischenspeicher
+	 * Zwischenspeicher für eine Art
 	 */
 	private Art tempArt;
 	
@@ -109,7 +101,7 @@ public class ErfassenController implements Controller {
 				new Eintrag(kalenderjahr,view.getKalenderwoche(), anzahl,HauptController.activeUser.getArbeitsgruppe(), tempArt);
 				Calendar cal = Calendar.getInstance();
 			    DateFormat df;
-			    df = DateFormat.getDateTimeInstance( FULL, MEDIUM );
+			    df = DateFormat.getDateTimeInstance( 0, 0 );
 				HauptController.hauptfenster.setInfoBox("Ihr Eintrag wurde erfolgreich am "+ df.format(cal.getTime()) +" erfasst");
 				view.reset();
 			}
