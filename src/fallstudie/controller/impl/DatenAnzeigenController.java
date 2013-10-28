@@ -339,17 +339,14 @@ public class DatenAnzeigenController implements Controller {
 	}
 	
 	/**
-	 * Bestimmt die maximale Anzahl an Zeilen und wirft bei 0 eine Exception
+	 * Bestimmt die maximale Anzahl an Zeilen
 	 * 
 	 * @version 1.0
 	 * @param uebersichtSST
 	 * @return
 	 * @throws Exception
 	 */
-	private int bestimmeMaxZeilen(UebersichtSchnittstellenKlasse uebersichtSST)throws Exception {
-		//wenn keine Zeilen zur Ausgabe, Exception werfen
-		if(uebersichtSST.anzahlArten == 0) throw new Exception();
-		
+	private int bestimmeMaxZeilen(UebersichtSchnittstellenKlasse uebersichtSST) {		
 		//maximale Anzahl zeilen bestimmen
 		return uebersichtSST.anzahlArten;
 	}
@@ -423,9 +420,8 @@ public class DatenAnzeigenController implements Controller {
 		
 		//hole Uebersicht aus Model-Schicht
 		UebersichtSchnittstellenKlasse uebersichtSST = Wochenuebersicht.getAlleWochenuebersichtenZuAllenBereichen(jahr, kw);
-		
-		try{
 			
+		try{
 			//Maximale Anzahl an Zeilen bestimmen
 			int maxZeilen = bestimmeMaxZeilen(uebersichtSST);
 			if( maxZeilen == 0 ) return false;
