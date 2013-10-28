@@ -85,6 +85,10 @@ public class BestaetigenPopup extends JDialog implements View{
 			
 		
 	}
+	/**
+	 * Abfrage auf den Focus vom Button
+	 * @return
+	 */
 	public String hatFocus(){
 		if(this.B_abbrechen.isFocusOwner()== true){
 			return "popupNein";
