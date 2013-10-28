@@ -381,6 +381,10 @@ public class Arbeitsgruppe {
 					.executeUpdate("UPDATE Arbeitsgruppe SET Bereich ='"
 							+ bereich.getID() + "' WHERE ArbeitsgruppeID='"
 							+ this.arbeitsgruppeID + "'");
+			RemoteConnection.sql.executeUpdate("UPDATE Wochenuebersicht SET Bereich='"+bereich.getID()+"' WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
+			RemoteConnection.sql.executeUpdate("UPDATE Jahresuebersicht SET Bereich='"+bereich.getID()+"' WHERE Arbeitsgruppe='"+this.arbeitsgruppeID+"'");
+			
+			
 			erfolgreich = true;
 
 		}
