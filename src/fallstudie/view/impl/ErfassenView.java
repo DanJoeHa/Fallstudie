@@ -222,7 +222,8 @@ public class ErfassenView extends JPanel implements View {
 				{
 					derzeitigerWert = 0;
 				}
-				int neuerWert = derzeitigerWert - 1;
+				int neuerWert = 0;
+				if( derzeitigerWert > 0 ) neuerWert = derzeitigerWert - 1;
 				T_AnzahlErfassen.setText(""+neuerWert);
 			}
 	    	
