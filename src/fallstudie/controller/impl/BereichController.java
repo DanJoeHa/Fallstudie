@@ -434,7 +434,8 @@ public class BereichController implements Controller {
 	public void mouseReleased(MouseEvent e) {}
 
 	/**
-	 * Angelos?!
+	 *  * Setzt den Fokus auf den Speichern Button, 
+	 * wird gebraucht um KeyReleased korrekt auszufrühren.
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {	
