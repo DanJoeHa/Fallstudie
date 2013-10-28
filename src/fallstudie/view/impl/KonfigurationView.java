@@ -19,7 +19,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class KonfigurationView extends JPanel implements View {
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -8966052424552014399L;
 	/**
 	 * Anzahl Monate bis zum Löschen Textfeld

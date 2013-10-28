@@ -20,7 +20,9 @@ import fallstudie.controller.interfaces.Controller;
  *
  */
 public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
-	
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 2054079907794135044L;
 	/**
 	 * Textfeld Arbeitsgruppe
@@ -128,6 +130,10 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 		add(B_Speichern);
 
 	}
+	/**
+	 * gibt den Button mit dem Focus zurück
+	 * @return
+	 */
 	public String hatFocus(){
 		String ausgabe;
 		if(this.B_Speichern.isFocusOwner()||this.T_Passwort1.isFocusOwner()||this.C_Bereich.isFocusOwner()||this.T_Arbeitsgruppe.isFocusOwner()){

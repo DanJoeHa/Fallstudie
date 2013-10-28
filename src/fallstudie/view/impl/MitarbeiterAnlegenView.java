@@ -20,7 +20,9 @@ import fallstudie.controller.interfaces.Controller;
  *
  */
 public class MitarbeiterAnlegenView extends LayoutMitarbeiter{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 1947090676451323070L;
 	/**
 	 * Arbeitsgruppe Textfeld

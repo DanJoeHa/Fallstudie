@@ -21,7 +21,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class LoginView extends JPanel implements View {
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 6556759367243768953L;
 	/**
 	 * Passwort Passwortfeld (Eingaben nicht erkennbar)

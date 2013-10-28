@@ -22,7 +22,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class TabelleView extends JPanel implements View {
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Tabelle

@@ -22,7 +22,9 @@ import java.awt.event.KeyListener;
  *
  */
 public class SchliessenPopup extends JDialog implements View{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 8389558871657416016L;
 	
 	/**

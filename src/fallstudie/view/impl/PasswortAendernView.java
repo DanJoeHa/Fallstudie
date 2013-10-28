@@ -28,7 +28,9 @@ import java.awt.event.ActionEvent;
  */
 public class PasswortAendernView extends JPanel implements View {
 
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -5269473857849047666L;
 	/**
 	 * Altes Passwort Passwortfeld
