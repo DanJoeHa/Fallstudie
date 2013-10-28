@@ -590,7 +590,6 @@ public class Arbeitsgruppe {
 	 *         Arbeitsgruppe wird als gelöscht angezeigt).
 	 */
 	public boolean getAktiv() {
-		// TODO Auto-generated method stub
 		return this.aktiv;
 	}
 
