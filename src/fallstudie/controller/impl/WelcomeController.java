@@ -20,7 +20,7 @@ public class WelcomeController implements Controller {
 	private WelcomeView view;
 	
 	/**
-	 * Erstellt ein neues Objekt und läd die Welcome-View mit personalisierter Nachricht.
+	 * Erstellt ein neues Objekt und lädt die Welcome-View mit personalisierter Nachricht.
 	 */
 	public WelcomeController(){
 		this.view = new WelcomeView();
