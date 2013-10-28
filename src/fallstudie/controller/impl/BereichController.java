@@ -15,18 +15,43 @@ import fallstudie.view.impl.BestaetigenPopup;
 import fallstudie.view.impl.HilfeTexte;
 import fallstudie.view.interfaces.View;
 
+/**
+ * Der Bereich-Controller ist für anlegen, bearbeiten und löschen von Bereichen verantwortlich.
+ *
+ */
 public class BereichController implements Controller {
 	
+	/**
+	 * Operation ("anlegen", "bearbeiten", "loeschen")
+	 */
 	private String operation;
+	/**
+	 * View für das Bearbeiten und Anlegen von Bereichen
+	 */
 	private BereichBearbeitenAnlegenView view;
+	/**
+	 * View für das Löschen von Bereichen.
+	 */
 	private BereichLoeschenView viewLoesch;
+	/**
+	 * Such-Controller
+	 */
 	private SuchController suche;
+	/**
+	 * Bereichsleiter
+	 */
 	private Mitarbeiter gewaehlterMA, oLeiter;
+	/**
+	 * zu bearbeitender Bereich
+	 */
 	private Bereich gewaehlterBereich;
+	/**
+	 * Popup zur Bestätigung
+	 */
 	public static BestaetigenPopup popup;
-
-	
-
+	/**
+	 * Collection an Bereichen für Bearbeiten/Löschen
+	 */
 	private Collection<Bereich> bereich;
 	
 	/**
@@ -152,7 +177,10 @@ public class BereichController implements Controller {
 		}
 		
 	}
-
+	
+	/**
+	 * Änderungen am zu bearbeitenden Bereich speichern.
+	 */
 	private void bearbeitenBereich() {
 		try
 		{
@@ -173,6 +201,9 @@ public class BereichController implements Controller {
 		}
 	}
 
+	/**
+	 * Bereich zur Bearbeitung anzeigen
+	 */
 	private void bearbeitenButton() {
 		String tempBereich = this.viewLoesch.getBereich();
 		this.view = new BereichBearbeitenAnlegenView();
@@ -191,6 +222,9 @@ public class BereichController implements Controller {
 		}
 	}
 
+	/**
+	 * neuen Bereich speichern
+	 */
 	private void bereichAnlegen() {
 		try{
 			Bereich neuerBereich = new Bereich(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oLeiter);
@@ -210,6 +244,9 @@ public class BereichController implements Controller {
 		}
 	}
 
+	/**
+	 * Popup zur Bestätigung beim Speichern
+	 */
 	private void anlegenBearbeitenPopup() {
 		popup = new BestaetigenPopup();
 		popup.setController(this);
@@ -260,6 +297,9 @@ public class BereichController implements Controller {
 		}
 	}
 
+	/**
+	 * ausgewählten Bereich löschen und ComboBox in View aktualisieren.
+	 */
 	private void bereichLoeschen() {
 		//Bereich zum löschen finden und löschen
 		Iterator<Bereich> i = this.bereich.iterator();		
@@ -296,6 +336,9 @@ public class BereichController implements Controller {
 		popup = null;
 	}
 
+	/**
+	 * Popup zur Bestätigung von Bereich löschen.
+	 */
 	private void bereichLoeschenPopup() {
 		popup = new BestaetigenPopup();
 		popup.setController(this);
@@ -326,6 +369,9 @@ public class BereichController implements Controller {
 		}
 	}
 
+	/**
+	 * Gibt die aktive View zurück.
+	 */
 	@Override
 	public View getView() {
 		switch( this.operation ){
@@ -336,6 +382,9 @@ public class BereichController implements Controller {
 		return null;
 	}
 
+	/**
+	 * Wird vom SuchController aufgerufen, wenn ein Mitarbeiter als Bereichsleiter ausgewählt wurde.
+	 */
 	@Override
 	public void fortsetzen() {
 		gewaehlterMA = (Mitarbeiter) this.suche.getAuswahl();
@@ -354,31 +403,47 @@ public class BereichController implements Controller {
 		
 	}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
+	public void mouseClicked(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mouseEntered(MouseEvent e) {	
-	}
+	public void mouseEntered(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mousePressed(MouseEvent e) {		
-	}
+	public void mousePressed(MouseEvent e) {}
 
+	/**
+	 * keine Aktion.
+	 */
 	@Override
-	public void mouseReleased(MouseEvent e) {	
-	}
+	public void mouseReleased(MouseEvent e) {}
 
+	/**
+	 * Angelos?!
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {	
 		this.viewLoesch.setzeFocus();
 	}
 
+	/**
+	 * Enter-Taste ruft entsprechend der Operation ein Popup zur Bestätigung auf.
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		
@@ -427,9 +492,9 @@ public class BereichController implements Controller {
 			}
 	}
 
+	/**
+	 * Keine Aktion.
+	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-		
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 }
