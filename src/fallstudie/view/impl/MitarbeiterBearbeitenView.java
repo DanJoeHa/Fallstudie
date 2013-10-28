@@ -131,7 +131,7 @@ public class MitarbeiterBearbeitenView extends LayoutMitarbeiter {
 
 	}
 	/**
-	 * gibt den Button mit dem Focus zurück
+	 * Gibt den Button mit dem Focus zurück
 	 * @return
 	 */
 	public String hatFocus(){

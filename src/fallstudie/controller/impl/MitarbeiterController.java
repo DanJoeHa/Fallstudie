@@ -530,7 +530,7 @@ public class MitarbeiterController implements Controller {
 	@Override
 	public void keyPressed(KeyEvent e) {}
 	/**
-	 * wenn Enter gedrückt wird und das Popup offen ist, wird die Aktion hinter dem button ausgeführt
+	 * Wenn Enter gedrückt wird und das Popup offen ist, wird die Aktion hinter dem button ausgeführt
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {

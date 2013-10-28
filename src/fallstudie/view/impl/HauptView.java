@@ -138,7 +138,7 @@ public class HauptView extends JFrame implements View{
 	}
 	
 	/**
-	 * Erstellt Navigationsbaum anhand der Rechte des Users - evtl. anhand Rechte in Controller machen?
+	 * Erstellt Navigationsbaum anhand der Rechte des Users
 	 * 
 	 * @author Johannes
 	 * @version 0.1
@@ -230,14 +230,14 @@ public class HauptView extends JFrame implements View{
 		this.Navigation.setVisible(false);
 	}
 	/**
-	 * aktuelle Überschrift setzen
+	 * Aktuelle Überschrift setzen
 	 * @param ueberschrift
 	 */
 	public void setUeberschrift(String ueberschrift){
 		this.L_Ueberschrift.setText( ueberschrift );
 	}
 	/**
-	 * aktuelle Info in die InfoBox schreiben
+	 * Aktuelle Info in die InfoBox schreiben
 	 * @param message
 	 */
 	public void setInfoBox(String message){
@@ -275,7 +275,7 @@ public class HauptView extends JFrame implements View{
 		
 	}
 	/**
-	 * gibt view zurück
+	 * Geht eine Maske zurück.
 	 * @return
 	 */
 	public View zurueck(){
@@ -286,7 +286,7 @@ public class HauptView extends JFrame implements View{
 		}
 	}
 	/**
-	 * gibt View zurück
+	 * Geht die übergebene Anzahl an Masken zurück.
 	 * @param anz
 	 * @return
 	 */

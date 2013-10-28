@@ -77,7 +77,7 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 	}
 	
 	/**
-	 * Hoert auf Buttons "Logout" und "Hilfe"
+	 * Hört auf Buttons "Logout" und "Hilfe"
 	 * 
 	 * @author Marc
 	 * @version 0.1 - Aktionen für Buttons "Logout" und "Hilfe" gesetzt
@@ -124,7 +124,7 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 	}
 	
 	/**
-	 * Hoert auf Menuebaum
+	 * Hört auf Menuebaum
 	 * 
 	 * @author Marc
 	 * @version 0.1 - Aktion für Passwort ändern

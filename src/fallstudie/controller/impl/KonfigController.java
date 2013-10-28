@@ -95,7 +95,7 @@ public class KonfigController implements Controller {
 	}
 	
 	/**
-	 * Lieftert die KonfirgurationView
+	 * Liefert die KonfirgurationView
 	 * 
 	 * @author Johannes
 	 * @version 1.0

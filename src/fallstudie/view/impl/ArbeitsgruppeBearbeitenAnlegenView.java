@@ -102,7 +102,7 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 	}
 	
 	/**
-	 * Füllt die Auswahlbix nit den Bereich und legt zusätzlich den vorausgewählten Bereich fest
+	 * Füllt die Auswahlbox mit den Bereichen und legt zusätzlich den vorausgewählten Bereich fest
 	 * @param bereiche
 	 * @param aktuellerBereich
 	 */
@@ -177,7 +177,7 @@ public class ArbeitsgruppeBearbeitenAnlegenView extends OrgeinheitBearbeitenAnle
 		return ausgabe;
 	}
 	/**
-	 * setzt Focus auf Button
+	 * Setzt Focus auf Button
 	 */
 	public void setzeFocus(){
 		this.B_Speichern.requestFocusInWindow();

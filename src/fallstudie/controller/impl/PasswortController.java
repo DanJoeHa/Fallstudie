@@ -152,7 +152,7 @@ public class PasswortController implements Controller {
 	public void keyPressed(KeyEvent e) {}
 	
 	/**
-	 * setzt Keylistener auf Enter und und ruft Bestätigungspopup auf.
+	 * Setzt KeyListener auf Enter und und ruft Bestätigungspopup auf.
 	 * @parm KeyEvent
 	 */
 	@Override

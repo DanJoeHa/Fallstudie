@@ -110,7 +110,7 @@ public class BereichLoeschenView extends JPanel implements View{
 		
 	}
 	/**
-	 * befüllt Combobox mit den Bereichen
+	 * Befüllt Combobox mit den Bereichen
 	 * @param Bereiche
 	 */
 	public void setBereiche(String[] Bereiche){
@@ -120,14 +120,14 @@ public class BereichLoeschenView extends JPanel implements View{
 		}
 	}
 	/**
-	 * holt den ausgewählten Bereich
+	 * Holt den ausgewählten Bereich
 	 * @return
 	 */
 	public String getBereich(){
 		return this.C_Bereich.getSelectedItem().toString();
 	}
 	/**
-	 * setzt Buttonname
+	 * Setzt Buttonname
 	 * @param ButtonName
 	 */
 	public void setButtonName(String ButtonName)
@@ -135,7 +135,7 @@ public class BereichLoeschenView extends JPanel implements View{
 		B_BearbeitenLoeschen.setText(ButtonName);
 	}
 	/**
-	 * setzt den Text
+	 * Setzt den Text
 	 * @param Hinweis
 	 */
 	public void setHinweis(String Hinweis)
