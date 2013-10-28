@@ -280,7 +280,9 @@ public class MitarbeiterController implements Controller {
 			popup.setVisible(false);
 		}
 	}
-
+/**
+ * Speichern eines Mitarbeiters der neu angelegt wurde
+ */
 	private void speichernMitarbeiter() {
 		//hole Nutzerdaten
 		String benutzername = this.viewAnlegen.getBenutzername();
@@ -346,7 +348,9 @@ public class MitarbeiterController implements Controller {
 		}
 		popup.setVisible(false);
 	}
-
+/**
+ * Popup zur Bestätigung des Speichern
+ */
 	private void speichernPopup() {
 		popup = new BestaetigenPopup();
 		popup.setController(this);
