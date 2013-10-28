@@ -106,8 +106,8 @@ public class Arbeitsgruppe {
 				this.leiter = leiter;
 
 				// Exception beim Anlegen der Arbeitsgruppe
-				if (RowsAffected == 1) {
-					throw new Exception("Arbeitsgruppe erfolgreich angelegt.");
+				if (RowsAffected != 1) {
+					throw new Exception("Arbeitsgruppe konnte nicht angelegt werden.");
 				}
 				// END-IF
 
@@ -137,8 +137,8 @@ public class Arbeitsgruppe {
 				this.leiter = null;
 
 				// Exception beim Anlegen der Arbeitsgruppe
-				if (RowsAffected == 1) {
-					throw new Exception("Arbeitsgruppe erfolgreich angelegt.");
+				if (RowsAffected != 1) {
+					throw new Exception("Arbeitsgruppe konnte nicht angelegt werden.");
 				}
 				// END-IF
 
