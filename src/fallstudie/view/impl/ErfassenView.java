@@ -28,7 +28,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class ErfassenView extends JPanel implements View {
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -4191603780481912694L;
 	/**
 	 * Kalenderjahr Textfeld

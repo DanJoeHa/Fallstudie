@@ -26,7 +26,9 @@ import java.awt.Toolkit;
  *
  */
 public class HauptView extends JFrame implements View{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 999907361524491947L;
 	/**
 	 * Panel, in dem die Views geladen werden
@@ -273,7 +275,7 @@ public class HauptView extends JFrame implements View{
 		
 	}
 	/**
-	 * 
+	 * gibt view zurück
 	 * @return
 	 */
 	public View zurueck(){
@@ -284,7 +286,7 @@ public class HauptView extends JFrame implements View{
 		}
 	}
 	/**
-	 * 
+	 * gibt View zurück
 	 * @param anz
 	 * @return
 	 */
@@ -303,6 +305,9 @@ public class HauptView extends JFrame implements View{
 	}
 	
 	@Override
+	/**
+	 * setzt Controller
+	 */
 	public void setController(Controller c) {
 		
 		this.B_Logout.addActionListener(c);
@@ -313,6 +318,9 @@ public class HauptView extends JFrame implements View{
 	}
 
 	@Override
+	/**
+	 * setzt Text zurück der Infobox
+	 */
 	public void reset() {
 		this.InfoBox.setText("");
 	}

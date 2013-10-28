@@ -16,7 +16,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class BestaetigenPopup extends JDialog implements View{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -8630370870519774622L;
 	/**
 	 * Panel für Inhalt

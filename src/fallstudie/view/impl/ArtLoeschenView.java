@@ -18,7 +18,9 @@ import fallstudie.view.interfaces.View;
  *
  */
 public class ArtLoeschenView extends JPanel implements View{
-
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -4927164539248244321L;
 	/**
 	 * Löschen Button
