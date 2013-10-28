@@ -21,10 +21,17 @@ import fallstudie.controller.impl.HauptController;
  *
  */
 public class Fallstudie extends JFrame {
- 
+ /**
+  * Ersatzbild variable
+  */
     private Image img;
+   /**
+    * Positionsvariablr 
+    */
     private int x, y;
- 
+ /**
+  * Timer für die Dauer dies angezeigt wird
+  */
     private Timer timer;
     /**
      * Position und Größe wird festgelegt und falls das Bild nicht gefunden wurde Consolen Ausgabe erzeugt
@@ -51,8 +58,6 @@ public class Fallstudie extends JFrame {
             img = ImageIO.read(pic).getScaledInstance(x, y, Image.SCALE_SMOOTH);
  
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
             System.err.println("Konnte Datei nicht öffnen!");
         }
         setVisible(true);
