@@ -166,9 +166,11 @@ public class ErfassenView extends JPanel implements View {
 		//Abfangen das nur positive Zahlen und keine anderen Zeichen eingetragen werden.
 		T_AnzahlErfassen.addKeyListener(new KeyListener() {
 			int zahl=0;
+			//Keine Fuktion
 			@Override
 			public void keyTyped(KeyEvent e) {}
 			
+			//Abfragen des Textfeldinhalts und reagieren auf diesen.
 			@Override
 			public void keyReleased(KeyEvent e) {
 				zahl=0;
@@ -201,6 +203,7 @@ public class ErfassenView extends JPanel implements View {
 				revalidate();
 			}
 			
+			//keine Funktion
 			@Override
 			public void keyPressed(KeyEvent e) {}
 		});
