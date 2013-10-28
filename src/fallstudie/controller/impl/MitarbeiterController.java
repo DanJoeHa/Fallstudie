@@ -337,9 +337,13 @@ public class MitarbeiterController implements Controller {
 					new Mitarbeiter(benutzername, passwort, vorname, nachname, rolle);
 				}						
 				
-			}catch(Exception ex){
-				HauptController.hauptfenster.setInfoBox(ex.getMessage());
+				//Rückmeldung an User über erfolgreiche Anlage
+				HauptController.hauptfenster.setInfoBox("Mitarbeiter erfolgreich angelegt.");
 				this.viewAnlegen.reset();
+				
+			}catch(Exception ex){
+				//Rückmeldung an User über Fehler
+				HauptController.hauptfenster.setInfoBox(ex.getMessage());
 			}
 		}
 		else
@@ -526,7 +530,7 @@ public class MitarbeiterController implements Controller {
 	@Override
 	public void keyPressed(KeyEvent e) {}
 	/**
-	 * wenn Enter gedrückt wird und das Popup offen ist, wird die Aktion hinter dem button ausgeführt
+	 * Wenn Enter gedrückt wird und das Popup offen ist, wird die Aktion hinter dem button ausgeführt
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {

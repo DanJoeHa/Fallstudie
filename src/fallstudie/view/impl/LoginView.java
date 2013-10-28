@@ -90,7 +90,7 @@ public class LoginView extends JPanel implements View {
 	}
 	
 	/**
-	 * liest die Eingabe aus dem Textfeld "Benutzername" aus und gibt diese zurück
+	 * Liest die Eingabe aus dem Textfeld "Benutzername" aus und gibt diese zurück
 	 * 
 	 * @author Johannes
 	 * @version 1.0
@@ -101,7 +101,7 @@ public class LoginView extends JPanel implements View {
 	}
 	
 	/**
-	 * liest die Eingabe aus dem Textfeld "Passwort" aus und gibt diese zur�ck
+	 * Liest die Eingabe aus dem Textfeld "Passwort" aus und gibt diese zurück
 	 * 
 	 * @author Johannes
 	 * @version 1.0

@@ -38,7 +38,7 @@ public static String ArtAnlegenView = "Tragen Sie die Bezeichnung der Art ein, d
  */
 public static String ErfassenView = "Das aktuelle Kalenderjahr ist bereits vorgegeben. Es kann allerdings ausgewählt werden, ob Sie einen Eintrag  für die aktuelle oder für die vorherige Woche erfassen wollen. Über die Drop-Down-Box kann die gewünschte Art des Eintrags ausgewählt werden. Im Erfassen-Feld kann entweder direkt in das Feld eine Zahl eingegeben werden oder über + die Zahl im Feld hochgezählt werden.";
 /**
- * Hilfetext für PasswortaenderView	
+ * Hilfetext für PasswortaendernView	
  */
 public static String PasswortaendernView = "Geben Sie hier Ihr aktuelles Passwort und Ihr neues Passwort ein, wiederholen Sie dieses und bestätigen Ihre Änderung dann.";
 /**

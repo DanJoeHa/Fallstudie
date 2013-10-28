@@ -91,7 +91,7 @@ public class SchliessenPopup extends JDialog implements View{
 		T_Hinweis.setText(Hinweis);
 	}
 	/**
-	 * setzt Controller
+	 * Setzt Controller als Action- & KeyListener
 	 */
 	@Override
 	public void setController(Controller c) {
@@ -99,7 +99,7 @@ public class SchliessenPopup extends JDialog implements View{
 		this.B_ok.addKeyListener((KeyListener) c);
 	}
 	/**
-	 * zurücksetzen des Hinweistextes und des Titel des Popups
+	 * Zurücksetzen des Hinweistextes und des Titels des Popups
 	 */
 	@Override
 	public void reset() {

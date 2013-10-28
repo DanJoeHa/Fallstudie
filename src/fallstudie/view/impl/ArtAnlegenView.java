@@ -83,7 +83,7 @@ public class ArtAnlegenView extends JPanel implements View{
 		return this.T_Art.getText();
 	}
 	/**
-	 * Controller werden gesetzt und die Listener.
+	 * Controller wird als Action- & KeyListener gesetzt.
 	 */
 	@Override
 	public void setController(Controller c) {

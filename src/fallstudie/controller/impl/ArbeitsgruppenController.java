@@ -60,7 +60,6 @@ public class ArbeitsgruppenController implements Controller {
 	 */
 	public static BestaetigenPopup popup;
 	
-	//ActionPerformed
 	/**
 	 * Bereichs-Objekt zur Bestimmung ob Bereich existiert
 	 */
@@ -203,10 +202,13 @@ public class ArbeitsgruppenController implements Controller {
 					//Abfrage ob erfolgreich, weil in DB Ebene nicht möglich
 					if(erfolgreich1 && erfolgreich2 && erfolgreich3 && erfolgreich4)
 					{
-						HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde erfolgreich bearbeitet.");
+						//Falls kein Leiter gesetzt wurde
 						if(oLeiter == null){
 							HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter gespeichert.");
+						}else{
+							HauptController.hauptfenster.setInfoBox("Arbeitsgruppe wurde erfolgreich bearbeitet.");
 						}
+						
 					}
 					else
 					{
@@ -290,17 +292,26 @@ public class ArbeitsgruppenController implements Controller {
 	private void anlegenAction() {
 		try{
 			
-			Arbeitsgruppe neueAG = new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
-			this.gewaehlteAG = neueAG;
+			//neue Arbeitsgruppe erstellen
+			this.gewaehlteAG = new Arbeitsgruppe(this.view.getKurzbezeichnung(), this.view.getBezeichnung(), oBereich, oLeiter);
+			
+			//Mitarbeiter ggf. umziehen
 			this.moveLeiter();
+			
+			//Falls Mitarbeiter nicht in DB vorhanden
+			if(oLeiter == null){
+				HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
+			}else{
+				//Rückmeldung 
+				HauptController.hauptfenster.setInfoBox("Arbeitsgruppe erfolgreich angelegt.");
+			}
+			
+			//View zurücksetzen
+			this.view.reset();
 		}
 		catch (Exception e1)
 		{
 			HauptController.hauptfenster.setInfoBox( e1.getMessage() );
-			//ist Mitarbeiter nicht in DB vorhanden
-			if(oLeiter == null){
-				HauptController.hauptfenster.setInfoBox("Mitarbeiter nicht vorhanden. Arbeitsgruppe wurde ohne Leiter angelegt.");
-			}
 		}
 	}
 	

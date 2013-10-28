@@ -106,6 +106,7 @@ public class TabelleView extends JPanel implements View {
 		
 		
 	}
+	
 	/**
 	 * Button umbenennen
 	 * @param Buttonbezeichnung
@@ -113,6 +114,7 @@ public class TabelleView extends JPanel implements View {
 	public void setButtonName(String buttonbezeichnung){
 		this.B_AuswaehlenLoeschen.setText(buttonbezeichnung);
 	}
+	
 	/**
 	 * Ausgewählte Zeile der Tabelle
 	 * @return auswahl
@@ -147,6 +149,7 @@ public class TabelleView extends JPanel implements View {
 		});	
 		
 	}
+	
 	/**
 	 * Button und ComboBox für DrillDown Möglichkeit anzeigen
 	 * @param visible
@@ -155,6 +158,7 @@ public class TabelleView extends JPanel implements View {
 		this.C_DrillDown.setVisible(visible);
 		this.B_DrillDown.setVisible(visible);
 	}
+	
 	/**
 	 * DrillDown AuswahlBox mit Bereichen füllen
 	 * @param bereiche
@@ -165,13 +169,15 @@ public class TabelleView extends JPanel implements View {
 		}
 		
 	}
+	
 	/**
-	 * ausgewählter Bereich aus DrillDown
+	 * Ausgewählten Bereich aus ComboBox "Drilldown" lesen
 	 * @return DrillDown Auswahl
 	 */
 	public String getDrillDownBereich(){
 		return this.C_DrillDown.getSelectedItem().toString();
 	}
+	
 	/**
 	 * Controller setzen
 	 */
@@ -183,14 +189,18 @@ public class TabelleView extends JPanel implements View {
 		this.TA_Tabelle.addMouseListener(c);
 		this.B_CSV_Drucken.addActionListener(c);
 	}
-/**
- * Tabelle leeren
- */
+	
+	/**
+	 * Tabelle leeren
+	 */
 	@Override
 	public void reset() {
 		this.TA_Tabelle.removeAll();
 	}
 	
+	/**
+	 * Setzt den CSV-Button sichtbar.
+	 */
 	public void setSichtbarkeit(){
 		this.B_CSV_Drucken.setVisible(true);
 	}

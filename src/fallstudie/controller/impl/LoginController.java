@@ -33,7 +33,7 @@ public class LoginController implements Controller, KeyListener
 	}
 	
 	/**
-	 * Horcht auf den Button Login
+	 * Hört auf den Button Login
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
