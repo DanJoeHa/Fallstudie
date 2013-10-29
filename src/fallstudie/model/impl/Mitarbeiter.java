@@ -274,8 +274,8 @@ public class Mitarbeiter {
 				this.rolle = rolle;
 				this.bereich = bereich;
 
-				if (affectedRows == 1)
-					throw new Exception("Mitarbeiter erfolgreich angelegt.");
+				if (affectedRows != 1)
+					throw new Exception("Mitarbeiter konnte nicht angelegt werden.");
 			}
 		}
 
