@@ -110,6 +110,10 @@ public class MitarbeiterController implements Controller {
 			this.viewSuche = (SuchenView) suche.getView() ;
 			HauptController.hauptfenster.setContent(viewSuche);
 			
+			//Hilfefenster
+			HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
+			HauptController.hilfefenster.setHinweis( HilfeTexte.SuchenView);
+			HauptController.hilfefenster.setTitle("Hilfe - Mitarbeiter bearbeiten");
 			
 		}
 	}
@@ -438,6 +442,11 @@ public class MitarbeiterController implements Controller {
 		}
 		
 		if(this.operation.equals("bearbeiten")){ //try{
+			
+			//Hilfefenster
+			HauptController.hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
+			HauptController.hilfefenster.setHinweis( HilfeTexte.MitarbeiterBearbeitenView);
+			HauptController.hilfefenster.setTitle("Hilfe - Mitarbeiter bearbeiten");
 			
 			//Mitarbeiter zur Bearbeitung ausgewählt
 			if(!suchag){

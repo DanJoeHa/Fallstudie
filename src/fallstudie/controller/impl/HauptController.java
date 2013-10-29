@@ -362,9 +362,7 @@ public class HauptController implements Controller, TreeSelectionListener, KeyLi
 		MitarbeiterController mcedit = new MitarbeiterController();
 		mcedit.setOperation("bearbeiten");
 		HauptController.hc.activeController = mcedit;
-		hauptfenster.setUeberschrift("Mitarbeiter bearbeiten");
-		hilfefenster.setHinweis( HilfeTexte.MitarbeiterBearbeitenView);
-		hilfefenster.setTitle("Hilfe - Mitarbeiter bearbeiten");
+		
 	}
 
 	/**
