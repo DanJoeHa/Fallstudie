@@ -1,0 +1,138 @@
+SET FOREIGN_KEY_CHECKS=0;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+CREATE TABLE `Arbeitsgruppe` (
+  `ArbeitsgruppeID` int(11) NOT NULL AUTO_INCREMENT,
+  `Leiter` varchar(45) DEFAULT NULL,
+  `Bereich` int(11) DEFAULT NULL,
+  `Beschreibung` varchar(45) NOT NULL,
+  `Kurzbezeichnung` varchar(45) NOT NULL,
+  `Aktiv` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`ArbeitsgruppeID`),
+  KEY `Arbeitsgruppe_Bereich_FK_idx` (`Bereich`),
+  KEY `Arbeitsgruppe_Leiter_FK_idx` (`Leiter`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=81 ;
+
+CREATE TABLE `Art` (
+  `Name` varchar(45) NOT NULL,
+  `Aktiv` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Berechtigung` (
+  `Name` varchar(45) NOT NULL,
+  `Beschreibung` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Bereich` (
+  `BereichID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(45) DEFAULT NULL,
+  `Kurzbezeichnung` varchar(45) NOT NULL,
+  `Aktiv` tinyint(1) NOT NULL DEFAULT '1',
+  `Leiter` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`BereichID`),
+  KEY `Bereichsleiter_FK_idx` (`Leiter`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=81 ;
+
+CREATE TABLE `Config` (
+  `Jobintervall` int(11) NOT NULL DEFAULT '3',
+  PRIMARY KEY (`Jobintervall`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Eintrag` (
+  `EintragID` int(11) NOT NULL AUTO_INCREMENT,
+  `Datum` date NOT NULL,
+  `Arbeitsgruppe` int(11) NOT NULL,
+  `Summe` int(11) NOT NULL,
+  `Kalenderwoche` int(2) NOT NULL,
+  `Kalenderjahr` int(4) NOT NULL,
+  `Art` varchar(45) NOT NULL,
+  PRIMARY KEY (`EintragID`),
+  KEY `Arbeitsgruppe_FK_idx` (`Arbeitsgruppe`),
+  KEY `Eintrag_Art_FK` (`Art`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=161 ;
+
+CREATE TABLE `Jahresuebersicht` (
+  `Kalenderjahr` int(11) NOT NULL,
+  `Arbeitsgruppe` int(11) NOT NULL DEFAULT '0',
+  `Bereich` int(11) NOT NULL DEFAULT '0',
+  `Art` varchar(45) NOT NULL DEFAULT '',
+  `Summe` int(11) NOT NULL,
+  PRIMARY KEY (`Arbeitsgruppe`,`Kalenderjahr`,`Art`,`Bereich`),
+  KEY `Jahresuebersicht_hat_Bereich_idx` (`Bereich`),
+  KEY `Jahresuebersicht_hat_Gruppe_idx` (`Arbeitsgruppe`),
+  KEY `Jahres�bersicht_hat_Art_FK` (`Art`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Mitarbeiter` (
+  `Benutzername` varchar(45) NOT NULL,
+  `Arbeitsgruppe` int(11) DEFAULT NULL,
+  `Rolle` varchar(45) NOT NULL,
+  `Passwort` varchar(200) NOT NULL,
+  `Aktiv` tinyint(1) NOT NULL DEFAULT '1',
+  `Vorname` varchar(45) NOT NULL,
+  `Nachname` varchar(45) NOT NULL,
+  `LetzterLogin` date DEFAULT NULL,
+  `Bereich` int(11) DEFAULT NULL,
+  `PWChanged` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Benutzername`),
+  KEY `Arbeitsgruppe_idx` (`Arbeitsgruppe`),
+  KEY `Rolle_idx` (`Rolle`),
+  KEY `Mitarbeiter_Bereich_FK_idx` (`Bereich`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Rolle` (
+  `Rollenbezeichnung` varchar(45) NOT NULL,
+  PRIMARY KEY (`Rollenbezeichnung`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Rollenberechtigungen` (
+  `Rollenbezeichnung` varchar(45) NOT NULL,
+  `Berechtigungsname` varchar(150) NOT NULL,
+  PRIMARY KEY (`Rollenbezeichnung`,`Berechtigungsname`),
+  KEY `Berechtigungsname_idx` (`Berechtigungsname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Wochenuebersicht` (
+  `Kalenderjahr` int(11) NOT NULL,
+  `Kalenderwoche` int(11) NOT NULL DEFAULT '0',
+  `Arbeitsgruppe` int(11) NOT NULL DEFAULT '0',
+  `Bereich` int(11) NOT NULL DEFAULT '0',
+  `Art` varchar(45) NOT NULL DEFAULT '',
+  `Summe` int(11) NOT NULL,
+  PRIMARY KEY (`Kalenderjahr`,`Art`,`Bereich`,`Arbeitsgruppe`,`Kalenderwoche`),
+  KEY `Arbeitsgruppe_Einträge_FK_idx` (`Arbeitsgruppe`),
+  KEY `Bereich_hat_Einträge_FK_idx` (`Bereich`),
+  KEY `Wochenuebersicht_hat_Art_FK` (`Art`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `Arbeitsgruppe`
+  ADD CONSTRAINT `Arbeitsgruppe_Bereich_FK` FOREIGN KEY (`Bereich`) REFERENCES `Bereich` (`BereichID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `Bereich`
+  ADD CONSTRAINT `Bereichsleiter_FK` FOREIGN KEY (`Leiter`) REFERENCES `Mitarbeiter` (`Benutzername`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `Eintrag`
+  ADD CONSTRAINT `Eintrag_Art_FK` FOREIGN KEY (`Art`) REFERENCES `Art` (`Name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Eintrag_Mitarbeiter_FK` FOREIGN KEY (`Arbeitsgruppe`) REFERENCES `Arbeitsgruppe` (`ArbeitsgruppeID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `Mitarbeiter`
+  ADD CONSTRAINT `Mitarbeiter_Arbeitsgruppe_FK` FOREIGN KEY (`Arbeitsgruppe`) REFERENCES `Arbeitsgruppe` (`ArbeitsgruppeID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Mitarbeiter_Bereich_FK` FOREIGN KEY (`Bereich`) REFERENCES `Bereich` (`BereichID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Mitarbeiter_Rolle_FK` FOREIGN KEY (`Rolle`) REFERENCES `Rolle` (`Rollenbezeichnung`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `Rollenberechtigungen`
+  ADD CONSTRAINT `Berechtigungsname_FK` FOREIGN KEY (`Berechtigungsname`) REFERENCES `Berechtigung` (`Name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Rollenbezeichnung_FK` FOREIGN KEY (`Rollenbezeichnung`) REFERENCES `Rolle` (`Rollenbezeichnung`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `Wochenuebersicht`
+  ADD CONSTRAINT `Arbeitsgruppe_hat_Einträge_FK` FOREIGN KEY (`Arbeitsgruppe`) REFERENCES `Arbeitsgruppe` (`ArbeitsgruppeID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Bereich_hat_Einträge_FK` FOREIGN KEY (`Bereich`) REFERENCES `Bereich` (`BereichID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Wochenuebersicht_hat_Art_FK` FOREIGN KEY (`Art`) REFERENCES `Art` (`Name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;

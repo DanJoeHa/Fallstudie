@@ -9,14 +9,26 @@ import java.sql.Statement;
 
 import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 
+/**
+ * Klasse zum setzen und erzeugen der Datenbankverbindung.
+ *
+ */
 public class RemoteConnection {
-	
+	/**
+	 * Verbindung zur Datenbank
+	 */
 	public static Connection connection = null;
+	/**
+	 * Ausführbarer Query
+	 */
 	public static Statement sql = null;
 	
+	/**
+	 * Methode zum Verbinden zur Datenbank.
+	 */
 	public static void connect(){
 		try{
-			//DB-Verbindung aufbauen inkl. DB ausw�hlen
+			//DB-Verbindung aufbauen inkl. DB auswählen
 			RemoteConnection.connection = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/fallstudie", "wwi2012h", "wwi2012h");
 			
 			//Statement erstellen
@@ -35,6 +47,10 @@ public class RemoteConnection {
 		}
 		
 	}
+	
+	/**
+	 * Ausführen des übergebenen SQL Statements.
+	 */
 	public ResultSet executeQueryStatement(String statement) throws SQLException {
 		Statement sqlStmt = connection.createStatement();
 
