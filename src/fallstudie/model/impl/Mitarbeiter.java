@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.mysql.jdbc.Connection;
+
 import fallstudie.model.mysql.connector.RemoteConnection;
 
 /**
@@ -768,6 +770,26 @@ public class Mitarbeiter {
 				RemoteConnection.sql
 						.executeUpdate("UPDATE Bereich SET Leiter=NULL WHERE Leiter='"
 								+ this.benutzername + "'");
+			}
+			else if(rolle.getRollenbezeichnung().equals("Bereichsleiter"))
+			{
+				ResultSet checkeAGLeitung = RemoteConnection.sql.executeQuery("SELECT * FROM Arbeitsgruppe WHERE Leiter='"+this.benutzername+"'");
+				if(checkeAGLeitung.next())
+				{
+					RemoteConnection.sql
+					.executeUpdate("UPDATE Arbeitsgruppe SET Leiter=NULL WHERE Leiter='"
+							+ this.benutzername + "'");
+				}
+			}
+			else if(rolle.getRollenbezeichnung().equals("Gruppenleiter"))
+			{
+				ResultSet checkeBereichLeitung = RemoteConnection.sql.executeQuery("SELECT * FROM Bereich WHERE Leiter='"+this.benutzername+"'");
+				if(checkeBereichLeitung.next())
+				{
+					RemoteConnection.sql
+					.executeUpdate("UPDATE Bereich SET Leiter=NULL WHERE Leiter='"
+							+ this.benutzername + "'");
+				}
 			}
 			String rollenName = rolle.getRollenbezeichnung();
 
