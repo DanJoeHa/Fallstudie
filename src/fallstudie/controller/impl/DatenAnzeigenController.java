@@ -396,12 +396,9 @@ public class DatenAnzeigenController implements Controller {
 				x++;
 			}
 			
-			//wenn keine Zeilen enthalten
-			if( x == 0 ) return false;
-			
 		} catch (Exception e1) {
-			HauptController.hauptfenster.setInfoBox(noDS);
-			tabellenwerte[0][0] = "#";
+			//wenn leer
+			return false;
 		}
 		
 		//Rückgabe
@@ -538,12 +535,9 @@ public class DatenAnzeigenController implements Controller {
 				x++;
 			}
 			
-			//wenn leer
-			if( x == 0 ) return false;
-			
 		} catch (Exception e1) {
-			HauptController.hauptfenster.setInfoBox(noDS);
-			tabellenwerte[0][0] = "#";
+			//wenn leer
+			return false;
 		}
 		
 		//Rückgabe
