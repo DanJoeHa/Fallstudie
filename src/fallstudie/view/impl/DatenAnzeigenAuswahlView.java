@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.SystemColor;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,6 +15,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import fallstudie.controller.impl.HauptController;
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.view.interfaces.View;
 /**
@@ -75,12 +78,98 @@ public class DatenAnzeigenAuswahlView extends JPanel implements View{
 		T_Jahr.setBounds(200, 30, 70, 30);
 		add(T_Jahr);
 		T_Jahr.setColumns(10);
+		T_Jahr.addKeyListener(new KeyListener() {
+			int zahl=0;
+			//Keine Fuktion
+			@Override
+			public void keyTyped(KeyEvent e) {}
+			
+			//Abfragen des Textfeldinhalts und reagieren auf diesen.
+			@Override
+			public void keyReleased(KeyEvent e) {
+				zahl=0;
+				//Liest nur Wert aus, wenn auch etwas drin steht.
+				if(T_Jahr.getText().isEmpty()==false){
+					try{
+						zahl = Integer.parseInt( T_Jahr.getText() );
+					}catch(NumberFormatException exp){
+						T_Jahr.setText("");
+					}
+				}
+				//Ausgelesene Zahl kleiner gleich 0 und Feld nicht leer.
+				if(zahl<=0 && T_Jahr.getText().isEmpty()==false){
+					T_Jahr.setText("");
+					HauptController.hauptfenster.setInfoBox("Bitte ein Jahr eingeben!");
+				}
+				//Feld leer bzw. es steht nichts drin.
+				if(T_Jahr.getText().isEmpty() || T_Jahr.equals("")){
+					HauptController.hauptfenster.setInfoBox("Bitte ein Jahr eingeben!");
+				}
+				//Zahl größer als 1000
+				if(zahl>3000){
+					T_Jahr.setText("");
+					HauptController.hauptfenster.setInfoBox("Das Jahr darf nicht größer als 3000 sein!");
+				}
+				//Eingabe passt, Zahl zwischen 1 und 1000.
+				if(zahl>=1 && zahl<=3000){
+					HauptController.hauptfenster.setInfoBox("");
+				}
+				revalidate();
+			}
+			
+			//keine Funktion
+			@Override
+			public void keyPressed(KeyEvent e) {}
+		});
 		
 		T_Woche = new JTextField();
 		T_Woche.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		T_Woche.setBounds(200, 80, 70, 30);
 		add(T_Woche);
 		T_Woche.setColumns(10);
+		T_Woche.addKeyListener(new KeyListener() {
+			int zahl=0;
+			//Keine Fuktion
+			@Override
+			public void keyTyped(KeyEvent e) {}
+			
+			//Abfragen des Textfeldinhalts und reagieren auf diesen.
+			@Override
+			public void keyReleased(KeyEvent e) {
+				zahl=0;
+				//Liest nur Wert aus, wenn auch etwas drin steht.
+				if(T_Woche.getText().isEmpty()==false){
+					try{
+						zahl = Integer.parseInt( T_Woche.getText() );
+					}catch(NumberFormatException exp){
+						T_Woche.setText("");
+					}
+				}
+				//Ausgelesene Zahl kleiner gleich 0 und Feld nicht leer.
+				if(zahl<=0 && T_Woche.getText().isEmpty()==false){
+					T_Woche.setText("");
+					HauptController.hauptfenster.setInfoBox("Bitte eine Kalenderwoche eingeben!");
+				}
+				//Feld leer bzw. es steht nichts drin.
+				if(T_Woche.getText().isEmpty() || T_Woche.equals("")){
+					HauptController.hauptfenster.setInfoBox("Bitte eine Kalenderwoche eingeben!");
+				}
+				//Zahl größer als 1000
+				if(zahl>54){
+					T_Woche.setText("");
+					HauptController.hauptfenster.setInfoBox("Die Kalenderwoche darf nicht größer als 54 sein!");
+				}
+				//Eingabe passt, Zahl zwischen 1 und 1000.
+				if(zahl>=1 && zahl<=54){
+					HauptController.hauptfenster.setInfoBox("");
+				}
+				revalidate();
+			}
+			
+			//keine Funktion
+			@Override
+			public void keyPressed(KeyEvent e) {}
+		});
 		
 		L_Hinweis = new JTextArea();
 		L_Hinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
