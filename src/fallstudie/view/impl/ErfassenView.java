@@ -228,9 +228,13 @@ public class ErfassenView extends JPanel implements View {
 				{
 					derzeitigerWert = 0;
 				}
-				int neuerWert = derzeitigerWert + 1;
-				T_AnzahlErfassen.setText(""+neuerWert);
-				HauptController.hauptfenster.setInfoBox("");
+				if(derzeitigerWert<1000){
+					int neuerWert = derzeitigerWert + 1;
+					T_AnzahlErfassen.setText(""+neuerWert);
+					HauptController.hauptfenster.setInfoBox("");
+				}else{
+					HauptController.hauptfenster.setInfoBox("Zahl darf nicht größer als 1000 sein!");
+				}
 			}
 	    	
 	    });
