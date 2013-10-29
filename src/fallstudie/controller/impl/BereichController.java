@@ -126,23 +126,14 @@ public class BereichController implements Controller {
 
 			
 		//Bereich löschen durchführen
-		if( this.operation.equals("loeschen") && button.equals("Ja") ){
-			
-			loescheBereich();
-		}
+		if( this.operation.equals("loeschen") && button.equals("Ja") ) loescheBereich();
 			
 		//Abbrechen Lösch-Aktion
-		if(button.equals("Nein") || button.equals("Nicht ersetzen")){
-			popup.setVisible(false);
-		}
+		if(button.equals("Nein") || button.equals("Nicht ersetzen")) popup.setVisible(false);
 		
 		//Bereich zur Bearbeitung ausgewählt
-		if(button.equals("Bearbeiten") ){
-			
-			bearbeiteBereich();
-			
-		}
-		
+		if(button.equals("Bearbeiten") ) bearbeiteBereich();
+
 		//Bereichsleiter suchen
 		if(button.equals("Suchen")){
 			
@@ -164,16 +155,11 @@ public class BereichController implements Controller {
 		if(button.equals("Ja") || button.equals("Ersetzen")){	
 			
 			//Bereich anlegen
-			if(this.operation.equals("anlegen")){
-				
-				anlegenBereich();
-			}
+			if(this.operation.equals("anlegen")) anlegenBereich();
 			
 			//Bereich bearbeiten
-			if(this.operation.equals("bearbeiten"))	{
-				
-				speicherAenderungen();
-			}					
+			if(this.operation.equals("bearbeiten")) speicherAenderungen();
+			
 		}
 		
 	}
@@ -213,6 +199,11 @@ public class BereichController implements Controller {
 		this.view.setButtonAbbrechenName("Abbrechen");
 		gewaehlterBereich = Bereich.getBereichByName(tempBereich);
 		this.view.setBezeichnung(gewaehlterBereich.getBeschreibung());
+		
+		//Hilfefenster
+		HauptController.hilfefenster.setTitle("Bereich bearbeiten");
+		HauptController.hilfefenster.setHinweis(HilfeTexte.BereichBearbeitenAnlegenView);
+		
 		try
 		{
 			this.view.setLeiter(gewaehlterBereich.getLeiter().getBenutzername());
@@ -396,10 +387,8 @@ public class BereichController implements Controller {
 			this.view.setButtonAbbrechenName("Abbrechen");
 			HauptController.hauptfenster.setUeberschrift("Bereich bearbeiten");
 		}
-		HauptController.hauptfenster.setUeberschrift("Bereich anlegen");
 		HauptController.hauptfenster.setContent(this.view);
 		this.view.repaint();
-		
 		
 	}
 
