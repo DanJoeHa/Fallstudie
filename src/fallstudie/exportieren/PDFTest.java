@@ -1,39 +1,39 @@
-package fallstudie.exportieren;
 /*
 * ----------------------------------------------------------------------------------------------<br>
 * Klassenname: MessungPDF<br>
 * ----------------------------------------------------------------------------------------------<br>
 * Beschreibung:<br>
-* Die Klasse MessungPDF stellt Funktionalitï¿½t zum Erzeugen eines PDFs aus einer Liste von
-* Messung Objekten zur Verfï¿½gung. Zur Erzeugung des PDFs bedient sich die Klasse der Standard-Bibliothek itextpdf<br>
+* Die Klasse MessungPDF stellt Funktionalität zum Erzeugen eines PDFs aus einer Liste von
+* Messung Objekten zur Verfügung. Zur Erzeugung des PDFs bedient sich die Klasse der Standard-Bibliothek itextpdf<br>
 *
 * @author Dieter Ebhart
 * @version 1.0
 */
 
 
-import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import javax.swing.text.Document;
-
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 public class PDFTest {
 
 /**
- * Erzeugt die ï¿½berschrift des PDF-Dokuments<br>
+ * Erzeugt die Überschrift des PDF-Dokuments<br>
  *
  * <br>
  * @exception keine
  * @return keine
- * @param Document: das PDF-Dokume nt fï¿½r das die ï¿½berschrift erzeugt werden soll.
+ * @param Document: das PDF-Dokume nt für das die Überschrift erzeugt werden soll.
  * @author Dieter Ebhart
  * @version 1.0
  */
@@ -51,7 +51,7 @@ public class PDFTest {
 
 /**
  * Erzeugt die Listendarstellung im PDF<br>
- * Aus den Attributnamen werden die Spaltenï¿½berschriften erzeugt.
+ * Aus den Attributnamen werden die Spaltenüberschriften erzeugt.
  * Die Attributwerte sind die Zeilen in der Tabelle.
  * <br>
  * @exception keine
@@ -98,7 +98,7 @@ public class PDFTest {
 
 /**
  * Erzeugt das PDF als Datei mit dem Dateinamen filename<br>
- * Aus den Attributnamen werden die Spaltenï¿½berschriften erzeugt.
+ * Aus den Attributnamen werden die Spaltenüberschriften erzeugt.
  * Format ist A4 Hochkant.
  * Die Attributwerte sind die Zeilen in der Tabelle.
  * <br>
@@ -134,7 +134,7 @@ public class PDFTest {
 		try {
 			ImportedClasses.com.itextpdf.text.pdf.PdfWriter.getInstance(document, new FileOutputStream("Test.pdf"));
 			document.open();
-			a.makeListeUeberschrift(document,"Jahresï¿½bersicht");
+			a.makeListeUeberschrift(document,"Jahresübersicht");
 			a.makeListeBody(document, b,headlines);
 			
 			document.close();
