@@ -86,7 +86,7 @@ public class PDFExport {
 			Phrase phrase = new Phrase();
 			phrase.setFont(text);
 			PdfPTable table = new PdfPTable(headlines.length);
-			table.setWidthPercentage(100);
+			table.setWidthPercentage(105);
 			PdfPCell cell = new PdfPCell();
 			
 			Color colr = new Color(176,226,255);
