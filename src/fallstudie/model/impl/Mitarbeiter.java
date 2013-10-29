@@ -322,9 +322,9 @@ public class Mitarbeiter {
 			String rollenName = rolle.getRollenbezeichnung();
 			int arbeitsgruppeID = arbeitsgruppe.getID();
 			benutzername = benutzername.replace('\'', ' ');
-			passwort = benutzername.replace('\'', ' ');
-			vorname = benutzername.replace('\'', ' ');
-			nachname = benutzername.replace('\'', ' ');
+			passwort = passwort.replace('\'', ' ');
+			vorname = vorname.replace('\'', ' ');
+			nachname = nachname.replace('\'', ' ');
 
 			// System.out.println("SELECT Benutzername From Mitarbeiter");
 			// Checken obs den Mitarbeiter schon gibt.

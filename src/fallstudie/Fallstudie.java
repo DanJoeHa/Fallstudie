@@ -21,12 +21,13 @@ import fallstudie.controller.impl.HauptController;
  *
  */
 public class Fallstudie extends JFrame {
- /**
+	private static final long serialVersionUID = 1L;
+/**
   * Ersatzbild variable
   */
     private Image img;
    /**
-    * Positionsvariablr 
+    * Positionsvariable 
     */
     private int x, y;
  /**
@@ -71,7 +72,6 @@ public class Fallstudie extends JFrame {
         try {
             mt.waitForAll();
         } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         
