@@ -26,10 +26,6 @@ public class Fallstudie extends JFrame {
   * Ersatzbild variable
   */
     private Image img;
-   /**
-    * Positionsvariable 
-    */
-    private int x, y;
  /**
   * Timer für die Dauer dies angezeigt wird
   */
@@ -43,8 +39,6 @@ public class Fallstudie extends JFrame {
      */
     public Fallstudie(InputStream pic, int x, int y, long millis) {
  
-        this.x = x;
-        this.y = y;
         setSize(x, y);
  
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -88,8 +82,7 @@ public class Fallstudie extends JFrame {
     public static void main(String[] args) throws URISyntaxException {
     
     	InputStream url = Fallstudie.class.getResourceAsStream("images/StipplerSplash.jpg");
-    	Fallstudie screen =
-            new Fallstudie(url, 640, 480, 2000);
+        new Fallstudie(url, 640, 480, 2000);
     }
  /**
   * falls das Bild nicht gefunden wird kommt ein beiges Quadrat
