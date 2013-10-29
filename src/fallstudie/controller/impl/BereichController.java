@@ -428,7 +428,9 @@ public class BereichController implements Controller {
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {	
-		this.viewLoesch.setzeFocus();
+		if(this.operation == "loeschen"){
+			this.viewLoesch.setzeFocus();
+		}
 	}
 
 	/**
