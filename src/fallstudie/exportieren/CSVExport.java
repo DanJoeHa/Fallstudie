@@ -31,7 +31,7 @@ public class CSVExport {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy'_'HH.mm.ss");
 		Date resultdate = new Date(milliseconds);
 		File dir = new File(System.getProperty("user.home")
-				+ "\\Desktop\\DatenExport");
+				+ "\\Desktop\\Export_Stippler\\CSV");
 		if (!dir.exists())
 			dir.mkdir();
 
@@ -39,7 +39,7 @@ public class CSVExport {
 		// Datei
 		FileOutputStream output = new FileOutputStream(
 				System.getProperty("user.home")
-						+ "\\Desktop\\DatenExport\\CSVExport"
+						+ "\\Desktop\\Export_Stippler\\CSV\\CSVExport_"
 						+ sdf.format(resultdate) + ".csv");
 		output.write(239);
 		output.write(187);
@@ -72,7 +72,7 @@ public class CSVExport {
 		writer.close();
 		// Öffnen der fertigen CSV Datei.
 		File CSV = new File(System.getProperty("user.home")
-				+ "\\Desktop\\DatenExport\\CSVExport" + sdf.format(resultdate)
+				+ "\\Desktop\\Export_Stippler\\CSV\\CSVExport_" + sdf.format(resultdate)
 				+ ".csv");
 		Desktop.getDesktop().open(CSV);
 

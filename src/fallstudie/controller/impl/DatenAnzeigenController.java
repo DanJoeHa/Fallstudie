@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 import fallstudie.controller.interfaces.Controller;
 import fallstudie.exportieren.CSVExport;
-import fallstudie.exportieren.PDFDruck;
+import fallstudie.exportieren.PDFExport;
 import fallstudie.model.impl.Bereich;
 import fallstudie.model.impl.Jahresuebersicht;
 import fallstudie.model.impl.UebersichtSchnittstellenKlasse;
@@ -623,7 +623,7 @@ public class DatenAnzeigenController implements Controller {
 
 		try {
 			if(!art)CSVExport.exportCSV(tabwerte, this.tabellenspalten);
-			if(art)PDFDruck.generateTablePDF(tabwerte, this.headline, this.tabellenspalten);
+			if(art)PDFExport.generateTablePDF(tabwerte, this.tabellenspalten, this.headline);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
