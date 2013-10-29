@@ -67,7 +67,7 @@ public class MitarbeiterController implements Controller {
 	/**
 	 * Popup zur Betätigung
 	 */
-	public static BestaetigenPopup popup;
+	private static BestaetigenPopup popup;
 	
 	
 	/**
