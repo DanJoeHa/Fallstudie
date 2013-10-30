@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,11 +19,25 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-
+/**
+ * 
+ * @author Phil,Angelos,Dieter Ebhard
+ * @date 29.10.2013
+ * Erzeugt eine PDF mithilfe der iText-Bibliothek.
+ */
 public class PDFExport {
-
+	/**
+	 * @author Phil,Angelos,Dieter Ebhard
+	 * Erzeuge anhand der Übergabeparameter die PDF-Tabelle und speichert sie im Ordner 
+	 * Desktop\Export_Stippler\PDF
+	 * @param String [][] tabellencontent (Inhalt der Tabelle)
+	 * @param String [] headlines (Tabellenüberschriften)
+	 * @param String dokumentUeberschrift (Dokumentüberschrift des PDFs=
+	 * @throws DocumentException, wenn das PDF nicht erstellt werden kann (bereits geöffnet/verwendet).
+	 * @throws IOException, wenn die PDF nicht geöffnet werden kann durch die Methode.
+	 */
 	public static void generateTablePDF(String[][] tabellencontent,
-			String[] headlines, String dokumentUeberschrift) throws Exception {
+			String[] headlines, String dokumentUeberschrift) throws DocumentException, IOException {
 		Document document = new Document(PageSize.A4.rotate());
 
 		long milliseconds = System.currentTimeMillis();
@@ -60,7 +75,12 @@ public class PDFExport {
 				+ sdf.format(resultdate) + ".pdf");
 		Desktop.getDesktop().open(PDF);
 	}
-
+	/**
+	 * @author Phil,Angelos,Dieter Ebhard
+	 * Methodes schreibt die Dokumentüberschrift auf dem PDF-Dokument
+	 * @param Document document (Das erzeugte PDF Dokument)
+	 * @param String headline (Die Dokumentüberschrift)
+	 */
 	private static void makeListeUeberschrift(Document document, String headline) {
 		try {
 			Font ueberschrift = FontFactory.getFont("Times-Roman", 12);
@@ -75,7 +95,13 @@ public class PDFExport {
 		}
 
 	}
-
+	/**
+	 * @author Phil,Angelos,Dieter Ebhard
+	 * Methode erzeugt die Tabelle und befüllt sie mit Inhalt aus den Übergabeparametern.
+	 * @param Document document (Das erzeugte PDF Dokument)
+	 * @param String [][] tabellencontent (Der Inhalt der Jtable als String Array)
+	 * @param String [] headlines (Spaltenüberschriften der JTable als String Array)
+	 */
 	private static void makeListeBody(Document document, String[][] tabellencontent,
 			String[] headlines) {
 		try {

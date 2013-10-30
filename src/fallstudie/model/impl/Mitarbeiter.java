@@ -1140,7 +1140,7 @@ public class Mitarbeiter {
 
 	/**
 	 * @author Phil Methode ändert den Nachnamen des gewählten Mitarbeiters.
-	 * @param nachname
+	 * @param String nachname
 	 * @return boolean (erfolgreich in DB geändert = true, sonst = false).
 	 */
 	public boolean setNachname(String nachname) {

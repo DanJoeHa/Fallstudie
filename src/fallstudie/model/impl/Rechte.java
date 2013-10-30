@@ -63,7 +63,7 @@ public class Rechte {
 	/**
 	 * @author Phil
 	 * Methode erzeugt ein Rechteobjekt anhand der Übergabeparameter
-	 * @param String name
+	 * @param String name (Name des Rechts in der Datenbank)
 	 * @param String beschreibung
 	 */
 	public Rechte(String name, String beschreibung){

@@ -24,6 +24,7 @@ public class RemoteConnection {
 	public static Statement sql = null;
 	
 	/**
+	 * @author Johannes
 	 * Methode zum Verbinden zur Datenbank.
 	 */
 	public static void connect(){
@@ -49,12 +50,16 @@ public class RemoteConnection {
 	}
 	
 	/**
+	 * @author Phil
+	 * @param statement, Übergebenes Statement welches ausgeführt werden soll. 
+	 * @return Gibt ein ResultSet zurück mit den Daten aus der SQL-Abfrage. 
+	 * @throws SQLException, Falls SQL-Statement nicht ausgeführt werden kann. 
 	 * Ausführen des übergebenen SQL Statements.
 	 */
 	public ResultSet executeQueryStatement(String statement) throws SQLException {
 		Statement sqlStmt = connection.createStatement();
 
-		// execute the statement and check whether there is a result
+		//Ausführen des Statements und returnen.
 		return sqlStmt.executeQuery(statement);
 	}
 }

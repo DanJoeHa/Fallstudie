@@ -175,7 +175,7 @@ public class Wochenuebersicht {
 	/**
 	 * @author Phil
 	 * Methode liefert alle Zeilen aus der Tabelle in der Datenbank, für die es Wochenübersichten zur Arbeitsgruppe gibt.
-	 * @return Collection<Zeile> alleZeilenzurArbeitsgruppe
+	 * @return Collection<Zeile> alleZeilenZurArbeitsgruppe
 	 */
 	public Collection<Zeile> getZeileArbeitsgruppe() throws Exception {
 
