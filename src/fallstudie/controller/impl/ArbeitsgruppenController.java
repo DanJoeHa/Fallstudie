@@ -190,14 +190,14 @@ public class ArbeitsgruppenController implements Controller {
 			try {
 
 					this.moveLeiter();
-					boolean erfolgreich1 = false;
-					boolean erfolgreich2 = false;
-					boolean erfolgreich3 = false;
-					boolean erfolgreich4 = false;
-					erfolgreich1 = this.gewaehlteAG.setBereich(oBereich);
-					erfolgreich2 = this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
-					erfolgreich3 = this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
-					erfolgreich4 = this.gewaehlteAG.setLeiter(oLeiter);
+					boolean erfolgreich1 = true;
+					boolean erfolgreich2 = true;
+					boolean erfolgreich3 = true;
+					boolean erfolgreich4 = true;
+					if( this.gewaehlteAG.getBereich() != oBereich ) erfolgreich1 = this.gewaehlteAG.setBereich(oBereich);
+					if( !this.gewaehlteAG.getBeschreibung().equals(this.view.getBezeichnung()) ) erfolgreich2 = this.gewaehlteAG.setBeschreibung(this.view.getBezeichnung() );
+					if( !this.gewaehlteAG.getKurzbezeichnung().equals( this.view.getKurzbezeichnung() ) ) erfolgreich3 = this.gewaehlteAG.setKurzbezeichnung(this.view.getKurzbezeichnung());
+					if( this.gewaehlteAG.getLeiter() != oLeiter ) erfolgreich4 = this.gewaehlteAG.setLeiter(oLeiter);
 
 					//Abfrage ob erfolgreich, weil in DB Ebene nicht möglich
 					if(erfolgreich1 && erfolgreich2 && erfolgreich3 && erfolgreich4)
