@@ -34,8 +34,7 @@ public class Arbeitsgruppe {
 	 * @param beschreibung
 	 * @param bereich
 	 * @param leiter
-	 * @throws Exception
-	 *             , wenn keine Kurzbezeichnung angegeben wurde oder die
+	 * @throws Exception , wenn keine Kurzbezeichnung angegeben wurde oder die
 	 *             Arbeitsgruppe schon existiert.
 	 */
 	public Arbeitsgruppe(String kurzbezeichnung, String beschreibung,
@@ -201,12 +200,12 @@ public class Arbeitsgruppe {
 	}
 
 	/**
-	 * @author Phil Aus der Datenbank die Attribute der Arbeitsgruppe erhalten,
+	 * @author Phil 
+	 * Aus der Datenbank die Attribute der Arbeitsgruppe erhalten,
 	 *         zu der mitgegebenen ArbeitsgruppenID (Primärschlüssel in
 	 *         Datenbank).
 	 * @param arbeitsgruppeid
 	 */
-
 	public Arbeitsgruppe(int arbeitsgruppeid) {
 		// Instanziieren der DatenbankConnection
 		RemoteConnection Connection = new RemoteConnection();
