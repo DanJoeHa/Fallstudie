@@ -263,12 +263,12 @@ public class Arbeitsgruppe {
 		boolean erfolgreich = false;
 		beschreibung = beschreibung.replace('\'', ' ');
 		try {
-			if (beschreibung.contains("'")) {
+			if (!beschreibung.contains("'")) {
 				/*
-				 * System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"
-				 * + beschreibung + "' WHERE ArbeitsgruppeID='" +
-				 * this.arbeitsgruppeID + "'");
-				 */
+				  System.out.println("UPDATE Arbeitsgruppe SET Beschreibung='"
+				 + beschreibung + "' WHERE ArbeitsgruppeID='" +
+				  this.arbeitsgruppeID + "'");
+				*/
 				// Beschreibung wird auf der Datenbank geändert
 
 				RemoteConnection.sql
