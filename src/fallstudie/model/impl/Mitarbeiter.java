@@ -8,9 +8,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import com.mysql.jdbc.Connection;
-
 import fallstudie.model.mysql.connector.RemoteConnection;
 
 /**
