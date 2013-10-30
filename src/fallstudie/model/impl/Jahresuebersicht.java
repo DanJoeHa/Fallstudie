@@ -168,8 +168,7 @@ public class Jahresuebersicht {
 			while(jahresUebersicht.next())
 			{	
 				int bereichID = jahresUebersicht.getInt("Bereich");
-				Bereich bereich = new Bereich(bereichID);
-				alleJahresuebersichten.add(new Jahresuebersicht(jahr, bereich));
+				alleJahresuebersichten.add(new Jahresuebersicht(jahr, new Bereich(bereichID)));
 			}
 			
 		jahresUebersicht.close();
